@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+//prova
 private class Partita {
 
     int numGiocatori;

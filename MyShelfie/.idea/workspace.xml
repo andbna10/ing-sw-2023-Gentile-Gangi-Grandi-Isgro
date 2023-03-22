@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da32cb3b-25af-4ceb-a887-e02df650fe56" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../deliverable/classdiagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/../deliverable/classdiagram.drawio" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +30,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Andry/Desktop/intellij/DesignPattern",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
@@ -66,6 +67,7 @@
       <workItem from="1678802787111" duration="654000" />
       <workItem from="1678803465440" duration="538000" />
       <workItem from="1678804220882" duration="324000" />
+      <workItem from="1679433235615" duration="26000" />
     </task>
     <servers />
   </component>

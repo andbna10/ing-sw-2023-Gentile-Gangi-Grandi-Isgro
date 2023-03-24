@@ -90,4 +90,4 @@ GameController:
  restore_board prende in input il riferimento alla plancia di gioco e a MyShelfie, quello che fa è lanciare il metodo di MyShelfie select_tiles passandogli in input l'intero board.empty_cells, quello che si ottiene in output è appunto una lista di oggetti ItemTile, dopo si chiama il metodo di BoardGame set_tiles passandogli in input quella lista di tiles ottenuta prima volta a modificare lo stato dell'attributo board della classe;
 play_turn prende in input il riferimento a un PlayerController e permette al giocatore di giocare il turno;
 start_game serve per dare inizio al giro dei turni e iniziare la partita
-end_game restituisce il giocatore che ha totalizzato più punti alla fine dell'ultimo turno
+end_game restituisce il giocatore che ha totalizzato più punti alla fine dell'ultimo turno di gioco

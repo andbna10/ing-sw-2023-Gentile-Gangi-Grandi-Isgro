@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>it.polimi.ingsw</groupId>
-  <artifactId>PSP48</artifactId>
+  <artifactId>PSP47</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>PSP48</name>
+  <name>PSP47</name>
   <url>http://maven.apache.org</url>
 
   <properties>

@@ -15,6 +15,7 @@ public class MyShelfie {
     public MyShelfie(){
 
         // initialize all the Item Tiles of MyShelfie
+        // double cycle to be implemented
         for(int i=0; i<22; i++){
             tiles.add(new ItemTile(ItemType.CATS));
             tiles.add(new ItemTile(ItemType.BOOKS));
@@ -27,9 +28,10 @@ public class MyShelfie {
         // what about the goals cards?
 
         // initialize the scoring tokens
-        for(int i=0; i<4; i++){
-            scoringTokens.add(new ScoringToken(Roman.I, i+2));
-            scoringTokens.add(new ScoringToken(Roman.II, i+2));
+        for(int i=2; i<=8; i+=2){
+            scoringTokens.add(new ScoringToken(Roman.I, i));
+
+            scoringTokens.add(new ScoringToken(Roman.II, i));
         }
     }
 
@@ -92,6 +94,7 @@ public class MyShelfie {
     public ArrayList<ItemTile> selectItemTiles(int nTilesNeeded){
         ArrayList<ItemTile> output = new ArrayList<>();
         Random r = new Random();
+        // implementare remove
         for(int i=0; i<nTilesNeeded;i++){
             int j = r.nextInt(this.tiles.size());
             output.add(tiles.get(j));

@@ -22,7 +22,7 @@ public class Game {
         // initialization of the board of the game
         board = BoardGame.getInstance(this.players.size());
 
-        // inizialization of the commongoals
+        // initialization of the commongoals
         for(int i=0; i<commongoals.size(); i++){
             this.commonGoals.add(i, commongoals.get(i));
         }

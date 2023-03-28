@@ -15,7 +15,7 @@ public class GameController {
     public GameController(String[] usernamePlayers){
         gameName = new MyShelfie();
         model = new Game(usernamePlayers, gameName.selectCommonGoals(), this.selectFirstToPlay());
-        for(int i=0; i<usernamePlayers.length;i++){
+        for(int i=0; i<usernamePlayers.length; i++){
             this.players.add(new PlayerController(model.getPlayers().get(i), this));
         }
     }

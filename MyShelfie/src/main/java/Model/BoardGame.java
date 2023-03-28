@@ -3,9 +3,9 @@ package Model;
 import java.util.ArrayList;
 
 public class BoardGame {
-    private static BoardGame istance;
+    private static BoardGame instance;
     private BoardCell[][] board = new BoardCell[9][9];
-    private int empyCells;
+    private int emptyCells;
 
     /**
      * constructor of a singleton boardgame
@@ -32,11 +32,11 @@ public class BoardGame {
         }
 
         if(nPlayers == 2){
-            empyCells = 29;
+            emptyCells = 29;
         } else if( nPlayers == 3){
-            empyCells = 37;
+            emptyCells = 37;
         } else {
-            empyCells = 45;
+            emptyCells = 45;
         }
     }
 
@@ -56,10 +56,10 @@ public class BoardGame {
      * Overview: This method should check whether an instance of the class has been created and return it if it exists, or create a new instance if it does not exist (it's a singleton)
      */
     public static BoardGame getInstance(int nPlayers){
-        if(istance == null){
-            istance = new BoardGame(nPlayers);
+        if(instance == null){
+            instance = new BoardGame(nPlayers);
         }
-        return istance;
+        return instance;
     }
 
     // to change if we want a terminal representation of the matrix
@@ -71,7 +71,7 @@ public class BoardGame {
     /**
      * Overview: insert tiles in the board
      */
-    public void setTiles(ArrayList<ItemTile> tiles){
+    public void setTiles(ArrayList<ItemTile> tiles){ // manca controllo su num giocatori
         int z=0;
         for(int i=0; i<board[0].length; i++){
             for(int j=0; j<board.length; j++){

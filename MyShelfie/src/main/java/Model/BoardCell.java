@@ -10,7 +10,7 @@ public class BoardCell {
      * Overview: constructor 1 of boardcell
      */
     public BoardCell(Status status){
-        status = status;
+        this.status = status;
     }
 
     /**

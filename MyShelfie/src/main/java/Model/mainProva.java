@@ -1,10 +1,10 @@
 package Model;
-
+import java.util.Random;
 public class mainProva {
     public static void main(String[] args) {
-        int[][] x = new int[3][5];
-        System.out.println(x.length);
-        System.out.println(x[0].length);
+        Random r = new Random();
+        int x = r.nextInt(5);
+        System.out.println(x);
     }
 }
 

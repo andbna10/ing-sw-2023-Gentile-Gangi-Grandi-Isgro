@@ -1,7 +1,5 @@
 package Model;
 
-enum Roman{I, II}
-
 public class ScoringToken {
     private int points;
     private Roman roman;

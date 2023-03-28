@@ -20,5 +20,5 @@ public class CommonGoalCard extends GoalCard{
     /**
      * Overview: stack setter
      */
-    public void setStack(ArrayList<ScoringToken> scoringtokens){ stack = scoringtokens; }
+    public void setElementStack(ScoringToken scoringtoken){ stack.add(scoringtoken); }
 }

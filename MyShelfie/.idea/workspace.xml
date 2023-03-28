@@ -5,19 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da32cb3b-25af-4ceb-a887-e02df650fe56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/BoardCell.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/BoardGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Bookshelf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/CommonGoalCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/GoalCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/ItemTile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalGoalCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/ScoringToken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/mainProva.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/GameController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/MyShelfie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/ItemType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Roman.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonGoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonGoalCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ItemTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/ItemTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ScoringToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/ScoringToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/mainProva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/mainProva.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Bookshelf.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Bookshelf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/ItemTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/ItemTile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/ItemType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/ItemType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Roman.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Roman.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/ScoringToken.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/ScoringToken.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/mainProva.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/mainProva.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../deliverable/classdiagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/../deliverable/classdiagram.drawio" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,6 +113,10 @@
       <workItem from="1679754986222" duration="4390000" />
       <workItem from="1679812923176" duration="18241000" />
       <workItem from="1679849425459" duration="7000" />
+      <workItem from="1679936765815" duration="9298000" />
+      <workItem from="1679961014901" duration="8000" />
+      <workItem from="1679992730826" duration="3820000" />
+      <workItem from="1679996577742" duration="7000" />
     </task>
     <servers />
   </component>

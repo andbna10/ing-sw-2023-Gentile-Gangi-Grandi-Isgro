@@ -1,7 +1,5 @@
 package Model;
 
-enum ItemType{ CATS, BOOKS, GAMES, FRAMES, TRHOPIES, PLANTS}
-
 public class ItemTile {
     private int id;
     private ItemType type;

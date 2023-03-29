@@ -22,6 +22,11 @@ public class ItemTile {
     public Boolean getInGame(){ return inGame; }
 
     /**
+     * Overview: inGame status setter
+     */
+    public void setInGame(Boolean status){ this.inGame = status; }
+
+    /**
      * Overview: id getter
      */
     public int getId(){ return id; }

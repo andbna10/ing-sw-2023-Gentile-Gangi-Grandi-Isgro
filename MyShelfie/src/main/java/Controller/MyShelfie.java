@@ -15,14 +15,10 @@ public class MyShelfie {
     public MyShelfie(){
 
         // initialize all the Item Tiles of MyShelfie
-        // double cycle to be implemented
-        for(int i=0; i<22; i++){
-            tiles.add(new ItemTile(ItemType.CATS));
-            tiles.add(new ItemTile(ItemType.BOOKS));
-            tiles.add(new ItemTile(ItemType.GAMES));
-            tiles.add(new ItemTile(ItemType.FRAMES));
-            tiles.add(new ItemTile(ItemType.TRHOPIES));
-            tiles.add(new ItemTile(ItemType.PLANTS));
+        for(ItemType type: ItemType.values()){
+            for(int i=0; i<22; i++){
+                tiles.add(new ItemTile(type));
+            }
         }
 
         // what about the goals cards?
@@ -94,10 +90,10 @@ public class MyShelfie {
     public ArrayList<ItemTile> selectItemTiles(int nTilesNeeded){
         ArrayList<ItemTile> output = new ArrayList<>();
         Random r = new Random();
-        // implementare remove
         for(int i=0; i<nTilesNeeded;i++){
             int j = r.nextInt(this.tiles.size());
-            output.add(tiles.get(j));
+            tiles.get(j).setInGame(true);
+            output.add(tiles.remove(j));
         }
         return output;
     }

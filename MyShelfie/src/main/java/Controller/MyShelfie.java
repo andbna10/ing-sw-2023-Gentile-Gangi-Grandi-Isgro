@@ -45,7 +45,7 @@ public class MyShelfie {
      */
     public ArrayList<CommonGoalCard> selectCommonGoals(){
         Random r = new Random();
-        Boolean ok = false;
+        boolean ok = false;
         int i = 0;
         int j = 0;
         while (!ok){
@@ -65,19 +65,19 @@ public class MyShelfie {
     public ArrayList<ScoringToken> selectScoringToken(int nPlayers){
         ArrayList<ScoringToken> output = new ArrayList<>();
         if(nPlayers == 2){
-            for(int i=0; i<scoringTokens.size();i++){
+            for(int i=0; i<scoringTokens.size(); i++){
                 if(scoringTokens.get(i).getPoints()==4 || scoringTokens.get(i).getPoints()== 8){
                     output.add(scoringTokens.get(i));
                 }
             }
         } else if (nPlayers == 3){
-            for(int i=0; i<scoringTokens.size();i++){
+            for(int i=0; i<scoringTokens.size(); i++){
                 if(scoringTokens.get(i).getPoints()==4 || scoringTokens.get(i).getPoints()==8 || scoringTokens.get(i).getPoints()==6){
                     output.add(scoringTokens.get(i));
                 }
             }
         } else {
-            for(int i=0; i<scoringTokens.size();i++){
+            for(int i=0; i<scoringTokens.size(); i++){
                 output.add(scoringTokens.get(i));
             }
         }
@@ -90,7 +90,7 @@ public class MyShelfie {
     public ArrayList<ItemTile> selectItemTiles(int nTilesNeeded){
         ArrayList<ItemTile> output = new ArrayList<>();
         Random r = new Random();
-        for(int i=0; i<nTilesNeeded;i++){
+        for(int i=0; i<nTilesNeeded; i++){
             int j = r.nextInt(this.tiles.size());
             tiles.get(j).setInGame(true);
             output.add(tiles.remove(j));

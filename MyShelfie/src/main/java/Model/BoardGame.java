@@ -78,7 +78,7 @@ public class BoardGame {
                 if(board[i][j].getTile() == null){
                     board[i][j].setTile(tiles.get(z));
                     z++;
-                } else { continue; }
+                }
             }
         }
     }
@@ -95,7 +95,7 @@ public class BoardGame {
     }
 
     /**
-     * Overview: check the presenze of a tile in a cell
+     * Overview: check the presence of a tile in a cell
      */
     public Boolean isInTile(int x, int y){
         if(board[x][y].getTile() != null){

@@ -17,7 +17,7 @@ public class ItemTile {
     }
 
     /**
-     * Overviw: inGame getter
+     * Overview: inGame getter
      */
     public Boolean getInGame(){ return inGame; }
 

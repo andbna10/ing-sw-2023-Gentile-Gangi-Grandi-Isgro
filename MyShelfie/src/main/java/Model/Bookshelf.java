@@ -12,7 +12,7 @@ public class Bookshelf {
     public Bookshelf(){ isFull = false; }
 
     /**
-     * Overview: bookshlef getter
+     * Overview: bookshelf getter
      */
     public StringBuffer getGameTiles(){
         StringBuffer out = new StringBuffer();
@@ -21,16 +21,16 @@ public class Bookshelf {
                 if(gameTiles[i][j] != null){
                     out.append(gameTiles[i][j].getId());
                 } else {
-                    out.append(gameTiles[i][j]);
+                    out.append("null");
                 }
-                out.append(",");
+                out.append(", ");
             }
             out.append("\n");
         }
         return out;
 
         /*
-        return gameaTiles;
+        return gameTiles;
          */
     }
 
@@ -57,7 +57,7 @@ public class Bookshelf {
     /**
      * Overview: check if the bookshelf is full
      */
-    public Boolean bookshlefisFull(){
+    public Boolean bookshelfIsFull(){
         for(int i=0; i<gameTiles.length;i++){
             for(int j=0; i<gameTiles[0].length;j++){
                 if(gameTiles[i][j] != null){
@@ -81,6 +81,11 @@ public class Bookshelf {
         }
     }
 
-
+    /**
+     * Overview: get tile of index i, j
+     */
+    public ItemTile getTile(int i, int j) {
+        return gameTiles[i][j];
+    }
 
 }

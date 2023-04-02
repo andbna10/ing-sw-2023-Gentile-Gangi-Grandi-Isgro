@@ -11,8 +11,9 @@ public class BoardGame {
      * constructor of a singleton boardgame
      */
     private BoardGame(int nPlayers){
-        int[][] outofgame =
-                       {{0,0},{0,1},{0,2},{0,5},{0,6},{0,7},{0,8},
+        int[][] outofgame;
+        int[][] outofgame4 =
+                {{0,0},{0,1},{0,2},{0,5},{0,6},{0,7},{0,8},
                         {1,0},{1,1},{1,2},{1,6},{1,7},{1,8},
                         {2,0},{2,1},{2,7},{2,8},
                         {3,0},
@@ -20,6 +21,35 @@ public class BoardGame {
                         {6,0},{6,1},{6,7},{6,8},
                         {7,0},{7,1},{7,2},{7,6},{7,7},{7,8},
                         {8,0},{8,1},{8,2},{8,3},{8,6},{8,7},{8,8}};
+
+        int[][] outofgame3 =
+                {{0,0},{0,1},{0,2},{0,4},{0,5},{0,6},{0,7},{0,8},
+                        {1,0},{1,1},{1,2},{1,5},{1,6},{1,7},{1,8},
+                        {2,0},{2,1},{2,7},{2,8},
+                        {3,0},{3,1},
+                        {4,0},{4,8},
+                        {5,7},{5,8},
+                        {6,0},{6,1},{6,7},{6,8},
+                        {7,0},{7,1},{7,2},{7,3},{7,6},{7,7},{7,8},
+                        {8,0},{8,1},{8,2},{8,3},{8,4},{8,6},{8,7},{8,8}};
+
+        int[][] outofgame2 =
+                {{0,0},{0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7},{0,8},
+                        {1,0},{1,1},{1,2},{1,5},{1,6},{1,7},{1,8},
+                        {2,0},{2,1},{2,2},{2,6},{2,7},{2,8},
+                        {3,0},{3,1},{3,8},
+                        {4,0},{4,8},
+                        {5,0},{5,7},{5,8},
+                        {6,0},{6,1},{6,2},{6,6},{6,7},{6,8},
+                        {7,0},{7,1},{7,2},{7,3},{7,6},{7,7},{7,8},
+                        {8,0},{8,1},{8,2},{8,3},{8,4},{8,5},{8,6},{8,7},{8,8}};
+        if(nPlayers == 2){
+            outofgame = outofgame2;
+        } else if(nPlayers == 3){
+            outofgame = outofgame3;
+        } else {
+            outofgame = outofgame4;
+        }
 
         for(int i=0; i<board.length; i++){
             for(int j=0; j<board.length; j++){
@@ -71,11 +101,11 @@ public class BoardGame {
     /**
      * Overview: insert tiles in the board
      */
-    public void setTiles(ArrayList<ItemTile> tiles){ // manca controllo su num giocatori
+    public void setTiles(ArrayList<ItemTile> tiles){
         int z=0;
         for(int i=0; i<board[0].length; i++){
             for(int j=0; j<board.length; j++){
-                if(board[i][j].getTile() == null){
+                if(board[i][j].getTile() == null && board[i][j].getStatus()== Status.IN){
                     board[i][j].setTile(tiles.get(z));
                     z++;
                 }

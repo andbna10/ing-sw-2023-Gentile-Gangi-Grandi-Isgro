@@ -71,8 +71,9 @@ public class Bookshelf {
     }
 
     /**
-     * Overview: insert tiles in the bookshelf, let's suppose that the tiles input is already in order
+     * Overview: insert tiles in the bookshelf, let's suppose that the tiles input is already ordered
      */
+    //rivedere
     public void setTiles(int columnIndex, int rowIndex, ArrayList<ItemTile> tiles){
         int j=0;
         for (int i=rowIndex; i>= rowIndex - tiles.size(); i--){

@@ -13,7 +13,7 @@ public class CommonPattern5 extends CommonGoalCard {
     }
 
     /**
-     * Overview: controls player's bookshelf whether the combo as been achieved  and returns 1
+     * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
 
     public int validated(Bookshelf bookshelf) {

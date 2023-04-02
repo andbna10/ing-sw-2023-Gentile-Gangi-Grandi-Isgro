@@ -4,9 +4,9 @@ import Model.Bookshelf;
 import Model.ItemType;
 import Model.PersonalGoalCard;
 
-public class PersonalPattern2 extends PersonalGoalCard {
+public class PersonalPattern9 extends PersonalGoalCard {
 
-    public PersonalPattern2(String explanation, int[] points, ItemType[][] position) {
+    public PersonalPattern9(String explanation, int[] points, ItemType[][] position) {
         super(explanation, points, position);
     }
 

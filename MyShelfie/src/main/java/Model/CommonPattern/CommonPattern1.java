@@ -9,7 +9,11 @@ public class CommonPattern1 extends CommonGoalCard {
         super(explanation);
     }
 
-    public int check(Bookshelf bookshelf) {
+    /**
+     * Overview: controls player's bookshelf whether the combo as been achieved  and returns 1
+     */
+
+    public int validated(Bookshelf bookshelf) {
         int ok = 0;
         int count = 0;
 

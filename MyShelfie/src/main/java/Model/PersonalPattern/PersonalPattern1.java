@@ -1,11 +1,5 @@
 package Model.PersonalPattern;
 
-/*
-    public ItemTile getTile(int i, int j) {
-        return gameTiles[i][j];
-    }
- */
-
 import Model.Bookshelf;
 import Model.ItemType;
 import Model.PersonalGoalCard;
@@ -16,7 +10,11 @@ public class PersonalPattern1 extends PersonalGoalCard {
         super(explanation, points, position);
     }
 
-    public int check(Bookshelf bookshelf) {
+    /**
+     * Overview: controls player's bookshelf whether the combo as been achieved  and returns 1
+     */
+
+    public int validated(Bookshelf bookshelf) {
         int ok = 1;
 
         if(bookshelf.getTile(0, 0).getType() != ItemType.PLANTS ||

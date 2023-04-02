@@ -3,9 +3,9 @@ package Model.CommonPattern;
 import Model.Bookshelf;
 import Model.CommonGoalCard;
 
-public class CommonPattern2 extends CommonGoalCard {
+public class CommonPattern9 extends CommonGoalCard {
 
-    public CommonPattern2(String explanation) {
+    public CommonPattern9(String explanation) {
         super(explanation);
     }
 

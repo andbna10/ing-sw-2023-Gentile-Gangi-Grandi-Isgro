@@ -5,11 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da32cb3b-25af-4ceb-a887-e02df650fe56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/target/classes/Controller/GameController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Main/mainProva.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MyShelfie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MyShelfie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonGoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonGoalCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern9.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/GoalCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalGoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalGoalCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern9.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

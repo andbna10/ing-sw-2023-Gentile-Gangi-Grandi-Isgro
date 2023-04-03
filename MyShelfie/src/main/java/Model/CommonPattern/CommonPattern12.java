@@ -5,14 +5,14 @@ import Model.CommonGoalCard;
 
 public class CommonPattern12 extends CommonGoalCard {
 
-    public CommonPattern12(String explanation) {
-        super(explanation);
+    public CommonPattern12() {
+        super();
     }
 
+    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-
     public int validated(Bookshelf bookshelf) {
         int ok = 1;
 

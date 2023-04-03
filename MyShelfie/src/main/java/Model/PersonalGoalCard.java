@@ -1,26 +1,16 @@
 package Model;
 
-public class PersonalGoalCard extends GoalCard{
-    private ItemType[][] description = new ItemType[6][5];
-    private int[] points;
-
+public abstract class PersonalGoalCard extends GoalCard{
     /**
      * Overview: PersonalGoalCard constructor
      */
-    public PersonalGoalCard(String explanation, int[] points, ItemType[][] position){
-        super(explanation);
-        this.points = points;
-        this.description = position;
+    public PersonalGoalCard(){
+        super();
     }
 
     /**
-     * Overview: description getter
+     * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-    public ItemType[][] getDescription(){ return description; }
-
-    /**
-     * Overview: points getter
-     */
-    public int[] getPoints(){ return points; }
+    public abstract int validated(Bookshelf bookshelf);
 }
 

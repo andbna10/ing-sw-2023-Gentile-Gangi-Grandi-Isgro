@@ -6,10 +6,11 @@ import Model.PersonalGoalCard;
 
 public class PersonalPattern8 extends PersonalGoalCard {
 
-    public PersonalPattern8(String explanation, int[] points, ItemType[][] position) {
-        super(explanation, points, position);
+    public PersonalPattern8() {
+        super();
     }
 
+    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */

@@ -9,14 +9,14 @@ import java.util.List;
 
 public class CommonPattern6 extends CommonGoalCard {
 
-    public CommonPattern6(String explanation) {
-        super(explanation);
+    public CommonPattern6() {
+        super();
     }
 
+    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-
     public int validated(Bookshelf bookshelf) {
         int ok = 0;
         int count = 0;

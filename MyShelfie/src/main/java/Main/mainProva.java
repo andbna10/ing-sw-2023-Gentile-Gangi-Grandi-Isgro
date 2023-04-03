@@ -2,9 +2,10 @@ package Main;
 import java.util.Random;
 public class mainProva {
     public static void main(String[] args) {
-        Random r = new Random();
-        int x = r.nextInt(5);
-        System.out.println(x);
+        int[][] x = new int[2][3];
+        System.out.println(x.length); //row
+        System.out.println(x[0].length); //column
+
     }
 }
 

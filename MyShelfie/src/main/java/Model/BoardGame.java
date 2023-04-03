@@ -135,5 +135,10 @@ public class BoardGame {
         }
     }
 
+    /**
+     * Overview: return the number of empty cells in the board game
+     */
+    public int getEmptyCells(){ return emptyCells; }
+
 
 }

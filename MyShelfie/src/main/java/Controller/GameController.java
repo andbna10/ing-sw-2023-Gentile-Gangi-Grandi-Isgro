@@ -44,7 +44,33 @@ public class GameController {
         }
     }
 
-    // riparti da setpersonalgoal
+    /**
+     * Overview: set personal goal cards for players
+     */
+    public void setPersonalGoals(){
+        ArrayList<PersonalGoalCard> personalgoals = gameName.selectPersonalGoals(this.players.size());
+        for(int i=0; i<this.players.size(); i++){
+            this.players.get(i).setGoal(personalgoals.get(i));
+        }
+    }
+
+    /**
+     * Overview: restore the board with tiles in empty board cells
+     */
+    public void restoreBoard(){
+        ArrayList<ItemTile> tiles = gameName.selectItemTiles(model.getBoard().getEmptyCells());
+        model.getBoard().setTiles(tiles);
+    }
+
+    /**
+     * Overview: start the game
+     */
+    // to be implemented (qui si deve completare lo stato del game e far partire i turni dei giocatori)
+
+    /**
+     * Overview: end game
+     */
+    // to be implemented (qui si deve vedere chi ha fatto piu punti)
 
 
 

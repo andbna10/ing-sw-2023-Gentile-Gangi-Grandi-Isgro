@@ -71,14 +71,36 @@ public class Bookshelf {
     }
 
     /**
+     * Overview: check if the player can complete the move
+     */
+    public Boolean canInsert(int nTiles, int column){
+        if(columnisFull(column)){
+            return false;
+        } else {
+            int count = 0;
+            for(int i = gameTiles.length-1; i >= 0; i--){
+                if(gameTiles[i][column] == null){
+                    count++;
+                }
+            }
+            if(count >= nTiles){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
      * Overview: insert tiles in the bookshelf, let's suppose that the tiles input is already ordered
      */
-    //rivedere
-    public void setTiles(int columnIndex, int rowIndex, ArrayList<ItemTile> tiles){
+    public void setTiles(int columnIndex, ArrayList<ItemTile> tiles){
         int j=0;
-        for (int i=rowIndex; i>= rowIndex - tiles.size(); i--){
-            gameTiles[i][columnIndex] = tiles.get(j);
-            j++;
+        for (int i=gameTiles.length-1; i>= 0; i--){
+            if(gameTiles[i][columnIndex] == null) {
+                gameTiles[i][columnIndex] = tiles.get(j);
+                j++;
+            } else { continue; }
         }
     }
 

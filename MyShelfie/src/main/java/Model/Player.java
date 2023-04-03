@@ -46,7 +46,7 @@ public class Player {
     /**
      * Overview: get bookshelf
      */
-    public Bookshelf bookshelf(){ return bookshelf; }
+    public Bookshelf getBookshelf(){ return bookshelf; }
 
     /**
      * Overview: get commonOne

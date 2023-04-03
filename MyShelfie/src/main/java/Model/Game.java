@@ -68,4 +68,9 @@ public class Game {
      */
     public ArrayList<Player> getPlayers(){ return players; }
 
+    /**
+     * Overview: board getter
+     */
+    public BoardGame getBoard(){ return board; }
+
 }

@@ -111,6 +111,7 @@ public class BoardGame {
                 }
             }
         }
+        this.emptyCells = 0;
     }
 
     /**

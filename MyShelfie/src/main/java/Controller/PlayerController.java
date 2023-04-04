@@ -67,6 +67,7 @@ public class PlayerController {
             pick
             ifPickable{ok true}
         }
+        togliere la tiles dal board game (gestire anche l'ingame delle tiles)
         dopo questo, ho una lista di tiles e le devo mettere nella bookshelf (feedcolumn())
         controllo dei goals
         controllo sulla bookshlef

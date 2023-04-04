@@ -1,10 +1,14 @@
 package Main;
+import Controller.GameController;
+
 import java.util.Random;
 public class mainProva {
     public static void main(String[] args) {
-        int[][] x = new int[2][3];
-        System.out.println(x.length); //row
-        System.out.println(x[0].length); //column
+        String[] usernames = {"tizio", "caio", "sempronio"};
+        GameController gc1 = new GameController(usernames);
+        gc1.startGame();
+        int index = gc1.getModel().getCurrentTurnPlayer();
+        System.out.println(gc1.getModel().getPlayers().get(index).getUsername());
 
     }
 }

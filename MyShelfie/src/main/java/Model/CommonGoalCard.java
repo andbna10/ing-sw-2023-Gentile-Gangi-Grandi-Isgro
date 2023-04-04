@@ -10,6 +10,7 @@ public abstract class CommonGoalCard extends GoalCard{
      */
     public CommonGoalCard(){
         super();
+        this.stack = new ArrayList<>();
     }
 
     /**

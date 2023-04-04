@@ -14,6 +14,8 @@ public class MyShelfie {
      * Overview: MyShelfie constructor
      */
     public MyShelfie(){
+        this.tiles = new ArrayList<>();
+        this.scoringTokens = new ArrayList<>();
 
         // initialize all the Item Tiles of MyShelfie
         for(ItemType type: ItemType.values()){

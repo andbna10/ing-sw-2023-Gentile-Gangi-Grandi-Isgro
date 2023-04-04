@@ -32,17 +32,33 @@ public class PlayerController {
     }
 
     /**
-     * Overview: method aimed to check the accomplishment of a goal
+     * Overview: method aimed to check the accomplishment of a common goal, it returns true if the goal has been reached
      */
-    public void checkGoal(Bookshelf bookshelf, GoalCard goal){
-        //
+    public Boolean checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal){
+        int ok = goal.validated(bookshelf);
+        if(ok == 1){
+            // to do (queste cose forse potrebbero essere fatte durante il turno fuori da questo metodo ma in base al suo output)
+            // viene rilasciato la prima tessera scoring token associata a quel common goal
+            // aggiungere i rispettivi punti al giocatore
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Overview: method aimed to check the accomplishment level of a personal goal, it returns the points achieved till now
+     */
+    public int checkPersonalGoal(Bookshelf bookshelf, PersonalGoalCard goal){
+        int points = goal.validated(bookshelf);
+        return points;
     }
 
     /**
      * Overview: method aimed to let the player play a turn
      */
     public void play(){
-        //
+        System.out.println("mossa");
     }
 
 

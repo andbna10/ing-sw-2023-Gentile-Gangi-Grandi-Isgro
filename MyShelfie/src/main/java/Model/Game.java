@@ -6,14 +6,18 @@ public class Game {
     private ArrayList<Player> players;
     private BoardGame board;
     private ArrayList<CommonGoalCard> commonGoals;
-    private int[] order = new int[commonGoals.size()];
+    private int[] order;
     private int currentTurnPlayer;
-    private Boolean isLastTurn;
+    private Boolean isFinish;
 
     /**
      * Overview: Game constructor
      */
     public Game(String[] usernamePlayers, ArrayList<CommonGoalCard> commongoals, int firstToPlay){
+        this.players = new ArrayList<>();
+        this.commonGoals = new ArrayList<>();
+        this.order = new int[usernamePlayers.length];
+
         // initialization of players
         for(int i=0; i<usernamePlayers.length; i++){
             this.players.add(i, new Player(usernamePlayers[i]));
@@ -39,8 +43,8 @@ public class Game {
         // initialization of the currentTurnPlayer
         currentTurnPlayer = order[0];
 
-        // initialization of isLastturn
-        isLastTurn = false;
+        // initialization of isFinish
+        isFinish = false;
     }
 
     /**
@@ -59,9 +63,9 @@ public class Game {
     public int getCurrentTurnPlayer(){ return currentTurnPlayer; }
 
     /**
-     * Overview: islastTurn getter
+     * Overview: isFinish getter
      */
-    public Boolean getIsLastTurn(){ return isLastTurn; }
+    public Boolean getIsFinish(){ return isFinish; }
 
     /**
      * Overview: players getter

@@ -6,18 +6,6 @@ import Model.CommonPattern.*;
 public abstract class CommonGoalCard extends GoalCard{
     private ArrayList<ScoringToken> stack;
 
-
-
-    private int rand = 5; //randomize
-    public void setPattern () {
-        switch (this.rand) {
-            case 5:
-                CommonPattern1 myGoal = new CommonPattern1();
-                break;
-        }
-    }
-
-
     /**
      * Overview: CommonGoalCard constructor
      */

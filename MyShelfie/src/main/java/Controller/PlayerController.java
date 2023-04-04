@@ -60,6 +60,20 @@ public class PlayerController {
      */
     public void play(){
         System.out.println("mossa");
+
+        // to do
+        /*
+        while(!ok){
+            pick
+            ifPickable{ok true}
+        }
+        dopo questo, ho una lista di tiles e le devo mettere nella bookshelf (feedcolumn())
+        controllo dei goals
+        controllo sulla bookshlef
+        aggiornamento punti e stato in generale delle classi modello (tiles in gioco, obiettivi raggiunti)
+
+
+         */
     }
 
 

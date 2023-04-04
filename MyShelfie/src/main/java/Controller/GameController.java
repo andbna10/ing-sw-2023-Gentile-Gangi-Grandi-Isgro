@@ -10,7 +10,7 @@ public class GameController {
     private ArrayList<PlayerController> players;
 
     /**
-     * Overview: GameController constructor
+     * Overview: GameController constructor, initialization of MyShelfie and Game classes
      */
     public GameController(String[] usernamePlayers){
         this.players = new ArrayList<>(usernamePlayers.length);
@@ -19,7 +19,6 @@ public class GameController {
         for(int i=0; i<usernamePlayers.length; i++){
             this.players.add(new PlayerController(model.getPlayers().get(i), this));
         }
-
     }
 
     /**
@@ -72,10 +71,11 @@ public class GameController {
         this.restoreBoard();
         this.setPersonalGoals();
         /*while(!model.getIsFinish()){
-            for(int i=0; i<model.getOrder().length; i++){
-                this.players.get(model.getOrder()[i]).play();
-            }
+            this.players.get(model.getCurrentTurnPlayer()).play();
+
+            // to do - cambiare il current turn player (seguendo order)
         }*/
+
     }
 
     /**

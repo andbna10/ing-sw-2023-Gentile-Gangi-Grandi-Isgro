@@ -1,5 +1,6 @@
 package Controller;
 import Model.*;
+import Model.PersonalPattern.PersonalPattern1;
 
 import java.util.ArrayList;
 

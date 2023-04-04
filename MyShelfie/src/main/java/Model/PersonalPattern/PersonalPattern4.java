@@ -12,20 +12,18 @@ public class PersonalPattern4 extends PersonalGoalCard {
 
     @Override
     /**
-     * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
+     * Overview: controls whether the combo has been achieved on player's bookshelf, returns points
      */
-
     public int validated(Bookshelf bookshelf) {
-        int ok = 1;
+        int count = 0;
 
-        if(bookshelf.getTile(0, 5).getType() != ItemType.GAMES ||
-                bookshelf.getTile(2, 0).getType() != ItemType.TROPHIES ||
-                bookshelf.getTile(2, 2).getType() != ItemType.FRAMES ||
-                bookshelf.getTile(3, 3).getType() != ItemType.PLANTS ||
-                bookshelf.getTile(4, 1).getType() != ItemType.BOOKS ||
-                bookshelf.getTile(4, 2).getType() != ItemType.CATS)
-            ok = 0;
+        if(bookshelf.getTile(0, 5).getType() != ItemType.GAMES) count++;
+        if(bookshelf.getTile(2, 0).getType() != ItemType.TROPHIES) count++;
+        if(bookshelf.getTile(2, 2).getType() != ItemType.FRAMES) count++;
+        if(bookshelf.getTile(3, 3).getType() != ItemType.PLANTS) count++;
+        if(bookshelf.getTile(4, 1).getType() != ItemType.BOOKS) count++;
+        if(bookshelf.getTile(4, 2).getType() != ItemType.CATS) count++;
 
-        return ok;
+        return pointsConverter(count);
     }
 }

@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da32cb3b-25af-4ceb-a887-e02df650fe56" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/mainProva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/mainProva.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +118,7 @@
       <workItem from="1680397394691" duration="58000" />
       <workItem from="1680600565324" duration="3867000" />
       <workItem from="1680604495062" duration="464000" />
+      <workItem from="1680712633376" duration="17000" />
     </task>
     <servers />
   </component>

@@ -5,7 +5,7 @@ import java.util.Random;
 public class mainProva {
     public static void main(String[] args) {
 
-        String[] usernames = {"tizio", "caio", "ciao"};
+        String[] usernames = {"tizio", "caio", "ciao1"};
 
 
 

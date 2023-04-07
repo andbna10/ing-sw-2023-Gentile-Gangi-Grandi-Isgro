@@ -5,94 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da32cb3b-25af-4ceb-a887-e02df650fe56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/GameObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/GameViewObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/PlayerObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/PlayerViewObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/VirtualGameView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/VirtualPlayerView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Server/VirtualView/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MyShelfie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Controller/MyShelfie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Controller/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main/mainProva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/mainProva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/BoardCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/BoardCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/BoardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Bookshelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/Bookshelf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonGoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonGoalCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern11.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern12.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CommonPattern/CommonPattern9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/CommonPattern/CommonPattern9.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/GoalCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ItemTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/ItemTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ItemType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/ItemType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalGoalCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalGoalCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern11.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern12.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PersonalPattern/PersonalPattern9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/PersonalPattern/PersonalPattern9.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Roman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/Roman.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ScoringToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Model/ScoringToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/MyShelfie.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main/mainProva.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main/mainProva.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/BoardCell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/BoardGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Bookshelf.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonGoalCard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern11.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern12.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CommonPattern/CommonPattern9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/GoalCard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/ItemTile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/ItemType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalGoalCard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern11.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern12.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PersonalPattern/PersonalPattern9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Roman.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/ScoringToken.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Status.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,19 +35,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Andry/Desktop/intellij/DesignPattern",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.completion"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Andry/Desktop/intellij/DesignPattern&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main.mainProva">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.App" />

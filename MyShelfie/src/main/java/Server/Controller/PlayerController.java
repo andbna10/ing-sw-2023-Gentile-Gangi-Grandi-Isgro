@@ -14,12 +14,13 @@ public class PlayerController implements GameViewObserver, PlayerViewObserver {
     /**
      * Overview: PlayerController constructor
      */
-    public PlayerController(Player player, GameController game){
+    public PlayerController(Player player, GameController game, VirtualPlayerView view){
         this.model = player;
         this.game = game;
+
         // vedere se tenere un riferimento tra gli attributi
-        VirtualPlayerView view = new VirtualPlayerView(this.model);
         view.setPlayerViewObserver(this);
+
     }
 
     /**

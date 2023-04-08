@@ -6,8 +6,6 @@ public class Player {
     private String username;
     private int points;
     private PersonalGoalCard goal;
-    private Boolean commonOne;
-    private Boolean commonTwo;
     private Bookshelf bookshelf;
 
     /**
@@ -18,8 +16,6 @@ public class Player {
         id = numPlayers;
         numPlayers++;
         points = 0;
-        commonOne = false;
-        commonTwo = false;
         bookshelf = new Bookshelf();
     }
 
@@ -48,15 +44,6 @@ public class Player {
      */
     public Bookshelf getBookshelf(){ return bookshelf; }
 
-    /**
-     * Overview: get commonOne
-     */
-    public Boolean getCommonOne(){ return commonOne; }
-
-    /**
-     * Overview: get commonTwo
-     */
-    public Boolean getCommonTwo(){ return commonTwo; }
 
     /**
      * Overview: set the goal

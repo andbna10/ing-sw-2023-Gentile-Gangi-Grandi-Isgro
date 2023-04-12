@@ -1,6 +1,6 @@
 package Server.VirtualView;
 
-import Client.NetworkHandler.ClientHandler;
+import Client.NetworkHandler.ClientManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -52,8 +52,8 @@ public class Server {
                     System.out.println("Client connected");
 
                     // new thread to manage the client connection
-                    ClientHandler client = new ClientHandler(clientsocket);
-                    ServerVirtualView server = new ServerVirtualView(clientsocket);
+                    ClientManager client = new ClientManager(clientsocket);
+                    ServerManager server = new ServerManager(clientsocket);
                     ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
                     hearthbeatProcedure.scheduleAtFixedRate(() ->{
                         try {

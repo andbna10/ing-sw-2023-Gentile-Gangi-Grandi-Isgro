@@ -1,4 +1,4 @@
-package Client.NetworkHandler;
+package Server.VirtualView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,26 +6,29 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientHandler extends Thread{
+public class ServerManager {
     private Socket clientsocket;
     private BufferedReader reader;
     private PrintWriter writer;
 
     /**
-     * ClientHandler cosntructor
+     * Overview: ServerVirtualView constructor
      */
-    public ClientHandler(Socket clientsocket) throws IOException {
+    public ServerManager(Socket clientsocket) throws IOException {
         this.clientsocket = clientsocket;
         this.reader = new BufferedReader(new InputStreamReader(this.clientsocket.getInputStream()));
         this.writer = new PrintWriter(this.clientsocket.getOutputStream(), true);
     }
 
-    @Override
+    // metodi per inviare/ricevere messaggi
+
     /**
-     * Overview: run del thread
+     * Overview: method aimed to close resources
      */
-    public void run(){
-        //
+    public void close() throws IOException{
+        reader.close();
+        writer.close();
+        clientsocket.close();
     }
 
     /**
@@ -43,5 +46,7 @@ public class ClientHandler extends Thread{
             e.printStackTrace();
         }
     }
+
+
 
 }

@@ -12,7 +12,7 @@ public class VirtualGameView implements GameObserver{
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private boolean connected;
+    //private boolean connected;
 
     /**
      * Overview: constructor of the virtual game view

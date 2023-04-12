@@ -1,9 +1,14 @@
 package Server.VirtualView;
 
+import Client.NetworkHandler.ClientHandler;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Server {
     private int port;
@@ -44,11 +49,22 @@ public class Server {
                 System.out.println("The server started listening");
                 try{
                     clientsocket = serversocket.accept();
-                    // here the code is blocked until a client connects
-
                     System.out.println("Client connected");
-                    // here we have to create the game class of the network handler ( e anche quella dei player in teoria) ??
-                    // perchè è qui che arrivano i messaggi dal client credo...
+
+                    // new thread to manage the client connection
+                    ClientHandler client = new ClientHandler(clientsocket);
+                    ServerVirtualView server = new ServerVirtualView(clientsocket);
+                    ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
+                    hearthbeatProcedure.scheduleAtFixedRate(() ->{
+                        try {
+                            client.hearthbeat();
+                            server.hearthbeat();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }, 0, 5, TimeUnit.SECONDS);
+                    //client.start();
+
                 } catch(IOException e){
                     e.printStackTrace();
                 }

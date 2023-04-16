@@ -51,6 +51,8 @@ public class Server {
                     clientsocket = serversocket.accept();
                     System.out.println("Client connected");
 
+                    // here we nedd to create the view classes? for istance that one of the login form?
+
                     // new thread to manage the client connection
                     ClientManager client = new ClientManager(clientsocket);
                     ServerManager server = new ServerManager(clientsocket);

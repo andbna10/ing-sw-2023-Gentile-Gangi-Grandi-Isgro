@@ -44,29 +44,20 @@ public class Bookshelf {
      * Overview: check if a column of the booksheld is full
      */
     public Boolean columnisFull(int index){
-        for(int i=0; i<gameTiles.length; i++){
-            if(gameTiles[i][index] != null){
-                continue;
-            } else {
-                return false;
-            }
-        }
-       return true;
+        for(int i=0; i<gameTiles.length; i++)
+            if(gameTiles[i][index] == null) return false;
+
+        return true;
     }
 
     /**
      * Overview: check if the bookshelf is full
      */
     public Boolean bookshelfIsFull(){
-        for(int i=0; i<gameTiles.length;i++){
-            for(int j=0; i<gameTiles[0].length;j++){
-                if(gameTiles[i][j] != null){
-                    continue;
-                } else {
-                    return false;
-                }
-            }
-        }
+        for(int i=0; i<gameTiles.length;i++)
+            for(int j=0; i<gameTiles[0].length;j++)
+                if(gameTiles[i][j] != null) return false;
+
         return true;
     }
 
@@ -110,5 +101,19 @@ public class Bookshelf {
     public ItemTile getTile(int i, int j) {
         return gameTiles[i][j];
     }
+
+
+    // can insert già implementato da andre
+    /*
+    /**
+     * Overview: returns height of column 'j'
+     *
+    public int ColumnHeight (int j) {
+        int i = 0;
+
+        while(gameTiles[i][j] != null) i++;
+        return i;
+    }
+    */
 
 }

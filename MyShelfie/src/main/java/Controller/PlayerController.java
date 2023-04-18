@@ -80,9 +80,30 @@ public class PlayerController {
     /**
      * Overview: tiles draft
      */
+    public void pickTiles (BoardGame boardGame) {
 
-    public void pickTiles () {
+        //condizione per uscire anticipatamente dal pescaggio
+        boolean flag = false;
+        //coordinate, vanno prese in input (nella view (?) )
+        int i, j;
 
+        ArrayList<ItemTile> picked = new ArrayList<ItemTile>();
+
+        while(picked.size() < 3 && !flag) {
+
+            //i, j, flag input
+
+            picked.add(game.getModel().getBoard().getTile(i,j));
+            boardGame.getBoard()[i][j].setTile(null);
+        }
+
+        //column to feed, !!manca controllo preventivo sul numero tessere prese
+        // (se ne pesco 3 ma ho max 2 slot liberi su ogni colonna)
+        int column;
+
+        //column input
+
+        feedColumn(column, picked);
 
     }
 

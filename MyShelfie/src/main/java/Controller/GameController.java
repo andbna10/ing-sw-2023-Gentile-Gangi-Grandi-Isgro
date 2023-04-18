@@ -88,6 +88,35 @@ public class GameController {
      */
     public Game getModel(){ return model; }
 
+    /**
+     * Overview: check whether boardcell can be picked,
+     *  to be called at startgame and on every endturn (a cell can't turn pickable during player's turn )
+     */
+    public void checkPickables (BoardGame boardGame) {
+
+        boolean flag = true;
+
+        for (int i = 1; i < 8; i++)
+            for(int j = 1; j < 8; j++)
+                if(boardGame.getBoard()[i][j].getStatus() == Status.IN) {
+
+                    //una cell non è pickable se tutte le adiacenti sono null
+                    // o tutte le adiacenti sono piene, si altrimenti
+
+                    if (boardGame.getTile(i - 1, j - 1) == null &&
+                            boardGame.getTile(i - 1, j + 1) == null &&
+                            boardGame.getTile(i + 1, j - 1) == null &&
+                            boardGame.getTile(i + 1, j + 1) == null) flag = false;
+                    if (boardGame.getTile(i - 1, j - 1) != null &&
+                            boardGame.getTile(i - 1, j + 1) != null &&
+                            boardGame.getTile(i + 1, j - 1) != null &&
+                            boardGame.getTile(i + 1, j + 1) != null) flag = false;
+
+                    boardGame.getBoard()[i][j].setPickable(flag);
+
+                }
+
+    }
 
 
 }

@@ -8,7 +8,7 @@ public class Game {
     private ArrayList<CommonGoalCard> commonGoals;
     private int[] order;
     private int currentTurnPlayer;
-    private Boolean isFinish;
+    private Boolean isFinished;
 
     /**
      * Overview: Game constructor
@@ -44,7 +44,7 @@ public class Game {
         currentTurnPlayer = order[0];
 
         // initialization of isFinish
-        isFinish = false;
+        isFinished = false;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Game {
     /**
      * Overview: isFinish getter
      */
-    public Boolean getIsFinish(){ return isFinish; }
+    public Boolean getIsFinish(){ return isFinished; }
 
     /**
      * Overview: players getter

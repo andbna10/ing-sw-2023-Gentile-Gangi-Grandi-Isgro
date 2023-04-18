@@ -1,15 +1,16 @@
 package Model;
 
-enum Status{ IN, OUT }
-
 public class BoardCell {
     private Status status;
+
+    private boolean pickable;
     private ItemTile tile;
 
     /**
      * Overview: constructor 1 of boardcell
      */
     public BoardCell(Status status){
+        pickable = false;
         this.status = status;
     }
 
@@ -27,4 +28,9 @@ public class BoardCell {
      * Overview: set tile
      */
     public void setTile(ItemTile tile){ this.tile = tile; }
+
+    /**
+     * Overview: pickable setter
+     */
+    public void setPickable(boolean arg) {pickable = arg;}
 }

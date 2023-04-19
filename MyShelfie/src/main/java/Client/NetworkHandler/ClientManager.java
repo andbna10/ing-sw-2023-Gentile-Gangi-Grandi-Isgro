@@ -12,7 +12,7 @@ public class ClientManager extends Thread{
     private PrintWriter writer;
 
     /**
-     * ClientHandler cosntructor
+     * ClientHandler constructor
      */
     public ClientManager(Socket clientsocket) throws IOException {
         this.clientsocket = clientsocket;

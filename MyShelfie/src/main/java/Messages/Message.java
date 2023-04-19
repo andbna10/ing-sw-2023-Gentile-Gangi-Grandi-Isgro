@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public abstract class Message implements Serializable {
     private String sender;
-    private MessageType type;
 
     /**
      * Message constructor
@@ -12,5 +11,4 @@ public abstract class Message implements Serializable {
     public Message(String sender){
         this.sender = sender;
     }
-
 }

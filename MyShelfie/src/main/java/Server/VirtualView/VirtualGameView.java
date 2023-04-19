@@ -26,8 +26,6 @@ public class VirtualGameView implements GameObserver{
         } catch (IOException e){
             e.printStackTrace();
         }
-
-        // start hearthbeat ???
     }
 
     /**

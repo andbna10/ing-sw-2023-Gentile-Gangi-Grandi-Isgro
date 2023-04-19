@@ -1,3 +1,3 @@
 package Messages;
 
-public enum MessageType {TIPO1, TUPO2}
+public enum MessageType {CREATEGAME}

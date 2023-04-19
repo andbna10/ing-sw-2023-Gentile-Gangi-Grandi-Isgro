@@ -51,9 +51,9 @@ public class Server {
                     clientsocket = serversocket.accept();
                     System.out.println("Client connected");
 
-                    // here we nedd to create the view classes? for istance that one of the login form?
+                    // here we need to create the network handler class (login handler) which creates then the View class (login view)
 
-                    // new thread to manage the client connection
+                    // new managers to manage the new client connection with the server
                     ClientManager client = new ClientManager(clientsocket);
                     ServerManager server = new ServerManager(clientsocket);
                     ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();

@@ -82,7 +82,7 @@ public class PlayerController {
         //condizione per uscire anticipatamente dal pescaggio
         boolean flag = false;
         //coordinate, vanno prese in input (nella view (?) )
-        int i, j;
+        int i = 0, j = 0;
 
         ArrayList<ItemTile> picked = new ArrayList<ItemTile>();
 
@@ -96,7 +96,7 @@ public class PlayerController {
 
         //column to feed, !!manca controllo preventivo sul numero tessere prese
         // (se ne pesco 3 ma ho max 2 slot liberi su ogni colonna)
-        int column;
+        int column = 0;
 
         //column input
 

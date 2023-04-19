@@ -12,6 +12,38 @@ public class Bookshelf {
     public Bookshelf(){ isFull = false; }
 
     /**
+     * Overview: check if the player can complete the move on column 'j'
+     */
+    public Boolean canInsert(int nTiles, int j){
+
+        int i = 0; //busy height of the column
+
+        while(gameTiles[i][j] != null) i++;
+        return (nTiles + i <= 5); //logical condition, either true or false
+    }
+
+    /**
+     * Overview: insert tiles in the bookshelf, let's suppose that the tiles input is already ordered
+     */
+    public void setTiles(int columnIndex, ArrayList<ItemTile> tiles){
+        int j=0;
+        for (int i=gameTiles.length-1; i>= 0; i--){
+            if(gameTiles[i][columnIndex] == null) {
+                gameTiles[i][columnIndex] = tiles.get(j);
+                j++;
+            }
+        }
+    }
+
+    /**
+     * Overview: get tile of index i, j
+     */
+    public ItemTile getTile(int i, int j) {
+        return gameTiles[i][j];
+    }
+
+
+    /**
      * Overview: bookshelf getter
      */
     public StringBuffer getGameTiles(){
@@ -34,11 +66,11 @@ public class Bookshelf {
          */
     }
 
+
     /**
      * Overview: isFull getter
      */
     public Boolean getIsFull(){ return isFull; }
-
 
     /**
      * Overview: check if a column of the booksheld is full
@@ -60,60 +92,5 @@ public class Bookshelf {
 
         return true;
     }
-
-    /**
-     * Overview: check if the player can complete the move
-     */
-    public Boolean canInsert(int nTiles, int column){
-        if(columnisFull(column)){
-            return false;
-        } else {
-            int count = 0;
-            for(int i = gameTiles.length-1; i >= 0; i--){
-                if(gameTiles[i][column] == null){
-                    count++;
-                }
-            }
-            if(count >= nTiles){
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    /**
-     * Overview: insert tiles in the bookshelf, let's suppose that the tiles input is already ordered
-     */
-    public void setTiles(int columnIndex, ArrayList<ItemTile> tiles){
-        int j=0;
-        for (int i=gameTiles.length-1; i>= 0; i--){
-            if(gameTiles[i][columnIndex] == null) {
-                gameTiles[i][columnIndex] = tiles.get(j);
-                j++;
-            } else { continue; }
-        }
-    }
-
-    /**
-     * Overview: get tile of index i, j
-     */
-    public ItemTile getTile(int i, int j) {
-        return gameTiles[i][j];
-    }
-
-
-    // can insert già implementato da andre
-    /*
-    /**
-     * Overview: returns height of column 'j'
-     *
-    public int ColumnHeight (int j) {
-        int i = 0;
-
-        while(gameTiles[i][j] != null) i++;
-        return i;
-    }
-    */
 
 }

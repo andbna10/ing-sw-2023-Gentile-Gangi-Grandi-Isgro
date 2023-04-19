@@ -14,8 +14,8 @@ public class CommonPattern9 extends CommonGoalCard {
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-    public int validated(Bookshelf bookshelf) {
-        int ok = 0;
+    public boolean validated(Bookshelf bookshelf) {
+        boolean ok = false;
         int count = 0;
 
         for (ItemType type : ItemType.values()) {
@@ -24,7 +24,7 @@ public class CommonPattern9 extends CommonGoalCard {
                 for (int j = 0; j < 5 - 1; j++)
                     if (bookshelf.getTile(i, j).getType() == type)
                         count++;
-            if(count > 8) ok = 1;
+            if(count > 8) ok = true;
         }
 
         return ok;

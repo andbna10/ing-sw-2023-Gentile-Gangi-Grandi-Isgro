@@ -36,15 +36,12 @@ public class PlayerController {
      * Overview: method aimed to check the accomplishment of a common goal, it returns true if the goal has been reached
      */
     public Boolean checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal){
-        int ok = goal.validated(bookshelf);
-        if(ok == 1){
-            // to do (queste cose forse potrebbero essere fatte durante il turno fuori da questo metodo ma in base al suo output)
-            // viene rilasciato la prima tessera scoring token associata a quel common goal
-            // aggiungere i rispettivi punti al giocatore
-            return true;
-        } else {
-            return false;
-        }
+
+        // to do (queste cose forse potrebbero essere fatte durante il turno fuori da questo metodo ma in base al suo output)
+        // viene rilasciato la prima tessera scoring token associata a quel common goal
+        // aggiungere i rispettivi punti al giocatore
+
+        return(goal.validated(bookshelf));
     }
 
     /**

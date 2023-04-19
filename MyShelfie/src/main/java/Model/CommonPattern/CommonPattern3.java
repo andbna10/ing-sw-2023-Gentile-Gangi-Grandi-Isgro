@@ -13,8 +13,8 @@ public class CommonPattern3 extends CommonGoalCard {
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-    public int validated(Bookshelf bookshelf) {
-        int ok = 0;
+    public boolean validated(Bookshelf bookshelf) {
+        boolean ok = false;
         int count = 0;
         int pairs = 0;
 
@@ -26,7 +26,7 @@ public class CommonPattern3 extends CommonGoalCard {
             if (count > 3) pairs++;
         }
 
-        if (pairs > 3) ok = 1;
+        if (pairs > 3) ok = true;
         return ok;
     }
 }

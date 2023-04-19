@@ -27,5 +27,5 @@ public abstract class CommonGoalCard extends GoalCard{
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-    public abstract int validated(Bookshelf bookshelf);
+    public abstract boolean validated(Bookshelf bookshelf);
 }

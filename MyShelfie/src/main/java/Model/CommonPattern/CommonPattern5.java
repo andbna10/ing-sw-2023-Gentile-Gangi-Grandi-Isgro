@@ -16,8 +16,8 @@ public class CommonPattern5 extends CommonGoalCard {
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
-    public int validated(Bookshelf bookshelf) {
-        int ok = 0;
+    public boolean validated(Bookshelf bookshelf) {
+        boolean ok = false;
         int count = 0;
         List<ItemType> found = new ArrayList<ItemType>();
 
@@ -27,7 +27,7 @@ public class CommonPattern5 extends CommonGoalCard {
             if(found.size() < 4) count++;
             found.clear();
         }
-        if(count > 2) ok = 1;
+        if(count > 2) ok = true;
         return ok;
     }
 }

@@ -1,5 +1,8 @@
 package Model;
 
+
+//TODO: fix newpoints - oldpoints
+
 public abstract class PersonalGoalCard extends GoalCard{
     /**
      * Overview: PersonalGoalCard constructor

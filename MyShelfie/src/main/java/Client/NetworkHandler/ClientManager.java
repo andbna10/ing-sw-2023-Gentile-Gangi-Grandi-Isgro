@@ -1,23 +1,30 @@
 package Client.NetworkHandler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import Messages.CreateGameMessage;
+import Messages.Message;
+
+import java.io.*;
 import java.net.Socket;
 
 public class ClientManager extends Thread{
     private Socket clientsocket;
     private BufferedReader reader;
     private PrintWriter writer;
+    private Boolean isMessage;
+    private Message message;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 
     /**
      * ClientHandler constructor
      */
     public ClientManager(Socket clientsocket) throws IOException {
+        this.isMessage = false;
         this.clientsocket = clientsocket;
         this.reader = new BufferedReader(new InputStreamReader(this.clientsocket.getInputStream()));
         this.writer = new PrintWriter(this.clientsocket.getOutputStream(), true);
+        this.in = new ObjectInputStream(this.clientsocket.getInputStream());
+        this.out = new ObjectOutputStream(this.clientsocket.getOutputStream());
     }
 
     @Override
@@ -25,8 +32,58 @@ public class ClientManager extends Thread{
      * Overview: run del thread
      */
     public void run(){
-        //
+        while(!isInterrupted()){
+            // hearthbeat
+            try {
+                hearthbeat();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            // receiving
+            try {
+                Object message = in.readObject();
+                // here I would insert all the cases
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            // sending
+            if(isMessage){
+                try {
+                    this.out.writeObject(this.message);
+                    this.out.flush();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                this.setIsMessage(false);
+                this.setMessage(null);
+            }
+        }
     }
+
+    /**
+     * Overview: method aimed to set a proper message as the attirbute
+     */
+    public void setMessage(Message message){ this.message = message; }
+
+    /**
+     * Overview: method aimed to close resources
+     */
+    public void close() throws IOException{
+        reader.close();
+        writer.close();
+        in.close();
+        out.close();
+        clientsocket.close();
+    }
+
+    /**
+     * Overview: method aimed to notify the manager that there is a message to be sent trhough the socket
+     */
+    public void setIsMessage(Boolean status){ this.isMessage = status; }
 
     /**
      * Overview: hearthbeat method
@@ -37,7 +94,7 @@ public class ClientManager extends Thread{
             clientsocket.setSoTimeout(10000);
             String response = reader.readLine();
             if(response == null){
-                clientsocket.close();
+                close();
             }
         } catch (IOException e){
             e.printStackTrace();

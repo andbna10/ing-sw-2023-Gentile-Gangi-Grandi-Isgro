@@ -1,6 +1,7 @@
 package Server.VirtualView;
 
 import Client.NetworkHandler.ClientManager;
+import Client.NetworkHandler.LoginHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -53,10 +54,13 @@ public class Server {
 
                     // here we need to create the network handler class (login handler) which creates then the View class (login view)
 
-                    // new managers to manage the new client connection with the server
+                    // initialization of managers to manage the new client connection with the server
                     ClientManager client = new ClientManager(clientsocket);
                     ServerManager server = new ServerManager(clientsocket);
-                    ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
+                    LoginHandler loginhandler = new LoginHandler(client);
+                    client.start();
+                    server.start();
+                    /*ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
                     hearthbeatProcedure.scheduleAtFixedRate(() ->{
                         try {
                             client.hearthbeat();
@@ -64,10 +68,8 @@ public class Server {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    }, 0, 5, TimeUnit.SECONDS);
-                    //client.start();
-
-                } catch(IOException e){
+                    }, 0, 5, TimeUnit.SECONDS);*/
+                    } catch(IOException e){
                     e.printStackTrace();
                 }
             }

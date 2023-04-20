@@ -1,6 +1,8 @@
 package Client.NetworkHandler;
 
-public class LoginHandler {
+import Messages.CreateGameMessage;
+
+public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;
 
     /**
@@ -8,5 +10,14 @@ public class LoginHandler {
      */
     public LoginHandler(ClientManager manager){
         this.manager = manager;
+    }
+
+    /**
+     * Overview: method aimed to create a CreateGameMessage
+     */
+    public void creategamemessage(String sender, String username){
+        CreateGameMessage message = new CreateGameMessage(username, sender);
+        manager.setIsMessage(true);
+        manager.setMessage(message);
     }
 }

@@ -1,6 +1,5 @@
-package Client.NetworkHandler;
+package Networking;
 
-import Messages.CreateGameMessage;
 import Messages.Message;
 
 import java.io.*;

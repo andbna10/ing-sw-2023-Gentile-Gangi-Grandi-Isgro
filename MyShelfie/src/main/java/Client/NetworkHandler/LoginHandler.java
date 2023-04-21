@@ -1,6 +1,7 @@
 package Client.NetworkHandler;
 
-import Messages.CreateGameMessage;
+import Messages.fromClientToServer.CreateGameMessage;
+import Networking.ClientManager;
 
 public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;

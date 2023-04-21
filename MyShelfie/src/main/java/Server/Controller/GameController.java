@@ -9,18 +9,17 @@ public class GameController implements GameViewObserver{
     private Game model;
     private MyShelfie gameName;
     private ArrayList<PlayerController> players;
+    private VirtualGameView virtualview;
 
     /**
      * Overview: GameController constructor, initialization of MyShelfie and Game classes
      */
-    public GameController(String[] usernamePlayers, VirtualGameView view, ArrayList<VirtualPlayerView> playersview){
+    public GameController(String[] usernamePlayers, ArrayList<VirtualPlayerView> playersview){
         this.players = new ArrayList<>(usernamePlayers.length);
         gameName = new MyShelfie();
         model = new Game(usernamePlayers, gameName.selectCommonGoals(), this.selectFirstToPlay(usernamePlayers.length));
-
-        // vedere se tenere un riferimento tra gli attributi di view
-        view.setGameViewObserver(this);
-
+        this.virtualview = new VirtualGameView(this.model);
+        this.virtualview.setGameViewObserver(this);
         for(int i=0; i<usernamePlayers.length; i++){
             this.players.add(new PlayerController(model.getPlayers().get(i), this, playersview.get(i)));
         }

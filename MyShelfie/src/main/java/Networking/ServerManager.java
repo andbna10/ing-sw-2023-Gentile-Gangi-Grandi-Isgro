@@ -1,10 +1,16 @@
-package Server.VirtualView;
+package Networking;
 
-import Messages.CreateGameMessage;
+import Messages.fromClientToServer.CreateGameMessage;
 import Messages.Message;
+import Messages.MessageType;
+import Server.VirtualView.VirtualGameView;
+import Server.VirtualView.VirtualLobbyView;
+import Server.VirtualView.VirtualPlayerView;
+import Server.Controller.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ServerManager extends Thread{
     private Socket clientsocket;
@@ -14,6 +20,11 @@ public class ServerManager extends Thread{
     private ObjectOutputStream out;
     private Boolean isMessage;
     private Message message;
+
+    // reference to the Virtual View classes (?)
+    private VirtualLobbyView lobbyview;
+    private VirtualGameView gameview;
+    private ArrayList<VirtualPlayerView> playerviews;
 
     /**
      * Overview: ServerVirtualView constructor
@@ -42,9 +53,13 @@ public class ServerManager extends Thread{
 
             // receiving
             try {
-                Object message = in.readObject();
-                if(message instanceof CreateGameMessage){
-                    // here I have to initialize virtual view, controller and model
+                Message message = (Message)in.readObject();
+                // creation of the lobby
+                if(message.getType() == MessageType.CREATEGAME){
+                    CreateGameMessage creategamemessage = (CreateGameMessage) message;
+                    LobbyController lobbycontroller = new LobbyController(this);
+                    this.lobbyview = lobbycontroller.getVirtualview();
+                    this.lobbyview.getObs().addPlayer(creategamemessage.getUsername());
                 }
                 // here I would insert all the other cases
             } catch (IOException e) {
@@ -55,8 +70,14 @@ public class ServerManager extends Thread{
 
             // sending
             if(isMessage){
-                //
+                try {
+                    this.out.writeObject(this.message);
+                    this.out.flush();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 setIsMessage(false);
+                setMessage(null);
             }
         }
     }

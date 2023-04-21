@@ -1,15 +1,13 @@
-package Server.VirtualView;
+package Networking;
 
-import Client.NetworkHandler.ClientManager;
 import Client.NetworkHandler.LoginHandler;
+import Server.VirtualView.VirtualGameView;
+import Server.VirtualView.VirtualPlayerView;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Server {
     private int port;

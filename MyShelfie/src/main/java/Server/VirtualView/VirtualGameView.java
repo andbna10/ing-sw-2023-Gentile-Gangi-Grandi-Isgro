@@ -9,23 +9,12 @@ import java.util.ArrayList;
 
 public class VirtualGameView implements GameObserver{
     private GameViewObserver obs;
-    private Socket socket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
-    //private boolean connected;
 
     /**
      * Overview: constructor of the virtual game view
      */
-    public VirtualGameView(Game model, Socket socket){
-        this.socket = socket;
+    public VirtualGameView(Game model){
         model.setGameObserver(this);
-        try{
-            this.out = new ObjectOutputStream(socket.getOutputStream());
-            this.in = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
     }
 
     /**

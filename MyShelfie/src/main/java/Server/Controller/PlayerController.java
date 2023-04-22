@@ -1,13 +1,12 @@
 package Server.Controller;
 import Server.Model.*;
-import Server.VirtualView.GameViewObserver;
-import Server.VirtualView.PlayerViewObserver;
-import Server.VirtualView.VirtualGameView;
+import Server.VirtualView.GameVViewObserver;
+import Server.VirtualView.PlayerVViewObserver;
 import Server.VirtualView.VirtualPlayerView;
 
 import java.util.ArrayList;
 
-public class PlayerController implements GameViewObserver, PlayerViewObserver {
+public class PlayerController implements GameVViewObserver, PlayerVViewObserver {
     private Player model;
     private GameController game;
 

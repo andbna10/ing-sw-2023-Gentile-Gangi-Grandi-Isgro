@@ -1,6 +1,6 @@
 package Server.VirtualView;
 
-public interface LobbyViewObserver {
+public interface LobbyVViewObserver {
     /**
      * Overview: add a player in the lobby
      */

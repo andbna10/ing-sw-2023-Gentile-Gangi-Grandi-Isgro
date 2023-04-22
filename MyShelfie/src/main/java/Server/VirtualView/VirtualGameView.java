@@ -1,14 +1,8 @@
 package Server.VirtualView;
 import Server.Model.*;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
-
 public class VirtualGameView implements GameObserver{
-    private GameViewObserver obs;
+    private GameVViewObserver obs;
 
     /**
      * Overview: constructor of the virtual game view
@@ -20,7 +14,7 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to add a VirtualGameView observer
      */
-    public void setGameViewObserver(GameViewObserver observer){
+    public void setGameViewObserver(GameVViewObserver observer){
         obs = observer;
     }
 }

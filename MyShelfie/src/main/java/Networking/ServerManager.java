@@ -54,6 +54,7 @@ public class ServerManager extends Thread{
             // receiving
             try {
                 Message message = (Message)in.readObject();
+
                 // creation of the lobby
                 if(message.getType() == MessageType.CREATEGAME){
                     CreateGameMessage creategamemessage = (CreateGameMessage) message;

@@ -1,11 +1,11 @@
 package Server.VirtualView;
 
 import java.net.Socket;
-import java.util.ArrayList;
+
 import Server.Model.*;
 
 public class VirtualPlayerView implements PlayerObserver{
-    private PlayerViewObserver obs;
+    private PlayerVViewObserver obs;
     private Socket socket;
 
     /**
@@ -18,5 +18,5 @@ public class VirtualPlayerView implements PlayerObserver{
     /**
      * Overview: method aimed to set the VirtualPlayerView
      */
-    public void setPlayerViewObserver(PlayerViewObserver observer){ this.obs = observer; }
+    public void setPlayerViewObserver(PlayerVViewObserver observer){ this.obs = observer; }
 }

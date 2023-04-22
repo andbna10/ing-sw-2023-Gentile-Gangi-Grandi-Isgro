@@ -2,10 +2,9 @@ package Server.VirtualView;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
 import Networking.ServerManager;
 import Server.Model.*;
-import Server.Controller.*;
 
 public class VirtualLobbyView implements LobbyObserver{
-    private LobbyViewObserver obs;
+    private LobbyVViewObserver obs;
     private ServerManager manager;
 
     /**
@@ -19,12 +18,12 @@ public class VirtualLobbyView implements LobbyObserver{
     /**
      * Overview: method aimed to add the lobby view observer
      */
-    public void setLobbyViewObserver(LobbyViewObserver observer){ this.obs = observer; }
+    public void setLobbyViewObserver(LobbyVViewObserver observer){ this.obs = observer; }
 
     /**
      * Overview: Observer getter
      */
-    public LobbyViewObserver getObs(){ return this.obs; }
+    public LobbyVViewObserver getObs(){ return this.obs; }
 
     /**
      * Overview: method aimed to create a CreateLobbyViewMessage

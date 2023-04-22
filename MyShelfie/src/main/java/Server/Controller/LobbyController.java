@@ -3,10 +3,10 @@ package Server.Controller;
 import Networking.ServerManager;
 import Server.Model.Lobby;
 import Server.Model.Player;
-import Server.VirtualView.LobbyViewObserver;
+import Server.VirtualView.LobbyVViewObserver;
 import Server.VirtualView.VirtualLobbyView;
 
-public class LobbyController implements LobbyViewObserver {
+public class LobbyController implements LobbyVViewObserver {
     private Lobby model;
     private VirtualLobbyView virtualview;
 

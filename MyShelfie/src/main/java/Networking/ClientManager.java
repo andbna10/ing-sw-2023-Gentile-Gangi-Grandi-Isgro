@@ -1,6 +1,10 @@
 package Networking;
 
+import Client.NetworkHandler.LobbyHandler;
+import Client.NetworkHandler.LoginHandler;
 import Messages.Message;
+import Messages.MessageType;
+import Messages.fromServerToClient.CreatelobbyViewMessage;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,6 +17,10 @@ public class ClientManager extends Thread{
     private Message message;
     private ObjectInputStream in;
     private ObjectOutputStream out;
+
+    // reference to the NetworkHandler classes (?)
+    private LobbyHandler lobbyhandler;
+    private LoginHandler loginHandler;
 
     /**
      * ClientHandler constructor
@@ -41,7 +49,14 @@ public class ClientManager extends Thread{
 
             // receiving
             try {
-                Object message = in.readObject();
+                Message message = (Message)in.readObject();
+
+                // creation of the lobby view
+                if(message.getType() == MessageType.CREATELOBBYVIEW){
+                    CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
+                    LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsername());
+                    this.lobbyhandler = lobbyhandler;
+                }
                 // here I would insert all the cases
             } catch (IOException e) {
                 throw new RuntimeException(e);

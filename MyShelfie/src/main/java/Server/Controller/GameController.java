@@ -5,12 +5,13 @@ import java.util.Random;
 
 import java.util.ArrayList;
 
-public class GameController implements GameViewObserver{
+public class GameController implements GameVViewObserver {
     private Game model;
     private MyShelfie gameName;
     private ArrayList<PlayerController> players;
     private VirtualGameView virtualview;
 
+    // qua c'è da modificare che il controller prende gli username dalla lista di giocatori della lobby
     /**
      * Overview: GameController constructor, initialization of MyShelfie and Game classes
      */

@@ -1,6 +1,7 @@
 package Server.Model;
 
 import Server.VirtualView.LobbyObserver;
+import Server.VirtualView.VirtualPlayerView;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -46,19 +47,14 @@ public class Lobby {
      * Overview: the Observer of the Lobby is notified about the new player in the lobby
      */
     public void notifyObserverPlayerAdded(){
-        String[] usernames = new String[this.players.size()];
-        int i = 0;
-        for(Player p : players){
-            usernames[i] = p.getUsername();
-            i++;
-        }
+        String[] usernames = getUsernames();
         this.obs.updatelobbyviewmessage(usernames);
     }
 
     /**
      * Overview: the Observer of the lobby is notified about the possibility to start the game
      */
-    //public void notifyObserverGameCanStart(){ this.obs. }
+    public void notifyObserverGameCanStart(){ this.obs.gamecanstartmessage(); }
 
     /**
      * Overview: readyToPlay getter
@@ -69,4 +65,28 @@ public class Lobby {
      * Overview: players getter
      */
     public ArrayList<Player> getPlayers(){ return this.players; }
+
+    /**
+     * Overview: method aimed to provide an array with the username of each player
+     */
+    public String[] getUsernames(){
+        String[] usernames = new String[players.size()];
+        int i = 0;
+        for(Player p: players){
+            usernames[i] = p.getUsername();
+            i++;
+        }
+        return usernames;
+    }
+
+    /**
+     * Overview: method aimed to provide an ArrayList pf the VirtualPlayerView
+     */
+    public ArrayList<VirtualPlayerView> getPlayerViews(){
+        ArrayList<VirtualPlayerView> list = new ArrayList<>();
+        for(Player p: players){
+            list.add((VirtualPlayerView) p.getObs());
+        }
+        return list;
+    }
 }

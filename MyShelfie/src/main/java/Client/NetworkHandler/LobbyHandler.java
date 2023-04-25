@@ -1,6 +1,7 @@
 package Client.NetworkHandler;
 
 import Client.View.LobbyView;
+import Messages.fromClientToServer.StartGameMessage;
 import Networking.ClientManager;
 
 import java.util.ArrayList;
@@ -29,4 +30,15 @@ public class LobbyHandler implements LobbyViewObserver{
     public void addPlayer(String username){
         this.players.add(username);
     }
+
+    /**
+     * Overview: method aimed to start the game
+     */
+    public void startgamemessage(String sender, String idLobby){
+        StartGameMessage message = new StartGameMessage(sender, idLobby);
+        manager.setIsMessage(true);
+        manager.setMessage(message);
+    }
+
+    // serve un metodo per gestire il bottone startgame che i giocatori vedono nella lobby view
 }

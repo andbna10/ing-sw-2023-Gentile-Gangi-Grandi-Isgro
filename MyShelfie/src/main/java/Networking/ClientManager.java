@@ -51,11 +51,15 @@ public class ClientManager extends Thread{
             try {
                 Message message = (Message)in.readObject();
 
-                // update of the lobby view
+                // update the lobby view
                 if(message.getType() == MessageType.CREATELOBBYVIEW){
                     CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-                    LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
-                    this.lobbyhandler = lobbyhandler;
+                    if(lobbyhandler == null) {
+                        LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
+                        this.lobbyhandler = lobbyhandler;
+                    } else {
+                        this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size()-1));
+                    }
                 }
 
                 // game can start ( it is always a lobby view update)

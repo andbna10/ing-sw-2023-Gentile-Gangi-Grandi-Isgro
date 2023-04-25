@@ -10,15 +10,21 @@ public class GameController implements GameVViewObserver {
     private MyShelfie gameName;
     private ArrayList<PlayerController> players;
     private VirtualGameView virtualview;
+    private LobbyManager lobbymanager;
 
-    // qua c'è da modificare che il controller prende gli username dalla lista di giocatori della lobby
     /**
      * Overview: GameController constructor, initialization of MyShelfie and Game classes
      */
-    public GameController(String[] usernamePlayers, ArrayList<VirtualPlayerView> playersview){
+    public GameController(String id, LobbyManager lobbymanager){
+        this.lobbymanager = lobbymanager;
+        Lobby lobby = this.lobbymanager.getLobby(id).getModel();
+        String[] usernamePlayers = lobby.getUsernames();
+        ArrayList<VirtualPlayerView> playersview = lobby.getPlayerViews();
+
         this.players = new ArrayList<>(usernamePlayers.length);
-        gameName = new MyShelfie();
-        model = new Game(usernamePlayers, gameName.selectCommonGoals(), this.selectFirstToPlay(usernamePlayers.length));
+        this.gameName = new MyShelfie();
+        this.model = new Game(lobby, gameName.selectCommonGoals(), this.selectFirstToPlay(usernamePlayers.length));
+
         this.virtualview = new VirtualGameView(this.model);
         this.virtualview.setGameViewObserver(this);
         for(int i=0; i<usernamePlayers.length; i++){
@@ -92,6 +98,11 @@ public class GameController implements GameVViewObserver {
      * Overview: model getter
      */
     public Game getModel(){ return model; }
+
+    /**
+     * Overview: Virtualview getter
+     */
+    public VirtualGameView getVirtualview(){ return this.virtualview; }
 
 
 

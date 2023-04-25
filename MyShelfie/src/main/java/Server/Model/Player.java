@@ -1,6 +1,7 @@
 package Server.Model;
 
 import Server.VirtualView.PlayerObserver;
+import Server.VirtualView.VirtualPlayerView;
 
 public class Player {
     private int id;
@@ -24,17 +25,13 @@ public class Player {
         commonOne = false;
         commonTwo = false;
         bookshelf = new Bookshelf();
+        obs = new VirtualPlayerView();
     }
-
-    /**
-     * Overview: method aimed to set the Player observer
-     */
-    public void setPlayerObserver(PlayerObserver observer){ this.obs = observer; }
 
     /**
      * Overview: username getter
      */
-    public String getUsername(){ return username; }
+    public String getUsername(){ return username;}
 
     /**
      * Overview: id getter
@@ -70,4 +67,9 @@ public class Player {
      * Overview: set the goal
      */
     public void setGoal(PersonalGoalCard goal){ this.goal = goal; }
+
+    /**
+     * Overview: obs getter
+     */
+    public PlayerObserver getObs(){ return obs; }
 }

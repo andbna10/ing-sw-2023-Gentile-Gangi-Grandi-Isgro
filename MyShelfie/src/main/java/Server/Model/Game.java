@@ -13,19 +13,15 @@ public class Game {
     private int currentTurnPlayer;
     private Boolean isFinish;
     private GameObserver obs;
+    // vedere se mettere come observers del game anche i virtualplayerview
 
     /**
      * Overview: Game constructor
      */
-    public Game(String[] usernamePlayers, ArrayList<CommonGoalCard> commongoals, int firstToPlay){
-        this.players = new ArrayList<>();
+    public Game(Lobby lobby, ArrayList<CommonGoalCard> commongoals, int firstToPlay){
+        this.players = lobby.getPlayers();
         this.commonGoals = new ArrayList<>();
-        this.order = new int[usernamePlayers.length];
-
-        // initialization of players
-        for(int i=0; i<usernamePlayers.length; i++){
-            this.players.add(i, new Player(usernamePlayers[i]));
-        }
+        this.order = new int[lobby.getUsernames().length];
 
         // initialization of the board of the game
         board = BoardGame.getInstance(this.players.size());
@@ -36,9 +32,9 @@ public class Game {
         }
 
         // initialization of the order
-        for(int i=0; i<usernamePlayers.length; i++){
-            if(firstToPlay >= usernamePlayers.length){
-                firstToPlay = firstToPlay - usernamePlayers.length;
+        for(int i=0; i<players.size(); i++){
+            if(firstToPlay >= players.size()){
+                firstToPlay = firstToPlay - players.size();
             }
             order[i] = firstToPlay;
             firstToPlay++;

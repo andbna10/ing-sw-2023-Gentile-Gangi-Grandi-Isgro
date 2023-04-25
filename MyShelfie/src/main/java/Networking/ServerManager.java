@@ -4,6 +4,7 @@ import Messages.fromClientToServer.CreateGameMessage;
 import Messages.Message;
 import Messages.MessageType;
 import Messages.fromClientToServer.EnterGameMessage;
+import Messages.fromClientToServer.StartGameMessage;
 import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualLobbyView;
 import Server.VirtualView.VirtualPlayerView;
@@ -27,7 +28,9 @@ public class ServerManager extends Thread{
     // reference to the Virtual View classes (?)
     private VirtualLobbyView lobbyview;
     private VirtualGameView gameview;
+
     // forse non una lista, perchè per ogni giocatore avremo un server manager e un client manager personali
+    // credo che si mettono tutti, poi nell'utilizzo durante la partita si usano in base al sender del messaggio e si modificano le classi corrispondenti
     private ArrayList<VirtualPlayerView> playerviews;
 
     /**
@@ -74,6 +77,15 @@ public class ServerManager extends Thread{
                 if(message.getType() == MessageType.ENTERGAME){
                     EnterGameMessage entergamemessage = (EnterGameMessage) message;
                     lobbymanager.getLobby(entergamemessage.getId()).addPlayer(entergamemessage.getUsername());
+                }
+
+                // this action has to be made by all the clients of the game
+                // starting the game
+                if(message.getType() == MessageType.STARTGAME){
+                    StartGameMessage startgamemessage = (StartGameMessage) message;
+                    GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
+                    this.gameview = gamecontroller.getVirtualview();
+                    // qui dovrei settare in qualche modo il riferimento alle view dei players
                 }
 
             } catch (IOException e) {

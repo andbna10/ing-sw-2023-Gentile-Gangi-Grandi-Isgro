@@ -2,20 +2,21 @@ package Server.Model;
 
 import Server.VirtualView.LobbyObserver;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class Lobby {
+    private String id;
     private ArrayList<Player> players;
     private Boolean readyToPlay;
     private LobbyObserver obs;
-    private Boolean observerSet;
 
     /**
      * Overview: constructor of the lobby
      */
-    public Lobby(){
+    public Lobby(String id){
+        this.id = id;
         this.players = new ArrayList<>();
-        this.observerSet = false;
     }
 
     /**
@@ -25,11 +26,6 @@ public class Lobby {
         // devo controllare qui se si va oltre 4 giocatori nella lobby?
         this.players.add(player);
     }
-
-    /**
-     * Overview: method aimed to change status of the observerSet
-     */
-    public void setObserverSet(Boolean status){ this.observerSet = status; }
 
     /**
      * Overview: remove a player with the index
@@ -44,18 +40,25 @@ public class Lobby {
     /**
      * Overview: method aimed to add Lobby observer
      */
-    public void setLobbyObserver(LobbyObserver observer){
-        this.obs = observer;
-        this.setObserverSet(true);
-        notifyObserver();
+    public void setLobbyObserver(LobbyObserver observer){ this.obs = observer; }
+
+    /**
+     * Overview: the Observer of the Lobby is notified about the new player in the lobby
+     */
+    public void notifyObserverPlayerAdded(){
+        String[] usernames = new String[this.players.size()];
+        int i = 0;
+        for(Player p : players){
+            usernames[i] = p.getUsername();
+            i++;
+        }
+        this.obs.updatelobbyviewmessage(usernames);
     }
 
     /**
-     * Overview: the Observer of the Lobby is notified
+     * Overview: the Observer of the lobby is notified about the possibility to start the game
      */
-    public void notifyObserver(){
-        //this.obs.createmessage...
-    }
+    //public void notifyObserverGameCanStart(){ this.obs. }
 
     /**
      * Overview: readyToPlay getter

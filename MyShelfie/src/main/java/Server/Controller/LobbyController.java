@@ -13,8 +13,8 @@ public class LobbyController implements LobbyVViewObserver {
     /**
      * Overview: LobbyController constructor
      */
-    public LobbyController(ServerManager servermanager){
-        this.model = new Lobby();
+    public LobbyController(ServerManager servermanager, String id){
+        this.model = new Lobby(id);
         this.virtualview = new VirtualLobbyView(this.model, servermanager);
         this.virtualview.setLobbyViewObserver(this);
     }
@@ -27,9 +27,11 @@ public class LobbyController implements LobbyVViewObserver {
         Player player = new Player(username);
         if(model.getPlayers().size() < 4){
             model.setPlayer(player);
+            model.notifyObserverPlayerAdded();
             if(model.getPlayers().size() >= 2 && model.getPlayers().size() <= 4){
                 if(!model.getReadyToPlay()){
                     model.setReadyToPlay(true);
+                    model.notifyObserverGameCanStart();
                 }
             }
         }

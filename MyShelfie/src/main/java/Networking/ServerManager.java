@@ -3,6 +3,7 @@ package Networking;
 import Messages.fromClientToServer.CreateGameMessage;
 import Messages.Message;
 import Messages.MessageType;
+import Messages.fromClientToServer.EnterGameMessage;
 import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualLobbyView;
 import Server.VirtualView.VirtualPlayerView;
@@ -11,6 +12,7 @@ import Server.Controller.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ServerManager extends Thread{
     private Socket clientsocket;
@@ -20,18 +22,22 @@ public class ServerManager extends Thread{
     private ObjectOutputStream out;
     private Boolean isMessage;
     private Message message;
+    private LobbyManager lobbymanager;
 
     // reference to the Virtual View classes (?)
     private VirtualLobbyView lobbyview;
     private VirtualGameView gameview;
+    // forse non una lista, perchè per ogni giocatore avremo un server manager e un client manager personali
     private ArrayList<VirtualPlayerView> playerviews;
 
     /**
      * Overview: ServerVirtualView constructor
      */
-    public ServerManager(Socket clientsocket) throws IOException {
+    public ServerManager(Socket clientsocket, LobbyManager lobbymanager) throws IOException {
+        this.lobbymanager = lobbymanager;
         this.isMessage = false;
         this.clientsocket = clientsocket;
+        this.playerviews = new ArrayList<>(); // forse non serve la lista per tutti ma uno solo
         this.reader = new BufferedReader(new InputStreamReader(this.clientsocket.getInputStream()));
         this.writer = new PrintWriter(this.clientsocket.getOutputStream(), true);
         this.in = new ObjectInputStream(this.clientsocket.getInputStream());
@@ -58,11 +64,18 @@ public class ServerManager extends Thread{
                 // creation of the lobby
                 if(message.getType() == MessageType.CREATEGAME){
                     CreateGameMessage creategamemessage = (CreateGameMessage) message;
-                    LobbyController lobbycontroller = new LobbyController(this);
-                    this.lobbyview = lobbycontroller.getVirtualview();
+                    String id = UUID.randomUUID().toString();
+                    lobbymanager.createlobby(this, id);
+                    this.lobbyview = lobbymanager.getLobby(id).getVirtualview();
                     this.lobbyview.getObs().addPlayer(creategamemessage.getUsername());
+                 }
+
+                // entering an already existing lobby
+                if(message.getType() == MessageType.ENTERGAME){
+                    EnterGameMessage entergamemessage = (EnterGameMessage) message;
+                    lobbymanager.getLobby(entergamemessage.getId()).addPlayer(entergamemessage.getUsername());
                 }
-                // here I would insert all the other cases
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {

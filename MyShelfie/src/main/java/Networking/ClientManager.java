@@ -51,13 +51,17 @@ public class ClientManager extends Thread{
             try {
                 Message message = (Message)in.readObject();
 
-                // creation of the lobby view
+                // update of the lobby view
                 if(message.getType() == MessageType.CREATELOBBYVIEW){
                     CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-                    LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsername());
+                    LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                     this.lobbyhandler = lobbyhandler;
                 }
-                // here I would insert all the cases
+
+                // game can start ( it is always a lobby view update)
+                if(message.getType() == MessageType.GAMECANSTART){
+                    // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {

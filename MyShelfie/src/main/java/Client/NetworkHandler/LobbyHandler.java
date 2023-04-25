@@ -13,10 +13,12 @@ public class LobbyHandler implements LobbyViewObserver{
     /**
      * Overview: LobbyHandler constructor
      */
-    public LobbyHandler(ClientManager manager, String username){
+    public LobbyHandler(ClientManager manager, ArrayList<String> usernames){
         this.manager = manager;
         this.players = new ArrayList<>();
-        addPlayer(username);
+        for(String u: usernames){
+            this.players.add(u);
+        }
         this.view = new LobbyView(this);
         // metodo per runnare la view (?) e come gli facciamo stampare i giocatori che sono nella lobby?
     }

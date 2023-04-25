@@ -1,6 +1,7 @@
 package Networking;
 
 import Client.NetworkHandler.LoginHandler;
+import Server.Controller.LobbyManager;
 import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualPlayerView;
 
@@ -13,26 +14,15 @@ public class Server {
     private int port;
     private ServerSocket serversocket;
     private Socket clientsocket;
-    private VirtualGameView gameview;
-    private ArrayList<VirtualPlayerView> playersview;
+    private LobbyManager lobbymanager;
 
     /**
      * Overview: constructor of the server class aimed to construct the socket for communication server-client
      */
     public Server(int port){
-        this. playersview = new ArrayList<>();
+        this.lobbymanager = new LobbyManager();
         this.port = port;
     }
-
-    /**
-     * Overview: method aimed to set the virtual game view
-     */
-    public void setGameview(VirtualGameView view){ this.gameview = view; }
-
-    /**
-     * Overview: method aimed to add a Virtual Player view
-     */
-    public void addPlayerView(VirtualPlayerView view){ this.playersview.add(view); }
 
     /**
      * Overview: method aimed to create a serversocket object on the specific port. it enters a loop to continuously listen for incoming clients connections.
@@ -54,7 +44,7 @@ public class Server {
 
                     // initialization of managers to manage the new client connection with the server
                     ClientManager client = new ClientManager(clientsocket);
-                    ServerManager server = new ServerManager(clientsocket);
+                    ServerManager server = new ServerManager(clientsocket, lobbymanager);
                     LoginHandler loginhandler = new LoginHandler(client);
                     client.start();
                     server.start();

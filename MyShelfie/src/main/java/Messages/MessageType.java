@@ -1,3 +1,3 @@
 package Messages;
 
-public enum MessageType {CREATEGAME, CREATELOBBYVIEW}
+public enum MessageType {CREATEGAME, CREATELOBBYVIEW, ENTERGAME, GAMECANSTART}

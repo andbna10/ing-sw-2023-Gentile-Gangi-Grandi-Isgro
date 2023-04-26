@@ -15,7 +15,7 @@ public class LoginHandler implements LoginViewObserver{
     public LoginHandler(ClientManager manager){
         this.manager = manager;
         this.view = new LoginView(this); // da modificare quando cominceremo a implementare jswing
-        // qua si dovrebber poter lanciare il metodo che runna la view (?)
+        // qua si dovrebber poter lanciare il metodo che runnare la view (?)
     }
 
     /**

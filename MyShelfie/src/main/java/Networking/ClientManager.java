@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientManager extends Thread{
-    private Socket clientsocket;
+    private Socket serversocket;
     private BufferedReader reader;
     private PrintWriter writer;
     private Boolean isMessage;
@@ -25,13 +25,13 @@ public class ClientManager extends Thread{
     /**
      * ClientHandler constructor
      */
-    public ClientManager(Socket clientsocket) throws IOException {
+    public ClientManager(Socket socket) throws IOException {
         this.isMessage = false;
-        this.clientsocket = clientsocket;
-        this.reader = new BufferedReader(new InputStreamReader(this.clientsocket.getInputStream()));
-        this.writer = new PrintWriter(this.clientsocket.getOutputStream(), true);
-        this.in = new ObjectInputStream(this.clientsocket.getInputStream());
-        this.out = new ObjectOutputStream(this.clientsocket.getOutputStream());
+        this.serversocket = socket;
+        this.reader = new BufferedReader(new InputStreamReader(this.serversocket.getInputStream()));
+        this.writer = new PrintWriter(this.serversocket.getOutputStream(), true);
+        this.in = new ObjectInputStream(this.serversocket.getInputStream());
+        this.out = new ObjectOutputStream(this.serversocket.getOutputStream());
     }
 
     @Override
@@ -65,6 +65,8 @@ public class ClientManager extends Thread{
                 // game can start ( it is always a lobby view update)
                 if(message.getType() == MessageType.GAMECANSTART){
                     // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
+                    // (vedere se il implementare il fatto che solo il creatore della lobby può cliccarlo)
+                    // chi crea la lobby è marchiato come LobbyOwner (nel model )
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -99,7 +101,7 @@ public class ClientManager extends Thread{
         writer.close();
         in.close();
         out.close();
-        clientsocket.close();
+        serversocket.close();
     }
 
     /**
@@ -113,7 +115,7 @@ public class ClientManager extends Thread{
     public void hearthbeat() throws IOException {
         try{
             writer.println("ping");
-            clientsocket.setSoTimeout(10000);
+            serversocket.setSoTimeout(10000);
             String response = reader.readLine();
             if(response == null){
                 close();

@@ -30,6 +30,11 @@ public class GameController implements GameVViewObserver {
         for(int i=0; i<usernamePlayers.length; i++){
             this.players.add(new PlayerController(model.getPlayers().get(i), this, playersview.get(i)));
         }
+
+        // notify the players they're in game
+        for(Player p: lobby.getPlayers()){
+            p.setInGame(true);
+        }
     }
 
     /**

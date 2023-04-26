@@ -5,6 +5,7 @@ import Messages.Message;
 import Messages.MessageType;
 import Messages.fromClientToServer.EnterGameMessage;
 import Messages.fromClientToServer.StartGameMessage;
+import Server.Model.Player;
 import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualLobbyView;
 import Server.VirtualView.VirtualPlayerView;
@@ -31,7 +32,7 @@ public class ServerManager extends Thread{
 
     // forse non una lista, perchè per ogni giocatore avremo un server manager e un client manager personali
     // credo che si mettono tutti, poi nell'utilizzo durante la partita si usano in base al sender del messaggio e si modificano le classi corrispondenti
-    private ArrayList<VirtualPlayerView> playerviews;
+    private VirtualPlayerView playerview;
 
     /**
      * Overview: ServerVirtualView constructor
@@ -40,7 +41,7 @@ public class ServerManager extends Thread{
         this.lobbymanager = lobbymanager;
         this.isMessage = false;
         this.clientsocket = clientsocket;
-        this.playerviews = new ArrayList<>(); // forse non serve la lista per tutti ma uno solo
+        //this.playerviews = new ArrayList<>(); // forse non serve la lista per tutti ma uno solo
         this.reader = new BufferedReader(new InputStreamReader(this.clientsocket.getInputStream()));
         this.writer = new PrintWriter(this.clientsocket.getOutputStream(), true);
         this.in = new ObjectInputStream(this.clientsocket.getInputStream());
@@ -70,22 +71,27 @@ public class ServerManager extends Thread{
                     String id = UUID.randomUUID().toString();
                     lobbymanager.createlobby(this, id);
                     this.lobbyview = lobbymanager.getLobby(id).getVirtualview();
-                    this.lobbyview.getObs().addPlayer(creategamemessage.getUsername());
+                    Player player = new Player(creategamemessage.getUsername(), true, id);
+                    this.playerview = (VirtualPlayerView) player.getObs();
+                    this.lobbyview.getObs().addPlayer(player);
                  }
 
                 // entering an already existing lobby
                 if(message.getType() == MessageType.ENTERGAME){
                     EnterGameMessage entergamemessage = (EnterGameMessage) message;
-                    lobbymanager.getLobby(entergamemessage.getId()).addPlayer(entergamemessage.getUsername());
+                    this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualview();
+                    Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId());
+                    this.playerview = (VirtualPlayerView) player.getObs();
+                    lobbymanager.getLobby(entergamemessage.getId()).addPlayer(player);
                 }
 
-                // this action has to be made by all the clients of the game
+                // this action has to be made only by the creator of the lobby (no perche senno il game view di un altro player non viene settato)
                 // starting the game
                 if(message.getType() == MessageType.STARTGAME){
                     StartGameMessage startgamemessage = (StartGameMessage) message;
                     GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                     this.gameview = gamecontroller.getVirtualview();
-                    // qui dovrei settare in qualche modo il riferimento alle view dei players
+                    // e agli altri (cioè a chi non starta la partita) come lo si setta?
                 }
 
             } catch (IOException e) {

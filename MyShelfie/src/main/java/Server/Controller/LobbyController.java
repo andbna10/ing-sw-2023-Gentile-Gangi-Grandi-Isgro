@@ -23,8 +23,8 @@ public class LobbyController implements LobbyVViewObserver {
     /**
      * Overview: add a player in the lobby
      */
-    public void addPlayer(String username){
-        Player player = new Player(username);
+    public void addPlayer(Player player){
+        //Player player = new Player(username, isLobbyOwner, idLobby);
         if(model.getPlayers().size() < 4){
             model.setPlayer(player);
             model.notifyObserverPlayerAdded();

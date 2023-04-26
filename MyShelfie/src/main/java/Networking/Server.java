@@ -40,14 +40,13 @@ public class Server {
                     clientsocket = serversocket.accept();
                     System.out.println("Client connected");
 
-                    // here we need to create the network handler class (login handler) which creates then the View class (login view)
-
-                    // initialization of managers to manage the new client connection with the server
-                    ClientManager client = new ClientManager(clientsocket);
+                    // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
                     ServerManager server = new ServerManager(clientsocket, lobbymanager);
-                    LoginHandler loginhandler = new LoginHandler(client);
-                    client.start();
+
+                    // here we start the threads aka managers with which client and server exchange messages
                     server.start();
+
+                    // probabilmente non serve
                     /*ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
                     hearthbeatProcedure.scheduleAtFixedRate(() ->{
                         try {
@@ -57,6 +56,9 @@ public class Server {
                             throw new RuntimeException(e);
                         }
                     }, 0, 5, TimeUnit.SECONDS);*/
+                    //
+
+
                     } catch(IOException e){
                     e.printStackTrace();
                 }
@@ -66,6 +68,7 @@ public class Server {
         }
     }
 
+    // potrebbe non servire perchè le socket le chiudo dai manager se serve
     public void stop() throws IOException{
         try{
             if(serversocket != null){

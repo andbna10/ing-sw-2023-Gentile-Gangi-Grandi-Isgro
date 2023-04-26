@@ -14,7 +14,7 @@ public abstract class Message implements Serializable {
     }
 
     /**
-     * Overview: abstract method
+     * Overview: type getter
      */
     public MessageType getType(){ return this.type; };
 

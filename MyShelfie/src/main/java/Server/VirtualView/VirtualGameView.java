@@ -1,4 +1,5 @@
 package Server.VirtualView;
+import Messages.fromServerToClient.GameHasStartedMessage;
 import Server.Model.*;
 
 public class VirtualGameView implements GameObserver{
@@ -16,5 +17,13 @@ public class VirtualGameView implements GameObserver{
      */
     public void setGameViewObserver(GameVViewObserver observer){
         obs = observer;
+    }
+
+    /**
+     * Overview: method aimed to create the message to notify the start of the game
+     */
+    public void notifythestartofthegame(){
+        GameHasStartedMessage message = new GameHasStartedMessage();
+        // salvati i manager di tutti i giocatori che entrano
     }
 }

@@ -29,7 +29,8 @@ public class ClientManager extends Thread{
         this.isMessage = false;
         this.serversocket = socket;
         this.reader = new BufferedReader(new InputStreamReader(this.serversocket.getInputStream()));
-        this.writer = new PrintWriter(this.serversocket.getOutputStream(), true);
+        this.writer = new PrintWriter(new OutputStreamWriter(this.serversocket.getOutputStream()));
+        // chiedere se è giusto
         this.in = new ObjectInputStream(this.serversocket.getInputStream());
         this.out = new ObjectOutputStream(this.serversocket.getOutputStream());
     }

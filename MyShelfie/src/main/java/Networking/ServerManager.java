@@ -68,6 +68,7 @@ public class ServerManager extends Thread{
                 // creation of the lobby
                 if(message.getType() == MessageType.CREATEGAME){
                     CreateGameMessage creategamemessage = (CreateGameMessage) message;
+
                     String id = UUID.randomUUID().toString();
                     lobbymanager.createlobby(this, id);
                     this.lobbyview = lobbymanager.getLobby(id).getVirtualview();

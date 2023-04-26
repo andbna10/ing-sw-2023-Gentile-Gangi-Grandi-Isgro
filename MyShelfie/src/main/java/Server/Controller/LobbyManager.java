@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public class LobbyManager {
-    private Map<String, LobbyController> lobbies;
+    private HashMap<String, LobbyController> lobbies;
 
     /**
      * Overview: constructor LobbyManager

@@ -35,13 +35,24 @@ public class PlayerController {
     /**
      * Overview: method aimed to check the accomplishment of a common goal, it returns true if the goal has been reached
      */
-    public Boolean checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal){
+    public int checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal, int index){
+        Boolean ok = goal.validated(bookshelf);
+        int points=0;
+        if(ok){
+            if((index==1 && !bookshelf.getCommonOne()) || (index==2 && !bookshelf.getCommonTwo())){
+                points=goal.getStack().get(goal.getStack().size()-1).getPoints();
+                goal.getStack().remove(goal.getStack().size()-1);
+            }
+            /*controllo che non abbia già preso il token
+            * se non lo ha preso lo aggiungo al suo punteggio e lo tolgo dall'array di scoringtokens*/
 
-        // to do (queste cose forse potrebbero essere fatte durante il turno fuori da questo metodo ma in base al suo output)
-        // viene rilasciato la prima tessera scoring token associata a quel common goal
-        // aggiungere i rispettivi punti al giocatore
-
-        return(goal.validated(bookshelf));
+            // to do (queste cose forse potrebbero essere fatte durante il turno fuori da questo metodo ma in base al suo output)
+            // viene rilasciato la prima tessera scoring token associata a quel common goal
+            // aggiungere i rispettivi punti al giocatore
+            return points;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -50,6 +61,44 @@ public class PlayerController {
     public int checkPersonalGoal(Bookshelf bookshelf, PersonalGoalCard goal){
         int points = goal.validated(bookshelf);
         return points;
+    }
+
+    /**
+     * Overview: method aimed to check the neighboring points
+     */
+    public int checkNeighboringTiles(Bookshelf bookshelf){
+        int points=0,count;
+        //ho aggiunto una matrice visited in bookshelf
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 5; j++) {
+                count=floodFill(i,j,bookshelf,0,bookshelf.getTile(i,j).getType());
+                if(count==3) points+=2;
+                if(count==4) points+=3;
+                if(count==5) points+=5;
+                if(count>=6) points+=8;
+            }
+        }
+        return points;
+    }
+    int floodFill(int i, int j, Bookshelf bookshelf, int count, ItemType itemType ){
+        if(i>=6 || j>=5)
+            return 0;
+        if(i<0 || j<0)
+            return 0;
+        if(bookshelf.getVisited(i,j) || !bookshelf.getTile(i,j).getType().equals(itemType))
+            return 0;
+        bookshelf.setVisited(i,j);
+        count++;
+        count+=floodFill(i-1,j-1,bookshelf,count,itemType);
+        count+=floodFill(i-1,j,bookshelf,count, itemType);
+        count+=floodFill(i-1,j+1,bookshelf,count, itemType);
+        count+=floodFill(i,j-1,bookshelf,count, itemType);
+        count+=floodFill(i,j+1,bookshelf,count, itemType);
+        count+=floodFill(i+1,j-1,bookshelf,count, itemType);
+        count+=floodFill(i+1,j,bookshelf,count, itemType);
+        count+=floodFill(i+1,j+1,bookshelf,count,itemType);
+        return count;
+
     }
 
     /**

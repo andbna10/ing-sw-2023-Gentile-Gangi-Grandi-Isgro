@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 public class Bookshelf {
     private ItemTile[][] gameTiles = new ItemTile[6][5];
+    private boolean[][] visited= new boolean[6][5]; //all default false
     private Boolean isFull;
+    private Boolean commonOne;
+    private Boolean commonTwo;
 
     /**
      * Overview: bookshelf constructor
      */
-    public Bookshelf(){ isFull = false; }
+    public Bookshelf(){
+        isFull = false;
+        commonOne = false;
+        commonTwo = false;
+    }
 
     /**
      * Overview: check if the player can complete the move on column 'j'
@@ -73,6 +80,16 @@ public class Bookshelf {
     public Boolean getIsFull(){ return isFull; }
 
     /**
+     * Overview: get commonOne
+     */
+    public Boolean getCommonOne(){ return commonOne; }
+
+    /**
+     * Overview: get commonTwo
+     */
+    public Boolean getCommonTwo(){ return commonTwo; }
+
+    /**
      * Overview: check if a column of the booksheld is full
      */
     public Boolean columnisFull(int index){
@@ -92,5 +109,15 @@ public class Bookshelf {
 
         return true;
     }
+
+    /**
+     * Overview: visited matrix getter
+     */
+    public boolean getVisited(int i,int j){return visited[i][j];}
+
+    /**
+     * Overview: visited matrix setter
+     */
+    public void setVisited(int i,int j){ visited[i][j]=true;}
 
 }

@@ -1,10 +1,12 @@
 package Networking;
 
+import Client.NetworkHandler.GameHandler;
 import Client.NetworkHandler.LobbyHandler;
 import Client.NetworkHandler.LoginHandler;
 import Messages.Message;
 import Messages.MessageType;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
+import Messages.fromServerToClient.GameHasStartedMessage;
 
 import java.io.*;
 import java.net.Socket;
@@ -59,15 +61,27 @@ public class ClientManager extends Thread{
                         LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                         this.lobbyhandler = lobbyhandler;
                     } else {
+                        // here the last player added to the lobby is passed as parameter to the addPlayer() method
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size()-1));
                     }
                 }
 
-                // game can start ( it is always a lobby view update)
+                // game can start (it is always a lobby view update)
                 if(message.getType() == MessageType.GAMECANSTART){
                     // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
-                    // (vedere se il implementare il fatto che solo il creatore della lobby può cliccarlo)
+                    // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
                     // chi crea la lobby è marchiato come LobbyOwner (nel model )
+                }
+
+                // create the Game View
+                if(message.getType() == MessageType.GAMEHASSTARTED){
+                    GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
+                    GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+                }
+
+                // create the Player View
+                if(message.getType() == MessageType.CREATEPLAYERVIEW){
+
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

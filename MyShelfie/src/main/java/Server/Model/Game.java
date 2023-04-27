@@ -54,8 +54,8 @@ public class Game {
     public void setGameObserver(GameObserver observer){
         obs = observer;
         // qui il virtual game view è settato come game observer,
-        // da qui possiamo notificarlo (gamevirtualview) per creare il messaggio gamehascreated da inviare al client
-        //obs.
+        // da qui possiamo notificarlo (gamevirtualview) per creare il messaggio gamehasstarted da inviare al client
+        obs.notifythestartofthegame();
     }
 
     /**

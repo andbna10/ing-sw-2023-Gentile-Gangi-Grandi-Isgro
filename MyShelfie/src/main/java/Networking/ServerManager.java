@@ -72,7 +72,7 @@ public class ServerManager extends Thread{
                     String id = UUID.randomUUID().toString();
                     lobbymanager.createlobby(this, id);
                     this.lobbyview = lobbymanager.getLobby(id).getVirtualview();
-                    Player player = new Player(creategamemessage.getUsername(), true, id);
+                    Player player = new Player(creategamemessage.getUsername(), true, id, this);
                     this.playerview = (VirtualPlayerView) player.getObs();
                     this.lobbyview.getObs().addPlayer(player);
                  }
@@ -81,7 +81,7 @@ public class ServerManager extends Thread{
                 if(message.getType() == MessageType.ENTERGAME){
                     EnterGameMessage entergamemessage = (EnterGameMessage) message;
                     this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualview();
-                    Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId());
+                    Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
                     this.playerview = (VirtualPlayerView) player.getObs();
                     lobbymanager.getLobby(entergamemessage.getId()).addPlayer(player);
                 }
@@ -91,7 +91,7 @@ public class ServerManager extends Thread{
                 if(message.getType() == MessageType.STARTGAME){
                     StartGameMessage startgamemessage = (StartGameMessage) message;
                     GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
-                    this.gameview = gamecontroller.getVirtualview();
+                    setGameView(gamecontroller.getVirtualview());
                     // e agli altri (cioè a chi non starta la partita) come lo si setta?
                 }
 
@@ -149,6 +149,11 @@ public class ServerManager extends Thread{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Overview: GameVirtualView setter
+     */
+    public void setGameView(VirtualGameView view){ this.gameview = view; }
 
 
 

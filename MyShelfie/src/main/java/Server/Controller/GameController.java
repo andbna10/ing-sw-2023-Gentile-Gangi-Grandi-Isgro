@@ -17,15 +17,17 @@ public class GameController implements GameVViewObserver {
      */
     public GameController(String id, LobbyManager lobbymanager){
         this.lobbymanager = lobbymanager;
+
         Lobby lobby = this.lobbymanager.getLobby(id).getModel();
         String[] usernamePlayers = lobby.getUsernames();
         ArrayList<VirtualPlayerView> playersview = lobby.getPlayerViews();
+        ArrayList<Player> players = lobby.getPlayers();
 
         this.players = new ArrayList<>(usernamePlayers.length);
         this.gameName = new MyShelfie();
         this.model = new Game(lobby, gameName.selectCommonGoals(), this.selectFirstToPlay(usernamePlayers.length));
 
-        this.virtualview = new VirtualGameView(this.model);
+        this.virtualview = new VirtualGameView(this.model, players);
         this.virtualview.setGameViewObserver(this);
         for(int i=0; i<usernamePlayers.length; i++){
             this.players.add(new PlayerController(model.getPlayers().get(i), this, playersview.get(i)));

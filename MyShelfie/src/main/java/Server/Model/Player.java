@@ -1,5 +1,6 @@
 package Server.Model;
 
+import Networking.ServerManager;
 import Server.VirtualView.PlayerObserver;
 import Server.VirtualView.VirtualPlayerView;
 
@@ -15,11 +16,12 @@ public class Player {
     private PersonalGoalCard goal;
     private Bookshelf bookshelf;
     private PlayerObserver obs;
+    private ServerManager manager;
 
     /**
      * Player constructor
      */
-    public Player(String username, Boolean islobbyowner, String idlobby){
+    public Player(String username, Boolean islobbyowner, String idlobby, ServerManager manager){
         lobby = new HashMap<>();
         lobby.put(islobbyowner, idlobby);
         this.username = username;
@@ -28,7 +30,8 @@ public class Player {
         points = 0;
         inGame = false;
         bookshelf = new Bookshelf();
-        obs = new VirtualPlayerView();
+        this.manager = manager;
+        obs = new VirtualPlayerView(this.manager);
     }
 
     /**
@@ -73,7 +76,14 @@ public class Player {
     public void setInGame(Boolean status){
         this.inGame = status;
 
-        // if status is true, we can let notify the player virtual view for the creation of the create PlayerView
-        // qui potremmo anche vedere se riusciamo a passare nel server manager di questo giocatore il gameVirtualview
+        // if status is true, we can let notify the player virtual view for the creation of the createPlayerViewMessage
+        if(status){
+            obs.createplayerviewmessage();
+        }
     }
+
+    /**
+     * Overview: ServerManager getter
+     */
+    public ServerManager getManager(){ return this.manager; }
 }

@@ -13,10 +13,13 @@ public class LobbyController implements LobbyVViewObserver {
     /**
      * Overview: LobbyController constructor
      */
-    public LobbyController(ServerManager servermanager, String id){
+    public LobbyController(String id){
         this.model = new Lobby(id);
-        this.virtualview = new VirtualLobbyView(this.model, servermanager);
+        this.virtualview = new VirtualLobbyView(this.model);
         this.virtualview.setLobbyViewObserver(this);
+        for(Player p: model.getPlayers()){
+            this.virtualview.setManager(p.getManager());
+        }
     }
 
     @Override
@@ -24,14 +27,13 @@ public class LobbyController implements LobbyVViewObserver {
      * Overview: add a player in the lobby
      */
     public void addPlayer(Player player){
-        //Player player = new Player(username, isLobbyOwner, idLobby);
         if(model.getPlayers().size() < 4){
             model.setPlayer(player);
             model.notifyObserverPlayerAdded();
             if(model.getPlayers().size() >= 2 && model.getPlayers().size() <= 4){
                 if(!model.getReadyToPlay()){
                     model.setReadyToPlay(true);
-                    model.notifyObserverGameCanStart();
+                    //model.notifyObserverGameCanStart(); è chiamato direttamente dal model, quando il ReadytoPlay viene settato a true
                 }
             }
         }

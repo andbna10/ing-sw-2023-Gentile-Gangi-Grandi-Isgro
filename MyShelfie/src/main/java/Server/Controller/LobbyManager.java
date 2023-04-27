@@ -17,8 +17,8 @@ public class LobbyManager {
     /**
      * Overview: method aimed to create a Lobby
      */
-    public void createlobby(ServerManager servermanager, String id){
-        LobbyController lobby = new LobbyController(servermanager, id);
+    public void createlobby(String id){
+        LobbyController lobby = new LobbyController(id);
         lobbies.put(id, lobby);
     }
 

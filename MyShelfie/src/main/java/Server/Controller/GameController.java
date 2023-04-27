@@ -19,6 +19,7 @@ public class GameController implements GameVViewObserver {
         this.lobbymanager = lobbymanager;
 
         Lobby lobby = this.lobbymanager.getLobby(id).getModel();
+        // objects taken from the lobby
         String[] usernamePlayers = lobby.getUsernames();
         ArrayList<VirtualPlayerView> playersview = lobby.getPlayerViews();
         ArrayList<Player> players = lobby.getPlayers();
@@ -26,16 +27,21 @@ public class GameController implements GameVViewObserver {
         this.players = new ArrayList<>(usernamePlayers.length);
         this.gameName = new MyShelfie();
         this.model = new Game(lobby, gameName.selectCommonGoals(), this.selectFirstToPlay(usernamePlayers.length));
-
-        this.virtualview = new VirtualGameView(this.model, players);
+        this.virtualview = new VirtualGameView(this.model);
         this.virtualview.setGameViewObserver(this);
-        for(int i=0; i<usernamePlayers.length; i++){
-            this.players.add(new PlayerController(model.getPlayers().get(i), this, playersview.get(i)));
-        }
 
-        // notify the players they're in game
-        for(Player p: lobby.getPlayers()){
-            p.setInGame(true);
+        for(int i=0; i<usernamePlayers.length; i++){
+            // initialize a PlayerController for each player of the lobby
+            this.players.add(new PlayerController(model.getPlayers().get(i), this, playersview.get(i)));
+
+            // set the manager of all players in the VirtualGameView
+            this.virtualview.setManager(players.get(i).getManager());
+
+            // set the VirtualGameView reference in the ServerManager of all players
+            players.get(i).getManager().setGameView(this.virtualview);
+
+            // notify the players they're in game
+            players.get(i).setInGame(true);
         }
     }
 

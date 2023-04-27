@@ -4,22 +4,29 @@ import Messages.fromServerToClient.GameCanStartMessage;
 import Networking.ServerManager;
 import Server.Model.*;
 
+import java.util.ArrayList;
+
 public class VirtualLobbyView implements LobbyObserver{
     private LobbyVViewObserver obs;
-    private ServerManager manager;
+    private ArrayList<ServerManager> managers;
 
     /**
      * Overview: constructor of the virtual lobby view
      */
-    public VirtualLobbyView(Lobby model, ServerManager servermanager){
+    public VirtualLobbyView(Lobby model){
         model.setLobbyObserver(this);
-        this.manager = servermanager;
+        this.managers = new ArrayList<>();
     }
 
     /**
      * Overview: method aimed to add the lobby view observer
      */
     public void setLobbyViewObserver(LobbyVViewObserver observer){ this.obs = observer; }
+
+    /**
+     * Overview: method aimed to add a server manager
+     */
+    public void setManager(ServerManager manager){ this.managers.add(manager); }
 
     /**
      * Overview: Observer getter
@@ -32,8 +39,10 @@ public class VirtualLobbyView implements LobbyObserver{
      */
     public void updatelobbyviewmessage(String[] usernames){
         CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        for(ServerManager manager: this.managers) {
+            manager.setIsMessage(true);
+            manager.setMessage(message);
+        }
     }
 
     @Override
@@ -42,8 +51,10 @@ public class VirtualLobbyView implements LobbyObserver{
      */
     public void gamecanstartmessage(){
         GameCanStartMessage message = new GameCanStartMessage();
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        for(ServerManager manager: this.managers) {
+            manager.setIsMessage(true);
+            manager.setMessage(message);
+        }
     }
 
 

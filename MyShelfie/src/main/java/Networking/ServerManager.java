@@ -70,7 +70,7 @@ public class ServerManager extends Thread{
                     CreateGameMessage creategamemessage = (CreateGameMessage) message;
 
                     String id = UUID.randomUUID().toString();
-                    lobbymanager.createlobby(this, id);
+                    lobbymanager.createlobby(id);
                     this.lobbyview = lobbymanager.getLobby(id).getVirtualview();
                     Player player = new Player(creategamemessage.getUsername(), true, id, this);
                     this.playerview = (VirtualPlayerView) player.getObs();
@@ -83,7 +83,7 @@ public class ServerManager extends Thread{
                     this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualview();
                     Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
                     this.playerview = (VirtualPlayerView) player.getObs();
-                    lobbymanager.getLobby(entergamemessage.getId()).addPlayer(player);
+                    this.lobbyview.getObs().addPlayer(player);
                 }
 
                 // this action has to be made only by the creator of the lobby (no perche senno il game view di un altro player non viene settato)

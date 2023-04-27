@@ -24,7 +24,7 @@ public class Lobby {
      * Overview: method aimed to add a player in the lobby
      */
     public void setPlayer(Player player){
-        // devo controllare qui se si va oltre 4 giocatori nella lobby?
+        // devo controllare qui se si va oltre 4 giocatori nella lobby? per ora io lo controllo nel controller, vedere se spostarlo
         this.players.add(player);
     }
 
@@ -36,7 +36,13 @@ public class Lobby {
     /**
      * Overview: method aimed to change the status of readyToPlay
      */
-    public void setReadyToPlay(Boolean status){ this.readyToPlay = status; }
+    public void setReadyToPlay(Boolean status){
+        this.readyToPlay = status;
+
+        if(status){
+            notifyObserverGameCanStart();
+        }
+    }
 
     /**
      * Overview: method aimed to add Lobby observer

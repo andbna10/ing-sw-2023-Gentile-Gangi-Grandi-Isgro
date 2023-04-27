@@ -1,21 +1,22 @@
 package Main;
-import Controller.GameController;
 
-import java.util.Random;
+import Client.NetworkHandler.LoginHandler;
+import Networking.ClientManager;
+
+import java.io.IOException;
+import java.net.Socket;
+
 public class mainProva {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        try(Socket socket = new Socket("10.169.219.213", 59090 );){
 
-        String[] usernames = {"tizio", "caio", "sempronio"};
+            // this is the clientmanager which aim is to manage the connection client-server ( for the client )
+            ClientManager client = new ClientManager(socket);
 
-
-
-
-        GameController gc1 = new GameController(usernames);
-
-        gc1.startGame();
-        /*int index = gc1.getModel().getCurrentTurnPlayer();
-        System.out.println(gc1.getModel().getPlayers().get(index).getUsername());*/
-
+            // this is the login handler which will manage the login page of the new client connected
+            LoginHandler loginhandler = new LoginHandler(client);
+            client.start();
+        }
     }
 }
 

@@ -29,6 +29,7 @@ public class ClientManager extends Thread{
      */
     public ClientManager(Socket socket) throws IOException {
         this.isMessage = false;
+        this.message = null;
         this.serversocket = socket;
         this.reader = new BufferedReader(new InputStreamReader(this.serversocket.getInputStream()));
         this.writer = new PrintWriter(new OutputStreamWriter(this.serversocket.getOutputStream()));

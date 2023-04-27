@@ -92,7 +92,7 @@ public class ServerManager extends Thread{
                     StartGameMessage startgamemessage = (StartGameMessage) message;
                     GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                     setGameView(gamecontroller.getVirtualview());
-                    // e agli altri (cioè a chi non starta la partita) come lo si setta?
+                    // e agli altri (cioè a chi non starta la partita) come lo si setta? lo faccio dal game controller
                 }
 
             } catch (IOException e) {

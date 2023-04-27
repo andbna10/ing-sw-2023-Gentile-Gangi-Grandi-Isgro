@@ -43,6 +43,9 @@ public class GameController implements GameVViewObserver {
             // notify the players they're in game
             players.get(i).setInGame(true);
         }
+
+        // vedere se metterlo qui
+        //startGame();
     }
 
     /**

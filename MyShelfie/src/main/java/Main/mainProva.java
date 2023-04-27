@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class mainProva {
     public static void main(String[] args) throws IOException {
-        try(Socket socket = new Socket("10.169.219.213", 59090 );){
+        try(Socket socket = new Socket("192.168.1.50", 59090 );){
 
             // this is the clientmanager which aim is to manage the connection client-server ( for the client )
             ClientManager client = new ClientManager(socket);

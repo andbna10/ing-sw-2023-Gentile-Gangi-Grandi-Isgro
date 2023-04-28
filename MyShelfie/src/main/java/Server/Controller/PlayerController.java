@@ -125,6 +125,8 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
         controllo sulla bookshlef
         aggiornamento punti e stato in generale delle classi modello (tiles in gioco, obiettivi raggiunti)
 
+        cambiare il current turn player alla fine del turno
+
 
          */
     }

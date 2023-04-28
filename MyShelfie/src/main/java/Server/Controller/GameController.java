@@ -44,8 +44,7 @@ public class GameController implements GameVViewObserver {
             players.get(i).setInGame(true);
         }
 
-        // vedere se metterlo qui
-        //startGame();
+        startGame();
     }
 
     /**
@@ -97,12 +96,7 @@ public class GameController implements GameVViewObserver {
         this.associateScoringTokens(this.players.size());
         this.restoreBoard();
         this.setPersonalGoals();
-        /*while(!model.getIsFinish()){
-            this.players.get(model.getCurrentTurnPlayer()).play();
-
-            // qui bisogna cambiare il current turn player (seguendo order)
-        }*/
-
+        this.model.notifyObserver();
     }
 
     /**

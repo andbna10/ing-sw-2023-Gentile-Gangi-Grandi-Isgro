@@ -42,7 +42,7 @@ public class LobbyController implements LobbyVViewObserver {
     /**
      * Overview: VirtualView getter
      */
-    public VirtualLobbyView getVirtualview(){ return this.virtualview; }
+    public VirtualLobbyView getVirtualView(){ return this.virtualview; }
 
     /**
      * Overview: model getter

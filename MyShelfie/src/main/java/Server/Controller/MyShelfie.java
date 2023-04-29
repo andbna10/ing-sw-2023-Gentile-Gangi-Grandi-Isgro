@@ -46,43 +46,19 @@ public class MyShelfie {
                 x = r.nextInt(12)+1;
             } while (found.contains(x));
             found.add(x);
-            switch(x){
-                case 1:
-                    output.add(new PersonalPattern1());
-                    break;
-                case 2:
-                    output.add(new PersonalPattern2());
-                    break;
-                case 3:
-                    output.add(new PersonalPattern3());
-                    break;
-                case 4:
-                    output.add(new PersonalPattern4());
-                    break;
-                case 5:
-                    output.add(new PersonalPattern5());
-                    break;
-                case 6:
-                    output.add(new PersonalPattern6());
-                    break;
-                case 7:
-                    output.add(new PersonalPattern7());
-                    break;
-                case 8:
-                    output.add(new PersonalPattern8());
-                    break;
-                case 9:
-                    output.add(new PersonalPattern9());
-                    break;
-                case 10:
-                    output.add(new PersonalPattern10());
-                    break;
-                case 11:
-                    output.add(new PersonalPattern11());
-                    break;
-                case 12:
-                    output.add(new PersonalPattern12());
-                    break;
+            switch (x) {
+                case 1 -> output.add(new PersonalPattern1());
+                case 2 -> output.add(new PersonalPattern2());
+                case 3 -> output.add(new PersonalPattern3());
+                case 4 -> output.add(new PersonalPattern4());
+                case 5 -> output.add(new PersonalPattern5());
+                case 6 -> output.add(new PersonalPattern6());
+                case 7 -> output.add(new PersonalPattern7());
+                case 8 -> output.add(new PersonalPattern8());
+                case 9 -> output.add(new PersonalPattern9());
+                case 10 -> output.add(new PersonalPattern10());
+                case 11 -> output.add(new PersonalPattern11());
+                case 12 -> output.add(new PersonalPattern12());
             }
         }
         return output;
@@ -103,82 +79,34 @@ public class MyShelfie {
         }
         ArrayList<CommonGoalCard> output = new ArrayList<>();
         // first common goal card
-        switch(i){
-            case 1:
-                output.add(new CommonPattern1());
-                break;
-            case 2:
-                output.add(new CommonPattern2());
-                break;
-            case 3:
-                output.add(new CommonPattern3());
-                break;
-            case 4:
-                output.add(new CommonPattern4());
-                break;
-            case 5:
-                output.add(new CommonPattern5());
-                break;
-            case 6:
-                output.add(new CommonPattern6());
-                break;
-            case 7:
-                output.add(new CommonPattern7());
-                break;
-            case 8:
-                output.add(new CommonPattern8());
-                break;
-            case 9:
-                output.add(new CommonPattern9());
-                break;
-            case 10:
-                output.add(new CommonPattern10());
-                break;
-            case 11:
-                output.add(new CommonPattern11());
-                break;
-            case 12:
-                output.add(new CommonPattern12());
-                break;
+        switch (i) {
+            case 1 -> output.add(new CommonPattern1());
+            case 2 -> output.add(new CommonPattern2());
+            case 3 -> output.add(new CommonPattern3());
+            case 4 -> output.add(new CommonPattern4());
+            case 5 -> output.add(new CommonPattern5());
+            case 6 -> output.add(new CommonPattern6());
+            case 7 -> output.add(new CommonPattern7());
+            case 8 -> output.add(new CommonPattern8());
+            case 9 -> output.add(new CommonPattern9());
+            case 10 -> output.add(new CommonPattern10());
+            case 11 -> output.add(new CommonPattern11());
+            case 12 -> output.add(new CommonPattern12());
         }
         // second common goal card
-        switch(j){
-            case 1:
-                output.add(new CommonPattern1());
-                break;
-            case 2:
-                output.add(new CommonPattern2());
-                break;
-            case 3:
-                output.add(new CommonPattern3());
-                break;
-            case 4:
-                output.add(new CommonPattern4());
-                break;
-            case 5:
-                output.add(new CommonPattern5());
-                break;
-            case 6:
-                output.add(new CommonPattern6());
-                break;
-            case 7:
-                output.add(new CommonPattern7());
-                break;
-            case 8:
-                output.add(new CommonPattern8());
-                break;
-            case 9:
-                output.add(new CommonPattern9());
-                break;
-            case 10:
-                output.add(new CommonPattern10());
-                break;
-            case 11:
-                output.add(new CommonPattern11());
-                break;
-            case 12:
-                output.add(new CommonPattern12());
-                break;
+        switch (j) {
+            case 1 -> output.add(new CommonPattern1());
+            case 2 -> output.add(new CommonPattern2());
+            case 3 -> output.add(new CommonPattern3());
+            case 4 -> output.add(new CommonPattern4());
+            case 5 -> output.add(new CommonPattern5());
+            case 6 -> output.add(new CommonPattern6());
+            case 7 -> output.add(new CommonPattern7());
+            case 8 -> output.add(new CommonPattern8());
+            case 9 -> output.add(new CommonPattern9());
+            case 10 -> output.add(new CommonPattern10());
+            case 11 -> output.add(new CommonPattern11());
+            case 12 -> output.add(new CommonPattern12());
         }
         return output;
     }
@@ -189,21 +117,19 @@ public class MyShelfie {
     public ArrayList<ScoringToken> selectScoringToken(int nPlayers){
         ArrayList<ScoringToken> output = new ArrayList<>();
         if(nPlayers == 2){
-            for(int i=0; i<scoringTokens.size(); i++){
-                if(scoringTokens.get(i).getPoints()==4 || scoringTokens.get(i).getPoints()== 8){
-                    output.add(scoringTokens.get(i));
+            for (ScoringToken scoringToken : scoringTokens) {
+                if (scoringToken.getPoints() == 4 || scoringToken.getPoints() == 8) {
+                    output.add(scoringToken);
                 }
             }
         } else if (nPlayers == 3){
-            for(int i=0; i<scoringTokens.size(); i++){
-                if(scoringTokens.get(i).getPoints()==4 || scoringTokens.get(i).getPoints()==8 || scoringTokens.get(i).getPoints()==6){
-                    output.add(scoringTokens.get(i));
+            for (ScoringToken scoringToken : scoringTokens) {
+                if (scoringToken.getPoints() == 4 || scoringToken.getPoints() == 8 || scoringToken.getPoints() == 6) {
+                    output.add(scoringToken);
                 }
             }
         } else {
-            for(int i=0; i<scoringTokens.size(); i++){
-                output.add(scoringTokens.get(i));
-            }
+            output.addAll(scoringTokens);
         }
         return output;
     }

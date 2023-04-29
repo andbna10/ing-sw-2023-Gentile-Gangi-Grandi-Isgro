@@ -112,7 +112,7 @@ public class GameController implements GameVViewObserver {
     /**
      * Overview: Virtualview getter
      */
-    public VirtualGameView getVirtualview(){ return this.virtualview; }
+    public VirtualGameView getVirtualView(){ return this.virtualview; }
 
     /**
      * Overview: check whether boardcell can be picked,

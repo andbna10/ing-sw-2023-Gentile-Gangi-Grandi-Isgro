@@ -80,9 +80,9 @@ public class Game {
     public int getCurrentTurnPlayer(){ return currentTurnPlayer; }
 
     /**
-     * Overview: isFinish getter
+     * Overview: isFinished getter
      */
-    public Boolean getIsFinish(){ return isFinished; }
+    public Boolean getIsFinished(){ return isFinished; }
 
     /**
      * Overview: players getter

@@ -42,7 +42,7 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
      * Overview: method aimed to check the accomplishment of a common goal, it returns true if the goal has been reached
      */
     public int checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal, int index){
-        Boolean ok = goal.validated(bookshelf);
+        boolean ok = goal.validated(bookshelf);
         int points=0;
         if(ok){
             if((index==1 && !bookshelf.getCommonOne()) || (index==2 && !bookshelf.getCommonTwo())){
@@ -65,14 +65,13 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
      * Overview: method aimed to check the accomplishment level of a personal goal, it returns the points achieved till now
      */
     public int checkPersonalGoal(Bookshelf bookshelf, PersonalGoalCard goal){
-        int points = goal.validated(bookshelf);
-        return points;
+        return goal.validated(bookshelf);
     }
 
     /**
-     * Overview: method aimed to check the neighboring points
+     * Overview: method aimed to check the adjacent tiles
      */
-    public int checkNeighboringTiles(Bookshelf bookshelf){
+    public int checkAdjacentTiles(Bookshelf bookshelf){
         int points=0,count;
         //ho aggiunto una matrice visited in bookshelf
         for (int i = 0; i < 6; i++) {
@@ -110,16 +109,14 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     /**
      * Overview: method aimed to let the player play a turn
      */
-    public void play(){
-        System.out.println("mossa");
+    public void play(int columnIndex, ArrayList<ItemTile> tiles) {
 
-        // to do
         /*
-        while(!ok){
-            pick
-            ifPickable{ok true}
-        }
-        togliere la tiles dal board game (gestire anche l'ingame delle tiles)
+
+        togliere le tiles dal board game (gestire anche l'ingame delle tiles) ---> (nel momento in cui il giocatore
+        clicca su una tile dal boardgame per prenderla dev'essere lanciato un mess verso il server per lanciare
+        il metodo "pickable" dal boardgame. se è true si cambia l'inGame della tile da false a true
+
         dopo questo, ho una lista di tiles e le devo mettere nella bookshelf (feedcolumn())
         controllo dei goals
         controllo sulla bookshlef
@@ -134,12 +131,13 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     /**
      * Overview: tiles draft
      */
-    public void pickTiles (BoardGame boardGame) {
+    public void pickTiles (BoardGame boardGame, int i, int j, int column) {
+
+        //VARIABILI i, j, column IN INGRESSO DA IMPLEMENTARE CORRETTAMENTE
 
         //condizione per uscire anticipatamente dal pescaggio
         boolean flag = false;
         //coordinate, vanno prese in input (nella view (?) )
-        int i = 0, j = 0;
 
         ArrayList<ItemTile> picked = new ArrayList<ItemTile>();
 
@@ -153,9 +151,6 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
 
         //column to feed, !!manca controllo preventivo sul numero tessere prese
         // (se ne pesco 3 ma ho max 2 slot liberi su ogni colonna)
-        int column = 0;
-
-        //column input
 
         feedColumn(column, picked);
 

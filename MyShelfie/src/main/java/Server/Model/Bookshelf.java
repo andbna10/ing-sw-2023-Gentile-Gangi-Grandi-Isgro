@@ -1,10 +1,11 @@
 package Server.Model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Bookshelf {
     private ItemTile[][] gameTiles = new ItemTile[6][5];
-    private boolean[][] visited= new boolean[6][5]; //all default false
+    private boolean[][] visited = new boolean[6][5]; //all default false
     private Boolean isFull;
     private Boolean commonOne;
     private Boolean commonTwo;
@@ -34,7 +35,7 @@ public class Bookshelf {
      */
     public void setTiles(int columnIndex, ArrayList<ItemTile> tiles){
         int j=0;
-        for (int i=gameTiles.length-1; i>= 0; i--){
+        for (int i=gameTiles.length-1; i>=0 && j<tiles.size(); i--){
             if(gameTiles[i][columnIndex] == null) {
                 gameTiles[i][columnIndex] = tiles.get(j);
                 j++;
@@ -90,9 +91,9 @@ public class Bookshelf {
     public Boolean getCommonTwo(){ return commonTwo; }
 
     /**
-     * Overview: check if a column of the booksheld is full
+     * Overview: check if a column of the bookshelf is full
      */
-    public Boolean columnisFull(int index){
+    public Boolean columnIsFull(int index){
         for(int i=0; i<gameTiles.length; i++)
             if(gameTiles[i][index] == null) return false;
 
@@ -113,11 +114,11 @@ public class Bookshelf {
     /**
      * Overview: visited matrix getter
      */
-    public boolean getVisited(int i,int j){return visited[i][j];}
+    public boolean getVisited(int i,int j) { return visited[i][j]; }
 
     /**
      * Overview: visited matrix setter
      */
-    public void setVisited(int i,int j){ visited[i][j]=true;}
+    public void setVisited(int i,int j) { visited[i][j] = true; }
 
 }

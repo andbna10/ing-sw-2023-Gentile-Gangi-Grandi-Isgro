@@ -54,9 +54,9 @@ public class ServerManager extends Thread{
      */
     public void run(){
         while(!isInterrupted()){
-            // hearthbeat
+            // heartbeat
             try {
-                hearthbeat();
+                heartbeat();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -71,7 +71,7 @@ public class ServerManager extends Thread{
 
                     String id = UUID.randomUUID().toString();
                     lobbymanager.createlobby(id);
-                    this.lobbyview = lobbymanager.getLobby(id).getVirtualview();
+                    this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
                     Player player = new Player(creategamemessage.getUsername(), true, id, this);
                     this.playerview = (VirtualPlayerView) player.getObs();
                     this.lobbyview.getObs().addPlayer(player);
@@ -80,7 +80,7 @@ public class ServerManager extends Thread{
                 // entering an already existing lobby
                 if(message.getType() == MessageType.ENTERGAME){
                     EnterGameMessage entergamemessage = (EnterGameMessage) message;
-                    this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualview();
+                    this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
                     Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
                     this.playerview = (VirtualPlayerView) player.getObs();
                     this.lobbyview.getObs().addPlayer(player);
@@ -91,13 +91,11 @@ public class ServerManager extends Thread{
                 if(message.getType() == MessageType.STARTGAME){
                     StartGameMessage startgamemessage = (StartGameMessage) message;
                     GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
-                    setGameView(gamecontroller.getVirtualview());
+                    setGameView(gamecontroller.getVirtualView());
                     // e agli altri (cioè a chi non starta la partita) come lo si setta? lo faccio dal game controller
                 }
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
 
@@ -135,9 +133,9 @@ public class ServerManager extends Thread{
     }
 
     /**
-     * Overview: hearthbeat method
+     * Overview: heartbeat method
      */
-    public void hearthbeat() throws IOException {
+    public void heartbeat() throws IOException {
         try{
             writer.println("ping");
             clientsocket.setSoTimeout(10000);

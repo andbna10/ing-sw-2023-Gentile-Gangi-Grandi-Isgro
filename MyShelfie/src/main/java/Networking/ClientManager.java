@@ -44,9 +44,9 @@ public class ClientManager extends Thread{
      */
     public void run(){
         while(!isInterrupted()){
-            // hearthbeat
+            // heartbeat
             try {
-                hearthbeat();
+                heartbeat();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -126,9 +126,9 @@ public class ClientManager extends Thread{
     public void setIsMessage(Boolean status){ this.isMessage = status; }
 
     /**
-     * Overview: hearthbeat method
+     * Overview: heartbeat method
      */
-    public void hearthbeat() throws IOException {
+    public void heartbeat() throws IOException {
         try{
             writer.println("ping");
             serversocket.setSoTimeout(10000);

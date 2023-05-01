@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ServerManager extends Thread{
     private Socket clientsocket;
-    //private BufferedReader reader;
-    //private PrintWriter writer;
+    private BufferedReader reader;
+    private PrintWriter writer;
     //private ObjectInputStream in;
     //private ObjectOutputStream out;
     private Boolean isMessage;
@@ -31,9 +31,6 @@ public class ServerManager extends Thread{
     // reference to the Virtual View classes (?)
     private VirtualLobbyView lobbyview;
     private VirtualGameView gameview;
-
-    // forse non una lista, perchè per ogni giocatore avremo un server manager e un client manager personali
-    // credo che si mettono tutti, poi nell'utilizzo durante la partita si usano in base al sender del messaggio e si modificano le classi corrispondenti
     private VirtualPlayerView playerview;
 
     /**
@@ -43,9 +40,8 @@ public class ServerManager extends Thread{
         this.lobbymanager = lobbymanager;
         this.isMessage = false;
         this.clientsocket = clientsocket;
-        //this.playerviews = new ArrayList<>(); // forse non serve la lista per tutti ma uno solo
-        //this.writer = new PrintWriter(clientsocket.getOutputStream(), true);
-        //this.reader = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
+        this.writer = new PrintWriter(clientsocket.getOutputStream(), true);
+        this.reader = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
         //this.out = new ObjectOutputStream(clientsocket.getOutputStream());
         //this.in = new ObjectInputStream(clientsocket.getInputStream());
     }
@@ -124,35 +120,33 @@ public class ServerManager extends Thread{
      * Overview: method aimed to close resources
      */
     public void close() throws IOException{
-        //reader.close();
-        //writer.close();
+        reader.close();
+        writer.close();
         //in.close();
         //out.close();
+        System.out.println("lost connection");
         clientsocket.close();
     }
 
     /**
      * Overview: heartbeat method
      */
-    public void heartbeat() throws IOException {
-        PrintWriter out = new PrintWriter(clientsocket.getOutputStream(), true);
-        out.println("porco demonio\n");
-        System.out.println("Data sent");
-        //System.out.println("sending");
-        /*writer.write("ping");
-        System.out.println("the server has sent the ping");*/
-        /*String line = reader.readLine();
-        System.out.println(line+" is what I read");*/
-    }
-
-    /*public void heartbeatreceiving() throws IOException {
-        System.out.println("receiving");
-        String response = reader.readLine();
-        System.out.println("the response is "+response);
-        if(!response.equals("ping")){
-            close();
+    public Boolean heartbeat() throws IOException {
+        if(!clientsocket.isClosed()) {
+            writer.println("ping");
+            System.out.println("The server has sent the ping");
+            String line = reader.readLine();
+            System.out.println(line + " is what I read");
+            if(!line.equals("ping")){
+                close();
+                return false;
+            } else {
+                return true;
+            }
         }
-    }*/
+
+        return false;
+    }
 
     /**
      * Overview: GameVirtualView setter

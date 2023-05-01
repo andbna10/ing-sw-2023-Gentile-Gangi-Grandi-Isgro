@@ -5,8 +5,7 @@ import Server.Controller.LobbyManager;
 import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualPlayerView;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -34,60 +33,42 @@ public class Server {
     public void start() throws IOException{
         try{
             this.serversocket = new ServerSocket(port);
-            serversocket.setSoTimeout(20000);
+            serversocket.setSoTimeout(200000);
             System.out.println("The server is running on port "+this.port);
 
             // "while" loop for accepting client connections
             while(true){
                 System.out.println("The server started listening");
-                try{
-                    Socket clientsocket = serversocket.accept();
-                    System.out.println("Client connected");
 
-                    // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
-                    ServerManager server = new ServerManager(clientsocket, lobbymanager);
+                Socket clientsocket = serversocket.accept();
+                System.out.println("A Client has just connected");
 
-                    System.out.println("I'm starting the heartbeatprocedure - server");
-                    ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
-                    hearthbeatProcedure.scheduleAtFixedRate(() ->{
-                        try {
-                            server.heartbeat();
-                            /*PrintWriter out = new PrintWriter(clientsocket.getOutputStream(), true);
-                            //TimeUnit.SECONDS.sleep(5);
-                            out.println("porco demonio");
-                            System.out.println("Data sent");*/
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
+                ServerManager server = new ServerManager(clientsocket, lobbymanager);
+
+                System.out.println("starting the heartbeatprocedure - server");
+                ScheduledExecutorService heartbeatProcedure = Executors.newSingleThreadScheduledExecutor();
+                heartbeatProcedure.scheduleAtFixedRate(() ->{
+                    try {
+                        Boolean ok = server.heartbeat();
+                        if(!ok){
+                            heartbeatProcedure.shutdown();
                         }
-                    }, 5, 5, TimeUnit.SECONDS);
-
-                    // here we start the thread aka manager with which client and server exchange messages
-                    //server.start();
-
-
-                    // prova - così funziona
-                    /*PrintWriter out = new PrintWriter(clientsocket.getOutputStream(), true);
-                    //TimeUnit.SECONDS.sleep(5);
-                    out.println("porco demonio");
-                    System.out.println("Data sent");*/
+                    } catch (IOException e) {
+                        System.exit(1);
+                    }
+                }, 0, 5, TimeUnit.SECONDS);
 
 
-                    // probabilmente non serve
-                    /*ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
-                    hearthbeatProcedure.scheduleAtFixedRate(() ->{
-                        try {
-                            client.hearthbeat();
-                            server.hearthbeat();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }, 0, 5, TimeUnit.SECONDS);*/
-                    //
+
+                // here we start the thread aka manager with which client and server exchange messages
+                //server.start();
 
 
-                    } catch(IOException e){
-                    e.printStackTrace();
-                }
+
+
+
+
             }
         } catch(IOException e){
             e.printStackTrace();

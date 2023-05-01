@@ -14,14 +14,16 @@ import Server.Controller.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ServerManager extends Thread{
     private Socket clientsocket;
-    private BufferedReader reader;
-    private PrintWriter writer;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+    //private BufferedReader reader;
+    //private PrintWriter writer;
+    //private ObjectInputStream in;
+    //private ObjectOutputStream out;
     private Boolean isMessage;
     private Message message;
     private LobbyManager lobbymanager;
@@ -42,10 +44,10 @@ public class ServerManager extends Thread{
         this.isMessage = false;
         this.clientsocket = clientsocket;
         //this.playerviews = new ArrayList<>(); // forse non serve la lista per tutti ma uno solo
-        this.reader = new BufferedReader(new InputStreamReader(this.clientsocket.getInputStream()));
-        this.writer = new PrintWriter(this.clientsocket.getOutputStream(), true);
-        this.in = new ObjectInputStream(this.clientsocket.getInputStream());
-        this.out = new ObjectOutputStream(this.clientsocket.getOutputStream());
+        //this.writer = new PrintWriter(clientsocket.getOutputStream(), true);
+        //this.reader = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
+        //this.out = new ObjectOutputStream(clientsocket.getOutputStream());
+        //this.in = new ObjectInputStream(clientsocket.getInputStream());
     }
 
     @Override
@@ -53,16 +55,10 @@ public class ServerManager extends Thread{
      * Overview: Overview of run method to handle receiving and sending messages through the socket
      */
     public void run(){
+        System.out.println("server manager is running");
         while(!isInterrupted()){
-            // heartbeat
-            try {
-                heartbeat();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
             // receiving
-            try {
+            /*try {
                 Message message = (Message)in.readObject();
 
                 // creation of the lobby
@@ -96,11 +92,12 @@ public class ServerManager extends Thread{
                 }
 
             } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+                //throw new RuntimeException(e);
+                continue;
+            }*/
 
             // sending
-            if(isMessage){
+            /*if(isMessage){
                 try {
                     this.out.writeObject(this.message);
                     this.out.flush();
@@ -109,7 +106,7 @@ public class ServerManager extends Thread{
                 }
                 setIsMessage(false);
                 setMessage(null);
-            }
+            }*/
         }
     }
 
@@ -127,8 +124,10 @@ public class ServerManager extends Thread{
      * Overview: method aimed to close resources
      */
     public void close() throws IOException{
-        reader.close();
-        writer.close();
+        //reader.close();
+        //writer.close();
+        //in.close();
+        //out.close();
         clientsocket.close();
     }
 
@@ -136,17 +135,24 @@ public class ServerManager extends Thread{
      * Overview: heartbeat method
      */
     public void heartbeat() throws IOException {
-        try{
-            writer.println("ping");
-            clientsocket.setSoTimeout(10000);
-            String response = reader.readLine();
-            if(response == null){
-                close();
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        PrintWriter out = new PrintWriter(clientsocket.getOutputStream(), true);
+        out.println("porco demonio\n");
+        System.out.println("Data sent");
+        //System.out.println("sending");
+        /*writer.write("ping");
+        System.out.println("the server has sent the ping");*/
+        /*String line = reader.readLine();
+        System.out.println(line+" is what I read");*/
     }
+
+    /*public void heartbeatreceiving() throws IOException {
+        System.out.println("receiving");
+        String response = reader.readLine();
+        System.out.println("the response is "+response);
+        if(!response.equals("ping")){
+            close();
+        }
+    }*/
 
     /**
      * Overview: GameVirtualView setter

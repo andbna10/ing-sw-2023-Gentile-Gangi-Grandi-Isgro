@@ -6,14 +6,18 @@ import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualPlayerView;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Server {
     private int port;
     private ServerSocket serversocket;
-    private Socket clientsocket;
     private LobbyManager lobbymanager;
 
     /**
@@ -37,14 +41,36 @@ public class Server {
             while(true){
                 System.out.println("The server started listening");
                 try{
-                    clientsocket = serversocket.accept();
+                    Socket clientsocket = serversocket.accept();
                     System.out.println("Client connected");
 
                     // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
                     ServerManager server = new ServerManager(clientsocket, lobbymanager);
 
-                    // here we start the threads aka managers with which client and server exchange messages
-                    server.start();
+                    System.out.println("I'm starting the heartbeatprocedure - server");
+                    ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();
+                    hearthbeatProcedure.scheduleAtFixedRate(() ->{
+                        try {
+                            server.heartbeat();
+                            /*PrintWriter out = new PrintWriter(clientsocket.getOutputStream(), true);
+                            //TimeUnit.SECONDS.sleep(5);
+                            out.println("porco demonio");
+                            System.out.println("Data sent");*/
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }, 5, 5, TimeUnit.SECONDS);
+
+                    // here we start the thread aka manager with which client and server exchange messages
+                    //server.start();
+
+
+                    // prova - così funziona
+                    /*PrintWriter out = new PrintWriter(clientsocket.getOutputStream(), true);
+                    //TimeUnit.SECONDS.sleep(5);
+                    out.println("porco demonio");
+                    System.out.println("Data sent");*/
+
 
                     // probabilmente non serve
                     /*ScheduledExecutorService hearthbeatProcedure = Executors.newSingleThreadScheduledExecutor();

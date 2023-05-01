@@ -8,8 +8,10 @@ import Messages.MessageType;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
 import Messages.fromServerToClient.GameHasStartedMessage;
 
+import java.awt.desktop.SystemSleepEvent;
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 public class ClientManager extends Thread{
     private Socket serversocket;
@@ -17,8 +19,8 @@ public class ClientManager extends Thread{
     private PrintWriter writer;
     private Boolean isMessage;
     private Message message;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+    //private ObjectInputStream in;
+    //private ObjectOutputStream out;
 
     // reference to the NetworkHandler classes (?)
     private LobbyHandler lobbyhandler;
@@ -28,14 +30,14 @@ public class ClientManager extends Thread{
      * ClientHandler constructor
      */
     public ClientManager(Socket socket) throws IOException {
-        this.isMessage = false;
-        this.message = null;
-        this.serversocket = socket;
-        this.reader = new BufferedReader(new InputStreamReader(this.serversocket.getInputStream()));
-        this.writer = new PrintWriter(new OutputStreamWriter(this.serversocket.getOutputStream()));
+        isMessage = false;
+        message = null;
+        serversocket = socket;
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.writer = new PrintWriter(socket.getOutputStream());
         // chiedere se è giusto
-        this.in = new ObjectInputStream(this.serversocket.getInputStream());
-        this.out = new ObjectOutputStream(this.serversocket.getOutputStream());
+        //this.out = new ObjectOutputStream(socket.getOutputStream());
+        //this.in = new ObjectInputStream(socket.getInputStream());
     }
 
     @Override
@@ -43,65 +45,8 @@ public class ClientManager extends Thread{
      * Overview: run del thread
      */
     public void run(){
-        while(!isInterrupted()){
-            // heartbeat
-            try {
-                heartbeat();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        System.out.println("client manager is running");
 
-            // receiving
-            try {
-                Message message = (Message)in.readObject();
-
-                // update the lobby view
-                if(message.getType() == MessageType.CREATELOBBYVIEW){
-                    CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-                    if(lobbyhandler == null) {
-                        LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
-                        this.lobbyhandler = lobbyhandler;
-                    } else {
-                        // here the last player added to the lobby is passed as parameter to the addPlayer() method
-                        this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size()-1));
-                    }
-                }
-
-                // game can start (it is always a lobby view update)
-                if(message.getType() == MessageType.GAMECANSTART){
-                    // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
-                    // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
-                    // chi crea la lobby è marchiato come LobbyOwner (nel model )
-                }
-
-                // create the Game View
-                if(message.getType() == MessageType.GAMEHASSTARTED){
-                    GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
-                    GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
-                }
-
-                // create the Player View
-                if(message.getType() == MessageType.CREATEPLAYERVIEW){
-
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-            // sending
-            if(isMessage){
-                try {
-                    this.out.writeObject(this.message);
-                    this.out.flush();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                this.setIsMessage(false);
-                this.setMessage(null);
-            }
-        }
     }
 
     /**
@@ -113,10 +58,10 @@ public class ClientManager extends Thread{
      * Overview: method aimed to close resources
      */
     public void close() throws IOException{
-        reader.close();
-        writer.close();
-        in.close();
-        out.close();
+        //reader.close();
+        //writer.close();
+        //in.close();
+        //out.close();
         serversocket.close();
     }
 
@@ -128,17 +73,26 @@ public class ClientManager extends Thread{
     /**
      * Overview: heartbeat method
      */
-    public void heartbeat() throws IOException {
-        try{
-            writer.println("ping");
-            serversocket.setSoTimeout(10000);
+    /*public void heartbeatsending() throws IOException {
+        System.out.println("sending");
+        writer.write("ping");
+        writer.flush();
+        System.out.println("the client has sent the ping message");
+        //serversocket.setSoTimeout(10000);
             String response = reader.readLine();
-            if(response == null){
+            System.out.println("the response is "+response);
+            if(!response.equals("ping")){
                 close();
             }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    }*/
+
+    public void heartbeat() throws IOException{
+        /*System.out.println("sending");
+        writer.write("ping");
+        System.out.println("the client has sent the ping");*/
+        String line = reader.readLine();
+        System.out.println(line+" is what I read");
     }
+
 
 }

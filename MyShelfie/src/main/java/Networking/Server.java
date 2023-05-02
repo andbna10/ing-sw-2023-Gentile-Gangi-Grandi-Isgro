@@ -47,7 +47,7 @@ public class Server {
                 // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
                 ServerManager server = new ServerManager(clientsocket, lobbymanager);
 
-                System.out.println("starting the heartbeatprocedure - server");
+                /*System.out.println("starting the heartbeatprocedure - server");
                 ScheduledExecutorService heartbeatProcedure = Executors.newSingleThreadScheduledExecutor();
                 heartbeatProcedure.scheduleAtFixedRate(() ->{
                     try {
@@ -58,7 +58,7 @@ public class Server {
                     } catch (IOException e) {
                         //System.exit(1);
                     }
-                }, 0, 5, TimeUnit.SECONDS);
+                }, 0, 5, TimeUnit.SECONDS);*/
 
 
 

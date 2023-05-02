@@ -39,6 +39,7 @@ public class ServerManager extends Thread{
     public ServerManager(Socket clientsocket, LobbyManager lobbymanager) throws IOException {
         this.lobbymanager = lobbymanager;
         this.isMessage = false;
+        this.message = null;
         this.clientsocket = clientsocket;
         this.writer = new PrintWriter(clientsocket.getOutputStream(), true);
         this.reader = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
@@ -57,15 +58,19 @@ public class ServerManager extends Thread{
 
             // receiving
             try {
-                Message message = (Message)in.readObject();
-                System.out.println(message);
+                Message message = null;
+                if(in.available() > 0){
+                    System.out.println("entrato");
+                    message = (Message)in.readObject();
+                    System.out.println(message);
+                }
                 if(message != null) {
                     System.out.println("there is a message to be read");
                     // creation of the lobby
                     if (message.getType() == MessageType.CREATEGAME) {
                         System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
                         CreateGameMessage creategamemessage = (CreateGameMessage) message;
-
+                        System.out.println(creategamemessage.getUsername());
                         String id = UUID.randomUUID().toString();
                         lobbymanager.createlobby(id);
                         this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
@@ -93,7 +98,7 @@ public class ServerManager extends Thread{
                     }
                 }
 
-            } catch (IOException | ClassNotFoundException e) {}
+            } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
 
             // sending
             if(isMessage && message != null){

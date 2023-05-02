@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class mainProva {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Socket socket = new Socket("localhost", 59091 );
+        Socket socket = new Socket("localhost", 59090 );
 
         // this is the clientmanager which aim is to manage the connection client-server ( for the client )
         ClientManager client = new ClientManager(socket);
@@ -22,7 +22,7 @@ public class mainProva {
         LoginHandler loginhandler = new LoginHandler(client);
 
 
-        System.out.println("I'm starting the heartbeat procedure - client");
+        /*System.out.println("I'm starting the heartbeat procedure - client");
         ScheduledExecutorService heartbeatProcedure = Executors.newSingleThreadScheduledExecutor();
         heartbeatProcedure.scheduleAtFixedRate(() ->{
             try {
@@ -34,7 +34,7 @@ public class mainProva {
                 System.exit(1);
             }
 
-        }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 5, TimeUnit.SECONDS);*/
 
         client.start();
 

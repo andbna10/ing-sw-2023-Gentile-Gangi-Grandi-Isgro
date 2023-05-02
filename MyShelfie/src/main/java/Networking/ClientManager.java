@@ -49,8 +49,11 @@ public class ClientManager extends Thread{
 
             // receiving
             try {
-                Message message = (Message)objectReader.readObject();
-                System.out.println(message);
+                Message message = null;
+                if(objectReader.available() > 0){
+                    message = (Message)objectReader.readObject();
+                    System.out.println(message);
+                }
                 if(message != null) {
                     // update the lobby view
                     if (message.getType() == MessageType.CREATELOBBYVIEW) {
@@ -83,7 +86,7 @@ public class ClientManager extends Thread{
 
                     }
                 }
-            } catch (IOException | ClassNotFoundException e) {}
+            } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
 
             // sending
             if(isMessage && message != null){

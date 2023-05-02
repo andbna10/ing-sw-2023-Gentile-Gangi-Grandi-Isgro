@@ -1,6 +1,7 @@
 package Networking;
 
 import Client.NetworkHandler.LoginHandler;
+import Messages.Message;
 import Server.Controller.LobbyManager;
 import Server.VirtualView.VirtualGameView;
 import Server.VirtualView.VirtualPlayerView;
@@ -55,19 +56,14 @@ public class Server {
                             heartbeatProcedure.shutdown();
                         }
                     } catch (IOException e) {
-                        System.exit(1);
+                        //System.exit(1);
                     }
                 }, 0, 5, TimeUnit.SECONDS);
 
 
 
                 // here we start the thread aka manager with which client and server exchange messages
-                //server.start();
-
-
-
-
-
+                server.start();
 
             }
         } catch(IOException e){
@@ -75,7 +71,9 @@ public class Server {
         }
     }
 
-    // potrebbe non servire perchè le socket le chiudo dai manager se serve
+    /**
+     * Overview: method aimed to close the server socket
+     */
     public void stop() throws IOException{
         try{
             if(serversocket != null){

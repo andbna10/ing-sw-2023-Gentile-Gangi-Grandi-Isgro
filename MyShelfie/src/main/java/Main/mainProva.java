@@ -1,6 +1,7 @@
 package Main;
 
 import Client.NetworkHandler.LoginHandler;
+import Messages.fromClientToServer.CreateGameMessage;
 import Networking.ClientManager;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class mainProva {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         Socket socket = new Socket("localhost", 59091 );
 
         // this is the clientmanager which aim is to manage the connection client-server ( for the client )
@@ -19,9 +20,6 @@ public class mainProva {
         // this is the login handler which will manage the login page of the new client connected
         LoginHandler loginhandler = new LoginHandler(client);
 
-
-        InputStream input = socket.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
         System.out.println("I'm starting the heartbeat procedure - client");
         ScheduledExecutorService heartbeatProcedure = Executors.newSingleThreadScheduledExecutor();
@@ -37,9 +35,10 @@ public class mainProva {
 
         }, 0, 5, TimeUnit.SECONDS);
 
-        System.out.println("dopo scheduler");
+        client.start();
 
-        //client.start();
+        TimeUnit.SECONDS.sleep(3);
+        loginhandler.creategamemessage("senderprova", "andbna");
 
     }
 }

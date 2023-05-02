@@ -19,8 +19,8 @@ public class ClientManager extends Thread{
     private PrintWriter writer;
     private Boolean isMessage;
     private Message message;
-    //private ObjectInputStream in;
-    //private ObjectOutputStream out;
+    private ObjectInputStream objectReader;
+    private ObjectOutputStream objectWriter;
 
     // reference to the NetworkHandler classes (?)
     private LobbyHandler lobbyhandler;
@@ -35,9 +35,8 @@ public class ClientManager extends Thread{
         serversocket = socket;
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new PrintWriter(socket.getOutputStream(), true);
-        // chiedere se è giusto
-        //this.out = new ObjectOutputStream(socket.getOutputStream());
-        //this.in = new ObjectInputStream(socket.getInputStream());
+        this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
+        this.objectReader = new ObjectInputStream(socket.getInputStream());
     }
 
     @Override
@@ -49,54 +48,55 @@ public class ClientManager extends Thread{
         while(!isInterrupted()){
 
             // receiving
-            /*try {
-                Message message = (Message)in.readObject();
+            try {
+                Message message = (Message)objectReader.readObject();
 
-                // update the lobby view
-                if(message.getType() == MessageType.CREATELOBBYVIEW){
-                    CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-                    if(lobbyhandler == null) {
-                        LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
-                        this.lobbyhandler = lobbyhandler;
-                    } else {
-                        // here the last player added to the lobby is passed as parameter to the addPlayer() method
-                        this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size()-1));
+                if(message != null) {
+                    // update the lobby view
+                    if (message.getType() == MessageType.CREATELOBBYVIEW) {
+                        CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
+                        if (lobbyhandler == null) {
+                            LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
+                            this.lobbyhandler = lobbyhandler;
+                        } else {
+                            // here the last player added to the lobby is passed as parameter to the addPlayer() method
+                            this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
+                        }
+                    }
+
+                    // game can start (it is always a lobby view update)
+                    if (message.getType() == MessageType.GAMECANSTART) {
+                        // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
+                        // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
+                        // chi crea la lobby è marchiato come LobbyOwner (nel model )
+                    }
+
+                    // create the Game View
+                    if (message.getType() == MessageType.GAMEHASSTARTED) {
+                        GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
+                        GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+                    }
+
+                    // create the Player View
+                    if (message.getType() == MessageType.CREATEPLAYERVIEW) {
+
                     }
                 }
-
-                // game can start (it is always a lobby view update)
-                if(message.getType() == MessageType.GAMECANSTART){
-                    // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
-                    // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
-                    // chi crea la lobby è marchiato come LobbyOwner (nel model )
-                }
-
-                // create the Game View
-                if(message.getType() == MessageType.GAMEHASSTARTED){
-                    GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
-                    GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
-                }
-
-                // create the Player View
-                if(message.getType() == MessageType.CREATEPLAYERVIEW){
-
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                //throw new RuntimeException(e);
-                continue;
-            }*/
+            } catch (IOException | ClassNotFoundException e) {}
 
             // sending
-            /*if(isMessage){
+            if(isMessage && message != null){
+                System.out.println("the client has a message to be sent...");
                 try {
-                    this.out.writeObject(this.message);
-                    this.out.flush();
+                    objectWriter.writeObject(message);
+                    objectWriter.flush();
+                    System.out.println("sent");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 this.setIsMessage(false);
                 this.setMessage(null);
-            }*/
+            }
         }
     }
 
@@ -111,8 +111,8 @@ public class ClientManager extends Thread{
     public void close() throws IOException{
         reader.close();
         writer.close();
-        //in.close();
-        //out.close();
+        objectReader.close();
+        objectWriter.close();
         System.out.println("lost connection");
         serversocket.close();
     }
@@ -128,10 +128,11 @@ public class ClientManager extends Thread{
     public Boolean heartbeat() throws IOException{
         if(!serversocket.isClosed()) {
             writer.println("ping");
-            System.out.println("the client has sent the ping");
+            writer.flush();
+            //System.out.println("the client has sent the ping");
             String line = reader.readLine();
-            System.out.println(line + " is what I read");
-            if(!line.equals("ping")){
+            //System.out.println(line + " is what I read");
+            if(line.equals(null)){
                 close();
                 return false;
             } else {
@@ -141,6 +142,5 @@ public class ClientManager extends Thread{
 
         return false;
     }
-
 
 }

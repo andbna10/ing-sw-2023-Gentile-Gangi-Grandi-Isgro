@@ -6,6 +6,7 @@ import Networking.ClientManager;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -37,10 +38,40 @@ public class mainProva {
 
         client.start();
 
-        // prova lettura messaggi - da sostituire con CLI
+        /* prova lettura messaggi - da sostituire con CLI
         TimeUnit.SECONDS.sleep(3);
-        loginhandler.creategamemessage("senderprova", "andbna");
+        loginhandler.creategamemessage("senderprova", "andbna");*/
 
+        //CLI
+        Scanner scanner = new Scanner(System.in);
+        String sender = "prova";
+
+        System.out.print("command info\n" +
+                "* create game : generate a new game \n" +
+                "* join game   : join a game with the id\n");
+
+        System.out.print("> ");
+        String input = scanner.nextLine();
+
+        if (input.equals("create game")) {
+
+            System.out.println("enter username:");
+            String username = scanner.nextLine();
+            //controllo che non sia già presente
+            System.out.println("starting new game");
+            //instanzia una nuova partita
+            loginhandler.creategamemessage(sender,username);
+
+        }else if (input.equals("join game")){
+
+            System.out.println("enter username:");
+            String username = scanner.nextLine();
+            System.out.println("enter the game id:");
+            String gameid = scanner.nextLine();
+            System.out.println("joining the game");
+            loginhandler.entergamemessage(sender,username,gameid);
+
+        }
     }
 }
 

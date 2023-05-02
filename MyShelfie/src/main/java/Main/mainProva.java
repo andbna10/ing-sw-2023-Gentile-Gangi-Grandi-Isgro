@@ -37,6 +37,7 @@ public class mainProva {
 
         client.start();
 
+        // prova lettura messaggi - da sostituire con CLI
         TimeUnit.SECONDS.sleep(3);
         loginhandler.creategamemessage("senderprova", "andbna");
 

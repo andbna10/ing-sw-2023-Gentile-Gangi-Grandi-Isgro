@@ -50,7 +50,7 @@ public class ClientManager extends Thread{
             // receiving
             try {
                 Message message = (Message)objectReader.readObject();
-
+                System.out.println(message);
                 if(message != null) {
                     // update the lobby view
                     if (message.getType() == MessageType.CREATELOBBYVIEW) {

@@ -25,7 +25,6 @@ public class LobbyController implements LobbyVViewObserver {
      */
     public void addPlayer(Player player){
         if(model.getPlayers().size() < 4){
-            System.out.println("I'm notifying for the player added to the lobby");
             model.setPlayer(player);
             virtualview.setManager(player.getManager());
             model.notifyObserverPlayerAdded();

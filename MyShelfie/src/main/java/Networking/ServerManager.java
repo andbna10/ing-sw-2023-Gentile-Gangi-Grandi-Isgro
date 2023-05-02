@@ -13,6 +13,7 @@ import Server.Controller.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.channels.Selector;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class ServerManager extends Thread{
     private Socket clientsocket;
     private BufferedReader reader;
     private PrintWriter writer;
+    private Boolean readerThreadActive;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Boolean isMessage;
@@ -39,6 +41,7 @@ public class ServerManager extends Thread{
     public ServerManager(Socket clientsocket, LobbyManager lobbymanager) throws IOException {
         this.lobbymanager = lobbymanager;
         this.isMessage = false;
+        readerThreadActive = false;
         this.message = null;
         this.clientsocket = clientsocket;
         this.writer = new PrintWriter(clientsocket.getOutputStream(), true);
@@ -54,51 +57,26 @@ public class ServerManager extends Thread{
     public void run(){
         System.out.println("server manager is running");
         while(!isInterrupted() && !clientsocket.isClosed()){
-            //System.out.println("new loop iteration");
 
             // receiving
-            try {
-                Message message = null;
-                if(in.available() > 0){
-                    System.out.println("entrato");
-                    message = (Message)in.readObject();
-                    System.out.println(message);
-                }
-                if(message != null) {
-                    System.out.println("there is a message to be read");
-                    // creation of the lobby
-                    if (message.getType() == MessageType.CREATEGAME) {
-                        System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
-                        CreateGameMessage creategamemessage = (CreateGameMessage) message;
-                        System.out.println(creategamemessage.getUsername());
-                        String id = UUID.randomUUID().toString();
-                        lobbymanager.createlobby(id);
-                        this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
-                        Player player = new Player(creategamemessage.getUsername(), true, id, this);
-                        this.playerview = (VirtualPlayerView) player.getObs();
-                        this.lobbyview.getObs().addPlayer(player);
-                    }
+            if(!readerThreadActive) {
+                readerThreadActive = true;
+                Thread readerthread = new Thread(() -> {
+                    try {
+                        Message message = (Message) in.readObject();
+                        //System.out.println(message);
 
-                    // entering an already existing lobby
-                    if (message.getType() == MessageType.ENTERGAME) {
-                        EnterGameMessage entergamemessage = (EnterGameMessage) message;
-                        this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
-                        Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
-                        this.playerview = (VirtualPlayerView) player.getObs();
-                        this.lobbyview.getObs().addPlayer(player);
-                    }
+                        if (message != null) {
+                            handleMessage(message);
+                            readerThreadActive = false;
+                        }
 
-                    // this action has to be made only by the creator of the lobby (no perche senno il game view di un altro player non viene settato)
-                    // starting the game
-                    if (message.getType() == MessageType.STARTGAME) {
-                        StartGameMessage startgamemessage = (StartGameMessage) message;
-                        GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
-                        setGameView(gamecontroller.getVirtualView());
-                        // e agli altri (cioè a chi non starta la partita) come lo si setta? lo faccio dal game controller
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
-                }
-
-            } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
+                });
+                readerthread.start();
+            }
 
             // sending
             if(isMessage && message != null){
@@ -163,6 +141,42 @@ public class ServerManager extends Thread{
      * Overview: GameVirtualView setter
      */
     public void setGameView(VirtualGameView view){ this.gameview = view; }
+
+    /**
+     * Overview: method aimed to handle an upcoming received message
+     */
+    public void handleMessage(Message message){
+        System.out.println("there is a message to be read");
+        // creation of the lobby
+        if (message.getType() == MessageType.CREATEGAME) {
+            System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
+            CreateGameMessage creategamemessage = (CreateGameMessage) message;
+            String id = UUID.randomUUID().toString();
+            lobbymanager.createlobby(id);
+            this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
+            Player player = new Player(creategamemessage.getUsername(), true, id, this);
+            this.playerview = (VirtualPlayerView) player.getObs();
+            this.lobbyview.getObs().addPlayer(player);
+        }
+
+        // entering an already existing lobby
+        if (message.getType() == MessageType.ENTERGAME) {
+            EnterGameMessage entergamemessage = (EnterGameMessage) message;
+            this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
+            Player player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
+            this.playerview = (VirtualPlayerView) player.getObs();
+            this.lobbyview.getObs().addPlayer(player);
+        }
+
+        // this action has to be made only by the creator of the lobby (no perche senno il game view di un altro player non viene settato)
+        // starting the game
+        if (message.getType() == MessageType.STARTGAME) {
+            StartGameMessage startgamemessage = (StartGameMessage) message;
+            GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
+            setGameView(gamecontroller.getVirtualView());
+            // e agli altri (cioè a chi non starta la partita) come lo si setta? lo faccio dal game controller
+        }
+    }
 
 
 

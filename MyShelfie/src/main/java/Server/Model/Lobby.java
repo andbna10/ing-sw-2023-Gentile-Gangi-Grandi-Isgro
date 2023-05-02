@@ -54,7 +54,6 @@ public class Lobby {
      */
     public void notifyObserverPlayerAdded(){
         String[] usernames = getUsernames();
-        System.out.println("notifying the Lobby observers");
         this.obs.updatelobbyviewmessage(usernames);
     }
 

@@ -18,6 +18,7 @@ public class ClientManager extends Thread{
     private BufferedReader reader;
     private PrintWriter writer;
     private Boolean isMessage;
+    private Boolean readerThreadActive;
     private Message message;
     private ObjectInputStream objectReader;
     private ObjectOutputStream objectWriter;
@@ -32,6 +33,7 @@ public class ClientManager extends Thread{
     public ClientManager(Socket socket) throws IOException {
         isMessage = false;
         message = null;
+        readerThreadActive = false;
         serversocket = socket;
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new PrintWriter(socket.getOutputStream(), true);
@@ -45,48 +47,27 @@ public class ClientManager extends Thread{
      */
     public void run(){
         System.out.println("client manager is running");
-        while(!isInterrupted()){
+        while(!isInterrupted()) {
 
             // receiving
-            try {
-                Message message = null;
-                if(objectReader.available() > 0){
-                    message = (Message)objectReader.readObject();
-                    System.out.println(message);
-                }
-                if(message != null) {
-                    // update the lobby view
-                    if (message.getType() == MessageType.CREATELOBBYVIEW) {
-                        System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
-                        CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-                        if (lobbyhandler == null) {
-                            LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
-                            this.lobbyhandler = lobbyhandler;
-                        } else {
-                            // here the last player added to the lobby is passed as parameter to the addPlayer() method
-                            this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
+            if (!readerThreadActive) {
+                readerThreadActive = true;
+                Thread readerThread = new Thread(() -> {
+                    try {
+                        Message message = (Message) objectReader.readObject();
+                        //System.out.println(message);
+
+                        if (message != null) {
+                            handleMessage(message);
+                            readerThreadActive = false;
                         }
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
+                });
+                readerThread.start();
+            }
 
-                    // game can start (it is always a lobby view update)
-                    if (message.getType() == MessageType.GAMECANSTART) {
-                        // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
-                        // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
-                        // chi crea la lobby è marchiato come LobbyOwner (nel model )
-                    }
-
-                    // create the Game View
-                    if (message.getType() == MessageType.GAMEHASSTARTED) {
-                        GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
-                        GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
-                    }
-
-                    // create the Player View
-                    if (message.getType() == MessageType.CREATEPLAYERVIEW) {
-
-                    }
-                }
-            } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
 
             // sending
             if(isMessage && message != null){
@@ -145,6 +126,42 @@ public class ClientManager extends Thread{
         }
 
         return false;
+    }
+
+    /**
+     * Overview: method aimed to handle an upcoming received message
+     */
+    public void handleMessage(Message message){
+        // update the lobby view
+        if (message.getType() == MessageType.CREATELOBBYVIEW) {
+            System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
+            CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
+            if (lobbyhandler == null) {
+                LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
+                this.lobbyhandler = lobbyhandler;
+            } else {
+                // here the last player added to the lobby is passed as parameter to the addPlayer() method
+                this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
+            }
+        }
+
+        // game can start (it is always a lobby view update)
+        if (message.getType() == MessageType.GAMECANSTART) {
+            // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
+            // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
+            // chi crea la lobby è marchiato come LobbyOwner (nel model )
+        }
+
+        // create the Game View
+        if (message.getType() == MessageType.GAMEHASSTARTED) {
+            GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
+            GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+        }
+
+        // create the Player View
+        if (message.getType() == MessageType.CREATEPLAYERVIEW) {
+
+        }
     }
 
 }

@@ -38,8 +38,8 @@ public class mainProva {
 
         client.start();
 
-        /* prova lettura messaggi - da sostituire con CLI
-        TimeUnit.SECONDS.sleep(3);
+        //prova lettura messaggi - da sostituire con CLI
+        /*TimeUnit.SECONDS.sleep(3);
         loginhandler.creategamemessage("senderprova", "andbna");*/
 
         //CLI
@@ -58,7 +58,7 @@ public class mainProva {
             System.out.println("enter username:");
             String username = scanner.nextLine();
             //controllo che non sia già presente
-            System.out.println("starting new game");
+            //System.out.println("starting new game");
             //instanzia una nuova partita
             loginhandler.creategamemessage(sender,username);
 
@@ -68,10 +68,11 @@ public class mainProva {
             String username = scanner.nextLine();
             System.out.println("enter the game id:");
             String gameid = scanner.nextLine();
-            System.out.println("joining the game");
+            //System.out.println("joining the game");
             loginhandler.entergamemessage(sender,username,gameid);
 
         }
+        // CLI ends
     }
 }
 

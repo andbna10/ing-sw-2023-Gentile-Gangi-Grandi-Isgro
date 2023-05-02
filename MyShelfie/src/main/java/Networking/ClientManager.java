@@ -54,6 +54,7 @@ public class ClientManager extends Thread{
                 if(message != null) {
                     // update the lobby view
                     if (message.getType() == MessageType.CREATELOBBYVIEW) {
+                        System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
                         CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
                         if (lobbyhandler == null) {
                             LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());

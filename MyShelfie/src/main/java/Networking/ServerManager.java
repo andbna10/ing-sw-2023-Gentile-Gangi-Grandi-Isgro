@@ -96,10 +96,12 @@ public class ServerManager extends Thread{
             } catch (IOException | ClassNotFoundException e) {}
 
             // sending
-            if(isMessage){
+            if(isMessage && message != null){
+                System.out.println("the server has a message to be sent...");
                 try {
                     this.out.writeObject(this.message);
                     this.out.flush();
+                    System.out.println("sent");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

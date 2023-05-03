@@ -16,8 +16,7 @@ import java.util.UUID;
 
 public class ServerManager extends Thread{
     private Socket clientsocket;
-    //private BufferedReader reader;
-    //private PrintWriter writer;
+
     private Boolean readerThreadActive;
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -41,8 +40,6 @@ public class ServerManager extends Thread{
         this.message = null;
         this.clientsocket = clientsocket;
         this.ref = node;
-        //this.writer = new PrintWriter(clientsocket.getOutputStream(), true);
-        //this.reader = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
         this.out = node.getWriter();
         this.in = new ObjectInputStream(clientsocket.getInputStream());
     }
@@ -105,8 +102,6 @@ public class ServerManager extends Thread{
      * Overview: method aimed to close resources
      */
     public void close() throws IOException{
-        //reader.close();
-        //writer.close();
         in.close();
         out.close();
         System.out.println("lost connection");

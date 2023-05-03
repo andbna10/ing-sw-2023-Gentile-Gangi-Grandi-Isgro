@@ -32,7 +32,7 @@ public class Server {
     public void start() throws IOException{
         socketList = new ArrayList<ListNode>();
 
-        //task to send ping messages, servermanager handles his client ping feedback and sets flag ListNode.Ok
+        //task to send ping messages, servermanager handles his client's ping feedback and sets flag ListNode.Ok
         new Thread(() -> {
             while(true) {
 
@@ -71,21 +71,6 @@ public class Server {
 
                 // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
                 ServerManager server = new ServerManager(clientsocket, lobbymanager, node);
-
-                /*System.out.println("starting the heartbeatprocedure - server");
-                ScheduledExecutorService heartbeatProcedure = Executors.newSingleThreadScheduledExecutor();
-                heartbeatProcedure.scheduleAtFixedRate(() ->{
-                    try {
-                        Boolean ok = server.heartbeat();
-                        if(!ok){
-                            heartbeatProcedure.shutdown();
-                        }
-                    } catch (IOException e) {
-                        //System.exit(1);
-                    }
-                }, 0, 5, TimeUnit.SECONDS);*/
-
-
 
                 // here we start the thread aka manager with which client and server exchange messages
                 server.start();

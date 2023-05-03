@@ -13,8 +13,6 @@ import java.net.Socket;
 
 public class ClientManager extends Thread{
     private Socket serversocket;
-    //private BufferedReader reader;
-    //private PrintWriter writer;
     private Boolean isMessage;
     private Boolean readerThreadActive;
     private Message message;
@@ -33,8 +31,6 @@ public class ClientManager extends Thread{
         message = null;
         readerThreadActive = false;
         serversocket = socket;
-        //reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        //writer = new PrintWriter(socket.getOutputStream(), true);
         this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
         this.objectReader = new ObjectInputStream(socket.getInputStream());
     }
@@ -91,14 +87,14 @@ public class ClientManager extends Thread{
     /**
      * Overview: method aimed to close resources
      */
+    /*
     public void close() throws IOException{
-        //reader.close();
-        //writer.close();
         objectReader.close();
         objectWriter.close();
         System.out.println("lost connection");
         serversocket.close();
     }
+    */
 
     /**
      * Overview: method aimed to notify the manager that there is a message to be sent trhough the socket

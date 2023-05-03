@@ -17,26 +17,7 @@ public class mainProva {
         // this is the login handler which will manage the login page of the new client connected
         LoginHandler loginhandler = new LoginHandler(client);
 
-
-        /*System.out.println("I'm starting the heartbeat procedure - client");
-        ScheduledExecutorService heartbeatProcedure = Executors.newSingleThreadScheduledExecutor();
-        heartbeatProcedure.scheduleAtFixedRate(() ->{
-            try {
-                Boolean ok = client.heartbeat();
-                if(!ok){
-                    heartbeatProcedure.shutdown();
-                }
-            } catch (IOException e) {
-                System.exit(1);
-            }
-
-        }, 0, 5, TimeUnit.SECONDS);*/
-
         client.start();
-
-        //prova lettura messaggi - da sostituire con CLI
-        /*TimeUnit.SECONDS.sleep(3);
-        loginhandler.creategamemessage("senderprova", "andbna");*/
 
         //CLI
         Scanner scanner = new Scanner(System.in);

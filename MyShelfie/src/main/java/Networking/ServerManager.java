@@ -176,6 +176,7 @@ public class ServerManager extends Thread{
 
             //heartbeat procedure
             case PING:
+                System.out.println("pinged");
                 ref.setOk();
                 break;
         }

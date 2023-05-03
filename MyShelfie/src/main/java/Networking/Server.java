@@ -36,18 +36,31 @@ public class Server {
         new Thread(() -> {
             while(true) {
 
-                System.out.println("pinging");
+                System.out.println("pinging "+ socketList.size());
 
                 try {
-                    for (ListNode client : socketList) client.send();
 
                     Thread.sleep(6000);
 
-                    for (ListNode client : socketList)
-                        if (!client.getOk()) {
-                            client.close();
-                            socketList.remove(client);
-                        } else client.resetOk();
+                    if(socketList.size() > 0) {
+
+                        // closing clients which did not answer the ping
+                        for (ListNode client : socketList) {
+                            if (!client.getOk()) {
+                                socketList.remove(client);
+                                client.close();
+                            } else {
+                                client.resetOk();
+                            }
+                        }
+                    }
+
+                    // sending ping message to clients still connected
+                    if(socketList.size() > 0){
+                        for (ListNode client : socketList) client.send();
+                    }
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -69,13 +82,15 @@ public class Server {
 
                 node = new ListNode(clientsocket, new ObjectOutputStream(clientsocket.getOutputStream()));
 
+                socketList.add(node);
+
                 // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
                 ServerManager server = new ServerManager(clientsocket, lobbymanager, node);
 
                 // here we start the thread aka manager with which client and server exchange messages
                 server.start();
 
-                socketList.add(node);
+
 
             }
         } catch(IOException e){

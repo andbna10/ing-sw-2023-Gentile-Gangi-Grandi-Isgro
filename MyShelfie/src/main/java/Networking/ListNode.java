@@ -17,8 +17,7 @@ public class ListNode {
     public ListNode(Socket arg1, ObjectOutputStream arg2) {
         this.socket = arg1;
         this.writer = arg2;
-        this.Ok = true;
-    }
+        this.Ok = true;}
 
     /**
      * Overview: writer getter
@@ -63,4 +62,5 @@ public class ListNode {
         this.socket.getOutputStream().close();
         this.socket.close();
     }
+
 }

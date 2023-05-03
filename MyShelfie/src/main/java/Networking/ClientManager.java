@@ -128,7 +128,7 @@ public class ClientManager extends Thread{
      * Overview: method aimed to handle an upcoming received message
      */
     public void handleMessage(Message message) throws IOException {
-
+        System.out.println("there is a message to be read");
         // update the lobby view
         switch(message.getType()) {
             case CREATELOBBYVIEW:

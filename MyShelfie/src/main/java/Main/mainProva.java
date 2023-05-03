@@ -27,7 +27,7 @@ public class mainProva {
                 "* create game : generate a new game \n" +
                 "* join game   : join a game with the id\n");
 
-        System.out.print("> ");
+        System.out.print("> \n");
         String input = scanner.nextLine();
 
         if (input.equals("create game")) {

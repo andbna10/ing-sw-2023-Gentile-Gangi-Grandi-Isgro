@@ -1,15 +1,11 @@
 package Main;
 
-import Client.NetworkHandler.LoginHandler;
-import Messages.fromClientToServer.CreateGameMessage;
+import ClientSide.NetworkHandler.LoginHandler;
 import Networking.ClientManager;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class mainProva {
     public static void main(String[] args) throws IOException, InterruptedException {

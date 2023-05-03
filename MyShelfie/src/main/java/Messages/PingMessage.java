@@ -1,10 +1,13 @@
 package Messages;
 
-public class PingMessage extends Message{
+import Messages.Message;
+import Messages.MessageType;
+
+public class PingMessage extends Message {
     private String message;
 
     /**
-     * Overview: constructor PingMessage
+     * Overview: constructor Messages.PingMessage
      */
     public PingMessage(String message, String sender){
         super(sender);

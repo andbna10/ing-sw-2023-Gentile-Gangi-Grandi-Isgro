@@ -1,22 +1,20 @@
 package Networking;
 
-import Client.NetworkHandler.GameHandler;
-import Client.NetworkHandler.LobbyHandler;
-import Client.NetworkHandler.LoginHandler;
+import ClientSide.NetworkHandler.GameHandler;
+import ClientSide.NetworkHandler.LobbyHandler;
+import ClientSide.NetworkHandler.LoginHandler;
 import Messages.Message;
-import Messages.MessageType;
+import Messages.PingMessage;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
 import Messages.fromServerToClient.GameHasStartedMessage;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.io.*;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
 
 public class ClientManager extends Thread{
     private Socket serversocket;
-    private BufferedReader reader;
-    private PrintWriter writer;
+    //private BufferedReader reader;
+    //private PrintWriter writer;
     private Boolean isMessage;
     private Boolean readerThreadActive;
     private Message message;
@@ -35,8 +33,8 @@ public class ClientManager extends Thread{
         message = null;
         readerThreadActive = false;
         serversocket = socket;
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        writer = new PrintWriter(socket.getOutputStream(), true);
+        //reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        //writer = new PrintWriter(socket.getOutputStream(), true);
         this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
         this.objectReader = new ObjectInputStream(socket.getInputStream());
     }
@@ -94,8 +92,8 @@ public class ClientManager extends Thread{
      * Overview: method aimed to close resources
      */
     public void close() throws IOException{
-        reader.close();
-        writer.close();
+        //reader.close();
+        //writer.close();
         objectReader.close();
         objectWriter.close();
         System.out.println("lost connection");
@@ -110,6 +108,7 @@ public class ClientManager extends Thread{
     /**
      * Overview: heartbeat method
      */
+    /*
     public Boolean heartbeat() throws IOException{
         if(!serversocket.isClosed()) {
             writer.println("ping");
@@ -127,40 +126,50 @@ public class ClientManager extends Thread{
 
         return false;
     }
+    */
 
     /**
      * Overview: method aimed to handle an upcoming received message
      */
-    public void handleMessage(Message message){
+    public void handleMessage(Message message) throws IOException {
+
         // update the lobby view
-        if (message.getType() == MessageType.CREATELOBBYVIEW) {
-            System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
-            CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-            if (lobbyhandler == null) {
-                LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
-                this.lobbyhandler = lobbyhandler;
-            } else {
-                // here the last player added to the lobby is passed as parameter to the addPlayer() method
-                this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
-            }
-        }
+        switch(message.getType()) {
+            case CREATELOBBYVIEW:
+                System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
+                CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
+                if (lobbyhandler == null) {
+                    LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
+                    this.lobbyhandler = lobbyhandler;
+                } else {
+                    // here the last player added to the lobby is passed as parameter to the addPlayer() method
+                    this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
+                }
+                break;
 
-        // game can start (it is always a lobby view update)
-        if (message.getType() == MessageType.GAMECANSTART) {
-            // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
-            // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
-            // chi crea la lobby è marchiato come LobbyOwner (nel model )
-        }
+            // game can start (it is always a lobby view update)
+            case GAMECANSTART:
+                // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
+                // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
+                // chi crea la lobby è marchiato come LobbyOwner (nel model )
+                break;
 
-        // create the Game View
-        if (message.getType() == MessageType.GAMEHASSTARTED) {
-            GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
-            GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
-        }
+            // create the Game View
+            case GAMEHASSTARTED:
+                GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
+                GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+                break;
 
-        // create the Player View
-        if (message.getType() == MessageType.CREATEPLAYERVIEW) {
+            // create the Player View
+            case CREATEPLAYERVIEW:
+                break;
 
+            //heartbeat procedure
+            case PING:
+                objectWriter.writeObject(new PingMessage("ping", "user0"));
+                objectWriter.flush();
+                System.out.println("pinged");
+                break;
         }
     }
 

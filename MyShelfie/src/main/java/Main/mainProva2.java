@@ -1,6 +1,6 @@
 package Main;
 
-import Client.NetworkHandler.LoginHandler;
+import ClientSide.NetworkHandler.LoginHandler;
 import Networking.ClientManager;
 
 import java.io.BufferedReader;
@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/*
 public class mainProva2 {
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket("localhost", 59091 );
@@ -46,5 +47,7 @@ public class mainProva2 {
 
     }
 }
+
+*/
 
 

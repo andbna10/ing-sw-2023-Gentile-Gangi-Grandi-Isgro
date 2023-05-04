@@ -55,10 +55,10 @@ public class Bookshelf {
      */
     public StringBuffer getGameTiles(){
         StringBuffer out = new StringBuffer();
-        for(int i=0; i<gameTiles.length; i++){
-            for(int j=0; j<gameTiles[0].length; j++){
-                if(gameTiles[i][j] != null){
-                    out.append(gameTiles[i][j].getId());
+        for (ItemTile[] gameTile : gameTiles) {
+            for (int j = 0; j < gameTiles[0].length; j++) {
+                if (gameTile[j] != null) {
+                    out.append(gameTile[j].getId());
                 } else {
                     out.append("null");
                 }
@@ -93,9 +93,7 @@ public class Bookshelf {
      * Overview: check if a column of the bookshelf is full
      */
     public Boolean columnIsFull(int index){
-        for(int i=0; i<gameTiles.length; i++)
-            if(gameTiles[i][index] == null) return false;
-
+        for (ItemTile[] gameTile : gameTiles) if (gameTile[index] == null) return false;
         return true;
     }
 
@@ -103,8 +101,8 @@ public class Bookshelf {
      * Overview: check if the bookshelf is full
      */
     public Boolean bookshelfIsFull(){
-        for(int i=0; i<gameTiles.length;i++)
-            for(int j=0; i<gameTiles[0].length;j++)
+        for(int i=0; i<gameTiles.length; i++)
+            for(int j=0; i<gameTiles[0].length; j++)
                 if(gameTiles[i][j] != null) return false;
 
         return true;

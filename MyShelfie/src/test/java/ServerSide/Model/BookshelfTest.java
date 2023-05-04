@@ -21,7 +21,7 @@ class BookshelfTest {
         tiles.add(new ItemTile(ItemType.BOOKS));
         tiles.add(new ItemTile(ItemType.CATS));
         shelf.setTiles(0, tiles);
-        System.out.println(shelf.getTile(4, 0).getType().toString());
+        assertEquals(shelf.getTile(4, 0).getType(), ItemType.BOOKS);
     }
 
 }

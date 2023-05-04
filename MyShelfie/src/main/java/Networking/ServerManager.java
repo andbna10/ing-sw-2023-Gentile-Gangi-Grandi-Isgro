@@ -149,7 +149,7 @@ public class ServerManager extends Thread{
                 System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
                 CreateGameMessage creategamemessage = (CreateGameMessage) message;
                 String id = UUID.randomUUID().toString();
-                lobbymanager.createlobby(id);
+                lobbymanager.createLobby(id);
                 this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
                 player = new Player(creategamemessage.getUsername(), true, id, this);
                 this.playerview = (VirtualPlayerView) player.getObs();

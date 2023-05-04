@@ -52,8 +52,7 @@ public class GameController implements GameVViewObserver {
      */
     public int selectFirstToPlay(int nPlayers){
         Random r = new Random();
-        int index = r.nextInt(nPlayers);
-        return index;
+        return r.nextInt(nPlayers);
     }
 
     /**
@@ -62,11 +61,11 @@ public class GameController implements GameVViewObserver {
     public void associateScoringTokens(int nPlayers){
         Random r = new Random();
         ArrayList<ScoringToken> scoringtokens = gameName.selectScoringToken(nPlayers);
-        for(int i=0; i<scoringtokens.size();i++){
-            if(scoringtokens.get(i).getRoman() == Roman.I){
-                model.getCommonGoals().get(0).setElementStack(scoringtokens.get(i));
+        for (ScoringToken scoringtoken : scoringtokens) {
+            if (scoringtoken.getRoman() == Roman.I) {
+                model.getCommonGoals().get(0).setElementStack(scoringtoken);
             } else {
-                model.getCommonGoals().get(1).setElementStack(scoringtokens.get(i));
+                model.getCommonGoals().get(1).setElementStack(scoringtoken);
             }
         }
     }

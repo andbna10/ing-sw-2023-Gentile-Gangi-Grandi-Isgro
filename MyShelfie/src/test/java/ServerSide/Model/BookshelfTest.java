@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookshelfTest {
-
     @Test
     void canInsertTest() {
         var shelf = new Bookshelf();
@@ -24,4 +23,5 @@ class BookshelfTest {
         shelf.setTiles(0, tiles);
         System.out.println(shelf.getTile(4, 0).getType().toString());
     }
+
 }

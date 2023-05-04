@@ -1,7 +1,7 @@
-package ServerSide.Model;
+package ServerSide.Controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BoardGameTest {
+class MyShelfieTest {
 
 }

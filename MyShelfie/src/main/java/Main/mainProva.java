@@ -22,33 +22,38 @@ public class mainProva {
         //CLI
         Scanner scanner = new Scanner(System.in);
         String sender = "prova";
+        Boolean entered = false;
 
-        System.out.print("command info\n" +
-                "* create game : generate a new game \n" +
-                "* join game   : join a game with the id\n");
+        //while(!entered) {
+            System.out.print("command info\n" +
+                    "* create game : generate a new game \n" +
+                    "* join game   : join a game with the id\n");
 
-        System.out.print("> \n");
-        String input = scanner.nextLine();
+            System.out.print("> \n");
+            String input = scanner.nextLine();
 
-        if (input.equals("create game")) {
+            if (input.equals("create game")) {
 
-            System.out.println("enter username:");
-            String username = scanner.nextLine();
-            //controllo che non sia già presente
-            //System.out.println("starting new game");
-            //instanzia una nuova partita
-            loginhandler.creategamemessage(sender,username);
+                System.out.println("enter username:");
+                String username = scanner.nextLine();
 
-        }else if (input.equals("join game")){
+                //System.out.println("starting new game");
+                //instanzia una nuova partita
+                loginhandler.creategamemessage(sender, username);
+                // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
 
-            System.out.println("enter username:");
-            String username = scanner.nextLine();
-            System.out.println("enter the game id:");
-            String gameid = scanner.nextLine();
-            //System.out.println("joining the game");
-            loginhandler.entergamemessage(sender,username,gameid);
+            } else if (input.equals("join game")) {
 
-        }
+                System.out.println("enter username:");
+                String username = scanner.nextLine();
+                System.out.println("enter the game id:");
+                String gameid = scanner.nextLine();
+                //System.out.println("joining the game");
+                loginhandler.entergamemessage(sender, username, gameid);
+                // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+            }
+        //}
+
         // CLI ends
     }
 }

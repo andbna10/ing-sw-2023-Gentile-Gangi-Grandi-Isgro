@@ -29,8 +29,8 @@ public class LobbyController implements LobbyVViewObserver {
             model.notifyObserverPlayerAdded();
             if(model.getPlayers().size() >= 2 && model.getPlayers().size() <= 4){
                 if(!model.getReadyToPlay()){
+                    System.out.println("ready to play");
                     model.setReadyToPlay(true);
-                    //model.notifyObserverGameCanStart(); è chiamato direttamente dal model, quando il ReadytoPlay viene settato a true
                 }
             }
         }
@@ -45,4 +45,6 @@ public class LobbyController implements LobbyVViewObserver {
      * Overview: model getter
      */
     public Lobby getModel(){ return this.model; }
+
+
 }

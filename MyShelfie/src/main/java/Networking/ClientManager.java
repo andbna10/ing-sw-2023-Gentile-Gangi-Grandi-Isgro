@@ -7,6 +7,7 @@ import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
 import Messages.fromServerToClient.GameHasStartedMessage;
+import Messages.fromServerToClient.UsernameUsedMessage;
 
 import java.io.*;
 import java.net.Socket;
@@ -65,11 +66,11 @@ public class ClientManager extends Thread{
 
             // sending
             if(isMessage && message != null){
-                System.out.println("the client has a message to be sent...");
+                //System.out.println("the client has a message to be sent...");
                 try {
                     objectWriter.writeObject(message);
                     objectWriter.flush();
-                    System.out.println("sent");
+                    //System.out.println("sent");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -128,12 +129,17 @@ public class ClientManager extends Thread{
      * Overview: method aimed to handle an upcoming received message
      */
     public void handleMessage(Message message) throws IOException {
-        System.out.println("there is a message to be read");
-        // update the lobby view
+        //System.out.println("there is a message to be read");
+
         switch(message.getType()) {
+            // update the lobby view
             case CREATELOBBYVIEW:
                 System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
+                System.out.println("The id of the lobby is: "+ createlobbyviewmessage.getId());
+                for(String s: createlobbyviewmessage.getUsernames()){
+                    System.out.println(s);
+                }
                 if (lobbyhandler == null) {
                     LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                     this.lobbyhandler = lobbyhandler;
@@ -145,6 +151,7 @@ public class ClientManager extends Thread{
 
             // game can start (it is always a lobby view update)
             case GAMECANSTART:
+                System.out.println("--------------------------- GAME CAN START ---------------------------");
                 // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
                 // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
                 // chi crea la lobby è marchiato come LobbyOwner (nel model )
@@ -160,12 +167,21 @@ public class ClientManager extends Thread{
             case CREATEPLAYERVIEW:
                 break;
 
-            //heartbeat procedure
+            // username in use
+            case USERNAMEUSED:
+                UsernameUsedMessage usernameusedmessage = (UsernameUsedMessage) message;
+                System.out.println(usernameusedmessage.getMessage());
+                break;
+
+            // heartbeat procedure
             case PING:
                 objectWriter.writeObject(new PingMessage("ping", "user0"));
                 objectWriter.flush();
-                System.out.println("pinged");
+                //System.out.println("pinged");
                 break;
+
+
+
         }
     }
 

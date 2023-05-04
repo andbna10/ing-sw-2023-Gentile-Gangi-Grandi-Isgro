@@ -1,5 +1,7 @@
 package ServerSide.Controller;
 
+import ServerSide.Model.Player;
+
 import java.util.HashMap;
 
 
@@ -30,6 +32,20 @@ public class LobbyManager {
      * Overview: method aimed to close a lobby
      */
     public void closeLobby(String id){ lobbies.remove(id); }
+
+    /**
+     * Overview: check for the username existance among active players
+     */
+    public Boolean checkUsername(String username){
+        for(LobbyController lobbyc: lobbies.values()){
+            for(Player p: lobbyc.getModel().getPlayers()){
+                if(p.getUsername().equals(username)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
 }

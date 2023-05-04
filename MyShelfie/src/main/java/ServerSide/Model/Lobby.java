@@ -17,6 +17,7 @@ public class Lobby {
     public Lobby(String id){
         this.id = id;
         this.players = new ArrayList<>();
+        this.readyToPlay = false;
     }
 
     /**
@@ -39,6 +40,7 @@ public class Lobby {
         this.readyToPlay = status;
 
         if(status){
+            System.out.println("notifying observers");
             notifyObserverGameCanStart();
         }
     }
@@ -53,13 +55,16 @@ public class Lobby {
      */
     public void notifyObserverPlayerAdded(){
         String[] usernames = getUsernames();
-        this.obs.updatelobbyviewmessage(usernames);
+        this.obs.updatelobbyviewmessage(usernames, this.id);
     }
 
     /**
      * Overview: the Observer of the lobby is notified about the possibility to start the game
      */
-    public void notifyObserverGameCanStart(){ this.obs.gamecanstartmessage(); }
+    public void notifyObserverGameCanStart(){
+        System.out.println("creation of the message");
+        this.obs.gamecanstartmessage();
+    }
 
     /**
      * Overview: readyToPlay getter

@@ -36,11 +36,9 @@ public class Server {
         new Thread(() -> {
             while(true) {
 
-                System.out.println("pinging "+ socketList.size());
+                //System.out.println("pinging "+ socketList.size());
 
                 try {
-
-                    Thread.sleep(6000);
 
                     if(socketList.size() > 0) {
 
@@ -54,6 +52,8 @@ public class Server {
                             }
                         }
                     }
+
+                    Thread.sleep(6000);
 
                     // sending ping message to clients still connected
                     if(socketList.size() > 0){

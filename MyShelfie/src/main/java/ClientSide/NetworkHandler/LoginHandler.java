@@ -35,4 +35,5 @@ public class LoginHandler implements LoginViewObserver{
         manager.setIsMessage(true);
         manager.setMessage(message);
     }
+
 }

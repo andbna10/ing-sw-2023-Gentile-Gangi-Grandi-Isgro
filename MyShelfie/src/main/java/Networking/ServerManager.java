@@ -4,6 +4,7 @@ import Messages.fromClientToServer.CreateGameMessage;
 import Messages.Message;
 import Messages.fromClientToServer.EnterGameMessage;
 import Messages.fromClientToServer.StartGameMessage;
+import Messages.fromServerToClient.UsernameUsedMessage;
 import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualGameView;
 import ServerSide.VirtualView.VirtualLobbyView;
@@ -16,7 +17,6 @@ import java.util.UUID;
 
 public class ServerManager extends Thread{
     private Socket clientsocket;
-
     private Boolean readerThreadActive;
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -74,11 +74,11 @@ public class ServerManager extends Thread{
 
             // sending
             if(isMessage && message != null){
-                System.out.println("the server has a message to be sent...");
+                //System.out.println("the server has a message to be sent...");
                 try {
                     this.out.writeObject(this.message);
                     this.out.flush();
-                    System.out.println("sent");
+                    //System.out.println("sent");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -101,12 +101,12 @@ public class ServerManager extends Thread{
     /**
      * Overview: method aimed to close resources
      */
-    public void close() throws IOException{
+    /*public void close() throws IOException{
         in.close();
         out.close();
         System.out.println("lost connection");
         clientsocket.close();
-    }
+    }*/
 
     /**
      * Overview: heartbeat method
@@ -141,42 +141,58 @@ public class ServerManager extends Thread{
      */
     public void handleMessage(Message message) throws IOException {
         Player player;
-        System.out.println("there is a message to be read");
-        // creation of the lobby
+        //System.out.println("there is a message to be read");
 
         switch(message.getType()) {
+            // creation of the lobby
             case CREATEGAME:
-                System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
                 CreateGameMessage creategamemessage = (CreateGameMessage) message;
-                String id = UUID.randomUUID().toString();
-                lobbymanager.createLobby(id);
-                this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
-                player = new Player(creategamemessage.getUsername(), true, id, this);
-                this.playerview = (VirtualPlayerView) player.getObs();
-                this.lobbyview.getObs().addPlayer(player);
-                break;
+                if(lobbymanager.checkUsername(creategamemessage.getUsername())){
+                    UsernameUsedMessage toSend = new UsernameUsedMessage();
+                    this.setIsMessage(true);
+                    this.setMessage(toSend);
+                    break;
+                } else {
+                    System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
+
+                    String id = UUID.randomUUID().toString();
+                    lobbymanager.createLobby(id);
+                    this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
+                    player = new Player(creategamemessage.getUsername(), true, id, this);
+                    this.playerview = (VirtualPlayerView) player.getObs();
+                    this.lobbyview.getObs().addPlayer(player);
+                    break;
+                }
 
             // entering an already existing lobby
             case ENTERGAME:
                 EnterGameMessage entergamemessage = (EnterGameMessage) message;
-                this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
-                player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
-                this.playerview = (VirtualPlayerView) player.getObs();
-                this.lobbyview.getObs().addPlayer(player);
-                break;
+                if(lobbymanager.checkUsername(entergamemessage.getUsername())) {
+                    UsernameUsedMessage toSend = new UsernameUsedMessage();
+                    this.setIsMessage(true);
+                    this.setMessage(toSend);
+                    break;
+                } else {
+                    System.out.println("--------------------------- ENTERING THE ENTER EXISTING LOBBY PROCEDURE ---------------------------");
 
-            // this action has to be made only by the creator of the lobby (no perche senno il game view di un altro player non viene settato)
+                    this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
+                    player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
+                    this.playerview = (VirtualPlayerView) player.getObs();
+                    this.lobbyview.getObs().addPlayer(player);
+                    break;
+                }
+
+            // this action has to be made only by the creator of the lobby
             // starting the game
             case STARTGAME:
                 StartGameMessage startgamemessage = (StartGameMessage) message;
                 GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                 setGameView(gamecontroller.getVirtualView());
-                // e agli altri (cioè a chi non starta la partita) come lo si setta? lo faccio dal game controller
                 break;
 
             //heartbeat procedure
             case PING:
-                System.out.println("pinged");
+                //System.out.println("pinged");
                 ref.setOk();
                 break;
         }

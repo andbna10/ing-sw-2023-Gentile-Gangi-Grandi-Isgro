@@ -37,8 +37,8 @@ public class VirtualLobbyView implements LobbyObserver{
     /**
      * Overview: method aimed to create a CreateLobbyViewMessage
      */
-    public void updatelobbyviewmessage(String[] usernames){
-        CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames);
+    public void updatelobbyviewmessage(String[] usernames, String id){
+        CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames, id);
         for(ServerManager manager: this.managers) {
             manager.setIsMessage(true);
             manager.setMessage(message);
@@ -52,6 +52,7 @@ public class VirtualLobbyView implements LobbyObserver{
     public void gamecanstartmessage(){
         GameCanStartMessage message = new GameCanStartMessage();
         for(ServerManager manager: this.managers) {
+            System.out.println("player i");
             manager.setIsMessage(true);
             manager.setMessage(message);
         }

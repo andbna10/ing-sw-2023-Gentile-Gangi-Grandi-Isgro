@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Server {
@@ -40,20 +41,33 @@ public class Server {
 
                 try {
 
+                    Thread.sleep(6000);
+
                     if(socketList.size() > 0) {
 
                         // closing clients which did not answer the ping
-                        for (ListNode client : socketList) {
+                        Iterator<ListNode> iterator = socketList.iterator();
+                        while (iterator.hasNext()) {
+                            ListNode client = iterator.next();
+                            if (!client.getOk()) {
+                                iterator.remove();
+                                client.close();
+                            } else {
+                                client.resetOk();
+                            }
+                        }
+
+                        /*for (ListNode client : socketList) {
                             if (!client.getOk()) {
                                 socketList.remove(client);
                                 client.close();
                             } else {
                                 client.resetOk();
                             }
-                        }
+                        }*/
                     }
 
-                    Thread.sleep(6000);
+
 
                     // sending ping message to clients still connected
                     if(socketList.size() > 0){

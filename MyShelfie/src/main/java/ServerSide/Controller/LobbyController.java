@@ -22,7 +22,7 @@ public class LobbyController implements LobbyVViewObserver {
     /**
      * Overview: add a player in the lobby
      */
-    public void addPlayer(Player player){
+    public void addPlayer(Player player) throws InterruptedException {
         if(model.getPlayers().size() < 4){
             model.setPlayer(player);
             virtualview.setManager(player.getManager());
@@ -31,6 +31,8 @@ public class LobbyController implements LobbyVViewObserver {
                 if(!model.getReadyToPlay()){
                     System.out.println("ready to play");
                     model.setReadyToPlay(true);
+                    Thread.sleep(1000);
+                    model.notifyObserverGameCanStart();
                 }
             }
         }

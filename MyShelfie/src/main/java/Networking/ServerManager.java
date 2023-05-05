@@ -67,6 +67,8 @@ public class ServerManager extends Thread{
 
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 });
                 readerthread.start();
@@ -139,7 +141,7 @@ public class ServerManager extends Thread{
     /**
      * Overview: method aimed to handle an upcoming received message
      */
-    public void handleMessage(Message message) throws IOException {
+    public void handleMessage(Message message) throws IOException, InterruptedException {
         Player player;
         //System.out.println("there is a message to be read");
 

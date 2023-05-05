@@ -171,6 +171,7 @@ public class ClientManager extends Thread{
             case USERNAMEUSED:
                 UsernameUsedMessage usernameusedmessage = (UsernameUsedMessage) message;
                 System.out.println(usernameusedmessage.getMessage());
+                System.out.println("refresh!");
                 break;
 
             // heartbeat procedure

@@ -39,8 +39,11 @@ public class mainProva {
 
                 //System.out.println("starting new game");
                 //instanzia una nuova partita
+
                 loginhandler.creategamemessage(sender, username);
+
                 // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+
 
             } else if (input.equals("join game")) {
 

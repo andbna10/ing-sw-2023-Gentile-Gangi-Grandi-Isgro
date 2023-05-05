@@ -6,5 +6,5 @@ public interface LobbyVViewObserver {
     /**
      * Overview: add a player in the lobby
      */
-    void addPlayer(Player player);
+    void addPlayer(Player player) throws InterruptedException;
 }

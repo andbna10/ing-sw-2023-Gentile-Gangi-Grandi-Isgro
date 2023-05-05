@@ -38,11 +38,6 @@ public class Lobby {
      */
     public void setReadyToPlay(Boolean status){
         this.readyToPlay = status;
-
-        if(status){
-            System.out.println("notifying observers");
-            notifyObserverGameCanStart();
-        }
     }
 
     /**

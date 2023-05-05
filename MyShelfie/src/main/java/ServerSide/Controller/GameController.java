@@ -59,7 +59,6 @@ public class GameController implements GameVViewObserver {
      * Overview: associate scoring tokens to selected common goal cards
      */
     public void associateScoringTokens(int nPlayers){
-        Random r = new Random();
         ArrayList<ScoringToken> scoringtokens = gameName.selectScoringToken(nPlayers);
         for (ScoringToken scoringtoken : scoringtokens) {
             if (scoringtoken.getRoman() == Roman.I) {

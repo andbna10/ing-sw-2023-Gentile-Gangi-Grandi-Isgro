@@ -39,7 +39,7 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     }
 
     /**
-     * Overview: method aimed to check the accomplishment of a common goal, it returns true if the goal has been reached
+     * Overview: method aimed to check the accomplishment of a common goal, it returns the points if the goal has been reached
      */
     public int checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal, int index){
         boolean ok = goal.validated(bookshelf);
@@ -69,7 +69,7 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     }
 
     /**
-     * Overview: method aimed to check the adjacent tiles
+     * Overview: method aimed to check the adjacent tiles, returns the points for adjacent tiles
      */
     public int checkAdjacentTiles(Bookshelf bookshelf){
         int points=0,count;
@@ -85,6 +85,10 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
         }
         return points;
     }
+
+    /**
+     * Overview: recursive method based on the floodfill algorithm called to check adjacent tiles in the bookshelf
+     */
     int floodFill(int i, int j, Bookshelf bookshelf, int count, ItemType itemType ){
         if(i>=6 || j>=5)
             return 0;

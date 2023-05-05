@@ -160,5 +160,8 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
 
     }
 
-
+    /**
+     * player getter
+     */
+    public Player getModel() { return model;}
 }

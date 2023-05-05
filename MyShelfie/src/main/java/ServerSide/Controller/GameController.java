@@ -101,6 +101,18 @@ public class GameController implements GameVViewObserver {
      * Overview: end game
      */
     // to be implemented (qui si deve vedere chi ha fatto piu punti)
+    public void endGame(){
+        for(PlayerController playerController:players){
+            playerController.getModel().addPoints(playerController.checkPersonalGoal(playerController.getModel().getBookshelf(),playerController.getModel().getGoal()));
+            playerController.getModel().addPoints(playerController.checkAdjacentTiles(playerController.getModel().getBookshelf()));
+        }
+        //decretare il vincitore
+        for(Player player: model.getPlayers()){
+            //if(player.getPoints()>maxpoints)//sistemare ordine array players in modo che sia orario
+                // maxpoints=player.getPoints();
+                // winner=player.getUsername();
+        }
+    }
 
     /**
      * Overview: model getter

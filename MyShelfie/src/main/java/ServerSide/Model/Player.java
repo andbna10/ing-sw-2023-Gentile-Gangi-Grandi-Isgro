@@ -50,6 +50,11 @@ public class Player {
     public int getPoints(){ return points; }
 
     /**
+     * Overview: add points to the total points of the player
+     */
+    public void addPoints(int newpoints){points+=newpoints;}
+
+    /**
      * Overview: get goal
      */
     public PersonalGoalCard getGoal(){ return goal; }

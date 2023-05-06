@@ -110,12 +110,10 @@ public class GameController implements GameVViewObserver {
         }
         //decretare il vincitore
         //utilizzando order con il senso orario e il >= copro il caso di parità
-        for(Player player: model.getPlayers()){
-            for(int i=0;i<model.getPlayers().size();i++){
-                if(model.getPlayers().get(model.getOrder(i)).getPoints()>=maxpoints) {
-                    maxpoints = model.getPlayers().get(model.getOrder(i)).getPoints();
-                    model.setWinner(model.getPlayers().get(model.getOrder(i)).getUsername());
-                }
+        for(int i=0;i<model.getPlayers().size();i++){
+            if(model.getPlayers().get(model.getOrder(i)).getPoints()>=maxpoints) {
+                maxpoints = model.getPlayers().get(model.getOrder(i)).getPoints();
+                model.setWinner(model.getPlayers().get(model.getOrder(i)).getUsername());
             }
         }
     }

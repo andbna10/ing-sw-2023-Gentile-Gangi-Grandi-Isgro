@@ -43,37 +43,19 @@ public class Server {
 
                     Thread.sleep(6000);
 
-                    if(socketList.size() > 0) {
-
-                        // closing clients which did not answer the ping
-                        Iterator<ListNode> iterator = socketList.iterator();
-                        while (iterator.hasNext()) {
-                            ListNode client = iterator.next();
-                            if (!client.getOk()) {
-                                iterator.remove();
-                                client.close();
-                            } else {
-                                client.resetOk();
-                            }
-                        }
-
-                        /*for (ListNode client : socketList) {
-                            if (!client.getOk()) {
-                                socketList.remove(client);
-                                client.close();
-                            } else {
-                                client.resetOk();
-                            }
-                        }*/
+                    // closing clients which did not answer the ping
+                    Iterator<ListNode> iterator = socketList.iterator();
+                    while (iterator.hasNext()) {
+                        ListNode client = iterator.next();
+                        if (!client.getOk()) {
+                            iterator.remove();
+                            client.close();
+                        } else
+                            client.resetOk();
                     }
-
-
 
                     // sending ping message to clients still connected
-                    if(socketList.size() > 0){
-                        for (ListNode client : socketList) client.send();
-                    }
-
+                    for (ListNode client : socketList) client.send();
 
                 } catch (Exception e) {
                     e.printStackTrace();

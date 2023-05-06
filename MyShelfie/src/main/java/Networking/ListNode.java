@@ -58,8 +58,8 @@ public class ListNode {
      * Overview: closes streams then closes socket
      */
     public void close() throws IOException {
-        this.socket.getInputStream().close();
-        this.socket.getOutputStream().close();
+        //this.socket.getInputStream().close();
+        //this.socket.getOutputStream().close();
         this.socket.close();
     }
 

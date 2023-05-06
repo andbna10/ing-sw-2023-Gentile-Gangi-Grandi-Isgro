@@ -64,6 +64,9 @@ public class ServerManager extends Thread{
                             handleMessage(message);
                             readerThreadActive = false;
                         }
+                    } catch (EOFException e) {
+
+                        message = null;
 
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
@@ -153,7 +156,6 @@ public class ServerManager extends Thread{
                     UsernameUsedMessage toSend = new UsernameUsedMessage();
                     this.setIsMessage(true);
                     this.setMessage(toSend);
-                    break;
                 } else {
                     System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
 
@@ -163,8 +165,8 @@ public class ServerManager extends Thread{
                     player = new Player(creategamemessage.getUsername(), true, id, this);
                     this.playerview = (VirtualPlayerView) player.getObs();
                     this.lobbyview.getObs().addPlayer(player);
-                    break;
                 }
+                break;
 
             // entering an already existing lobby
             case ENTERGAME:

@@ -102,15 +102,21 @@ public class GameController implements GameVViewObserver {
      */
     // to be implemented (qui si deve vedere chi ha fatto piu punti)
     public void endGame(){
+        int maxpoints=0;
+        //calcolo punteggi
         for(PlayerController playerController:players){
             playerController.getModel().addPoints(playerController.checkPersonalGoal(playerController.getModel().getBookshelf(),playerController.getModel().getGoal()));
             playerController.getModel().addPoints(playerController.checkAdjacentTiles(playerController.getModel().getBookshelf()));
         }
         //decretare il vincitore
+        //utilizzando order con il senso orario e il >= copro il caso di parità
         for(Player player: model.getPlayers()){
-            //if(player.getPoints()>maxpoints)//sistemare ordine array players in modo che sia orario
-                // maxpoints=player.getPoints();
-                // winner=player.getUsername();
+            for(int i=0;i<model.getPlayers().size();i++){
+                if(model.getPlayers().get(model.getOrder(i)).getPoints()>=maxpoints) {
+                    maxpoints = model.getPlayers().get(model.getOrder(i)).getPoints();
+                    model.setWinner(model.getPlayers().get(model.getOrder(i)).getUsername());
+                }
+            }
         }
     }
 

@@ -11,6 +11,7 @@ public class Game {
     private int[] order;
     private int currentTurnPlayer;
     private Boolean isFinished;
+    private String winner;
     private GameObserver obs;
     // vedere se mettere come observers del game anche i virtualplayerview
 
@@ -69,9 +70,9 @@ public class Game {
     public ArrayList<CommonGoalCard> getCommonGoals(){ return commonGoals; }
 
     /**
-     * Overview: order getter
+     * Overview: index order getter
      */
-    public int[] getOrder(){ return order; }
+    public int getOrder(int i){ return order[i]; }
 
     /**
      * Overview: currentTurnPlayer getter
@@ -82,6 +83,16 @@ public class Game {
      * Overview: isFinished getter
      */
     public Boolean getIsFinished(){ return isFinished; }
+
+    /**
+     * Overview: winneer setter
+     */
+    public void setWinner(String player){ winner=player;}
+
+    /**
+     * Overview: winneer getter
+     */
+    public String getWinner(){ return winner; }
 
     /**
      * Overview: players getter

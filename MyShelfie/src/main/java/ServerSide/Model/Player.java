@@ -4,6 +4,7 @@ import Networking.ServerManager;
 import ServerSide.VirtualView.PlayerObserver;
 import ServerSide.VirtualView.VirtualPlayerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
@@ -15,6 +16,7 @@ public class Player {
     private int points;
     private PersonalGoalCard goal;
     private Bookshelf bookshelf;
+    private ArrayList<ItemTile> pickedTiles = new ArrayList<ItemTile>();
     private PlayerObserver obs;
     private ServerManager manager;
 
@@ -64,6 +66,10 @@ public class Player {
      */
     public Bookshelf getBookshelf(){ return bookshelf; }
 
+    /**
+     * Overview: get pickedTiles
+     */
+    public ArrayList<ItemTile> getPickedTiles(){return pickedTiles;}
 
     /**
      * Overview: set the goal

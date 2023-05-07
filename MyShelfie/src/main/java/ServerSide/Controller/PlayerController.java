@@ -135,29 +135,26 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     /**
      * Overview: tiles draft
      */
-    public void pickTiles (BoardGame boardGame, int i, int j, int column) {
+    public void pickTiles (BoardGame boardGame, int i, int j) {
+        //inserisco la tile nell'array che sarà poi inserito nella colonna scelta
+        model.getPickedTiles().add(boardGame.getTile(i,j));
+        //setto la posizione della tile tolta a null così che non sia più visibile
+        boardGame.getBoard()[i][j].setTile(null);
+    }
 
-        //VARIABILI i, j, column IN INGRESSO DA IMPLEMENTARE CORRETTAMENTE
-
-        //condizione per uscire anticipatamente dal pescaggio
-        boolean flag = false;
-        //coordinate, vanno prese in input (nella view (?) )
-
-        ArrayList<ItemTile> picked = new ArrayList<ItemTile>();
-
-        while(picked.size() < 3 && !flag) {
-
-            //i, j, flag input
-
-            picked.add(game.getModel().getBoard().getTile(i,j));
-            boardGame.getBoard()[i][j].setTile(null);
-        }
-
-        //column to feed, !!manca controllo preventivo sul numero tessere prese
-        // (se ne pesco 3 ma ho max 2 slot liberi su ogni colonna)
-
-        feedColumn(column, picked);
-
+    /**
+     * Overview: the user give the order of position to rearrange the picked tiles
+     * the method fix the order of the tiles and insert them in the given column
+     */
+    public void fixAndPlace(int[] order, int column){
+        //riarrangio il vettore di tiles
+        ArrayList<ItemTile> reordered = new ArrayList<ItemTile>();
+        for(int i=0;i<model.getPickedTiles().size();i++)
+            reordered.add(model.getPickedTiles().get(order[i]));
+        //viene inserito nella colonna scelta
+        feedColumn(column, reordered);
+        //svuoto l'arraylist di pickedtiles
+        model.getPickedTiles().clear();
     }
 
     /**

@@ -1,4 +1,4 @@
-package ClientSide.View.GUI;
+package ClientSide.View.SwingGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientSide.View.JavaFXGUI.GUIController">
+   <children>
+      <ButtonBar layoutX="386.0" layoutY="180.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="start" mnemonicParsing="false" onAction="#startGame" text="Start" />
+        </buttons>
+      </ButtonBar>
+      <ButtonBar layoutX="386.0" layoutY="220.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="exit" mnemonicParsing="false" onAction="#exitGame" text="Exit" />
+        </buttons>
+      </ButtonBar>
+      <ImageView fx:id="bg" fitHeight="320.0" fitWidth="481.0" layoutX="14.0" layoutY="40.0">
+         <image>
+            <Image url="@Display_1.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

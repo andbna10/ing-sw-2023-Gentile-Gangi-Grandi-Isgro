@@ -1,18 +1,18 @@
-package ClientSide.View.GUI;
+package ClientSide.View.SwingGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
-public class GUI {
+public class SwingGUI {
 
-    public static void main(String[] args) { GUI gui = new GUI(); }
+    public static void main(String[] args) { SwingGUI gui = new SwingGUI(); }
 
-    public GUI() {
+    public SwingGUI() {
 
         JFrame mainFrame = new JFrame();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(1140,760);
+        mainFrame.setLayout(new FlowLayout());
         mainFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
@@ -23,8 +23,12 @@ public class GUI {
 
         JButton createB = new JButton("Create game");
         createB.addActionListener(new CustomActionListener("create", createL));
+        //createB.setHorizontalAlignment(SwingConstants.CENTER);
+        //createB.setVerticalAlignment(SwingConstants.CENTER);
         JButton joinB = new JButton("Join game");
         joinB.addActionListener(new CustomActionListener("join", joinL));
+        //joinB.setHorizontalAlignment(SwingConstants.CENTER);
+        //joinB.setVerticalAlignment(SwingConstants.CENTER);
         //JLabel usn = new JLabel("Enter username");
 
         panel.add(createB);
@@ -32,10 +36,11 @@ public class GUI {
 
 
         ImageIcon img = new ImageIcon("MyShelfie/src/main/resources/Display_1.jpg");
-        Image scaledImg = img.getImage().getScaledInstance(1140,760,Image.SCALE_SMOOTH);
+        Image scaledImg = img.getImage().getScaledInstance(600,400,Image.SCALE_SMOOTH);
         JLabel imgLabel = new JLabel(new ImageIcon(scaledImg));
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setVerticalAlignment(SwingConstants.CENTER);
+
 
         //JLayeredPane layeredPane = new JLayeredPane();
         //layeredPane.add(imgLabel, 0);

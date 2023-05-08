@@ -133,6 +133,29 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     }
 
     /**
+     * this method check if in the bookshelf there is space left to inset 3 or less tiles
+     */
+    public int spaceLeft(){
+        int maxNullCount=0;
+        //itero per ogni colonna
+        for(int j=0;j< 5;j++){
+            int nullCount=0;
+            //conto le celle nulle nella singola colonna
+            for(int i=0; i<6;i++){
+                if(model.getBookshelf().getTile(i,j)==null)
+                    nullCount++;
+            }
+            //tengo memoria dello spazio maggiore trovato in una colonna
+            if(nullCount>maxNullCount){
+                maxNullCount=nullCount;
+            }
+        }
+        if(maxNullCount>3)
+            return 3;
+        return maxNullCount;
+    }
+
+    /**
      * Overview: tiles draft
      */
     public void pickTiles (BoardGame boardGame, int i, int j) {

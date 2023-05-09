@@ -16,7 +16,7 @@ public class SwingGUI {
         mainFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(2,1));
 
         JLabel createL = new JLabel();
         JLabel joinL = new JLabel();

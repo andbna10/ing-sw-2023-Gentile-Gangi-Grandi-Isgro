@@ -11,7 +11,11 @@ public class LobbyManager {
     /**
      * Overview: constructor LobbyManager
      */
-    public LobbyManager(){ lobbies = new HashMap<>(); }
+    public LobbyManager(){
+        lobbies = new HashMap<>();
+        LobbyController lobby = new LobbyController("online");
+        lobbies.put("online", lobby);
+    }
 
     /**
      * Overview: method aimed to create a Lobby

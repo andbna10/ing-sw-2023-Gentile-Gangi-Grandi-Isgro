@@ -52,7 +52,6 @@ public class VirtualLobbyView implements LobbyObserver{
     public void gamecanstartmessage(){
         GameCanStartMessage message = new GameCanStartMessage();
         for(ServerManager manager: this.managers) {
-            System.out.println("player i");
             manager.setIsMessage(true);
             manager.setMessage(message);
         }

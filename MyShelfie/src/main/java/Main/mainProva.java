@@ -27,7 +27,8 @@ public class mainProva {
         //while(!entered) {
             System.out.print("command info\n" +
                     "* create game : generate a new game \n" +
-                    "* join game   : join a game with the id\n");
+                    "* join game   : join a game with the id\n" +
+                    "* play online : join the online lobby\n");
 
             System.out.print("> \n");
             String input = scanner.nextLine();
@@ -54,6 +55,10 @@ public class mainProva {
                 //System.out.println("joining the game");
                 loginhandler.entergamemessage(sender, username, gameid);
                 // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+            } else if(input.equals("play online")) {
+                System.out.println("enter username:");
+                String username = scanner.nextLine();
+                loginhandler.entergamemessage(sender, username, "online");
             }
         //}
 

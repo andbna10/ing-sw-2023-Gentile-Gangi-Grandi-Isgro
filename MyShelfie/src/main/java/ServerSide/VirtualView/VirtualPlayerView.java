@@ -1,5 +1,6 @@
 package ServerSide.VirtualView;
 
+import Messages.fromServerToClient.AskNPlayersMessage;
 import Messages.fromServerToClient.CreatePlayerViewMessage;
 import Networking.ServerManager;
 
@@ -28,4 +29,17 @@ public class VirtualPlayerView implements PlayerObserver{
         manager.setIsMessage(true);
         manager.setMessage(message);
     }
+
+    @Override
+    /**
+     * Overview: method aimed to create the asknpalyersmessage
+     */
+    public void createasknplayersmessage(){
+        AskNPlayersMessage message = new AskNPlayersMessage();
+        manager.setIsMessage(true);
+        manager.setMessage(message);
+    }
+
+
+
 }

@@ -97,4 +97,12 @@ public class Player {
      * Overview: ServerManager getter
      */
     public ServerManager getManager(){ return this.manager; }
+
+    /**
+     * Overview: method aimed to change the ownership of the lobby
+     */
+    public void updateLobby(Boolean key, String id){
+        lobby.remove(!key);
+        lobby.put(key, id);
+    }
 }

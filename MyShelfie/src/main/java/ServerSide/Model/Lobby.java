@@ -10,6 +10,7 @@ public class Lobby {
     private ArrayList<Player> players;
     private Boolean readyToPlay;
     private LobbyObserver obs;
+    private int fixedNPlayers;
 
     /**
      * Overview: constructor of the lobby
@@ -18,6 +19,7 @@ public class Lobby {
         this.id = id;
         this.players = new ArrayList<>();
         this.readyToPlay = false;
+        this.fixedNPlayers = -1;
     }
 
     /**
@@ -57,7 +59,6 @@ public class Lobby {
      * Overview: the Observer of the lobby is notified about the possibility to start the game
      */
     public void notifyObserverGameCanStart(){
-        System.out.println("creation of the message");
         this.obs.gamecanstartmessage();
     }
 
@@ -94,6 +95,21 @@ public class Lobby {
         }
         return list;
     }
+
+    /**
+     * Overview: id getter
+     */
+    public String getId(){ return this.id; }
+
+    /**
+     * Overview: get fixed number
+     */
+    public int getFixedNPlayers(){ return fixedNPlayers; }
+
+    /**
+     * Overview: set fixed number
+     */
+    public void setFixedNPlayers(int n){ this.fixedNPlayers = n; }
 
 
 }

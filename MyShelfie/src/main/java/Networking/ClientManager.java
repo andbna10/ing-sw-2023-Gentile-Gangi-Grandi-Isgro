@@ -5,12 +5,15 @@ import ClientSide.NetworkHandler.LobbyHandler;
 import ClientSide.NetworkHandler.LoginHandler;
 import Messages.Message;
 import Messages.PingMessage;
+import Messages.fromClientToServer.NPlayersInputMessage;
+import Messages.fromServerToClient.AskNPlayersMessage;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
 import Messages.fromServerToClient.GameHasStartedMessage;
 import Messages.fromServerToClient.UsernameUsedMessage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientManager extends Thread{
     private Socket serversocket;
@@ -171,7 +174,24 @@ public class ClientManager extends Thread{
             case USERNAMEUSED:
                 UsernameUsedMessage usernameusedmessage = (UsernameUsedMessage) message;
                 System.out.println(usernameusedmessage.getMessage());
+                // sostituisci refresh con la call della CLI di inizio esperienza
                 System.out.println("refresh!");
+                break;
+
+            // ask for n players
+            case ASKNPLAYERS:
+                AskNPlayersMessage asknplayersmessage = (AskNPlayersMessage) message;
+                System.out.println(asknplayersmessage.getMessage());
+                //lobbyhandler.nplayersinputmessage("prova");
+                // forse questo lo deve ritornare una classe CLI?? da vedere
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Enter a number: ");
+                String input = scanner.nextLine();
+                int n = Integer.parseInt(input);
+                //
+                NPlayersInputMessage messagex = new NPlayersInputMessage(n, "prova");
+                this.setIsMessage(true);
+                this.setMessage(messagex);
                 break;
 
             // heartbeat procedure

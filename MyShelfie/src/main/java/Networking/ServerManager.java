@@ -3,6 +3,7 @@ package Networking;
 import Messages.fromClientToServer.CreateGameMessage;
 import Messages.Message;
 import Messages.fromClientToServer.EnterGameMessage;
+import Messages.fromClientToServer.NPlayersInputMessage;
 import Messages.fromClientToServer.StartGameMessage;
 import Messages.fromServerToClient.UsernameUsedMessage;
 import ServerSide.Model.Player;
@@ -178,12 +179,26 @@ public class ServerManager extends Thread{
                     break;
                 } else {
                     System.out.println("--------------------------- ENTERING THE ENTER EXISTING LOBBY PROCEDURE ---------------------------");
+                    //lobby online
+                    if(entergamemessage.getId() == "online"){
+                        if(lobbymanager.getLobby("online").getModel().getReadyToPlay()){
+                            System.out.println("An online game is already started, please try again later!");
+                            // qui probabilmente si passa la cli.
 
-                    this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
-                    player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
-                    this.playerview = (VirtualPlayerView) player.getObs();
-                    this.lobbyview.getObs().addPlayer(player);
-                    break;
+                        } else {
+                            this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
+                            player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
+                            this.playerview = (VirtualPlayerView) player.getObs();
+                            this.lobbyview.getObs().addPlayer(player);
+                        }
+                        break;
+                    } else {
+                        this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
+                        player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
+                        this.playerview = (VirtualPlayerView) player.getObs();
+                        this.lobbyview.getObs().addPlayer(player);
+                        break;
+                    }
                 }
 
             // this action has to be made only by the creator of the lobby
@@ -192,6 +207,12 @@ public class ServerManager extends Thread{
                 StartGameMessage startgamemessage = (StartGameMessage) message;
                 GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                 setGameView(gamecontroller.getVirtualView());
+                break;
+
+            // n players input
+            case NPLAYERSINPUT:
+                NPlayersInputMessage nplayersinputmessage = (NPlayersInputMessage) message;
+                lobbyview.getObs().modifyfixednplayers(nplayersinputmessage.getN());
                 break;
 
             //heartbeat procedure

@@ -1,10 +1,12 @@
 package ClientSide.NetworkHandler;
 
 import ClientSide.View.LobbyView;
+import Messages.fromClientToServer.NPlayersInputMessage;
 import Messages.fromClientToServer.StartGameMessage;
 import Networking.ClientManager;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LobbyHandler implements LobbyViewObserver{
     private ClientManager manager;
@@ -41,4 +43,19 @@ public class LobbyHandler implements LobbyViewObserver{
     }
 
     // serve un metodo per gestire il bottone startgame che i giocatori vedono nella lobby view
+
+    /**
+     * Overview: method aimed to select the number of players of the lobby
+     */
+    /*public void nplayersinputmessage(String sender){
+        // forse questo lo deve ritornare una classe CLI?? da vedere
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a number: ");
+        String input = scanner.nextLine();
+        int n = Integer.parseInt(input);
+        //
+        NPlayersInputMessage message = new NPlayersInputMessage(n, sender);
+        manager.setIsMessage(true);
+        manager.setMessage(message);
+    }*/
 }

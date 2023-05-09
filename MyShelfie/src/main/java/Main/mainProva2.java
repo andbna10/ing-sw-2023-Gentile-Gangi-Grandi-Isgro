@@ -3,7 +3,7 @@ package Main;
 import ClientSide.NetworkHandler.LoginHandler;
 import Networking.ClientManager;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -22,10 +22,13 @@ public class mainProva2 {
         //CLI
         Scanner scanner = new Scanner(System.in);
         String sender = "prova";
+        Boolean entered = false;
 
+        //while(!entered) {
         System.out.print("command info\n" +
                 "* create game : generate a new game \n" +
-                "* join game   : join a game with the id\n");
+                "* join game   : join a game with the id\n" +
+                "* play online : join the online lobby\n");
 
         System.out.print("> \n");
         String input = scanner.nextLine();
@@ -34,21 +37,31 @@ public class mainProva2 {
 
             System.out.println("enter username:");
             String username = scanner.nextLine();
-            //controllo che non sia già presente
+
             //System.out.println("starting new game");
             //instanzia una nuova partita
-            loginhandler.creategamemessage(sender,username);
 
-        }else if (input.equals("join game")){
+            loginhandler.creategamemessage(sender, username);
+
+            // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+
+
+        } else if (input.equals("join game")) {
 
             System.out.println("enter username:");
             String username = scanner.nextLine();
             System.out.println("enter the game id:");
             String gameid = scanner.nextLine();
             //System.out.println("joining the game");
-            loginhandler.entergamemessage(sender,username,gameid);
-
+            loginhandler.entergamemessage(sender, username, gameid);
+            // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+        } else if(input.equals("play online")) {
+            System.out.println("enter username:");
+            String username = scanner.nextLine();
+            loginhandler.entergamemessage(sender, username, "online");
         }
+        //}
+
         // CLI ends
     }
 }

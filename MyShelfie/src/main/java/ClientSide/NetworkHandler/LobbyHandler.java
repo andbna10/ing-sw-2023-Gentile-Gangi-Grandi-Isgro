@@ -1,5 +1,6 @@
 package ClientSide.NetworkHandler;
 
+import ClientSide.Cli.LobbyCLI;
 import ClientSide.View.LobbyView;
 import Messages.fromClientToServer.NPlayersInputMessage;
 import Messages.fromClientToServer.StartGameMessage;
@@ -12,11 +13,13 @@ public class LobbyHandler implements LobbyViewObserver{
     private ClientManager manager;
     private LobbyView view;
     private ArrayList<String> players;
+    private LobbyCLI cli;
 
     /**
      * Overview: LobbyHandler constructor
      */
     public LobbyHandler(ClientManager manager, ArrayList<String> usernames){
+        this.cli = new LobbyCLI(this);
         this.manager = manager;
         this.players = new ArrayList<>();
         for(String u: usernames){
@@ -58,4 +61,9 @@ public class LobbyHandler implements LobbyViewObserver{
         manager.setIsMessage(true);
         manager.setMessage(message);
     }*/
+
+    /**
+     * Overview: cli getter
+     */
+    public LobbyCLI getCli(){ return this.cli; }
 }

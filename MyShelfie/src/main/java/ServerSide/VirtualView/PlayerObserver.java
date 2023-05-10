@@ -5,4 +5,6 @@ public interface PlayerObserver {
     void createplayerviewmessage();
 
     void createasknplayersmessage();
+
+    void createownercanstartgamemessage();
 }

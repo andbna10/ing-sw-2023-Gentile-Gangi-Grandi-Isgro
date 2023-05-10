@@ -1,5 +1,6 @@
 package ClientSide.NetworkHandler;
 
+import ClientSide.Cli.LogInCLI;
 import ClientSide.View.LoginView;
 import Messages.fromClientToServer.CreateGameMessage;
 import Messages.fromClientToServer.EnterGameMessage;
@@ -7,16 +8,25 @@ import Networking.ClientManager;
 
 public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;
-    private LoginView view;
+    private LogInCLI cli;
 
     /**
      * Overview: LoginHandler constructor
      */
     public LoginHandler(ClientManager manager){
         this.manager = manager;
-        this.view = new LoginView(this); // da modificare quando cominceremo a implementare jswing
         // qua si dovrebber poter lanciare il metodo che runnare la view (?)
     }
+
+    /**
+     * Overview: cli setter
+     */
+    public void setCli(LogInCLI cli){ this.cli = cli; }
+
+    /**
+     * Overview: cli getter
+     */
+    public LogInCLI getCli(){ return this.cli; }
 
     /**
      * Overview: method aimed to create a CreateGameMessage

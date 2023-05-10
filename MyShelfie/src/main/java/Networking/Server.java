@@ -34,7 +34,7 @@ public class Server {
         socketList = new ArrayList<ListNode>();
 
         //task to send ping messages, servermanager handles his client's ping feedback and sets flag ListNode.Ok
-        new Thread(() -> {
+        /*new Thread(() -> {
             while(true) {
 
                 //System.out.println("pinging "+ socketList.size());
@@ -62,7 +62,7 @@ public class Server {
                 }
 
             }
-        }).start();
+        }).start();*/
 
         try{
             this.serversocket = new ServerSocket(port);

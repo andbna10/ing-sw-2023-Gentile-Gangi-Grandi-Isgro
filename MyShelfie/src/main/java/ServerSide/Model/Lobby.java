@@ -50,15 +50,21 @@ public class Lobby {
     /**
      * Overview: the Observer of the Lobby is notified about the new player in the lobby
      */
-    public void notifyObserverPlayerAdded(){
+    public void notifyObserverPlayerAdded(String id){
         String[] usernames = getUsernames();
-        this.obs.updatelobbyviewmessage(usernames, this.id);
+        String owner = null;
+        for(Player p: players){
+            if(p.getLobby().get(id)){
+                owner = p.getUsername();
+            }
+        }
+        this.obs.updatelobbyviewmessage(usernames, this.id, owner);
     }
 
     /**
      * Overview: the Observer of the lobby is notified about the possibility to start the game
      */
-    public void notifyObserverGameCanStart(){
+    public void notifyObserverGameCanStart() throws InterruptedException {
         this.obs.gamecanstartmessage();
     }
 

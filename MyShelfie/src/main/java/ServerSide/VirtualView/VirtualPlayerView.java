@@ -2,6 +2,7 @@ package ServerSide.VirtualView;
 
 import Messages.fromServerToClient.AskNPlayersMessage;
 import Messages.fromServerToClient.CreatePlayerViewMessage;
+import Messages.fromServerToClient.OwnercanStartGameMessage;
 import Networking.ServerManager;
 
 public class VirtualPlayerView implements PlayerObserver{
@@ -36,6 +37,16 @@ public class VirtualPlayerView implements PlayerObserver{
      */
     public void createasknplayersmessage(){
         AskNPlayersMessage message = new AskNPlayersMessage();
+        manager.setIsMessage(true);
+        manager.setMessage(message);
+    }
+
+    @Override
+    /**
+     * Overview: method aimed to create a ownercanstartgamemessage
+     */
+    public void createownercanstartgamemessage(){
+        OwnercanStartGameMessage message = new OwnercanStartGameMessage();
         manager.setIsMessage(true);
         manager.setMessage(message);
     }

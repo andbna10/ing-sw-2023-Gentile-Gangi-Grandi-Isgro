@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Player {
     private int id;
-    private HashMap<Boolean, String> lobby;
+    private HashMap<String, Boolean> lobby;
     private static int numPlayers = 0;
     private String username;
     private Boolean inGame;
@@ -25,7 +25,7 @@ public class Player {
      */
     public Player(String username, Boolean islobbyowner, String idlobby, ServerManager manager){
         lobby = new HashMap<>();
-        lobby.put(islobbyowner, idlobby);
+        lobby.put(idlobby, islobbyowner);
         this.username = username;
         id = numPlayers;
         numPlayers++;
@@ -102,7 +102,20 @@ public class Player {
      * Overview: method aimed to change the ownership of the lobby
      */
     public void updateLobby(Boolean key, String id){
-        lobby.remove(!key);
-        lobby.put(key, id);
+        lobby.remove(id);
+        lobby.put(id, key);
     }
+
+    /**
+     * Overview: lobby getter
+     */
+    public HashMap<String, Boolean> getLobby(){ return this.lobby; }
+
+    /**
+     * Overview: the observer of the player is notified about the possibility to start the game
+     */
+    public void notifyOwner(){
+        this.obs.createownercanstartgamemessage();
+    }
+
 }

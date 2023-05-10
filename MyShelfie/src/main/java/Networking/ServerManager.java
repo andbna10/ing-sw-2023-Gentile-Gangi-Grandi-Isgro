@@ -204,9 +204,10 @@ public class ServerManager extends Thread{
             // this action has to be made only by the creator of the lobby
             // starting the game
             case STARTGAME:
-                StartGameMessage startgamemessage = (StartGameMessage) message;
-                GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
-                setGameView(gamecontroller.getVirtualView());
+                System.out.println(" --------------- GAME START ---------------");
+                //StartGameMessage startgamemessage = (StartGameMessage) message;
+                //GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
+                //setGameView(gamecontroller.getVirtualView());
                 break;
 
             // n players input

@@ -6,10 +6,7 @@ import ClientSide.NetworkHandler.LoginHandler;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
-import Messages.fromServerToClient.AskNPlayersMessage;
-import Messages.fromServerToClient.CreatelobbyViewMessage;
-import Messages.fromServerToClient.GameHasStartedMessage;
-import Messages.fromServerToClient.UsernameUsedMessage;
+import Messages.fromServerToClient.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -38,6 +35,16 @@ public class ClientManager extends Thread{
         this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
         this.objectReader = new ObjectInputStream(socket.getInputStream());
     }
+
+    /**
+     * Overview: loginhandler setter
+     */
+    public void setLoginHandler(LoginHandler loginhandler){ this.loginHandler= loginhandler; }
+
+    /**
+     * Overview: loginhandler getter
+     */
+    public LoginHandler getLoginHandler(){ return this.loginHandler; }
 
     @Override
     /**
@@ -139,10 +146,6 @@ public class ClientManager extends Thread{
             case CREATELOBBYVIEW:
                 System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
-                System.out.println("The id of the lobby is: "+ createlobbyviewmessage.getId());
-                for(String s: createlobbyviewmessage.getUsernames()){
-                    System.out.println(s);
-                }
                 if (lobbyhandler == null) {
                     LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                     this.lobbyhandler = lobbyhandler;
@@ -150,6 +153,16 @@ public class ClientManager extends Thread{
                     // here the last player added to the lobby is passed as parameter to the addPlayer() method
                     this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
+                // questo tipo potremmo metterlo in una cli class e chiamarlo tramite il lobby handler
+                System.out.println("The id of the lobby is: "+ createlobbyviewmessage.getId());
+                for(String s: createlobbyviewmessage.getUsernames()){
+                    if(s == createlobbyviewmessage.getOwner()){
+                        System.out.println(s+" OWNER");
+                        continue;
+                    }
+                    System.out.println(s);
+                }
+                //
                 break;
 
             // game can start (it is always a lobby view update)
@@ -157,7 +170,8 @@ public class ClientManager extends Thread{
                 System.out.println("--------------------------- GAME CAN START ---------------------------");
                 // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
                 // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
-                // chi crea la lobby è marchiato come LobbyOwner (nel model )
+                // chi crea la lobby è marchiato come LobbyOwner (nel model)
+
                 break;
 
             // create the Game View
@@ -174,8 +188,7 @@ public class ClientManager extends Thread{
             case USERNAMEUSED:
                 UsernameUsedMessage usernameusedmessage = (UsernameUsedMessage) message;
                 System.out.println(usernameusedmessage.getMessage());
-                // sostituisci refresh con la call della CLI di inizio esperienza
-                System.out.println("refresh!");
+                this.loginHandler.getCli().loginprocedure();
                 break;
 
             // ask for n players
@@ -193,6 +206,11 @@ public class ClientManager extends Thread{
                 this.setIsMessage(true);
                 this.setMessage(messagex);
                 break;
+
+            case OWNERCANSTARTGAME:
+                //OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
+                lobbyhandler.getCli().ownercanstart();
+
 
             // heartbeat procedure
             case PING:

@@ -17,6 +17,10 @@ public class Server {
 
     private List<ListNode> socketList;
 
+    private Boolean discon = false;
+
+    private ListNode disconRef;
+
     private ListNode node;
 
     /**
@@ -31,7 +35,7 @@ public class Server {
      * Overview: method aimed to create a serversocket object on the specific port. it enters a loop to continuously listen for incoming clients connections.
      */
     public void start() throws IOException{
-        socketList = new ArrayList<ListNode>();
+        socketList = new ArrayList<>();
 
         //task to send ping messages, servermanager handles his client's ping feedback and sets flag ListNode.Ok
         /*new Thread(() -> {
@@ -74,17 +78,32 @@ public class Server {
                 System.out.println("The server started listening");
 
                 Socket clientsocket = serversocket.accept();
+
+                if(discon) {
+
+                    System.out.println("what's your username?");
+
+
+                    if (false) {
+                        System.out.println("reconnecting player");
+                        setDiscon(false);
+                        continue;
+                    }
+                }
+
                 System.out.println("A Client has just connected");
 
-                node = new ListNode(clientsocket, new ObjectOutputStream(clientsocket.getOutputStream()));
+                node = new ListNode(clientsocket, null, new ObjectOutputStream(clientsocket.getOutputStream()));
+
+                // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
+                ServerManager manager = new ServerManager(clientsocket, lobbymanager, node, this);
+
+                node.setManager(manager);
 
                 socketList.add(node);
 
-                // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
-                ServerManager server = new ServerManager(clientsocket, lobbymanager, node);
-
                 // here we start the thread aka manager with which client and server exchange messages
-                server.start();
+                manager.start();
 
 
 
@@ -93,6 +112,27 @@ public class Server {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Overview: discon setter
+     */
+    public void setDiscon(Boolean arg) {this.discon = arg;}
+
+    /**
+     * Overview: discon setter
+     */
+    public boolean getDiscon() {return this.discon;}
+
+    /**
+     * Overview: disconRef setter
+     */
+    public void setDisconRef(ListNode arg) {this.disconRef = arg;}
+
+    /**
+     * Overview: disconRef setter
+     */
+    public ListNode getDisconRef() {return this.disconRef;}
+
 
     /**
      * Overview: method aimed to close the server socket

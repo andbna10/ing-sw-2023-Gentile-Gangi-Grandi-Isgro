@@ -10,13 +10,16 @@ public class ListNode {
 
     private Socket socket;
 
+    private ServerManager manager;
+
     private ObjectOutputStream writer;
 
     private boolean Ok;
 
-    public ListNode(Socket arg1, ObjectOutputStream arg2) {
+    public ListNode(Socket arg1, ServerManager arg2, ObjectOutputStream arg3) {
         this.socket = arg1;
-        this.writer = arg2;
+        this.manager = arg2;
+        this.writer = arg3;
         this.Ok = true;}
 
     /**
@@ -40,6 +43,13 @@ public class ListNode {
     }
 
     /**
+     * Overview: manager setter
+     */
+    public void setManager(ServerManager arg) {
+        this.manager = arg;
+    }
+
+    /**
      * Overview: resets Ok
      */
     public void resetOk() {
@@ -58,6 +68,9 @@ public class ListNode {
      * Overview: closes streams then closes socket
      */
     public void close() throws IOException {
+
+        //da aggiungere eliminazione riferimenti
+
         //this.socket.getInputStream().close();
         //this.socket.getOutputStream().close();
         this.socket.close();

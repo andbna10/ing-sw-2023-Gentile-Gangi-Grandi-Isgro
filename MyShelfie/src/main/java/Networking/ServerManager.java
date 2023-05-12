@@ -30,11 +30,38 @@ public class ServerManager extends Thread{
     private VirtualGameView gameview;
     private VirtualPlayerView playerview;
     private ListNode ref;
+    private Server server;
+
+    private String username;
+
+    // number of times recovery loop is iterated
+    private int closeTimeout = 10;
+
+    /**
+     * Overview: sets closingTimeout, default value 10
+     */
+    public void setCloseTimeout(int arg){this.closeTimeout = arg;}
+
+    /**
+     * Overview: procedure to recovery lost connection with client before closing definitely, returns "True" if connection was recovered
+     */
+    public boolean recoveryConnection(Message arg) throws InterruptedException {
+
+        for(int i = 0; i < closeTimeout; i++) {
+            boolean ret = false;
+
+
+
+            return ret;
+        }
+
+        return true;
+    }
 
     /**
      * Overview: ServerVirtualView constructor
      */
-    public ServerManager(Socket clientsocket, LobbyManager lobbymanager, ListNode node) throws IOException {
+    public ServerManager(Socket clientsocket, LobbyManager lobbymanager, ListNode node, Server server) throws IOException {
         this.lobbymanager = lobbymanager;
         this.isMessage = false;
         readerThreadActive = false;
@@ -43,6 +70,7 @@ public class ServerManager extends Thread{
         this.ref = node;
         this.out = node.getWriter();
         this.in = new ObjectInputStream(clientsocket.getInputStream());
+        this.server = server;
     }
 
     @Override
@@ -65,11 +93,33 @@ public class ServerManager extends Thread{
                             handleMessage(message);
                             readerThreadActive = false;
                         }
+
+                    } catch (EOFException e) { //gestione disconnessione client
+
+                        server.setDiscon(true);
+                        server.setDisconRef(ref);
+                        System.out.println("client disconnected, connection recovery procedure launched\n");
+
+                        try {
+
+                            //lancio procedura
+                            Boolean ok;
+                            ok = recoveryConnection(message);
+
+                            //chiusura ed eliminazione riferimenti
+                            if(!ok) ref.close();
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+
+
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+
                 });
                 readerthread.start();
             }
@@ -156,6 +206,8 @@ public class ServerManager extends Thread{
                 } else {
                     System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
 
+                    this.username = creategamemessage.getUsername();
+
                     String id = UUID.randomUUID().toString();
                     lobbymanager.createLobby(id);
                     this.lobbyview = lobbymanager.getLobby(id).getVirtualView();
@@ -175,6 +227,9 @@ public class ServerManager extends Thread{
                     break;
                 } else {
                     System.out.println("--------------------------- ENTERING THE ENTER EXISTING LOBBY PROCEDURE ---------------------------");
+
+                    this.username = entergamemessage.getUsername();
+
                     //lobby online
                     if(entergamemessage.getId() == "online"){
                         if(lobbymanager.getLobby("online").getModel().getReadyToPlay()){

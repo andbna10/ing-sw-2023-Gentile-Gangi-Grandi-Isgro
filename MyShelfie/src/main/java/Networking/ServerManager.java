@@ -65,10 +65,6 @@ public class ServerManager extends Thread{
                             handleMessage(message);
                             readerThreadActive = false;
                         }
-                    } catch (EOFException e) {
-
-                        message = null;
-
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -205,9 +201,9 @@ public class ServerManager extends Thread{
             // starting the game
             case STARTGAME:
                 System.out.println(" --------------- GAME START ---------------");
-                //StartGameMessage startgamemessage = (StartGameMessage) message;
-                //GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
-                //setGameView(gamecontroller.getVirtualView());
+                StartGameMessage startgamemessage = (StartGameMessage) message;
+                GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
+                setGameView(gamecontroller.getVirtualView());
                 break;
 
             // n players input

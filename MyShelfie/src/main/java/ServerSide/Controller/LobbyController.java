@@ -50,7 +50,6 @@ public class LobbyController implements LobbyVViewObserver {
                     model.setReadyToPlay(true);
                     Thread.sleep(1000);
                     model.notifyObserverGameCanStart();
-                    Thread.sleep(1000);
                     // get the owner and notify
                     for(Player client: model.getPlayers()){
                         if(client.getLobby().get(model.getId())){

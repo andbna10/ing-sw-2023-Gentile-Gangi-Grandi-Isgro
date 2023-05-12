@@ -16,6 +16,7 @@ public class GameController implements GameVViewObserver {
      * Overview: GameController constructor, initialization of MyShelfie and Game classes
      */
     public GameController(String id, LobbyManager lobbymanager){
+        System.out.println("entrato nel game controller");
         this.lobbymanager = lobbymanager;
 
         Lobby lobby = this.lobbymanager.getLobby(id).getModel();

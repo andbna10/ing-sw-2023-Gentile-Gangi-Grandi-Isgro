@@ -14,6 +14,7 @@ public class MyShelfie {
      * Overview: MyShelfie constructor
      */
     public MyShelfie(){
+        System.out.println("entrato in myshelfie");
         this.tiles = new ArrayList<>();
         this.scoringTokens = new ArrayList<>();
 

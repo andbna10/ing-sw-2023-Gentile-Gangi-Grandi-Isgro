@@ -178,6 +178,7 @@ public class ClientManager extends Thread{
             case GAMEHASSTARTED:
                 GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
                 GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+                System.out.println(gamehasstartedmessage.getMessage());
                 break;
 
             // create the Player View

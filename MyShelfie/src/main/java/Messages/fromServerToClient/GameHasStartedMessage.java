@@ -47,7 +47,7 @@ public class GameHasStartedMessage extends Message {
                         default -> stringMatrix[i][j]="*";
                     }
                 }else{
-                    stringMatrix[i][j]=("#");
+                    stringMatrix[i][j]=(" ");
                 }
             }
         }

@@ -62,7 +62,7 @@ public class Game {
      * Overview: method aimed to notify the observer about the start of the game
      */
     public void notifyObserver(){
-        obs.notifythestartofthegame();
+        obs.notifythestartofthegame(board.getBoard());
     }
 
     /**

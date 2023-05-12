@@ -34,8 +34,8 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create the message to notify the start of the game
      */
-    public void notifythestartofthegame(){
-        GameHasStartedMessage message = new GameHasStartedMessage();
+    public void notifythestartofthegame(BoardCell[][] board){
+        GameHasStartedMessage message = new GameHasStartedMessage(board);
         for(ServerManager manager: this.managers) {
             manager.setIsMessage(true);
             manager.setMessage(message);

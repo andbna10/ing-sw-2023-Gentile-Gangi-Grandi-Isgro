@@ -1,6 +1,8 @@
 package ServerSide.VirtualView;
 
+import ServerSide.Model.BoardCell;
+
 public interface GameObserver {
 
-    void notifythestartofthegame();
+    void notifythestartofthegame(BoardCell[][] board);
 }

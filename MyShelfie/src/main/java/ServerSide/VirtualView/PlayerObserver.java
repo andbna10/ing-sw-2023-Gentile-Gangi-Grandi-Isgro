@@ -7,4 +7,5 @@ public interface PlayerObserver {
     void createasknplayersmessage();
 
     void createownercanstartgamemessage();
+    void notifyPlayerTurn();
 }

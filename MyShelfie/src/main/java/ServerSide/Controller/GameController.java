@@ -15,10 +15,8 @@ public class GameController implements GameVViewObserver {
     /**
      * Overview: GameController constructor, initialization of MyShelfie and Game classes
      */
-    public GameController(String id, LobbyManager lobbymanager){
-        System.out.println("entrato nel game controller");
+    public GameController(String id, LobbyManager lobbymanager) throws InterruptedException {
         this.lobbymanager = lobbymanager;
-
         Lobby lobby = this.lobbymanager.getLobby(id).getModel();
         // objects taken from the lobby
         String[] usernamePlayers = lobby.getUsernames();
@@ -91,11 +89,20 @@ public class GameController implements GameVViewObserver {
     /**
      * Overview: start the game
      */
-    public void startGame(){
+    public void startGame() throws InterruptedException {
         this.associateScoringTokens(this.players.size());
         this.restoreBoard();
         this.setPersonalGoals();
         this.model.notifyObserver();
+        Thread.sleep(1000);
+        callTurn();
+    }
+
+    /**
+     * Overview: method aimed to call a player to move
+     */
+    public void callTurn(){
+        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
     }
 
     /**

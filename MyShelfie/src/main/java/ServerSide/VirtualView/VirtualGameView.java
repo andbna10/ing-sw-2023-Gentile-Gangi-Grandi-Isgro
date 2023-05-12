@@ -13,7 +13,6 @@ public class VirtualGameView implements GameObserver{
      * Overview: constructor of the virtual game view
      */
     public VirtualGameView(Game model){
-        System.out.println("entrato in VVGame");
         model.setGameObserver(this);
         this.managers = new ArrayList<>();
     }

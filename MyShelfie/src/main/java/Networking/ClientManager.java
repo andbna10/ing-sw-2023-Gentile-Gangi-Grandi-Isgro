@@ -3,6 +3,7 @@ package Networking;
 import ClientSide.NetworkHandler.GameHandler;
 import ClientSide.NetworkHandler.LobbyHandler;
 import ClientSide.NetworkHandler.LoginHandler;
+import ClientSide.NetworkHandler.PlayerHandler;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
@@ -23,6 +24,8 @@ public class ClientManager extends Thread{
     // reference to the NetworkHandler classes (?)
     private LobbyHandler lobbyhandler;
     private LoginHandler loginHandler;
+    private PlayerHandler playerhandler;
+    private GameHandler gamehandler;
 
     /**
      * ClientHandler constructor
@@ -177,7 +180,8 @@ public class ClientManager extends Thread{
             // create the Game View
             case GAMEHASSTARTED:
                 GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
-                GameHandler gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+                gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
+                playerhandler = new PlayerHandler(this);
                 System.out.println(gamehasstartedmessage.getMessage());
                 gamehandler.getCli().printBoard(gamehasstartedmessage.getBoard());
                 break;
@@ -210,9 +214,14 @@ public class ClientManager extends Thread{
                 break;
 
             case OWNERCANSTARTGAME:
-                //OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
+                OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
                 lobbyhandler.getCli().ownercanstart();
+                break;
 
+            case YOURTURN:
+                YourTurnMessage yourturnmessage = (YourTurnMessage) message;
+                System.out.println(yourturnmessage.getMessage());
+                playerhandler.getCli().yourTurn();
 
             // heartbeat procedure
             case PING:

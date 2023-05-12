@@ -20,7 +20,6 @@ public class Game {
      * Overview: Game constructor
      */
     public Game(Lobby lobby, ArrayList<CommonGoalCard> commongoals, int firstToPlay){
-        System.out.println("entrato a game");
         this.players = lobby.getPlayers();
         this.commonGoals = new ArrayList<>();
         this.order = new int[lobby.getUsernames().length];
@@ -104,5 +103,7 @@ public class Game {
      * Overview: board getter
      */
     public BoardGame getBoard(){ return board; }
+
+
 
 }

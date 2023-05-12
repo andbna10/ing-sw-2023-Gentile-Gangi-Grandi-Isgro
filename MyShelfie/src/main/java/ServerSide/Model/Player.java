@@ -118,4 +118,11 @@ public class Player {
         this.obs.createownercanstartgamemessage();
     }
 
+    /**
+     * Overview: notify the player to move
+     */
+    public void notifyPlayerTurn(){
+        obs.notifyPlayerTurn();
+    }
+
 }

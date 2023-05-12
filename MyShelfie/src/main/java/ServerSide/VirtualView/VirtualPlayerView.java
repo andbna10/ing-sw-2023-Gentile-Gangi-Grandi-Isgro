@@ -3,6 +3,7 @@ package ServerSide.VirtualView;
 import Messages.fromServerToClient.AskNPlayersMessage;
 import Messages.fromServerToClient.CreatePlayerViewMessage;
 import Messages.fromServerToClient.OwnercanStartGameMessage;
+import Messages.fromServerToClient.YourTurnMessage;
 import Networking.ServerManager;
 
 public class VirtualPlayerView implements PlayerObserver{
@@ -43,13 +44,25 @@ public class VirtualPlayerView implements PlayerObserver{
 
     @Override
     /**
-     * Overview: method aimed to create a ownercanstartgamemessage
+     * Overview: method aimed to create an ownercanstartgamemessage
      */
     public void createownercanstartgamemessage(){
         OwnercanStartGameMessage message = new OwnercanStartGameMessage();
         manager.setIsMessage(true);
         manager.setMessage(message);
     }
+
+    @Override
+    /**
+     * Overview: method aimed to create a yourturnmessage
+     */
+    public void notifyPlayerTurn(){
+        YourTurnMessage message = new YourTurnMessage();
+        manager.setIsMessage(true);
+        manager.setMessage(message);
+    }
+
+
 
 
 

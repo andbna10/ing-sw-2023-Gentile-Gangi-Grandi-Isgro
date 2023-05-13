@@ -50,6 +50,13 @@ public class ListNode {
     }
 
     /**
+     * Overview: manager getter
+     */
+    public ServerManager getManager() {
+        return this.manager;
+    }
+
+    /**
      * Overview: resets Ok
      */
     public void resetOk() {
@@ -76,4 +83,13 @@ public class ListNode {
         this.socket.close();
     }
 
+    /**
+     * Overview: socket setter
+     */
+    public void setSocket(Socket arg) {this.socket = arg;};
+
+    /**
+     * Overview: writer setter
+     */
+    public void setWriter(ObjectOutputStream arg) {this.writer = arg;}
 }

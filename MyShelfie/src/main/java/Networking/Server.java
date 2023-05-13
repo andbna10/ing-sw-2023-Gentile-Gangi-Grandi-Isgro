@@ -1,6 +1,9 @@
 package Networking;
 
+import Messages.Message;
 import Messages.PingMessage;
+import Messages.fromClientToServer.PostUserReconMessage;
+import Messages.fromServerToClient.SendDisconMessage;
 import ServerSide.Controller.LobbyManager;
 
 import java.io.*;
@@ -23,6 +26,9 @@ public class Server {
 
     private ListNode node;
 
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+
     /**
      * Overview: constructor of the server class aimed to construct the socket for communication server-client
      */
@@ -37,8 +43,10 @@ public class Server {
     public void start() throws IOException{
         socketList = new ArrayList<>();
 
+
         //task to send ping messages, servermanager handles his client's ping feedback and sets flag ListNode.Ok
-        /*new Thread(() -> {
+        /*
+        new Thread(() -> {
             while(true) {
 
                 //System.out.println("pinging "+ socketList.size());
@@ -66,7 +74,8 @@ public class Server {
                 }
 
             }
-        }).start();*/
+        }).start();
+        */
 
         try{
             this.serversocket = new ServerSocket(port);
@@ -79,24 +88,43 @@ public class Server {
 
                 Socket clientsocket = serversocket.accept();
 
+                out = new ObjectOutputStream(clientsocket.getOutputStream());
+                in = new ObjectInputStream(clientsocket.getInputStream());
+
+                SendDisconMessage tmp1 = new SendDisconMessage(discon);
+
+                try {
+                    this.out.writeObject(tmp1);
+                    this.out.flush();
+                } catch (IOException e) { throw new RuntimeException(e); }
+
                 if(discon) {
 
-                    System.out.println("what's your username?");
+                    try {
+                        PostUserReconMessage tmp2 = (PostUserReconMessage) in.readObject();
+                        if (tmp2.getUser() == disconRef.getManager().getUsername()) {
 
+                            disconRef.setWriter(out);
+                            disconRef.setSocket(clientsocket);
 
-                    if (false) {
-                        System.out.println("reconnecting player");
-                        setDiscon(false);
-                        continue;
-                    }
+                            disconRef.getManager().resetSocket(clientsocket, out, in);
+
+                            System.out.println("reconnecting player");
+
+                            this.discon = false;
+                            this.disconRef = null;
+                            continue;
+                        }
+                    } catch (Exception e) { e.printStackTrace(); }
+
                 }
 
                 System.out.println("A Client has just connected");
 
-                node = new ListNode(clientsocket, null, new ObjectOutputStream(clientsocket.getOutputStream()));
+                node = new ListNode(clientsocket, null, out);
 
                 // initialization of the manager whose aim is to manage the new client connection with the server ( for the server )
-                ServerManager manager = new ServerManager(clientsocket, lobbymanager, node, this);
+                ServerManager manager = new ServerManager(clientsocket, lobbymanager, node, this, in);
 
                 node.setManager(manager);
 

@@ -27,7 +27,7 @@ public class mainProva {
         client.start();
 
         // call the login CLI
-        logincli.loginprocedure();
+        //logincli.loginprocedure();
 
     }
 }

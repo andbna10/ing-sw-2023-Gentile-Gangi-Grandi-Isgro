@@ -32,7 +32,7 @@ public class ServerManager extends Thread{
     private ListNode ref;
     private Server server;
 
-    private String username;
+    private String username = null;
 
     // number of times recovery loop is iterated
     private int closeTimeout = 10;
@@ -46,22 +46,32 @@ public class ServerManager extends Thread{
      * Overview: procedure to recovery lost connection with client before closing definitely, returns "True" if connection was recovered
      */
     public boolean recoveryConnection(Message arg) throws InterruptedException {
+        boolean ret = false;
 
         for(int i = 0; i < closeTimeout; i++) {
-            boolean ret = false;
+
+            try {
+                Thread.sleep(1000);
+                arg = (Message) in.readObject();
+
+                ret = true;
+            } catch (EOFException e) {
+                continue;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
 
-            return ret;
         }
 
-        return true;
+        return ret;
     }
 
     /**
      * Overview: ServerVirtualView constructor
      */
-    public ServerManager(Socket clientsocket, LobbyManager lobbymanager, ListNode node, Server server) throws IOException {
+    public ServerManager(Socket clientsocket, LobbyManager lobbymanager, ListNode node, Server server, ObjectInputStream in) throws IOException {
         this.lobbymanager = lobbymanager;
         this.isMessage = false;
         readerThreadActive = false;
@@ -69,7 +79,7 @@ public class ServerManager extends Thread{
         this.clientsocket = clientsocket;
         this.ref = node;
         this.out = node.getWriter();
-        this.in = new ObjectInputStream(clientsocket.getInputStream());
+        this.in = in;
         this.server = server;
     }
 
@@ -96,18 +106,20 @@ public class ServerManager extends Thread{
 
                     } catch (EOFException e) { //gestione disconnessione client
 
-                        server.setDiscon(true);
-                        server.setDisconRef(ref);
-                        System.out.println("client disconnected, connection recovery procedure launched\n");
-
                         try {
 
-                            //lancio procedura
-                            Boolean ok;
-                            ok = recoveryConnection(message);
+                            Boolean ok = false;
+                            if(username != null) {
+                                server.setDiscon(true);
+                                server.setDisconRef(ref);
+                                System.out.println("player disconnected, connection recovery procedure launched\n");
+
+                                //lancio procedura
+                                ok = recoveryConnection(message);
+                            }
 
                             //chiusura ed eliminazione riferimenti
-                            if(!ok) ref.close();
+                            if (!ok) ref.close();
 
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -275,6 +287,20 @@ public class ServerManager extends Thread{
         }
     }
 
+
+    /**
+     * Overview: username attribute getter
+     */
+    public String getUsername() {return this.username;}
+
+    /**
+     * Overview: socket references reset after reconnection
+     */
+    public void resetSocket(Socket arg1, ObjectOutputStream arg2, ObjectInputStream arg3) {
+        this.clientsocket = arg1;
+        this.out = arg2;
+        this.in = arg3;
+    }
 
 
 }

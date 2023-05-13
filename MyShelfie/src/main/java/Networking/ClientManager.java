@@ -1,12 +1,12 @@
 package Networking;
 
-import ClientSide.NetworkHandler.GameHandler;
-import ClientSide.NetworkHandler.LobbyHandler;
-import ClientSide.NetworkHandler.LoginHandler;
-import ClientSide.NetworkHandler.PlayerHandler;
+import ClientSide.Cli.LogInCLI;
+import ClientSide.Cli.ReconnectCLI;
+import ClientSide.NetworkHandler.*;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
+import Messages.fromServerToClient.SendDisconMessage;
 import Messages.fromServerToClient.*;
 
 import java.io.*;
@@ -145,6 +145,18 @@ public class ClientManager extends Thread{
         //System.out.println("there is a message to be read");
 
         switch(message.getType()) {
+            case SENDDISCON:
+                SendDisconMessage sendDisconMessage = (SendDisconMessage) message;
+
+                //need to reconnect case
+                if(sendDisconMessage.getStatus()) {
+                    new ReconnectCLI(new ReconnectHandler(this)).procedure();
+                } else { //ordinary procedure case
+                    //calls the login CLI
+                    new LogInCLI(loginHandler).loginprocedure();
+                }
+                break;
+
             // update the lobby view
             case CREATELOBBYVIEW:
                 System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");

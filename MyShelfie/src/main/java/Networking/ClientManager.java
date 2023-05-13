@@ -221,7 +221,7 @@ public class ClientManager extends Thread{
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
                 System.out.println(yourturnmessage.getMessage());
-                playerhandler.getCli().yourTurn();
+                playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
 
             // heartbeat procedure
             case PING:

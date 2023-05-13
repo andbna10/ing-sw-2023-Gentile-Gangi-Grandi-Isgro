@@ -48,12 +48,13 @@ public class Bookshelf {
     public ItemTile getTile(int i, int j) {
         return gameTiles[i][j];
     }
+    public ItemTile[][] getGameTiles(){return gameTiles;}
 
 
     /**
      * Overview: bookshelf getter
      */
-    public StringBuffer getGameTiles(){
+    public StringBuffer getGameTilesBuffer(){
         StringBuffer out = new StringBuffer();
         for (ItemTile[] gameTile : gameTiles) {
             for (int j = 0; j < gameTiles[0].length; j++) {

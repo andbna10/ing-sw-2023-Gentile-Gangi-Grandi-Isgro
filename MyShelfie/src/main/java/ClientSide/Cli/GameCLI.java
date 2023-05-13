@@ -16,7 +16,6 @@ public class GameCLI {
      * Overview: board printer
      */
     public static void printBoard(String[][] board) {
-        int numRows = board.length;
         int numCols = board[0].length;
         int i=0;
 

@@ -5,6 +5,7 @@ import Messages.fromServerToClient.CreatePlayerViewMessage;
 import Messages.fromServerToClient.OwnercanStartGameMessage;
 import Messages.fromServerToClient.YourTurnMessage;
 import Networking.ServerManager;
+import ServerSide.Model.ItemTile;
 
 public class VirtualPlayerView implements PlayerObserver{
     private PlayerVViewObserver obs;
@@ -56,8 +57,8 @@ public class VirtualPlayerView implements PlayerObserver{
     /**
      * Overview: method aimed to create a yourturnmessage
      */
-    public void notifyPlayerTurn(){
-        YourTurnMessage message = new YourTurnMessage();
+    public void notifyPlayerTurn(ItemTile[][] bookshelf){
+        YourTurnMessage message = new YourTurnMessage(bookshelf);
         manager.setIsMessage(true);
         manager.setMessage(message);
     }

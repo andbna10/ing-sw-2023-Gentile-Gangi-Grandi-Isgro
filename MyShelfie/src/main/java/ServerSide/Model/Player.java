@@ -122,7 +122,7 @@ public class Player {
      * Overview: notify the player to move
      */
     public void notifyPlayerTurn(){
-        obs.notifyPlayerTurn();
+        obs.notifyPlayerTurn(bookshelf.getGameTiles());
     }
 
 }

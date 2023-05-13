@@ -1,5 +1,7 @@
 package ServerSide.VirtualView;
 
+import ServerSide.Model.ItemTile;
+
 public interface PlayerObserver {
 
     void createplayerviewmessage();
@@ -7,5 +9,5 @@ public interface PlayerObserver {
     void createasknplayersmessage();
 
     void createownercanstartgamemessage();
-    void notifyPlayerTurn();
+    void notifyPlayerTurn(ItemTile[][] bookshelf);
 }

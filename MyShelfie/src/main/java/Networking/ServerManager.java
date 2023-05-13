@@ -1,10 +1,7 @@
 package Networking;
 
-import Messages.fromClientToServer.CreateGameMessage;
+import Messages.fromClientToServer.*;
 import Messages.Message;
-import Messages.fromClientToServer.EnterGameMessage;
-import Messages.fromClientToServer.NPlayersInputMessage;
-import Messages.fromClientToServer.StartGameMessage;
 import Messages.fromServerToClient.UsernameUsedMessage;
 import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualGameView;
@@ -278,6 +275,10 @@ public class ServerManager extends Thread{
                 NPlayersInputMessage nplayersinputmessage = (NPlayersInputMessage) message;
                 lobbyview.getObs().modifyfixednplayers(nplayersinputmessage.getN());
                 break;
+            //tiles draft
+            case TILESTOTAKE:
+                TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
+                playerview.getObs().pickTakenTiles(tilesToTakeMessage.getToTake());
 
             //heartbeat procedure
             case PING:

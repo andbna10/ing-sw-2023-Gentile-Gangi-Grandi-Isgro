@@ -154,10 +154,15 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
             return 3;
         return maxNullCount;
     }
-
+    @Override
     /**
      * Overview: tiles draft
      */
+    public void pickTakenTiles(int[] toTake){
+        for(int i=0; i<toTake.length;i=i+2){
+            pickTiles(game.getModel().getBoard(),i,i+1 );
+        }
+    }
     public void pickTiles (BoardGame boardGame, int i, int j) {
         //inserisco la tile nell'array che sarà poi inserito nella colonna scelta
         model.getPickedTiles().add(boardGame.getTile(i,j));

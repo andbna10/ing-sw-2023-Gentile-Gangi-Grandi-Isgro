@@ -6,6 +6,7 @@ import ClientSide.NetworkHandler.*;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
+import Messages.fromClientToServer.TilesToTakeMessage;
 import Messages.fromServerToClient.SendDisconMessage;
 import Messages.fromServerToClient.*;
 
@@ -234,6 +235,10 @@ public class ClientManager extends Thread{
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
                 System.out.println(yourturnmessage.getMessage());
                 playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
+                TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(),playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(),"prova");
+                this.setIsMessage(true);
+                this.setMessage(messageToTake);
+                break;
 
             // heartbeat procedure
             case PING:

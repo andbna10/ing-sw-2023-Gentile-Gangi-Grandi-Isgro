@@ -18,6 +18,8 @@ public class VirtualPlayerView implements PlayerObserver{
         this.manager = manager;
     }
 
+    public PlayerVViewObserver getObs(){ return this.obs; }
+
     /**
      * Overview: method aimed to set the VirtualPlayerView
      */

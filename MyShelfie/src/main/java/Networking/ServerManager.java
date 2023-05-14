@@ -42,14 +42,20 @@ public class ServerManager extends Thread{
     /**
      * Overview: procedure to recovery lost connection with client before closing definitely, returns "True" if connection was recovered
      */
-    public boolean recoveryConnection(Message arg) throws InterruptedException {
+    public boolean recoveryConnection() throws InterruptedException {
         boolean ret = false;
+        Message arg = null;
 
         for(int i = 0; i < closeTimeout; i++) {
 
             try {
                 Thread.sleep(1000);
                 arg = (Message) in.readObject();
+
+                if (arg != null) {
+                    handleMessage(arg);
+                    readerThreadActive = false;
+                }
 
                 ret = true;
             } catch (EOFException e) {
@@ -112,7 +118,7 @@ public class ServerManager extends Thread{
                                 System.out.println("player disconnected, connection recovery procedure launched\n");
 
                                 //lancio procedura
-                                ok = recoveryConnection(message);
+                                ok = recoveryConnection();
                             }
 
                             //chiusura ed eliminazione riferimenti

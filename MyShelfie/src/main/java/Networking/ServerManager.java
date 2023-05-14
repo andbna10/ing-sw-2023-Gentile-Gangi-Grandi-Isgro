@@ -278,7 +278,8 @@ public class ServerManager extends Thread{
             //tiles draft
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
-                playerview.getObs().pickTakenTiles(tilesToTakeMessage.getToTake());
+                //playerview.getObs().pickTakenTiles(tilesToTakeMessage.getToTake());
+                playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
 
             //heartbeat procedure
             case PING:

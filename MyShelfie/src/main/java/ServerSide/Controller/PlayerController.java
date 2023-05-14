@@ -113,9 +113,9 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     /**
      * Overview: method aimed to let the player play a turn
      */
-    public void play(int columnIndex, ArrayList<ItemTile> tiles) {
+    /*public void play(int columnIndex, ArrayList<ItemTile> tiles) {
 
-        /*
+
 
         togliere le tiles dal board game (gestire anche l'ingame delle tiles) ---> (nel momento in cui il giocatore
         clicca su una tile dal boardgame per prenderla dev'essere lanciato un mess verso il server per lanciare
@@ -129,8 +129,8 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
         cambiare il current turn player alla fine del turno
 
 
-         */
-    }
+
+    }*/
 
     /**
      * this method check if in the bookshelf there is space left to inset 3 or less tiles
@@ -156,13 +156,24 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
     }
     @Override
     /**
-     * Overview: tiles draft
+     * Overview: method aimed place in order the tiles picked from the board in the bookshelf
      */
-    public void pickTakenTiles(int[] toTake){
+    public void playTurn(int[] toTake, int[] oreder, int column ){
         for(int i=0; i<toTake.length;i=i+2){
             pickTiles(game.getModel().getBoard(),i,i+1 );
         }
+        fixAndPlace(oreder,column);
     }
+
+
+    /*public void pickTakenTiles(int[] toTake){
+        for(int i=0; i<toTake.length;i=i+2){
+            pickTiles(game.getModel().getBoard(),i,i+1 );
+        }
+    }*/
+    /**
+     * Overview: tiles draft
+     */
     public void pickTiles (BoardGame boardGame, int i, int j) {
         //inserisco la tile nell'array che sarà poi inserito nella colonna scelta
         model.getPickedTiles().add(boardGame.getTile(i,j));

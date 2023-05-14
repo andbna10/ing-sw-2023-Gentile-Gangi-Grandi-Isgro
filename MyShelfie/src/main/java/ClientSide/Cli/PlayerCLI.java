@@ -22,7 +22,7 @@ public class PlayerCLI {
         // implementare cli turno di gioco
         System.out.println("this is your bookshelf:");
         printBookshelf(bookshelf);
-        System.out.println("pick the tiles you want from the board writing the coordinates:");
+        System.out.println("pick the tiles you want from the board writing the coordinates");
         //come gestire il limite di tiles prendibili?
         takeTilesCoord();
         System.out.println("insert the order you want to insert them(from first in to last in):");
@@ -30,6 +30,7 @@ public class PlayerCLI {
         System.out.println("insert the column you want to insert the tiles:");
         takeColumn();
     }
+
 
     /**
      * bookshelf printer
@@ -68,11 +69,13 @@ public class PlayerCLI {
 
         // Print the array
         System.out.println("you take the tiles:");
-        for (int i = 0; i < size; i++) {
-            System.out.println(i + ":" + toTake[i] + " " + toTake[i+1]);
+        int j=0;
+        for (int i = 0; i < size; i=i+2) {
+            System.out.println("coord " + j + ":" + toTake[i] + " " + toTake[i+1]);
+            j++;
         }
 
-        scanner.close();
+        //scanner.close();
         totake=toTake;
     }
 
@@ -82,10 +85,11 @@ public class PlayerCLI {
     public void takeOrder(){
         Scanner scanner = new Scanner(System.in);
         int[] input = new int[totake.length/2];
+
         for (int i = 0; i < input.length; i++) {
             input[i] = scanner.nextInt();
         }
-        scanner.close();
+        //scanner.close();
         order=input;
     }
     public void takeColumn(){

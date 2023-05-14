@@ -5,9 +5,15 @@ import ServerSide.Model.ItemType;
 import ServerSide.Model.PersonalGoalCard;
 
 public class PersonalPattern11 extends PersonalGoalCard {
-
+    private Bookshelf personalGoal = new Bookshelf();
     public PersonalPattern11() {
         super();
+        personalGoal.setTile(0,2,ItemType.PLANTS);
+        personalGoal.setTile(1,1,ItemType.BOOKS);
+        personalGoal.setTile(2,0,ItemType.GAMES);
+        personalGoal.setTile(3,2,ItemType.FRAMES);
+        personalGoal.setTile(4,4,ItemType.CATS);
+        personalGoal.setTile(5,3,ItemType.TROPHIES);
     }
 
     @Override
@@ -25,5 +31,10 @@ public class PersonalPattern11 extends PersonalGoalCard {
         if(bookshelf.getTile(5, 3).getType() != ItemType.TROPHIES) count++;
 
         return pointsConverter(count);
+    }
+
+    @Override
+    public Bookshelf getPersonalGoal() {
+        return personalGoal;
     }
 }

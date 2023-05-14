@@ -41,7 +41,9 @@ public class Bookshelf {
             }
         }
     }
-
+    public void setTile(int i, int j, ItemType type){
+        gameTiles[i][j]= new ItemTile(type);
+    }
     /**
      * Overview: get tile of index i, j
      */

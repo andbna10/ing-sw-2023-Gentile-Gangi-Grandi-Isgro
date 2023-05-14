@@ -35,4 +35,8 @@ public class ItemTile {
      * Overview: type getter
      */
     public ItemType getType(){ return type; }
+    /**
+     * Overview: type setter
+     */
+    public void setType(ItemType type){ this.type=type; }
 }

@@ -18,8 +18,10 @@ public class PlayerCLI {
     /**
      * Overview: cli for the player to complete a move
      */
-    public void yourTurn(String[][] bookshelf){
+    public void yourTurn(String[][] bookshelf, String[][] personalGoal){
         // implementare cli turno di gioco
+        System.out.println("this is your personal goal:");
+        printBookshelf(personalGoal);
         System.out.println("this is your bookshelf:");
         printBookshelf(bookshelf);
         System.out.println("pick the tiles you want from the board writing the coordinates");

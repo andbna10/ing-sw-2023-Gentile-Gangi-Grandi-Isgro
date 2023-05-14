@@ -15,6 +15,7 @@ public abstract class PersonalGoalCard extends GoalCard{
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public abstract int validated(Bookshelf bookshelf);
+    public abstract Bookshelf getPersonalGoal();
 
     /**
      * Overview: converts counter to points scores

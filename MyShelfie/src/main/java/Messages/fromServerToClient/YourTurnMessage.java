@@ -7,15 +7,17 @@ import ServerSide.Model.ItemTile;
 public class YourTurnMessage extends Message {
     private String message;
     private String[][] bookshelf;
+    private String[][] personalGoal;
 
     /**
      * Overview: YourTurnMessage constructor
      */
-    public YourTurnMessage(ItemTile[][] bookshelf){
+    public YourTurnMessage(ItemTile[][] bookshelf, ItemTile[][] personalGoal){
         super(null);
         super.setType(MessageType.YOURTURN);
         this.message = "It's your turn";
         this.bookshelf=bookshelfToString(bookshelf);
+        this.personalGoal=bookshelfToString(personalGoal);
     }
 
     /**
@@ -27,6 +29,11 @@ public class YourTurnMessage extends Message {
      * Overview: string bookshelf getter
      */
     public String[][] getBookshelf(){return bookshelf;}
+
+    /**
+     * Overview: string personal goal getter
+     */
+    public String[][] getPersonalGoal() {return personalGoal;}
 
     public String[][] bookshelfToString(ItemTile[][] bookshelf) {
         String[][] stringBookshelf = new String[bookshelf.length][bookshelf[0].length];

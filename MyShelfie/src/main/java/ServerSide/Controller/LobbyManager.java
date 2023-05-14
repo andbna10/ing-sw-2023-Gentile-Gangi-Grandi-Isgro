@@ -51,5 +51,16 @@ public class LobbyManager {
         return false;
     }
 
+    /**
+     * Overview: check if the players in the lobby are in a game
+     */
+    public Boolean checkInGame(String id){
+        if(lobbies.get(id).getModel().getInGame()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }

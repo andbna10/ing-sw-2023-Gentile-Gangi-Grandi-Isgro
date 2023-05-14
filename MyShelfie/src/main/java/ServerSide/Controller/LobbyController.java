@@ -18,13 +18,13 @@ public class LobbyController implements LobbyVViewObserver {
         this.virtualview.setLobbyViewObserver(this);
     }
 
-    // QUESTO METODO VA RESO PIU BELLO
     @Override
     /**
      * Overview: add a player in the lobby
      */
     public void addPlayer(Player player) throws InterruptedException {
         Boolean added = false;
+        // verficare anche che i giocatori della lobby non siano in partita prima di aggiungere un altro giocatore
         if(model.getPlayers().size() < 4){
             if(model.getId() == "online"){
                 if(model.getPlayers().size() == 0){
@@ -74,9 +74,6 @@ public class LobbyController implements LobbyVViewObserver {
                     }
                 }
             }
-
-
-
         }
     }
 

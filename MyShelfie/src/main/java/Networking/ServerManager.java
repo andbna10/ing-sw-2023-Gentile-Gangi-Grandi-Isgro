@@ -2,6 +2,7 @@ package Networking;
 
 import Messages.fromClientToServer.*;
 import Messages.Message;
+import Messages.fromServerToClient.AccessDeniedMessage;
 import Messages.fromServerToClient.UsernameUsedMessage;
 import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualGameView;
@@ -18,8 +19,6 @@ public class ServerManager extends Thread{
     private Boolean readerThreadActive;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private Boolean isMessage;
-    private Message message;
     private LobbyManager lobbymanager;
 
     // reference to the Virtual View classes (?)
@@ -76,9 +75,7 @@ public class ServerManager extends Thread{
      */
     public ServerManager(Socket clientsocket, LobbyManager lobbymanager, ListNode node, Server server, ObjectInputStream in) throws IOException {
         this.lobbymanager = lobbymanager;
-        this.isMessage = false;
         readerThreadActive = false;
-        this.message = null;
         this.clientsocket = clientsocket;
         this.ref = node;
         this.out = node.getWriter();
@@ -138,65 +135,8 @@ public class ServerManager extends Thread{
                 });
                 readerthread.start();
             }
-
-            // sending
-            if(isMessage && message != null){
-                //System.out.println("the server has a message to be sent...");
-                try {
-                    this.out.writeObject(this.message);
-                    this.out.flush();
-                    //System.out.println("sent");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                setIsMessage(false);
-                setMessage(null);
-            }
         }
     }
-
-    /**
-     * Overview: method aimed to notify the manager that there is a message to be sent trhough the socket
-     */
-    public void setIsMessage(Boolean status){ this.isMessage = status; }
-
-    /**
-     * Overview: method aimed to set a proper message as the attirbute
-     */
-    public void setMessage(Message message){ this.message = message; }
-
-    /**
-     * Overview: method aimed to close resources
-     */
-    /*public void close() throws IOException{
-        in.close();
-        out.close();
-        System.out.println("lost connection");
-        clientsocket.close();
-    }*/
-
-    /**
-     * Overview: heartbeat method
-     */
-    /*
-    public Boolean heartbeat() throws IOException {
-        if(!clientsocket.isClosed()) {
-            writer.println("ping");
-            writer.flush();
-            //System.out.println("The server has sent the ping");
-            String line = reader.readLine();
-            //System.out.println(line + " is what I read");
-            if(line.equals(null)){
-                close();
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        return false;
-    }
-     */
 
     /**
      * Overview: GameVirtualView setter
@@ -216,8 +156,7 @@ public class ServerManager extends Thread{
                 CreateGameMessage creategamemessage = (CreateGameMessage) message;
                 if(lobbymanager.checkUsername(creategamemessage.getUsername())){
                     UsernameUsedMessage toSend = new UsernameUsedMessage();
-                    this.setIsMessage(true);
-                    this.setMessage(toSend);
+                    sendMessage(toSend);
                 } else {
                     System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
 
@@ -235,10 +174,14 @@ public class ServerManager extends Thread{
             // entering an already existing lobby
             case ENTERGAME:
                 EnterGameMessage entergamemessage = (EnterGameMessage) message;
+                if(lobbymanager.checkInGame(entergamemessage.getId())){
+                    AccessDeniedMessage accessdeniedmessage = new AccessDeniedMessage();
+                    sendMessage(accessdeniedmessage);
+                    break;
+                }
                 if(lobbymanager.checkUsername(entergamemessage.getUsername())) {
                     UsernameUsedMessage toSend = new UsernameUsedMessage();
-                    this.setIsMessage(true);
-                    this.setMessage(toSend);
+                    sendMessage(toSend);
                     break;
                 } else {
                     System.out.println("--------------------------- ENTERING THE ENTER EXISTING LOBBY PROCEDURE ---------------------------");
@@ -281,17 +224,32 @@ public class ServerManager extends Thread{
                 NPlayersInputMessage nplayersinputmessage = (NPlayersInputMessage) message;
                 lobbyview.getObs().modifyfixednplayers(nplayersinputmessage.getN());
                 break;
+
             //tiles draft
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
                 //playerview.getObs().pickTakenTiles(tilesToTakeMessage.getToTake());
                 playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
+                break;
 
             //heartbeat procedure
             case PING:
                 //System.out.println("pinged");
                 ref.setOk();
                 break;
+        }
+    }
+
+    /**
+     * Overview: method aimed to send a message
+     */
+    public void sendMessage(Message message){
+        try {
+            out.writeObject(message);
+            out.flush();
+            //System.out.println("sent");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -21,8 +21,7 @@ public class ReconnectHandler {
      */
     public void sendpostuserreconmessage(String arg){
         PostUserReconMessage message = new PostUserReconMessage(arg);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
 

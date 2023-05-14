@@ -41,26 +41,10 @@ public class LobbyHandler implements LobbyViewObserver{
      */
     public void startgamemessage(String sender, String idLobby){
         StartGameMessage message = new StartGameMessage(sender, idLobby);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
     // serve un metodo per gestire il bottone startgame che i giocatori vedono nella lobby view
-
-    /**
-     * Overview: method aimed to select the number of players of the lobby
-     */
-    /*public void nplayersinputmessage(String sender){
-        // forse questo lo deve ritornare una classe CLI?? da vedere
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a number: ");
-        String input = scanner.nextLine();
-        int n = Integer.parseInt(input);
-        //
-        NPlayersInputMessage message = new NPlayersInputMessage(n, sender);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
-    }*/
 
     /**
      * Overview: cli getter

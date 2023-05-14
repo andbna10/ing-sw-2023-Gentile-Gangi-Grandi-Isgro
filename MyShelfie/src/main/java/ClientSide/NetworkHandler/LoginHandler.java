@@ -33,8 +33,7 @@ public class LoginHandler implements LoginViewObserver{
      */
     public void creategamemessage(String sender, String username){
         CreateGameMessage message = new CreateGameMessage(username, sender);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
     /**
@@ -42,8 +41,7 @@ public class LoginHandler implements LoginViewObserver{
      */
     public void entergamemessage(String sender, String username, String id){
         EnterGameMessage message = new EnterGameMessage(username, sender, id);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
 }

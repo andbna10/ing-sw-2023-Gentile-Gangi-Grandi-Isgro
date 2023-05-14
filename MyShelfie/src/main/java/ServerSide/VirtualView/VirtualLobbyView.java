@@ -41,8 +41,7 @@ public class VirtualLobbyView implements LobbyObserver{
     public void updatelobbyviewmessage(String[] usernames, String id, String owner){
         CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames, id, owner);
         for(ServerManager manager: this.managers) {
-            manager.setIsMessage(true);
-            manager.setMessage(message);
+            manager.sendMessage(message);
         }
     }
 
@@ -53,8 +52,7 @@ public class VirtualLobbyView implements LobbyObserver{
     public void gamecanstartmessage() throws InterruptedException {
         GameCanStartMessage message = new GameCanStartMessage();
         for(ServerManager manager: this.managers) {
-            manager.setIsMessage(true);
-            manager.setMessage(message);
+            manager.sendMessage(message);
         }
     }
 

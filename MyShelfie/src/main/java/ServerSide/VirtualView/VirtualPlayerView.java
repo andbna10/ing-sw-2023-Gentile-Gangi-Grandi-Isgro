@@ -31,8 +31,7 @@ public class VirtualPlayerView implements PlayerObserver{
      */
     public void createplayerviewmessage(){
         CreatePlayerViewMessage message = new CreatePlayerViewMessage();
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
     @Override
@@ -41,8 +40,7 @@ public class VirtualPlayerView implements PlayerObserver{
      */
     public void createasknplayersmessage(){
         AskNPlayersMessage message = new AskNPlayersMessage();
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
     @Override
@@ -51,8 +49,7 @@ public class VirtualPlayerView implements PlayerObserver{
      */
     public void createownercanstartgamemessage(){
         OwnercanStartGameMessage message = new OwnercanStartGameMessage();
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
     @Override
@@ -61,8 +58,7 @@ public class VirtualPlayerView implements PlayerObserver{
      */
     public void notifyPlayerTurn(ItemTile[][] bookshelf){
         YourTurnMessage message = new YourTurnMessage(bookshelf);
-        manager.setIsMessage(true);
-        manager.setMessage(message);
+        manager.sendMessage(message);
     }
 
 

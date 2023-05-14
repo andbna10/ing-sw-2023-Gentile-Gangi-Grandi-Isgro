@@ -16,9 +16,7 @@ import java.util.Scanner;
 
 public class ClientManager extends Thread{
     private Socket serversocket;
-    private Boolean isMessage;
     private Boolean readerThreadActive;
-    private Message message;
     private ObjectInputStream objectReader;
     private ObjectOutputStream objectWriter;
 
@@ -32,8 +30,6 @@ public class ClientManager extends Thread{
      * ClientHandler constructor
      */
     public ClientManager(Socket socket) throws IOException {
-        isMessage = false;
-        message = null;
         readerThreadActive = false;
         serversocket = socket;
         this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
@@ -76,68 +72,8 @@ public class ClientManager extends Thread{
                 });
                 readerThread.start();
             }
-
-
-            // sending
-            if(isMessage && message != null){
-                //System.out.println("the client has a message to be sent...");
-                try {
-                    objectWriter.writeObject(message);
-                    objectWriter.flush();
-                    //System.out.println("sent");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                this.setIsMessage(false);
-                this.setMessage(null);
-            }
         }
     }
-
-    /**
-     * Overview: method aimed to set a proper message as the attirbute
-     */
-    public void setMessage(Message message){ this.message = message; }
-
-    /**
-     * Overview: method aimed to close resources
-     */
-    /*
-    public void close() throws IOException{
-        objectReader.close();
-        objectWriter.close();
-        System.out.println("lost connection");
-        serversocket.close();
-    }
-    */
-
-    /**
-     * Overview: method aimed to notify the manager that there is a message to be sent trhough the socket
-     */
-    public void setIsMessage(Boolean status){ this.isMessage = status; }
-
-    /**
-     * Overview: heartbeat method
-     */
-    /*
-    public Boolean heartbeat() throws IOException{
-        if(!serversocket.isClosed()) {
-            writer.println("ping");
-            writer.flush();
-            //System.out.println("the client has sent the ping");
-            String line = reader.readLine();
-            //System.out.println(line + " is what I read");
-            if(line.equals(null)){
-                close();
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    */
 
     /**
      * Overview: method aimed to handle an upcoming received message
@@ -222,8 +158,7 @@ public class ClientManager extends Thread{
                 int n = Integer.parseInt(input);
                 //
                 NPlayersInputMessage messagex = new NPlayersInputMessage(n, "prova");
-                this.setIsMessage(true);
-                this.setMessage(messagex);
+                sendMessage(messagex);
                 break;
 
             case OWNERCANSTARTGAME:
@@ -236,8 +171,14 @@ public class ClientManager extends Thread{
                 System.out.println(yourturnmessage.getMessage());
                 playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
                 TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(),playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(),"prova");
-                this.setIsMessage(true);
-                this.setMessage(messageToTake);
+                sendMessage(messageToTake);
+                break;
+
+            // access to the lobby denied
+            case ACCESSDENIED:
+                AccessDeniedMessage accessdeniedmessage = (AccessDeniedMessage) message;
+                System.out.println(accessdeniedmessage.getMessage());
+                loginHandler.getCli().loginprocedure();
                 break;
 
             // heartbeat procedure
@@ -249,6 +190,19 @@ public class ClientManager extends Thread{
 
 
 
+        }
+    }
+
+    /**
+     * Overview: method aimed to send a message
+     */
+    public void sendMessage(Message message){
+        try {
+            objectWriter.writeObject(message);
+            objectWriter.flush();
+            //System.out.println("sent");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

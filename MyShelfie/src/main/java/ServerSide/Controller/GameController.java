@@ -44,6 +44,7 @@ public class GameController implements GameVViewObserver {
         }
 
         startGame();
+        lobby.setInGame(true);
     }
 
     /**

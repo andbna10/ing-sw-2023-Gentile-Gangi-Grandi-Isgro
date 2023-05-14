@@ -10,6 +10,7 @@ public class Lobby {
     private ArrayList<Player> players;
     private Boolean readyToPlay;
     private LobbyObserver obs;
+    private Boolean inGame;
     private int fixedNPlayers;
 
     /**
@@ -20,6 +21,7 @@ public class Lobby {
         this.players = new ArrayList<>();
         this.readyToPlay = false;
         this.fixedNPlayers = -1;
+        this.inGame = false;
     }
 
     /**
@@ -116,6 +118,16 @@ public class Lobby {
      * Overview: set fixed number
      */
     public void setFixedNPlayers(int n){ this.fixedNPlayers = n; }
+
+    /**
+     * Overview: inGame getter
+     */
+    public Boolean getInGame(){ return this.inGame; }
+
+    /**
+     * Overview: inGame setter
+     */
+    public void setInGame(Boolean status){  this.inGame = status;}
 
 
 }

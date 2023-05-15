@@ -169,11 +169,11 @@ public class ClientManager extends Thread{
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
                 System.out.println(yourturnmessage.getMessage());
-                if(yourturnmessage.getPersonalGoal() == null){
+                if(yourturnmessage.getPersonalGoal() == null && yourturnmessage.getCommon1() == null && yourturnmessage.getCommon2() == null){
                     playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
                     break;
                 }
-                playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf(), yourturnmessage.getPersonalGoal());
+                playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf(), yourturnmessage.getPersonalGoal(), yourturnmessage.getCommon1(), yourturnmessage.getCommon2());
                 TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(),playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(),"prova");
                 sendMessage(messageToTake);
                 break;

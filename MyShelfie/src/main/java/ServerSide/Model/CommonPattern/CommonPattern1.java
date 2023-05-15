@@ -4,11 +4,10 @@ import ServerSide.Model.Bookshelf;
 import ServerSide.Model.CommonGoalCard;
 
 public class CommonPattern1 extends CommonGoalCard {
+    public CommonPattern1() {super();}
 
-    public CommonPattern1() {
-        super();
-    }
-
+    @Override
+    public int getPatternNumber() {return 1;}
     @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1

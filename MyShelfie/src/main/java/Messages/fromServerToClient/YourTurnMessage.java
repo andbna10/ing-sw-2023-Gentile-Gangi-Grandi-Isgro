@@ -8,16 +8,20 @@ public class YourTurnMessage extends Message {
     private String message;
     private String[][] bookshelf;
     private String[][] personalGoal;
+    private int common1;
+    private int common2;
 
     /**
      * Overview: YourTurnMessage constructor1: both bookshelf and goals
      */
-    public YourTurnMessage(ItemTile[][] bookshelf, ItemTile[][] personalGoal){
+    public YourTurnMessage(ItemTile[][] bookshelf, ItemTile[][] personalGoal, int common1, int common2){
         super(null);
         super.setType(MessageType.YOURTURN);
         this.message = " ---------------- It's your turn ---------------- ";
         this.bookshelf=bookshelfToString(bookshelf);
         this.personalGoal=bookshelfToString(personalGoal);
+        this.common1=common1;
+        this.common2=common2;
     }
 
     /**
@@ -47,6 +51,16 @@ public class YourTurnMessage extends Message {
      */
     public String[][] getPersonalGoal() {return personalGoal;}
 
+    /**
+     * overview: common goal getter
+     */
+    public int getCommon1() {return common1;}
+
+    public int getCommon2() {return common2;}
+
+    /**
+     * Overview: converts a intemtiles bookshelf to a string bookshelf so it can be print by the cli
+     */
     public String[][] bookshelfToString(ItemTile[][] bookshelf) {
         String[][] stringBookshelf = new String[bookshelf.length][bookshelf[0].length];
         for (int i=0; i<bookshelf.length; i++) {

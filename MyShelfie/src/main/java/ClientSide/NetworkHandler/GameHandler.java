@@ -1,6 +1,6 @@
 package ClientSide.NetworkHandler;
 
-import ClientSide.Cli.GameCLI;
+import ClientSide.View.CLI.GameCLI;
 import ClientSide.View.GameView;
 import Networking.ClientManager;
 

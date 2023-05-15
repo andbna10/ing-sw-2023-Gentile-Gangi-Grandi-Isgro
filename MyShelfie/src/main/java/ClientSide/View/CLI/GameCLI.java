@@ -1,8 +1,6 @@
-package ClientSide.Cli;
+package ClientSide.View.CLI;
 
 import ClientSide.NetworkHandler.GameHandler;
-import ClientSide.NetworkHandler.LobbyHandler;
-import ServerSide.Model.BoardCell;
 
 public class GameCLI {
     private GameHandler handler;

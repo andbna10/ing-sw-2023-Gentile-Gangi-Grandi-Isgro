@@ -1,13 +1,11 @@
 package ClientSide.NetworkHandler;
 
-import ClientSide.Cli.LobbyCLI;
+import ClientSide.View.CLI.LobbyCLI;
 import ClientSide.View.LobbyView;
-import Messages.fromClientToServer.NPlayersInputMessage;
 import Messages.fromClientToServer.StartGameMessage;
 import Networking.ClientManager;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class LobbyHandler implements LobbyViewObserver{
     private ClientManager manager;

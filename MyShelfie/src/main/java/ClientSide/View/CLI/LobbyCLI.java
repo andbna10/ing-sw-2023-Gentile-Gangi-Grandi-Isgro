@@ -1,4 +1,4 @@
-package ClientSide.Cli;
+package ClientSide.View.CLI;
 
 import ClientSide.NetworkHandler.LobbyHandler;
 

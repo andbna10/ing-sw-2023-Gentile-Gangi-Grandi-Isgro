@@ -1,12 +1,11 @@
 package Main;
 
-import ClientSide.Cli.LogInCLI;
+import ClientSide.View.CLI.LogInCLI;
 import ClientSide.NetworkHandler.LoginHandler;
 import Networking.ClientManager;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class mainProva3 {
     public static void main(String[] args) throws IOException, InterruptedException {

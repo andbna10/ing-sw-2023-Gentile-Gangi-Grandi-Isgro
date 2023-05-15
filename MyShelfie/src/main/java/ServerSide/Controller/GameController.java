@@ -1,4 +1,5 @@
 package ServerSide.Controller;
+import Networking.ServerManager;
 import ServerSide.Model.*;
 import ServerSide.VirtualView.*;
 import java.util.Random;
@@ -94,6 +95,7 @@ public class GameController implements GameVViewObserver {
         this.associateScoringTokens(this.players.size());
         this.restoreBoard();
         this.setPersonalGoals();
+        this.checkPickables(model.getBoard());
         this.model.notifyObserverTheStart(model.getCommonGoals().get(0).getPatternNumber(), model.getCommonGoals().get(1).getPatternNumber());
         Thread.sleep(1000);
         callTurn();
@@ -104,6 +106,9 @@ public class GameController implements GameVViewObserver {
      * Overview: method aimed to call a player to move
      */
     public void callTurn(){
+        checkPickables(model.getBoard());
+        // vedere, se non ci sono pickable, il player corrente deve poter ristorare la board.
+        // l'idea è rendere la pickable int, e ritornare il numero di tessere picable, se è 0, bisogna lanciare il restore board.
         model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
     }
 
@@ -166,7 +171,55 @@ public class GameController implements GameVViewObserver {
                     boardGame.getBoard()[i][j].setPickable(flag);
 
                 }
+    }
 
+    @Override
+    /**
+     * Overview: method aimed to verify turn played
+     */
+    // probabilmente come picked è meglio passargli quelle ordinate
+    public Boolean verifyTurn(int[] picked, int column, ServerManager manager){
+        // check pickables
+        for(int i=0;i<picked.length; i=i+2){
+            if(model.getBoard().getBoard()[i][i+1].getPickable()){
+                continue;
+            } else {
+                System.out.println("check pickables");
+                return false;
+            }
+        }
+
+        // 1 pick
+        if(picked.length == 2){ return true;}
+
+        // 2 pick
+        if(picked.length == 4){
+            if(picked[0] != picked[2] && picked[1] != picked[3]){
+                System.out.println("check 2 pick");
+                return false;
+            }
+        }
+
+        // 3 pick
+        if(picked.length == 6){
+            if(!(picked[0] == picked[2] && picked[0] == picked[4])){
+                if(!(picked[1] == picked[3] && picked[1] == picked[5])){
+                    System.out.println("check 3 pick");
+                    return false;
+                }
+            }
+        }
+
+        // check bookshelf floor
+        for(PlayerController p: this.players){
+            if(p.getModel().getManager() == manager){
+                if(!p.getModel().getBookshelf().canInsert(picked.length/2, column)){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 

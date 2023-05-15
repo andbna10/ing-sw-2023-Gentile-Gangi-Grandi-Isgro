@@ -3,6 +3,7 @@ package Networking;
 import Messages.fromClientToServer.*;
 import Messages.Message;
 import Messages.fromServerToClient.AccessDeniedMessage;
+import Messages.fromServerToClient.RepeatTurnMessage;
 import Messages.fromServerToClient.UsernameUsedMessage;
 import Messages.fromServerToClient.YourTurnMessage;
 import ServerSide.Model.Player;
@@ -229,13 +230,22 @@ public class ServerManager extends Thread{
             //tiles draft
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
-                playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
-                YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles(), true);
-                this.sendMessage(toSend);
-                playerview.getObs().getModel().getBookshelf().getGameTiles();
-                gameview.getObs().getModel().advance();
-                gameview.getObs().callTurn();
-                break;
+                // check the goodness of the player move
+                if(!gameview.getObs().verifyTurn(tilesToTakeMessage.getOrder(), tilesToTakeMessage.getColumn(), this)){
+                    // if something wrong
+                    RepeatTurnMessage toSend = new RepeatTurnMessage();
+                    sendMessage(toSend);
+                    break;
+                } else {
+                    // if all is good
+                    playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
+                    YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles(), true);
+                    this.sendMessage(toSend);
+                    playerview.getObs().getModel().getBookshelf().getGameTiles();
+                    gameview.getObs().getModel().advance();
+                    gameview.getObs().callTurn();
+                    break;
+                }
 
             //heartbeat procedure
             case PING:

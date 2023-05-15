@@ -18,21 +18,6 @@ public class PlayerCLI {
     /**
      * Overview: cli for the player to complete a move
      */
-    public void yourTurn(String[][] bookshelf){
-        System.out.println("this is your bookshelf:");
-        printBookshelf(bookshelf);
-        System.out.println("pick the tiles you want from the board writing the coordinates");
-        //come gestire il limite di tiles prendibili?
-        takeTilesCoord();
-        System.out.println("insert the order you want to insert them(from first in to last in):");
-        takeOrder();
-        System.out.println("insert the column you want to insert the tiles:");
-        takeColumn();
-    }
-
-    /**
-     * Overview: cli for the player to complete a move
-     */
     public void initialSetUp(String[][] personalGoal, int common1, int common2){
         // implementare cli turno di gioco
         System.out.println("this is your personal goal:");
@@ -191,11 +176,18 @@ public class PlayerCLI {
     }
 
     /**
-     * Overview: take the cordinates of the tiles the player wants
+     * Overview: cli for the player to complete a move
      */
-    public void takeTilesCoord(){
+    public void yourTurn(String[][] bookshelf){
         Scanner scanner = new Scanner(System.in);
+        if(bookshelf != null) {
+            System.out.println("this is your bookshelf:");
+            printBookshelf(bookshelf);
+        }
 
+        System.out.println("\nPick the tiles you want from the board writing the coordinates");
+        // take tiles coordinates
+        //
         System.out.println("enter the number of tiles you want to pick: ");
         int size = scanner.nextInt()*2;
         int[] toTake = new int[size];
@@ -212,29 +204,26 @@ public class PlayerCLI {
             System.out.println("coord " + j + ":" + toTake[i] + " " + toTake[i+1]);
             j++;
         }
-
-        //scanner.close();
         totake=toTake;
-    }
+        //
 
-    /**
-     * Overview: take the order to insert the tiles
-     */
-    public void takeOrder(){
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("insert the order you want to insert them(from first in to last in):");
+        // take the order
+        //
         int[] input = new int[totake.length/2];
 
         for (int i = 0; i < input.length; i++) {
             input[i] = scanner.nextInt();
         }
-        //scanner.close();
         order=input;
-    }
-    public void takeColumn(){
-        Scanner scanner = new Scanner(System.in);
+        //
+
+        System.out.println("insert the column you want to insert the tiles:");
+        // take the column
+        //
         int column= scanner.nextInt();
-        scanner.close();
         this.column=column;
+        //
     }
 
     /**

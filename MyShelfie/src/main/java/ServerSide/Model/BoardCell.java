@@ -33,4 +33,9 @@ public class BoardCell {
      * Overview: pickable setter
      */
     public void setPickable(boolean arg) {pickable = arg;}
+
+    /**
+     * Overview: pickable getter
+     */
+    public Boolean getPickable(){ return this.pickable; }
 }

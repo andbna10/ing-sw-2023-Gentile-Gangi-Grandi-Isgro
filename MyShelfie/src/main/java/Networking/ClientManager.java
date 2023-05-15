@@ -196,6 +196,14 @@ public class ClientManager extends Thread{
                 gamehandler.getCli().printBoard(endturnmessage.getBoard());
                 break;
 
+            case REPEATTURN:
+                RepeatTurnMessage repeatturnmessage = (RepeatTurnMessage) message;
+                System.out.println(repeatturnmessage.getMessage());
+                playerhandler.getCli().yourTurn(null);
+                TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
+                sendMessage(messageToTake);
+                break;
+
             // heartbeat procedure
             case PING:
                 objectWriter.writeObject(new PingMessage("ping", "user0"));

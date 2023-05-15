@@ -169,7 +169,7 @@ public class ClientManager extends Thread{
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
                 System.out.println(yourturnmessage.getMessage());
-                if(yourturnmessage.getPersonalGoal() == null && yourturnmessage.getCommon1() == null && yourturnmessage.getCommon2() == null){
+                if(yourturnmessage.getPersonalGoal() == null){
                     playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
                     break;
                 }

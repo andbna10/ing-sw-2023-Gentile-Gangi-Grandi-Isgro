@@ -35,7 +35,6 @@ public class YourTurnMessage extends Message {
     }
 
 
-
     /**
      * Overview: get the message
      */

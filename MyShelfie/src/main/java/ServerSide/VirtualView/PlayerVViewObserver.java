@@ -1,5 +1,7 @@
 package ServerSide.VirtualView;
 
+import ServerSide.Model.Player;
+
 public interface PlayerVViewObserver {
 
     /**
@@ -7,4 +9,9 @@ public interface PlayerVViewObserver {
      */
     //void pickTakenTiles(int[] toTake);
     void playTurn(int[] toTake, int[] oreder, int column );
+
+    /**
+     * player getter
+     */
+    Player getModel();
 }

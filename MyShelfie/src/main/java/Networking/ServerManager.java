@@ -4,6 +4,7 @@ import Messages.fromClientToServer.*;
 import Messages.Message;
 import Messages.fromServerToClient.AccessDeniedMessage;
 import Messages.fromServerToClient.UsernameUsedMessage;
+import Messages.fromServerToClient.YourTurnMessage;
 import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualGameView;
 import ServerSide.VirtualView.VirtualLobbyView;
@@ -228,8 +229,12 @@ public class ServerManager extends Thread{
             //tiles draft
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
-                //playerview.getObs().pickTakenTiles(tilesToTakeMessage.getToTake());
                 playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
+                YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles());
+                this.sendMessage(toSend);
+                playerview.getObs().getModel().getBookshelf().getGameTiles();
+                gameview.getObs().getModel().advance();
+                gameview.getObs().callTurn();
                 break;
 
             //heartbeat procedure

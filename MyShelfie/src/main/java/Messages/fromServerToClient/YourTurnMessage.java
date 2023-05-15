@@ -10,15 +10,27 @@ public class YourTurnMessage extends Message {
     private String[][] personalGoal;
 
     /**
-     * Overview: YourTurnMessage constructor
+     * Overview: YourTurnMessage constructor1: both bookshelf and goals
      */
     public YourTurnMessage(ItemTile[][] bookshelf, ItemTile[][] personalGoal){
         super(null);
         super.setType(MessageType.YOURTURN);
-        this.message = "It's your turn";
+        this.message = " ---------------- It's your turn ---------------- ";
         this.bookshelf=bookshelfToString(bookshelf);
         this.personalGoal=bookshelfToString(personalGoal);
     }
+
+    /**
+     * Overview: YourTurnMessage constructor2: bookshelf only
+     */
+    public YourTurnMessage(ItemTile[][] bookshelf){
+        super(null);
+        super.setType(MessageType.YOURTURN);
+        this.message = "Your updated bookshelf";
+        this.bookshelf=bookshelfToString(bookshelf);
+    }
+
+
 
     /**
      * Overview: get the message

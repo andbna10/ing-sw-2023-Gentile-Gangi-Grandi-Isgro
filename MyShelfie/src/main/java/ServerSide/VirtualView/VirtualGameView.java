@@ -1,4 +1,5 @@
 package ServerSide.VirtualView;
+import Messages.fromServerToClient.EndTurnMessage;
 import Messages.fromServerToClient.GameHasStartedMessage;
 import Networking.ServerManager;
 import ServerSide.Model.*;
@@ -39,4 +40,20 @@ public class VirtualGameView implements GameObserver{
             manager.sendMessage(message);
         }
     }
+
+    @Override
+    /**
+     * Overview: method aimed to create a meessage to notify players about the end of a turn
+     */
+    public void notifytheendofaturn(BoardCell[][] board){
+        EndTurnMessage message = new EndTurnMessage(board);
+        for(ServerManager manager: this.managers){
+            manager.sendMessage(message);
+        }
+    }
+
+    /**
+     * Overview: observer getter
+     */
+    public GameVViewObserver getObs(){ return this.obs; }
 }

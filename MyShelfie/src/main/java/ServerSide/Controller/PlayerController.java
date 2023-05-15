@@ -1,12 +1,11 @@
 package ServerSide.Controller;
 import ServerSide.Model.*;
-import ServerSide.VirtualView.GameVViewObserver;
 import ServerSide.VirtualView.PlayerVViewObserver;
 import ServerSide.VirtualView.VirtualPlayerView;
 
 import java.util.ArrayList;
 
-public class PlayerController implements GameVViewObserver, PlayerVViewObserver {
+public class PlayerController implements PlayerVViewObserver {
     private Player model;
     private GameController game;
 
@@ -154,6 +153,7 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
             return 3;
         return maxNullCount;
     }
+
     @Override
     /**
      * Overview: method aimed place in order the tiles picked from the board in the bookshelf
@@ -162,6 +162,7 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
         for(int i=0; i<toTake.length;i=i+2){
             pickTiles(game.getModel().getBoard(),i,i+1 );
         }
+        game.getModel().notifyObserverEndTurn();
         fixAndPlace(oreder,column);
     }
 
@@ -196,6 +197,7 @@ public class PlayerController implements GameVViewObserver, PlayerVViewObserver 
         model.getPickedTiles().clear();
     }
 
+    @Override
     /**
      * player getter
      */

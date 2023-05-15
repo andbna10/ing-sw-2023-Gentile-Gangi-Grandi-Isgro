@@ -169,6 +169,10 @@ public class ClientManager extends Thread{
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
                 System.out.println(yourturnmessage.getMessage());
+                if(yourturnmessage.getPersonalGoal() == null){
+                    playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
+                    break;
+                }
                 playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf(), yourturnmessage.getPersonalGoal());
                 TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(),playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(),"prova");
                 sendMessage(messageToTake);
@@ -179,6 +183,15 @@ public class ClientManager extends Thread{
                 AccessDeniedMessage accessdeniedmessage = (AccessDeniedMessage) message;
                 System.out.println(accessdeniedmessage.getMessage());
                 loginHandler.getCli().loginprocedure();
+                break;
+
+            // beeing notified about the end of a turn
+            case ENDTURN:
+                // forse a fine turno di ogni giocatore, bisognerebbe stampare un resoconto di tutto il tavolo, board game e bookshelves.
+                // per ora a fine turno di ogni giocatore stampiamo solo la board game aggiornata.
+                EndTurnMessage endturnmessage = (EndTurnMessage) message;
+                System.out.println(endturnmessage.getMessage());
+                gamehandler.getCli().printBoard(endturnmessage.getBoard());
                 break;
 
             // heartbeat procedure

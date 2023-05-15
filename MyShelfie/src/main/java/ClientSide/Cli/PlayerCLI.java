@@ -37,7 +37,7 @@ public class PlayerCLI {
     /**
      * bookshelf printer
      */
-    public static void printBookshelf(String[][] bookshelf) {
+    public void printBookshelf(String[][] bookshelf) {
         // Print column headers
         System.out.print(" ");
         for (int j = 0; j < bookshelf[0].length; j++) {

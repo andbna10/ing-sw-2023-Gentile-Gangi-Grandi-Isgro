@@ -60,14 +60,39 @@ public class Game {
     /**
      * Overview: method aimed to notify the observer about the start of the game
      */
-    public void notifyObserver(){
+    public void notifyObserverTheStart(){
         obs.notifythestartofthegame(board.getBoard());
+    }
+
+    /**
+     * Overview: method aimed to notify the observer about the end of a turn.
+     */
+    public void notifyObserverEndTurn(){
+        obs.notifytheendofaturn(board.getBoard());
     }
 
     /**
      * Overview: commongoals getter
      */
     public ArrayList<CommonGoalCard> getCommonGoals(){ return commonGoals; }
+
+    /**
+     * Overview: method aimed to advance turns
+     */
+    public void advance(){
+        for(int i=0; i< this.order.length; i++){
+            if(order[i] == currentTurnPlayer){
+                if(i == this.order.length-1){
+                    currentTurnPlayer = order[0];
+                    System.out.println("current turn player changed");
+                    break;
+                }
+                currentTurnPlayer = order[i+1];
+                System.out.println("current turn player changed");
+                break;
+            }
+        }
+    }
 
     /**
      * Overview: index order getter
@@ -85,7 +110,7 @@ public class Game {
     public Boolean getIsFinished(){ return isFinished; }
 
     /**
-     * Overview: winneer setter
+     * Overview: winner setter
      */
     public void setWinner(String player){ winner=player;}
 

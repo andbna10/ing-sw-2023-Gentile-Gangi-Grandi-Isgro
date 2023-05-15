@@ -94,11 +94,12 @@ public class GameController implements GameVViewObserver {
         this.associateScoringTokens(this.players.size());
         this.restoreBoard();
         this.setPersonalGoals();
-        this.model.notifyObserver();
+        this.model.notifyObserverTheStart();
         Thread.sleep(1000);
         callTurn();
     }
 
+    @Override
     /**
      * Overview: method aimed to call a player to move
      */
@@ -127,6 +128,7 @@ public class GameController implements GameVViewObserver {
         }
     }
 
+    @Override
     /**
      * Overview: model getter
      */

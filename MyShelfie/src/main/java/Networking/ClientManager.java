@@ -1,7 +1,7 @@
 package Networking;
 
-import ClientSide.Cli.LogInCLI;
-import ClientSide.Cli.ReconnectCLI;
+import ClientSide.View.CLI.LogInCLI;
+import ClientSide.View.CLI.ReconnectCLI;
 import ClientSide.NetworkHandler.*;
 import Messages.Message;
 import Messages.PingMessage;

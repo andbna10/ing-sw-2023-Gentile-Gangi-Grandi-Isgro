@@ -1,6 +1,6 @@
 package ClientSide.NetworkHandler;
 
-import ClientSide.Cli.ReconnectCLI;
+import ClientSide.View.CLI.ReconnectCLI;
 import Messages.fromClientToServer.PostUserReconMessage;
 import Networking.ClientManager;
 

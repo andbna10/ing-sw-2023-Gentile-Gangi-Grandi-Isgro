@@ -1,7 +1,6 @@
 package ClientSide.NetworkHandler;
 
-import ClientSide.Cli.LogInCLI;
-import ClientSide.View.LoginView;
+import ClientSide.View.CLI.LogInCLI;
 import Messages.fromClientToServer.CreateGameMessage;
 import Messages.fromClientToServer.EnterGameMessage;
 import Networking.ClientManager;

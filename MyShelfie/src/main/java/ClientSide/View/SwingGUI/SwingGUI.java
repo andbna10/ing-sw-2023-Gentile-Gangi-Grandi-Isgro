@@ -23,30 +23,17 @@ public class SwingGUI {
 
         JButton createB = new JButton("Create game");
         createB.addActionListener(new CustomActionListener("create", createL));
-        //createB.setHorizontalAlignment(SwingConstants.CENTER);
-        //createB.setVerticalAlignment(SwingConstants.CENTER);
+
         JButton joinB = new JButton("Join game");
         joinB.addActionListener(new CustomActionListener("join", joinL));
-        //joinB.setHorizontalAlignment(SwingConstants.CENTER);
-        //joinB.setVerticalAlignment(SwingConstants.CENTER);
-        //JLabel usn = new JLabel("Enter username");
+
 
         panel.add(createB);
         panel.add(joinB);
 
-
         ImageIcon img = new ImageIcon("MyShelfie/src/main/resources/Display_1.jpg");
         Image scaledImg = img.getImage().getScaledInstance(600,400,Image.SCALE_SMOOTH);
         JLabel imgLabel = new JLabel(new ImageIcon(scaledImg));
-        imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        imgLabel.setVerticalAlignment(SwingConstants.CENTER);
-
-
-        //JLayeredPane layeredPane = new JLayeredPane();
-        //layeredPane.add(imgLabel, 0);
-        //layeredPane.add(panel, 1);
-
-        //mainFrame.setLayeredPane(layeredPane);
 
         mainFrame.add(imgLabel);
         mainFrame.add(panel);

@@ -1,7 +1,5 @@
 package Main;
 
-import ClientSide.Cli.LogInCLI;
-import ClientSide.NetworkHandler.LoginHandler;
 import Networking.ClientManager;
 
 import java.io.*;

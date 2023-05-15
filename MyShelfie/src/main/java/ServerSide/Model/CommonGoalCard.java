@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class CommonGoalCard extends GoalCard{
     private ArrayList<ScoringToken> stack;
-
+    private int patternNumber;
     /**
      * Overview: CommonGoalCard constructor
      */
@@ -12,6 +12,11 @@ public abstract class CommonGoalCard extends GoalCard{
         super();
         this.stack = new ArrayList<>();
     }
+
+    /**
+     * patternNumber getter
+     */
+    public int getPatternNumber() {return patternNumber;}
 
     /**
      * Overview: stack element getter

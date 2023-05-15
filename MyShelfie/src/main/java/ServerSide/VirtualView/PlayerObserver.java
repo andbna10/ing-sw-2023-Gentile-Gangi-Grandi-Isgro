@@ -9,5 +9,5 @@ public interface PlayerObserver {
     void createasknplayersmessage();
 
     void createownercanstartgamemessage();
-    void notifyPlayerTurn(ItemTile[][] bookshelf, ItemTile[][] personalGoal);
+    void notifyPlayerTurn(ItemTile[][] bookshelf, ItemTile[][] personalGoal, int common1, int common2);
 }

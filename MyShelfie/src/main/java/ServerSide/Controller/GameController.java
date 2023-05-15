@@ -103,7 +103,7 @@ public class GameController implements GameVViewObserver {
      * Overview: method aimed to call a player to move
      */
     public void callTurn(){
-        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
+        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn(model.getCommonGoals().get(0).getPatternNumber(), model.getCommonGoals().get(1).getPatternNumber());
     }
 
     /**

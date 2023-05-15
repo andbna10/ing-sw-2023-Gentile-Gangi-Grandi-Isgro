@@ -14,6 +14,8 @@ public class CommonPattern7 extends CommonGoalCard {
     }
 
     @Override
+    public int getPatternNumber() {return 7;}
+    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */

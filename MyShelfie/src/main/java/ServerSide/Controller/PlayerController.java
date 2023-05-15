@@ -160,7 +160,7 @@ public class PlayerController implements PlayerVViewObserver {
      */
     public void playTurn(int[] toTake, int[] oreder, int column ){
         for(int i=0; i<toTake.length;i=i+2){
-            pickTiles(game.getModel().getBoard(),i,i+1 );
+            pickTiles(game.getModel().getBoard(), toTake[i], toTake[i+1]);
         }
         game.getModel().notifyObserverEndTurn();
         fixAndPlace(oreder,column);

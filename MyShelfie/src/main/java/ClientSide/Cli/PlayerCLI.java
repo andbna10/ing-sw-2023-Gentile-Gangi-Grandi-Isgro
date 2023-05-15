@@ -18,14 +18,7 @@ public class PlayerCLI {
     /**
      * Overview: cli for the player to complete a move
      */
-    public void yourTurn(String[][] bookshelf, String[][] personalGoal, int common1, int common2){
-        // implementare cli turno di gioco
-        System.out.println("this is your personal goal:");
-        printBookshelf(personalGoal);
-        System.out.println("this is the first common goal:");
-        printCommon(common1);
-        System.out.println("this is the second common goal:");
-        printCommon(common2);
+    public void yourTurn(String[][] bookshelf){
         System.out.println("this is your bookshelf:");
         printBookshelf(bookshelf);
         System.out.println("pick the tiles you want from the board writing the coordinates");
@@ -35,6 +28,19 @@ public class PlayerCLI {
         takeOrder();
         System.out.println("insert the column you want to insert the tiles:");
         takeColumn();
+    }
+
+    /**
+     * Overview: cli for the player to complete a move
+     */
+    public void initialSetUp(String[][] personalGoal, int common1, int common2){
+        // implementare cli turno di gioco
+        System.out.println("this is your personal goal:");
+        printBookshelf(personalGoal);
+        System.out.println("\nthis is the first common goal:");
+        printCommon(common1);
+        System.out.println("\nthis is the second common goal:");
+        printCommon(common2);
     }
 
 

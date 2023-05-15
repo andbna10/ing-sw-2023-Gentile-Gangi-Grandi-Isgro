@@ -121,8 +121,8 @@ public class Player {
     /**
      * Overview: notify the player to move
      */
-    public void notifyPlayerTurn(int common1, int common2){
-        obs.notifyPlayerTurn(bookshelf.getGameTiles(), goal.getPersonalGoal().getGameTiles(), common1, common2);
+    public void notifyPlayerTurn(){
+        obs.notifyPlayerTurn(bookshelf.getGameTiles());
     }
 
 }

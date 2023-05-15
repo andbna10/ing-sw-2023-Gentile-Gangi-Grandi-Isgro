@@ -9,13 +9,15 @@ import java.util.ArrayList;
 public class VirtualGameView implements GameObserver{
     private GameVViewObserver obs;
     private ArrayList<ServerManager> managers;
+    private ArrayList<Player> players; // lo uso solo per gamehasstarted messages, vedere se tenerlo e togliere i managers (i manager si prendono dai player facilmente)
 
     /**
      * Overview: constructor of the virtual game view
      */
-    public VirtualGameView(Game model){
+    public VirtualGameView(Game model, ArrayList<Player> players){
         model.setGameObserver(this);
         this.managers = new ArrayList<>();
+        this.players = players;
     }
 
     /**
@@ -34,9 +36,14 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create the message to notify the start of the game
      */
-    public void notifythestartofthegame(BoardCell[][] board){
-        GameHasStartedMessage message = new GameHasStartedMessage(board);
+    public void notifythestartofthegame(BoardCell[][] board, int common1, int common2){
         for(ServerManager manager: this.managers) {
+            GameHasStartedMessage message = null;
+            for(Player p: this.players){
+                if(manager == p.getManager()){
+                    message = new GameHasStartedMessage(board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2);
+                }
+            }
             manager.sendMessage(message);
         }
     }

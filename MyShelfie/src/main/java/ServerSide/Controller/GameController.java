@@ -26,7 +26,7 @@ public class GameController implements GameVViewObserver {
         this.players = new ArrayList<>(usernamePlayers.length);
         this.gameName = new MyShelfie();
         this.model = new Game(lobby, gameName.selectCommonGoals(), this.selectFirstToPlay(usernamePlayers.length));
-        this.virtualview = new VirtualGameView(this.model);
+        this.virtualview = new VirtualGameView(this.model, players);
         this.virtualview.setGameViewObserver(this);
 
         for(int i=0; i<usernamePlayers.length; i++){
@@ -94,7 +94,7 @@ public class GameController implements GameVViewObserver {
         this.associateScoringTokens(this.players.size());
         this.restoreBoard();
         this.setPersonalGoals();
-        this.model.notifyObserverTheStart();
+        this.model.notifyObserverTheStart(model.getCommonGoals().get(0).getPatternNumber(), model.getCommonGoals().get(1).getPatternNumber());
         Thread.sleep(1000);
         callTurn();
     }
@@ -104,7 +104,7 @@ public class GameController implements GameVViewObserver {
      * Overview: method aimed to call a player to move
      */
     public void callTurn(){
-        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn(model.getCommonGoals().get(0).getPatternNumber(), model.getCommonGoals().get(1).getPatternNumber());
+        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
     }
 
     /**

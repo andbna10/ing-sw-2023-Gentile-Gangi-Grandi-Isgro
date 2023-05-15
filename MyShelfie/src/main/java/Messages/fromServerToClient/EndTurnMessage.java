@@ -33,7 +33,7 @@ public class EndTurnMessage extends Message {
             for (int j=0; j<board.length;j++) {
                 if(board[i][j].getStatus() == Status.IN){
                     if(board[i][j].getTile() == null){
-                        stringMatrix[i][j]=(" ");
+                        stringMatrix[i][j]=("*");
                         continue;
                     }
                     switch (board[i][j].getTile().getType()) {
@@ -43,7 +43,7 @@ public class EndTurnMessage extends Message {
                         case FRAMES -> stringMatrix[i][j]="F";
                         case TROPHIES -> stringMatrix[i][j]="T";
                         case PLANTS -> stringMatrix[i][j]="P";
-                        default -> stringMatrix[i][j]="*";
+                        //default -> stringMatrix[i][j]="*";
                     }
                 }else{
                     stringMatrix[i][j]=(" ");

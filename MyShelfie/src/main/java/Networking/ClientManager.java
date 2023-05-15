@@ -133,6 +133,7 @@ public class ClientManager extends Thread{
                 playerhandler = new PlayerHandler(this);
                 System.out.println(gamehasstartedmessage.getMessage());
                 gamehandler.getCli().printBoard(gamehasstartedmessage.getBoard());
+                playerhandler.getCli().initialSetUp(gamehasstartedmessage.getPersonalGoal(), gamehasstartedmessage.getCommon1(), gamehasstartedmessage.getCommon2());
                 break;
 
             // create the Player View
@@ -169,14 +170,15 @@ public class ClientManager extends Thread{
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
                 System.out.println(yourturnmessage.getMessage());
-                if(yourturnmessage.getPersonalGoal() == null){
+                if(yourturnmessage.getUpddatedBookshelf()){
                     playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
                     break;
+                } else {
+                    playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
+                    TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
+                    sendMessage(messageToTake);
+                    break;
                 }
-                playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf(), yourturnmessage.getPersonalGoal(), yourturnmessage.getCommon1(), yourturnmessage.getCommon2());
-                TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(),playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(),"prova");
-                sendMessage(messageToTake);
-                break;
 
             // access to the lobby denied
             case ACCESSDENIED:

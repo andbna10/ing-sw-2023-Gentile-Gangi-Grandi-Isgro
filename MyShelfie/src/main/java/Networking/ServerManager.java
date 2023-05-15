@@ -230,7 +230,7 @@ public class ServerManager extends Thread{
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
                 playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
-                YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles());
+                YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles(), true);
                 this.sendMessage(toSend);
                 playerview.getObs().getModel().getBookshelf().getGameTiles();
                 gameview.getObs().getModel().advance();

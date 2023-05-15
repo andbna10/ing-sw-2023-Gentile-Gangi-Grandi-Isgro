@@ -1,6 +1,7 @@
 package ClientSide.NetworkHandler;
 
 import ClientSide.View.CLI.LogInCLI;
+import ClientSide.View.GUI.LoginGUI;
 import Messages.fromClientToServer.CreateGameMessage;
 import Messages.fromClientToServer.EnterGameMessage;
 import Networking.ClientManager;
@@ -8,6 +9,16 @@ import Networking.ClientManager;
 public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;
     private LogInCLI cli;
+
+    private LoginGUI gui;
+
+    public LoginGUI getGui() {
+        return gui;
+    }
+
+    public void setGui(LoginGUI gui) {
+        this.gui = gui;
+    }
 
     /**
      * Overview: LoginHandler constructor

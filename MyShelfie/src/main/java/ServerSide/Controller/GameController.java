@@ -106,7 +106,9 @@ public class GameController implements GameVViewObserver {
      * Overview: method aimed to call a player to move
      */
     public void callTurn(){
-        checkPickables(model.getBoard());
+        if(checkPickables(model.getBoard()) == 0){
+            restoreBoard();
+        }
         // vedere, se non ci sono pickable, il player corrente deve poter ristorare la board.
         // l'idea è rendere la pickable int, e ritornare il numero di tessere picable, se è 0, bisogna lanciare il restore board.
         model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
@@ -144,33 +146,43 @@ public class GameController implements GameVViewObserver {
      */
     public VirtualGameView getVirtualView(){ return this.virtualview; }
 
+    @Override
     /**
      * Overview: check whether boardcell can be picked,
      *  to be called at startgame and on every endturn (a cell can't turn pickable during player's turn )
      */
-    public void checkPickables (BoardGame boardGame) {
+    public int checkPickables (BoardGame boardGame) {
+        int numPickables = 0;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (boardGame.getBoard()[i][j].getStatus() == Status.IN && boardGame.getBoard()[i][j].getTile() != null) {
 
-        boolean flag = true;
-
-        for (int i = 1; i < 8; i++)
-            for(int j = 1; j < 8; j++)
-                if(boardGame.getBoard()[i][j].getStatus() == Status.IN) {
-
+                    Boolean changed = false;
                     //una cell non è pickable se tutte le adiacenti sono null
                     // o tutte le adiacenti sono piene, si altrimenti
 
-                    if (boardGame.getTile(i - 1, j - 1) == null &&
-                            boardGame.getTile(i - 1, j + 1) == null &&
-                            boardGame.getTile(i + 1, j - 1) == null &&
-                            boardGame.getTile(i + 1, j + 1) == null) flag = false;
-                    if (boardGame.getTile(i - 1, j - 1) != null &&
-                            boardGame.getTile(i - 1, j + 1) != null &&
-                            boardGame.getTile(i + 1, j - 1) != null &&
-                            boardGame.getTile(i + 1, j + 1) != null) flag = false;
-
-                    boardGame.getBoard()[i][j].setPickable(flag);
-
+                    if (boardGame.getTile(i - 1, j) == null &&
+                            boardGame.getTile(i + 1, j) == null &&
+                            boardGame.getTile(i, j + 1) == null &&
+                            boardGame.getTile(i, j - 1) == null) {
+                        boardGame.getBoard()[i][j].setPickable(false);
+                        changed = true;
+                    }
+                    if (boardGame.getTile(i - 1, j) != null &&
+                            boardGame.getTile(i + 1, j) != null &&
+                            boardGame.getTile(i, j - 1) != null &&
+                            boardGame.getTile(i, j + 1) != null) {
+                        boardGame.getBoard()[i][j].setPickable(false);
+                        changed = true;
+                    }
+                    if (!changed) {
+                        boardGame.getBoard()[i][j].setPickable(true);
+                        numPickables++;
+                    }
                 }
+            }
+        }
+        return numPickables;
     }
 
     @Override
@@ -179,34 +191,31 @@ public class GameController implements GameVViewObserver {
      */
     // probabilmente come picked è meglio passargli quelle ordinate
     public Boolean verifyTurn(int[] picked, int column, ServerManager manager){
+
         // check pickables
         for(int i=0;i<picked.length; i=i+2){
-            if(model.getBoard().getBoard()[i][i+1].getPickable()){
-                continue;
+            System.out.println("\n"+picked[i]+" "+picked[i+1] + model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable());
+            if(model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable()){
             } else {
                 System.out.println("check pickables");
                 return false;
             }
         }
 
-        // 1 pick
-        if(picked.length == 2){ return true;}
-
         // 2 pick
         if(picked.length == 4){
-            if(picked[0] != picked[2] && picked[1] != picked[3]){
-                System.out.println("check 2 pick");
+            if(!((picked[0] == picked[2] && Math.abs(picked[1] - picked[3]) == 1) || (picked[1] == picked[3] && Math.abs(picked[0]-picked[2]) == 1))){
                 return false;
             }
         }
 
         // 3 pick
         if(picked.length == 6){
-            if(!(picked[0] == picked[2] && picked[0] == picked[4])){
-                if(!(picked[1] == picked[3] && picked[1] == picked[5])){
-                    System.out.println("check 3 pick");
-                    return false;
-                }
+            if(!
+                    ((picked[0] == picked[2] && picked[0] == picked[4] && Math.abs(getMax(picked[1], picked[3], picked[5]) - getMin(picked[1], picked[3], picked[5])) == 2) ||
+                            (picked[1] == picked[3] && picked[1] == picked[5] && Math.abs(getMax(picked[0], picked[2], picked[4]) - getMin(picked[0], picked[2], picked[4])) == 2))){
+
+                return false;
             }
         }
 
@@ -220,6 +229,22 @@ public class GameController implements GameVViewObserver {
         }
 
         return true;
+    }
+
+    public int getMin(int a, int b, int c){
+        int min = a;
+        if(min > b){ min = b; }
+        if(min > c){ min = c; }
+
+        return min;
+    }
+
+    public int getMax(int a, int b, int c){
+        int max = a;
+        if(max < b){ max = b;}
+        if(max < c){ max = c; }
+
+        return max;
     }
 
 

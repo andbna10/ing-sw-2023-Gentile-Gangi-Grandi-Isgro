@@ -112,6 +112,7 @@ public class BoardGame {
      */
     public ItemTile getTile(int x, int y){
         if(isInTile(x,y)){
+            this.emptyCells++;
             return board[x][y].getTile();
         } else {
             return null;

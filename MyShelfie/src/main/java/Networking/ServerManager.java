@@ -231,7 +231,7 @@ public class ServerManager extends Thread{
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
                 // check the goodness of the player move
-                if(!gameview.getObs().verifyTurn(tilesToTakeMessage.getOrder(), tilesToTakeMessage.getColumn(), this)){
+                if(!gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this)){
                     // if something wrong
                     RepeatTurnMessage toSend = new RepeatTurnMessage();
                     sendMessage(toSend);

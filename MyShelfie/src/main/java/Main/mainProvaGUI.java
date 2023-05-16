@@ -2,6 +2,7 @@ package Main;
 
 import ClientSide.NetworkHandler.LoginHandler;
 import ClientSide.View.CLI.LogInCLI;
+import ClientSide.View.GUI.GameGUI;
 import ClientSide.View.GUI.LoginGUI;
 import Networking.ClientManager;
 
@@ -27,7 +28,8 @@ public class mainProvaGUI {
         // start the thread of the client
         //client.start();
 
-        LoginGUI gui = new LoginGUI();
+        //LoginGUI loginGUI = new LoginGUI();
+        GameGUI gameGUI = new GameGUI();
 
     }
 }

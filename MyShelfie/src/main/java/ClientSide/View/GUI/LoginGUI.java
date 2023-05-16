@@ -15,11 +15,11 @@ public class LoginGUI {
 
     public LoginGUI(){
         //window initialization
-        JFrame loginFrame = new JFrame("Login dialog");
+        JFrame loginFrame = new JFrame("Login");
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setLayout(new FlowLayout());
 
-        //setting up windows icon and background
+        //setting up window icon and background
         ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/Display_1.jpg");
         Image scaledBg = bg.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
         JLabel bgLabel = new JLabel(new ImageIcon(scaledBg));
@@ -77,7 +77,7 @@ public class LoginGUI {
 
         //buttons panel initialization
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(2,2));
+        buttons.setLayout(new GridLayout(0,1));
 
         buttons.add(createB);
         buttons.add(joinB);

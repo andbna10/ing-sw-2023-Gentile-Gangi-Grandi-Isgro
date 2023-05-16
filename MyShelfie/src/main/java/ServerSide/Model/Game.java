@@ -84,11 +84,9 @@ public class Game {
             if(order[i] == currentTurnPlayer){
                 if(i == this.order.length-1){
                     currentTurnPlayer = order[0];
-                    System.out.println("current turn player changed");
                     break;
                 }
                 currentTurnPlayer = order[i+1];
-                System.out.println("current turn player changed");
                 break;
             }
         }

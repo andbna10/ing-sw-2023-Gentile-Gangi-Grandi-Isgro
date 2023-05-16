@@ -178,6 +178,7 @@ public class PlayerController implements PlayerVViewObserver {
     public void pickTiles (BoardGame boardGame, int i, int j) {
         //inserisco la tile nell'array che sarà poi inserito nella colonna scelta
         model.getPickedTiles().add(boardGame.getTile(i,j));
+        boardGame.increment();
         //setto la posizione della tile tolta a null così che non sia più visibile
         boardGame.getBoard()[i][j].setTile(null);
     }

@@ -204,6 +204,12 @@ public class ClientManager extends Thread{
                 sendMessage(messageToTake);
                 break;
 
+            case BOARDRESTORED:
+                BoardRestoredMessage boardrestoredmessage = (BoardRestoredMessage) message;
+                System.out.println(boardrestoredmessage.getMessage());
+                gamehandler.getCli().printBoard(boardrestoredmessage.getBoard());
+                break;
+
             // heartbeat procedure
             case PING:
                 objectWriter.writeObject(new PingMessage("ping", "user0"));

@@ -1,10 +1,8 @@
 package ServerSide.VirtualView;
 
-import Messages.fromServerToClient.AskNPlayersMessage;
-import Messages.fromServerToClient.CreatePlayerViewMessage;
-import Messages.fromServerToClient.OwnercanStartGameMessage;
-import Messages.fromServerToClient.YourTurnMessage;
+import Messages.fromServerToClient.*;
 import Networking.ServerManager;
+import ServerSide.Model.BoardCell;
 import ServerSide.Model.ItemTile;
 
 public class VirtualPlayerView implements PlayerObserver{
@@ -60,6 +58,16 @@ public class VirtualPlayerView implements PlayerObserver{
         YourTurnMessage message = new YourTurnMessage(bookshelf);
         manager.sendMessage(message);
     }
+
+    @Override
+    /**
+     * Overview: method aimed to notify the player that the board has been restored
+     */
+    public void notifyPlayerBoardRestored(BoardCell[][] board){
+        BoardRestoredMessage message = new BoardRestoredMessage(board);
+        manager.sendMessage(message);
+    }
+
 
 
 

@@ -125,4 +125,11 @@ public class Player {
         obs.notifyPlayerTurn(bookshelf.getGameTiles());
     }
 
+    /**
+     * Overview: notify the player the board has been restored
+     */
+    public void notifyPlayerBoardRestored(BoardCell[][] board){
+        obs.notifyPlayerBoardRestored(board);
+    }
+
 }

@@ -23,10 +23,20 @@ public class Bookshelf {
      */
     public Boolean canInsert(int nTiles, int j){
 
-        int i = 0; //busy height of the column
+        /*int i = 0; //busy height of the column
 
         while(gameTiles[i][j] != null) i++;
-        return (nTiles + i <= 5); //logical condition, either true or false
+        return (nTiles + i <= 5); //logical condition, either true or false*/
+        int num = 0;
+        for(int i=0;i<5;i++){
+            if(gameTiles[i][j] == null) num++;
+        }
+
+        if(nTiles <= num){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

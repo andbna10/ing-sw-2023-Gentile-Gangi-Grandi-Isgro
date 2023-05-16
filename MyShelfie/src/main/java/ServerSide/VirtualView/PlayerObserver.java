@@ -1,5 +1,6 @@
 package ServerSide.VirtualView;
 
+import ServerSide.Model.BoardCell;
 import ServerSide.Model.ItemTile;
 
 public interface PlayerObserver {
@@ -10,4 +11,5 @@ public interface PlayerObserver {
 
     void createownercanstartgamemessage();
     void notifyPlayerTurn(ItemTile[][] bookshelf);
+    void notifyPlayerBoardRestored(BoardCell[][] board);
 }

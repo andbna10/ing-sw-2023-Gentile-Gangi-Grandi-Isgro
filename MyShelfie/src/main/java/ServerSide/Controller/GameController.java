@@ -108,6 +108,7 @@ public class GameController implements GameVViewObserver {
     public void callTurn(){
         if(checkPickables(model.getBoard()) == 0){
             restoreBoard();
+            model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerBoardRestored(model.getBoard().getBoard());
         }
         // vedere, se non ci sono pickable, il player corrente deve poter ristorare la board.
         // l'idea è rendere la pickable int, e ritornare il numero di tessere picable, se è 0, bisogna lanciare il restore board.
@@ -194,10 +195,8 @@ public class GameController implements GameVViewObserver {
 
         // check pickables
         for(int i=0;i<picked.length; i=i+2){
-            System.out.println("\n"+picked[i]+" "+picked[i+1] + model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable());
             if(model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable()){
             } else {
-                System.out.println("check pickables");
                 return false;
             }
         }

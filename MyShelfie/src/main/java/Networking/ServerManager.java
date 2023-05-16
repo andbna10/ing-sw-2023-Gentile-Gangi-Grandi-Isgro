@@ -14,6 +14,7 @@ import ServerSide.Controller.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.UUID;
 
 public class ServerManager extends Thread{
@@ -106,7 +107,7 @@ public class ServerManager extends Thread{
                             readerThreadActive = false;
                         }
 
-                    } catch (EOFException e) { //gestione disconnessione client
+                    } catch (EOFException | SocketException e) { //gestione disconnessione client
 
                         try {
 

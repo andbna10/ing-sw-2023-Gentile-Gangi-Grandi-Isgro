@@ -22,6 +22,10 @@ public class CommonPattern12 extends CommonGoalCard {
             if(bookshelf.getTile(i + 1, i) == null)
                 ok = false;
 
+        for(int i = 1, j = 4; i <= 5; i++, j--)
+            if(bookshelf.getTile(i, j) == null)
+                ok = false;
+
         return ok;
     }
 }

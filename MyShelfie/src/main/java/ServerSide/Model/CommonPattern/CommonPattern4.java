@@ -21,7 +21,9 @@ public class CommonPattern4 extends CommonGoalCard {
 
         for (int j = 0; j < 5; j++)
             for (int i = 0; i < 6 - 1; i++)
-                if (bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType() &&
+                if (bookshelf.getTile(i,j) != null && bookshelf.getTile(i+1,j) != null &&
+                        bookshelf.getTile(i+2,j) != null &&
+                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType() &&
                         (bookshelf.getTile(i, j).getType() != bookshelf.getTile(i + 2, j).getType() || i == 4))
                     count++;
 

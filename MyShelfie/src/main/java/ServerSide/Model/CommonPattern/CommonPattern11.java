@@ -20,12 +20,14 @@ public class CommonPattern11 extends CommonGoalCard {
         boolean ret = false;
 
         for (int i = 0; i < 4; i++)
-            if(bookshelf.getTile(i, i).getType() != bookshelf.getTile(i + 1, i + 1).getType()) {
+            if(bookshelf.getTile(i,i) != null && bookshelf.getTile(i + 1,i + 1) != null &&
+                    bookshelf.getTile(i, i).getType() != bookshelf.getTile(i + 1, i + 1).getType()) {
                 ok--;
                 break;
             }
         for (int i = 0; i < 4; i++)
-            if(bookshelf.getTile(i + 1, i).getType() != bookshelf.getTile(i + 2, i + 1).getType()) {
+            if(bookshelf.getTile(i + 1, i) != null && bookshelf.getTile(i + 2,i + 1) != null &&
+                    bookshelf.getTile(i + 1, i).getType() != bookshelf.getTile(i + 2, i + 1).getType()) {
                 ok--;
                 break;
             }

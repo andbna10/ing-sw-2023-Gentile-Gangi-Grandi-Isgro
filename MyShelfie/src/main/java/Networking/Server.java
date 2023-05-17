@@ -129,7 +129,15 @@ public class Server {
                             this.discon = false;
                             this.disconRef = null;
                             continue;
+                        } else {
+
+                            try {
+                                this.out.writeObject(new SendDisconMessage(false));
+                                this.out.flush();
+                            } catch (IOException e) { throw new RuntimeException(e); }
+
                         }
+
                     } catch (Exception e) { e.printStackTrace(); }
 
                 }

@@ -10,7 +10,7 @@ public class Game {
     private ArrayList<CommonGoalCard> commonGoals;
     private int[] order;
     private int currentTurnPlayer;
-    private Boolean isFinished;
+    private Boolean isLastTurnStarted;
     private String winner;
     private GameObserver obs;
     // vedere se mettere come observers del game anche i virtualplayerview
@@ -44,8 +44,8 @@ public class Game {
         // initialization of the currentTurnPlayer
         currentTurnPlayer = order[0];
 
-        // initialization of isFinish
-        isFinished = false;
+        // initialization isLastTurnStarted
+        this.isLastTurnStarted = false;
     }
 
     /**
@@ -67,9 +67,24 @@ public class Game {
     /**
      * Overview: method aimed to notify the observer about the end of a turn.
      */
-    public void notifyObserverEndTurn(){
-        obs.notifytheendofaturn(board.getBoard());
+    public void notifyObserverEndTurn(String username){
+        obs.notifytheendofaturn(board.getBoard(), username);
     }
+
+    /**
+     * Overview: method aimed to notify players that a common has been accomplished
+     */
+    public void noitfyObserverCommon(int common, int newPoints, String username){
+        obs.noitfyObserverCommon(common, newPoints, username);
+    }
+
+    /**
+     * Overview: method aimed to notify the last turn triggered
+     */
+    public void noitfyObserverLastTurn(String username){
+        obs.noitfyObserverLastTurn(username);
+    }
+
 
     /**
      * Overview: commongoals getter
@@ -93,6 +108,22 @@ public class Game {
     }
 
     /**
+     * Overview: *advance towards end game
+     */
+    public Boolean advanceFinish(){
+        for(int i=0; i< this.order.length; i++){
+            if(order[i] == currentTurnPlayer){
+                if(i == order.length-1){
+                    return true;
+                } else {
+                    currentTurnPlayer = order[i+1];
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Overview: index order getter
      */
     public int getOrder(int i){ return order[i]; }
@@ -101,11 +132,6 @@ public class Game {
      * Overview: currentTurnPlayer getter
      */
     public int getCurrentTurnPlayer(){ return currentTurnPlayer; }
-
-    /**
-     * Overview: isFinished getter
-     */
-    public Boolean getIsFinished(){ return isFinished; }
 
     /**
      * Overview: winner setter
@@ -126,6 +152,16 @@ public class Game {
      * Overview: board getter
      */
     public BoardGame getBoard(){ return board; }
+
+    /**
+     * Overview: isLastTurnStarted setter
+     */
+    public void setIsLastTurnStarted(Boolean status){ this.isLastTurnStarted = status; }
+
+    /**
+     * Overview: isLastTurnStarted getter
+     */
+    public Boolean getIsLastTurnStarted(){ return this.isLastTurnStarted; }
 
 
 

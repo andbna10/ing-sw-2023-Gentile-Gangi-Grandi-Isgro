@@ -115,6 +115,7 @@ public class GameController implements GameVViewObserver {
         model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
     }
 
+    @Override
     /**
      * Overview: end game
      */
@@ -134,6 +135,8 @@ public class GameController implements GameVViewObserver {
                 model.setWinner(model.getPlayers().get(model.getOrder(i)).getUsername());
             }
         }
+
+        virtualview.notifyEnd(model.getWinner(), model.getPlayers());
     }
 
     @Override
@@ -191,20 +194,20 @@ public class GameController implements GameVViewObserver {
      * Overview: method aimed to verify turn played
      */
     // probabilmente come picked è meglio passargli quelle ordinate
-    public Boolean verifyTurn(int[] picked, int column, ServerManager manager){
+    public int verifyTurn(int[] picked, int column, ServerManager manager){
 
         // check pickables
         for(int i=0;i<picked.length; i=i+2){
             if(model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable()){
             } else {
-                return false;
+                return 0;
             }
         }
 
         // 2 pick
         if(picked.length == 4){
             if(!((picked[0] == picked[2] && Math.abs(picked[1] - picked[3]) == 1) || (picked[1] == picked[3] && Math.abs(picked[0]-picked[2]) == 1))){
-                return false;
+                return 1;
             }
         }
 
@@ -214,20 +217,20 @@ public class GameController implements GameVViewObserver {
                     ((picked[0] == picked[2] && picked[0] == picked[4] && Math.abs(getMax(picked[1], picked[3], picked[5]) - getMin(picked[1], picked[3], picked[5])) == 2) ||
                             (picked[1] == picked[3] && picked[1] == picked[5] && Math.abs(getMax(picked[0], picked[2], picked[4]) - getMin(picked[0], picked[2], picked[4])) == 2))){
 
-                return false;
+                return 1;
             }
         }
 
-        // check bookshelf floor
+        // check bookshelf room
         for(PlayerController p: this.players){
             if(p.getModel().getManager() == manager){
                 if(!p.getModel().getBookshelf().canInsert(picked.length/2, column)){
-                    return false;
+                    return 2;
                 }
             }
         }
 
-        return true;
+        return 3;
     }
 
     public int getMin(int a, int b, int c){

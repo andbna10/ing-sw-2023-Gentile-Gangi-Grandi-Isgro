@@ -210,6 +210,22 @@ public class ClientManager extends Thread{
                 gamehandler.getCli().printBoard(boardrestoredmessage.getBoard());
                 break;
 
+            case NOTIFYCHECKCOMMON:
+                NotifyCheckCommonMessage notifycheckcommonmessage = (NotifyCheckCommonMessage) message;
+                System.out.println(notifycheckcommonmessage.getMessage());
+                break;
+
+            case LASTTURNTRIGGERED:
+                LastTurnTriggeredMessage lastturntriggeredmessage = (LastTurnTriggeredMessage) message;
+                System.out.println(lastturntriggeredmessage.getMessage());
+                break;
+
+            case ENDGAME:
+                EndGameMessage endgamemessage = (EndGameMessage) message;
+                System.out.println(endgamemessage.getOutput());
+                System.out.println(endgamemessage.getMessage());
+                break;
+
             // heartbeat procedure
             case PING:
                 objectWriter.writeObject(new PingMessage("ping", "user0"));

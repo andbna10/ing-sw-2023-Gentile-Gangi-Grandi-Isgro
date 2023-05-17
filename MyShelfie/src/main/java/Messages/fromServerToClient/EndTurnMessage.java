@@ -12,10 +12,10 @@ public class EndTurnMessage extends Message {
     /**
      * Overview: EndTurnMessage constructor
      */
-    public EndTurnMessage(BoardCell[][] board){
+    public EndTurnMessage(BoardCell[][] board, String username){
         super(null);
         super.setType(MessageType.ENDTURN);
-        message = "A player has just ended its turn, this is the updated board!";
+        message = username+ " has just ended its turn, this is the updated board!";
         this.board=boardToString(board);
     }
 

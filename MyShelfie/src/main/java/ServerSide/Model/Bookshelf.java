@@ -103,6 +103,16 @@ public class Bookshelf {
     public Boolean getCommonTwo(){ return commonTwo; }
 
     /**
+     * Overview: set commonOne
+     */
+    public void setCommonOne(Boolean status){ this.commonOne = status; }
+
+    /**
+     * Overview: set commonTwo
+     */
+    public void setCommonTwo(Boolean status){ this.commonTwo = status; }
+
+    /**
      * Overview: check if a column of the bookshelf is full
      */
     public Boolean columnIsFull(int index){

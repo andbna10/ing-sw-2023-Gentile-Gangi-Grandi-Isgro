@@ -9,10 +9,14 @@ public class RepeatTurnMessage extends Message {
     /**
      * Overview: RepeatTurnMessage constructor
      */
-    public RepeatTurnMessage(){
+    public RepeatTurnMessage(int type){
         super(null);
         super.setType(MessageType.REPEATTURN);
-        this.message = "\nPlease, try again.\nRemember that you can pick only tiles which are pickable from the start of the turn and belonging to the same line.\nMoreover check your Bookshelf floor.";
+        switch(type){
+            case 0 -> message = "\nSelected tiles are not pickable!";
+            case 1 -> message = "\nSelected tiles are pickable but not consecutive!";
+            case 2 -> message = "\nYou have not enough room in the bookshelf!";
+        }
     }
 
     /**

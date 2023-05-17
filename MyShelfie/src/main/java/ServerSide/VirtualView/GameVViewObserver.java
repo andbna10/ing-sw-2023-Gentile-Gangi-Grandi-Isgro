@@ -18,10 +18,15 @@ public interface GameVViewObserver {
      /**
       * Overview: method aimed to verify the move of the player
       */
-     public Boolean verifyTurn(int[] picked, int column, ServerManager manager);
+     public int verifyTurn(int[] picked, int column, ServerManager manager);
 
      /**
       * Overview: method aimed to check the pickables
       */
      public int checkPickables (BoardGame boardGame);
+
+     /**
+      * Overview: method aimed to end the game
+      */
+     void endGame();
 }

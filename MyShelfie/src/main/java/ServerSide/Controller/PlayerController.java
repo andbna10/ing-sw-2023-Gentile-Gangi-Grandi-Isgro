@@ -110,28 +110,6 @@ public class PlayerController implements PlayerVViewObserver {
     }
 
     /**
-     * Overview: method aimed to let the player play a turn
-     */
-    /*public void play(int columnIndex, ArrayList<ItemTile> tiles) {
-
-
-
-        togliere le tiles dal board game (gestire anche l'ingame delle tiles) ---> (nel momento in cui il giocatore
-        clicca su una tile dal boardgame per prenderla dev'essere lanciato un mess verso il server per lanciare
-        il metodo "pickable" dal boardgame. se è true si cambia l'inGame della tile da false a true
-
-        dopo questo, ho una lista di tiles e le devo mettere nella bookshelf (feedcolumn())
-        controllo dei goals
-        controllo sulla bookshlef
-        aggiornamento punti e stato in generale delle classi modello (tiles in gioco, obiettivi raggiunti)
-
-        cambiare il current turn player alla fine del turno
-
-
-
-    }*/
-
-    /**
      * this method check if in the bookshelf there is space left to inset 3 or less tiles
      */
     public int spaceLeft(){
@@ -158,20 +136,46 @@ public class PlayerController implements PlayerVViewObserver {
     /**
      * Overview: method aimed place in order the tiles picked from the board in the bookshelf
      */
-    public void playTurn(int[] toTake, int[] oreder, int column ){
+    public void playTurn(int[] toTake, int[] order, int column ){
         for(int i=0; i<toTake.length;i=i+2){
             pickTiles(game.getModel().getBoard(), toTake[i], toTake[i+1]);
         }
-        game.getModel().notifyObserverEndTurn();
-        fixAndPlace(oreder,column);
+        game.getModel().notifyObserverEndTurn(model.getUsername());
+        fixAndPlace(order,column);
     }
 
-
-    /*public void pickTakenTiles(int[] toTake){
-        for(int i=0; i<toTake.length;i=i+2){
-            pickTiles(game.getModel().getBoard(),i,i+1 );
+    @Override
+    /**
+     * Overview: method aimed to check the goals and the fullness of the bookshelf
+     */
+    public void check(ArrayList<CommonGoalCard> commongoals){
+        int i = 1;
+        // common
+        for(CommonGoalCard common : commongoals){
+            int newPoints = checkCommonGoal(model.getBookshelf(), common, i);
+            if( newPoints > 0){
+                model.addPoints(newPoints);
+                if(i == 1){
+                    model.getBookshelf().setCommonOne(true);
+                } else {
+                    model.getBookshelf().setCommonTwo(true);
+                }
+                game.getModel().noitfyObserverCommon(i, newPoints, model.getUsername());
+            }
+            i++;
         }
-    }*/
+
+        // fullness
+        if(model.getBookshelf().bookshelfIsFull()){
+            game.getModel().noitfyObserverLastTurn(model.getUsername());
+            if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(-1)){
+                game.endGame();
+            } else {
+                game.getModel().setIsLastTurnStarted(true);
+            }
+        }
+    }
+
     /**
      * Overview: tiles draft
      */

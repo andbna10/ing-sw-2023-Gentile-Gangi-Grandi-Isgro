@@ -1,6 +1,9 @@
 package ServerSide.VirtualView;
 
+import ServerSide.Model.CommonGoalCard;
 import ServerSide.Model.Player;
+
+import java.util.ArrayList;
 
 public interface PlayerVViewObserver {
 
@@ -11,7 +14,12 @@ public interface PlayerVViewObserver {
     void playTurn(int[] toTake, int[] oreder, int column );
 
     /**
-     * player getter
+     * Overview: player getter
      */
     Player getModel();
+
+    /**
+     * Overview: check goals and bookshelf
+     */
+    void check(ArrayList<CommonGoalCard> commongoals);
 }

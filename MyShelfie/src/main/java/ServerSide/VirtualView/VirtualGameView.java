@@ -1,6 +1,5 @@
 package ServerSide.VirtualView;
-import Messages.fromServerToClient.EndTurnMessage;
-import Messages.fromServerToClient.GameHasStartedMessage;
+import Messages.fromServerToClient.*;
 import Networking.ServerManager;
 import ServerSide.Model.*;
 
@@ -50,10 +49,43 @@ public class VirtualGameView implements GameObserver{
 
     @Override
     /**
+     * Overview: method aimed to create the message to notify the end of the game
+     */
+    public void notifyEnd(String winner, ArrayList<Player> players){
+        for(ServerManager manager: this.managers) {
+            EndGameMessage message = new EndGameMessage(winner, players);
+            manager.sendMessage(message);
+        }
+    }
+
+    @Override
+    /**
      * Overview: method aimed to create a meessage to notify players about the end of a turn
      */
-    public void notifytheendofaturn(BoardCell[][] board){
-        EndTurnMessage message = new EndTurnMessage(board);
+    public void notifytheendofaturn(BoardCell[][] board, String username){
+        EndTurnMessage message = new EndTurnMessage(board, username);
+        for(ServerManager manager: this.managers){
+            manager.sendMessage(message);
+        }
+    }
+
+    @Override
+    /**
+     * Overview: method aimed to create a message to notify players that a common has been accomplished
+     */
+    public void noitfyObserverCommon(int common, int newPoints, String username){
+        NotifyCheckCommonMessage message = new NotifyCheckCommonMessage(common, newPoints, username);
+        for(ServerManager manager: this.managers){
+            manager.sendMessage(message);
+        }
+    }
+
+    @Override
+    /**
+     * Overview: method aimed to create a message to notify players about the last turn triggered
+     */
+    public void noitfyObserverLastTurn(String username){
+        LastTurnTriggeredMessage message = new LastTurnTriggeredMessage(username);
         for(ServerManager manager: this.managers){
             manager.sendMessage(message);
         }

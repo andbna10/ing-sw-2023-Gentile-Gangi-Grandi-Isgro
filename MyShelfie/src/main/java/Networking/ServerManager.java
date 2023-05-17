@@ -232,18 +232,32 @@ public class ServerManager extends Thread{
             case TILESTOTAKE:
                 TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
                 // check the goodness of the player move
-                if(!gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this)){
+                if(gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this)<3){
                     // if something wrong
-                    RepeatTurnMessage toSend = new RepeatTurnMessage();
+                    RepeatTurnMessage toSend = new RepeatTurnMessage(gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this));
                     sendMessage(toSend);
                     break;
                 } else {
                     // if all is good
                     playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
+                    // your turn, but only for updating the bookshelf (I'm using the same message of "yourTurnMessage")
                     YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles(), true);
                     this.sendMessage(toSend);
-                    playerview.getObs().getModel().getBookshelf().getGameTiles();
-                    gameview.getObs().getModel().advance();
+                    //check goals and bookshelf
+                    playerview.getObs().check(gameview.getObs().getModel().getCommonGoals());
+
+                    //playerview.getObs().getModel().getBookshelf().getGameTiles(); VEDERE SE SERVIVA!
+
+                    // advancing in the turn order of the game in the case this is the last turn
+                    if(gameview.getObs().getModel().getIsLastTurnStarted()){
+                        if(gameview.getObs().getModel().advanceFinish()){
+                            gameview.getObs().endGame();
+                        }
+                    } else {
+                        // advancing in the turn order of the game
+                        gameview.getObs().getModel().advance();
+                    }
+                    // calling the turn of the next player
                     gameview.getObs().callTurn();
                     break;
                 }

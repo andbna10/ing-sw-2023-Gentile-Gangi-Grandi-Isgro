@@ -16,13 +16,13 @@ public class CommonPattern8 extends CommonGoalCard {
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public boolean validated(Bookshelf bookshelf) {
-        boolean ok = false;
 
-        if(bookshelf.getTile(0, 0).getType() == bookshelf.getTile(0, 4).getType() &&
-                bookshelf.getTile(0, 4).getType() == bookshelf.getTile(5, 0).getType() &&
-                bookshelf.getTile(5, 0).getType() == bookshelf.getTile(5, 4).getType())
-            ok = true;
-
-        return ok;
+        if(bookshelf.getTile(0,0) != null && bookshelf.getTile(0,4) != null &&
+                bookshelf.getTile(5,0) != null && bookshelf.getTile(5,4) != null){
+            return bookshelf.getTile(0, 0).getType() == bookshelf.getTile(0, 4).getType() &&
+                    bookshelf.getTile(0, 4).getType() == bookshelf.getTile(5, 0).getType() &&
+                    bookshelf.getTile(5, 0).getType() == bookshelf.getTile(5, 4).getType();
+        }
+        return false;
     }
 }

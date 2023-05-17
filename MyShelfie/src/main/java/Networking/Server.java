@@ -3,6 +3,7 @@ package Networking;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.PostUserReconMessage;
+import Messages.fromServerToClient.ReconnectedMessage;
 import Messages.fromServerToClient.SendDisconMessage;
 import ServerSide.Controller.LobbyManager;
 
@@ -12,6 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class Server {
     private int port;
@@ -29,6 +31,8 @@ public class Server {
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
+    private int counter = 0;
+
     /**
      * Overview: constructor of the server class aimed to construct the socket for communication server-client
      */
@@ -42,6 +46,8 @@ public class Server {
      */
     public void start() throws IOException{
         socketList = new ArrayList<>();
+
+        Thread.currentThread().setName("Server");
 
 
         //task to send ping messages, servermanager handles his client's ping feedback and sets flag ListNode.Ok
@@ -88,6 +94,8 @@ public class Server {
 
                 Socket clientsocket = serversocket.accept();
 
+                counter++;
+
                 out = new ObjectOutputStream(clientsocket.getOutputStream());
                 in = new ObjectInputStream(clientsocket.getInputStream());
 
@@ -102,7 +110,12 @@ public class Server {
 
                     try {
                         PostUserReconMessage tmp2 = (PostUserReconMessage) in.readObject();
-                        if (tmp2.getUser() == disconRef.getManager().getUsername()) {
+                        if (tmp2.getUser().equals(disconRef.getManager().getUsername())) {
+
+                            this.out.writeObject(new ReconnectedMessage(
+                                    lobbymanager.getLobby(lobbymanager.getIdByUser(tmp2.getUser())).getModel().getUsernames()
+                            ));
+                            this.out.flush();
 
                             disconRef.setWriter(out);
                             disconRef.setSocket(clientsocket);
@@ -110,6 +123,8 @@ public class Server {
                             disconRef.getManager().resetSocket(clientsocket, out, in);
 
                             System.out.println("reconnecting player");
+
+                            disconRef.getManager().sendLastMsg();
 
                             this.discon = false;
                             this.disconRef = null;
@@ -175,5 +190,10 @@ public class Server {
         }
     }
 
-
+    /**
+     * Overview: counter getter
+     */
+    public int getCounter() {
+        return this.counter;
+    }
 }

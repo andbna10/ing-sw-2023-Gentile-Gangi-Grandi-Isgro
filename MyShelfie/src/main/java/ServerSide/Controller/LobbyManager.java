@@ -63,4 +63,23 @@ public class LobbyManager {
     }
 
 
+    /**
+     * Overview: get lobby id by username
+     */
+    public String getIdByUser (String user) {
+        String ret = null;
+        for(LobbyController lobbyc: lobbies.values()){
+            for(Player p : lobbyc.getModel().getPlayers()) {
+                if(p.getUsername().equals(user)) {
+                    ret = lobbyc.getModel().getId();
+                    break;
+                }
+
+            }
+        }
+
+        return ret;
+
+    }
+
 }

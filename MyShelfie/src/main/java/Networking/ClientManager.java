@@ -5,6 +5,7 @@ import ClientSide.View.CLI.ReconnectCLI;
 import ClientSide.NetworkHandler.*;
 import Messages.Message;
 import Messages.PingMessage;
+import Messages.fromClientToServer.CloseRecoveryMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
 import Messages.fromClientToServer.TilesToTakeMessage;
 import Messages.fromServerToClient.SendDisconMessage;
@@ -94,6 +95,21 @@ public class ClientManager extends Thread{
                 }
                 break;
 
+
+            case RECONNECTED:
+                ReconnectedMessage reconmsg = (ReconnectedMessage) message;
+
+                LoginHandler tmp = new LoginHandler(this);
+                tmp.setCli(new LogInCLI(tmp));
+                this.loginHandler = tmp;
+
+                this.lobbyhandler = new LobbyHandler(this, (reconmsg.getUsernames()));
+                this.gamehandler = new GameHandler(this, null);
+                this.playerhandler = new PlayerHandler(this);
+
+                sendMessage(new CloseRecoveryMessage());
+
+                break;
             // update the lobby view
             case CREATELOBBYVIEW:
                 System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
@@ -103,7 +119,9 @@ public class ClientManager extends Thread{
                     this.lobbyhandler = lobbyhandler;
                 } else {
                     // here the last player added to the lobby is passed as parameter to the addPlayer() method
-                    this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
+
+                    if(!message.getLast())
+                        this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
                 // questo tipo potremmo metterlo in una cli class e chiamarlo tramite il lobby handler
                 System.out.println("The id of the lobby is: "+ createlobbyviewmessage.getId());

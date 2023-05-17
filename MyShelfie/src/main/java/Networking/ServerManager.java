@@ -31,6 +31,10 @@ public class ServerManager extends Thread{
     private ListNode ref;
     private Server server;
 
+    private Message lastMessage;
+
+
+
     private String username = null;
 
     // number of times recovery loop is iterated
@@ -55,7 +59,7 @@ public class ServerManager extends Thread{
                 arg = (Message) in.readObject();
 
                 if (arg != null) {
-                    handleMessage(arg);
+                    //handleMessage(arg);
                     readerThreadActive = false;
                 }
 
@@ -92,12 +96,18 @@ public class ServerManager extends Thread{
      */
     public void run(){
         System.out.println("server manager is running");
+
+        Thread.currentThread().setName("Manager " + server.getCounter());
+
         while(!isInterrupted() && !clientsocket.isClosed()){
 
             // receiving
             if(!readerThreadActive) {
                 readerThreadActive = true;
                 Thread readerthread = new Thread(() -> {
+
+                    Thread.currentThread().setName("Listener " + server.getCounter());
+
                     try {
                         Message message = (Message) in.readObject();
                         //System.out.println(message);
@@ -111,7 +121,7 @@ public class ServerManager extends Thread{
 
                         try {
 
-                            Boolean ok = false;
+                            boolean ok = false;
                             if(username != null) {
                                 server.setDiscon(true);
                                 server.setDisconRef(ref);
@@ -192,7 +202,7 @@ public class ServerManager extends Thread{
                     this.username = entergamemessage.getUsername();
 
                     //lobby online
-                    if(entergamemessage.getId() == "online"){
+                    if(entergamemessage.getId().equals("online")){
                         if(lobbymanager.getLobby("online").getModel().getReadyToPlay()){
                             System.out.println("An online game is already started, please try again later!");
                             // qui probabilmente si passa la cli.
@@ -274,6 +284,9 @@ public class ServerManager extends Thread{
      * Overview: method aimed to send a message
      */
     public void sendMessage(Message message){
+
+        lastMessage = message;
+
         try {
             out.writeObject(message);
             out.flush();
@@ -297,6 +310,17 @@ public class ServerManager extends Thread{
         this.out = arg2;
         this.in = arg3;
     }
+
+    public void sendLastMsg() {
+        try {
+            lastMessage.setLast();
+            out.writeObject(lastMessage);
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

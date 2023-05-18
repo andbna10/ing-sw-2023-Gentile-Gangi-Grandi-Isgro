@@ -11,6 +11,7 @@ class CommonPattern12Test {
     void validatedTest() {
         var shelf1 = new Bookshelf();
         var shelf2 = new Bookshelf();
+
         var cp12 = new CommonPattern12();
 
         for (int i=1; i<5; i++)
@@ -38,6 +39,8 @@ class CommonPattern12Test {
         shelf2.setTile(4,3, ItemType.CATS);
 
         assertTrue(cp12.validated(shelf2));
+
+
     }
 
 }

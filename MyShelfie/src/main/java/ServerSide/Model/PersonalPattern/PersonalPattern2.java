@@ -23,12 +23,24 @@ public class PersonalPattern2 extends PersonalGoalCard {
     public int validated(Bookshelf bookshelf) {
         int count = 0;
 
-        if(bookshelf.getTile(1, 1).getType() != ItemType.PLANTS) count++;
-        if(bookshelf.getTile(2, 0).getType() != ItemType.CATS) count++;
-        if(bookshelf.getTile(2, 2).getType() != ItemType.GAMES) count++;
-        if(bookshelf.getTile(3, 4).getType() != ItemType.BOOKS) count++;
-        if(bookshelf.getTile(4, 3).getType() != ItemType.TROPHIES) count++;
-        if(bookshelf.getTile(5, 4).getType() != ItemType.FRAMES) count++;
+        if(bookshelf.getTile(1,1) != null){
+            if(bookshelf.getTile(1, 1).getType() == ItemType.PLANTS) count++;
+        }
+        if(bookshelf.getTile(2,0) != null){
+            if(bookshelf.getTile(2, 0).getType() == ItemType.PLANTS) count++;
+        }
+        if(bookshelf.getTile(2,2) != null){
+            if(bookshelf.getTile(2, 2).getType() == ItemType.PLANTS) count++;
+        }
+        if(bookshelf.getTile(3,4) != null){
+            if(bookshelf.getTile(3, 4).getType() == ItemType.PLANTS) count++;
+        }
+        if(bookshelf.getTile(4,3) != null){
+            if(bookshelf.getTile(4, 3).getType() == ItemType.PLANTS) count++;
+        }
+        if(bookshelf.getTile(5,4) != null){
+            if(bookshelf.getTile(5, 4).getType() == ItemType.PLANTS) count++;
+        }
 
         return pointsConverter(count);
     }

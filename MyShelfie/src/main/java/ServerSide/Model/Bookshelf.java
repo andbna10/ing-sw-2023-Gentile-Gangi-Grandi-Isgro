@@ -124,9 +124,9 @@ public class Bookshelf {
      * Overview: check if the bookshelf is full
      */
     public Boolean bookshelfIsFull(){
-        for(int i=0; i<gameTiles.length; i++)
-            for(int j=0; i<gameTiles[0].length; j++)
-                if(gameTiles[i][j] != null) return false;
+        for(int i=0; i<6; i++)
+            for(int j=0; j<5; j++)
+                if(gameTiles[i][j] == null) return false;
 
         return true;
     }

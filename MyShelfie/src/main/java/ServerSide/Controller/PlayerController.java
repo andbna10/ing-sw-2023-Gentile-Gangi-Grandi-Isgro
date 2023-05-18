@@ -93,8 +93,10 @@ public class PlayerController implements PlayerVViewObserver {
             return 0;
         if(i<0 || j<0)
             return 0;
-        if(bookshelf.getVisited(i,j) || !bookshelf.getTile(i,j).getType().equals(itemType))
-            return 0;
+        if(bookshelf.getTile(i,j) != null){
+            if(bookshelf.getVisited(i,j) || !bookshelf.getTile(i,j).getType().equals(itemType))
+                return 0;
+        }
         bookshelf.setVisited(i,j);
         count++;
         count+=floodFill(i-1,j-1,bookshelf,count,itemType);
@@ -168,7 +170,7 @@ public class PlayerController implements PlayerVViewObserver {
         // fullness
         if(model.getBookshelf().bookshelfIsFull()){
             game.getModel().noitfyObserverLastTurn(model.getUsername());
-            if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(-1)){
+            if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(game.getModel().getPlayers().size()-1)){
                 game.endGame();
             } else {
                 game.getModel().setIsLastTurnStarted(true);

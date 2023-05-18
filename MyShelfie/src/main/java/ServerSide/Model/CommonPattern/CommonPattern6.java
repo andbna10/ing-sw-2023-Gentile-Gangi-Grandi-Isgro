@@ -25,13 +25,14 @@ public class CommonPattern6 extends CommonGoalCard {
         List<ItemType> found = new ArrayList<ItemType>();
 
         for (int i = 0; i < 6; i++) {
-            for (int j = 1; j < 5; j++)
+            for (int j = 0; j < 5; j++)
                 if(bookshelf.getTile(i,j) != null && !found.contains(bookshelf.getTile(i, j).getType()))
                     found.add(bookshelf.getTile(i, j).getType());
-            if(found.size() > 4) count++;
+            if(found.size() > 4)
+                count++;
             found.clear();
         }
-        if(count > 1) ok = true;
-        return ok;
+
+        return count > 1;
     }
 }

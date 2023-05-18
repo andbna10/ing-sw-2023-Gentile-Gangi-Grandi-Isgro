@@ -20,18 +20,21 @@ public class CommonPattern7 extends CommonGoalCard {
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public boolean validated(Bookshelf bookshelf) {
-        boolean ok = false;
+        boolean flag = false;
         int count = 0;
         List<ItemType> found = new ArrayList<ItemType>();
 
-        for (int i = 0; i < 6; i++) {
-            for (int j = 1; j < 5; j++)
-                if(bookshelf.getTile(i,j) != null && !found.contains(bookshelf.getTile(i, j).getType()))
+        for (int i = 0; i < 6; i++, flag = false) {
+            for (int j = 0; j < 5; j++) {
+                if(bookshelf.getTile(i,j) == null){
+                    flag = true;
+                } else if(!found.contains(bookshelf.getTile(i, j).getType()))
                     found.add(bookshelf.getTile(i, j).getType());
-            if(found.size() < 4) count++;
+            }
+            if(found.size() < 4 && !flag)
+                count++;
             found.clear();
         }
-        if(count > 3) ok = true;
-        return ok;
+        return count > 3;
     }
 }

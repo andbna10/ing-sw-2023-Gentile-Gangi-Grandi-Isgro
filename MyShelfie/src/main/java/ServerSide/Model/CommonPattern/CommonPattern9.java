@@ -22,11 +22,12 @@ public class CommonPattern9 extends CommonGoalCard {
 
         for (ItemType type : ItemType.values()) {
             count = 0;
-            for (int i = 0; i < 6 - 1; i++)
-                for (int j = 0; j < 5 - 1; j++)
+            for (int i = 0; i < 6; i++)
+                for (int j = 0; j < 5; j++)
                     if (bookshelf.getTile(i,j) != null && bookshelf.getTile(i, j).getType() == type)
                         count++;
-            if(count > 8) ok = true;
+            if(count > 7)
+                ok = true;
         }
 
         return ok;

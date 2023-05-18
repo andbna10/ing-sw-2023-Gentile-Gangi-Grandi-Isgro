@@ -16,16 +16,16 @@ public class CommonPattern12 extends CommonGoalCard {
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public boolean validated(Bookshelf bookshelf) {
-        boolean ok = true;
+        boolean ok1 = true, ok2 = true;
 
         for(int i = 0; i < 5; i++)
             if(bookshelf.getTile(i + 1, i) == null)
-                ok = false;
+                ok1 = false;
 
-        for(int i = 1, j = 4; i <= 5; i++, j--)
-            if(bookshelf.getTile(i, j) == null)
-                ok = false;
+        for(int i = 0, j = 4; i < 5; i++, j--)
+            if(bookshelf.getTile(i + 1, j) == null)
+                ok2 = false;
 
-        return ok;
+        return ok1 || ok2;
     }
 }

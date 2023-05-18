@@ -26,7 +26,7 @@ public class CommonPattern3 extends CommonGoalCard {
                         bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType())
                     count++;
                 else count = 0;
-            if (count > 3) pairs++;
+            if (count > 2) pairs++;
         }
 
         if (pairs > 3) ok = true;

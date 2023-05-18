@@ -16,18 +16,19 @@ public class CommonPattern4 extends CommonGoalCard {
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public boolean validated(Bookshelf bookshelf) {
-        boolean ok = false;
         int count = 0;
 
-        for (int j = 0; j < 5; j++)
-            for (int i = 0; i < 6 - 1; i++)
-                if (bookshelf.getTile(i,j) != null && bookshelf.getTile(i+1,j) != null &&
-                        bookshelf.getTile(i+2,j) != null &&
-                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType() &&
-                        (bookshelf.getTile(i, j).getType() != bookshelf.getTile(i + 2, j).getType() || i == 4))
+        for(int i=0; i<5; i++){
+            for(int j=0; j<4; j++){
+                if(bookshelf.getTile(i,j) != null && bookshelf.getTile(i+1,j) != null &&
+                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType())
                     count++;
+                if(bookshelf.getTile(i,j) != null && bookshelf.getTile(i,j+1)!=null &&
+                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i , j+1).getType())
+                    count++;
+            }
+        }
 
-        if (count > 5) ok = true;
-        return ok;
+        return count > 5;
     }
 }

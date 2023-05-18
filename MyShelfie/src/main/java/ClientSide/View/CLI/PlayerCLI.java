@@ -158,7 +158,7 @@ public class PlayerCLI {
                 System.out.println("description: Five tiles of the same type forming a diagonal. ");
             }
             case 12 -> {
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         if (j <= i) System.out.print("#");
                         else System.out.print(" ");

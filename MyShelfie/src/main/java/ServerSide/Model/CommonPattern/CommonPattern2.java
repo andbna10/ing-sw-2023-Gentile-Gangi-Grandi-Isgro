@@ -2,6 +2,10 @@ package ServerSide.Model.CommonPattern;
 
 import ServerSide.Model.Bookshelf;
 import ServerSide.Model.CommonGoalCard;
+import ServerSide.Model.ItemType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommonPattern2 extends CommonGoalCard {
 
@@ -16,21 +20,20 @@ public class CommonPattern2 extends CommonGoalCard {
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public boolean validated(Bookshelf bookshelf) {
-        boolean ok = false;
-        int flag = 1;
+        int count=0;
+        boolean flag = true;
+        List<ItemType> found = new ArrayList<ItemType>();
 
-        for (int j = 0; j < 5; j++, flag = 1) {
-            for (int i = 1; i < 6 - 1; i++)
-                for (int k = i + 1; k < 6; k++)
-                    if (bookshelf.getTile(i,j)!=null && bookshelf.getTile(k,j) != null &&
-                            bookshelf.getTile(i, j).getType() == bookshelf.getTile(k, j).getType())
-                        flag = 0;
-            if(flag != 0) {
-                ok = true;
-                break;
+        for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < 6 && flag; i++) {
+                if(bookshelf.getTile(i,j) != null && !found.contains(bookshelf.getTile(i, j).getType())){
+                    found.add(bookshelf.getTile(i, j).getType());
+                } else flag = false;
             }
+            if(flag)
+                count++;
         }
 
-        return ok;
+        return count > 1;
     }
 }

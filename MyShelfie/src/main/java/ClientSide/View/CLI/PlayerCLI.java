@@ -178,50 +178,78 @@ public class PlayerCLI {
     /**
      * Overview: cli for the player to complete a move
      */
-    public void yourTurn(String[][] bookshelf){
+    public void yourTurn(String[][] bookshelf) {
         Scanner scanner = new Scanner(System.in);
-        if(bookshelf != null) {
-            System.out.println("this is your bookshelf:");
+        if (bookshelf != null) {
+            System.out.println("This is your bookshelf:");
             printBookshelf(bookshelf);
         }
 
         System.out.println("\nPick the tiles you want from the board writing the coordinates");
         // take tiles coordinates
         //
-        System.out.println("enter the number of tiles you want to pick: ");
-        int size = scanner.nextInt()*2;
+        System.out.println("Enter the number of tiles you want to pick: ");
+        int size;
+        do {
+            size = scanner.nextInt() * 2;
+            if(size > 6){
+                System.out.println("You can select a max of 3 pickable tiles, try again!");
+            }
+        } while (size > 6);
+
         int[] toTake = new int[size];
-        System.out.println("Enter in order row cord and column cord:");
+        System.out.println("Enter coordinates of the tiles:");
 
         for (int i = 0; i < size; i++) {
-            toTake[i] = scanner.nextInt();
+            do{
+                if(i%2==0){
+                    System.out.println("\nEnter the row of the tile: ");
+                } else {
+                    System.out.println("\nEnter the column of the tile: ");
+                }
+                toTake[i] = scanner.nextInt();
+                if(toTake[i]<0 && toTake[i]>8){
+                    System.out.println("Look at the board, there is no row or column like that. Try again!");
+                }
+            } while (toTake[i]<0 && toTake[i]>8);
         }
 
         // Print the array
-        System.out.println("you take the tiles:");
-        int j=0;
-        for (int i = 0; i < size; i=i+2) {
-            System.out.println("coord " + j + ":" + toTake[i] + " " + toTake[i+1]);
+        System.out.println("You've picked these tiles:");
+        int j = 0;
+        for (int i = 0; i < size; i = i + 2) {
+            System.out.println("coord " + j + ":" + toTake[i] + " " + toTake[i + 1]);
             j++;
         }
-        totake=toTake;
+        totake = toTake;
         //
 
-        System.out.println("insert the order you want to insert them(from first in to last in):");
+        System.out.println("Insert the order (the first selected goes in the lowest free cell of your bookshelf's column): ");
         // take the order
         //
-        int[] input = new int[totake.length/2];
+        int[] input = new int[totake.length / 2];
 
         for (int i = 0; i < input.length; i++) {
-            input[i] = scanner.nextInt();
+            do{
+                input[i] = scanner.nextInt();
+                if(input[i] > input.length - 1){
+                    System.out.println("You don't have selected "+input[i]+" tiles, try again!");
+                }
+            }while(input[i] > input.length - 1);
         }
-        order=input;
+        order = input;
         //
 
-        System.out.println("insert the column you want to insert the tiles:");
+        System.out.println("Insert the column you want to fill: ");
         // take the column
         //
-        this.column = scanner.nextInt();
+        do{
+            this.column = scanner.nextInt();
+            if(this.column > 4){
+                System.out.println("You have only 4 columns, try again!");
+            }
+        }while(this.column > 4);
+
         //
     }
 

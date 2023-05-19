@@ -171,7 +171,7 @@ public class ServerManager extends Thread{
                     UsernameUsedMessage toSend = new UsernameUsedMessage();
                     sendMessage(toSend);
                 } else {
-                    System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
+                    //System.out.println("--------------------------- ENTERING THE LOBBY CREATION PROCEDURE ---------------------------");
 
                     this.username = creategamemessage.getUsername();
 
@@ -187,8 +187,9 @@ public class ServerManager extends Thread{
             // entering an already existing lobby
             case ENTERGAME:
                 EnterGameMessage entergamemessage = (EnterGameMessage) message;
-                if(lobbymanager.checkInGame(entergamemessage.getId())){
-                    AccessDeniedMessage accessdeniedmessage = new AccessDeniedMessage();
+                int x = lobbymanager.checkInGame(entergamemessage.getId());
+                if(x >=0){
+                    AccessDeniedMessage accessdeniedmessage = new AccessDeniedMessage(x);
                     sendMessage(accessdeniedmessage);
                     break;
                 }
@@ -197,7 +198,7 @@ public class ServerManager extends Thread{
                     sendMessage(toSend);
                     break;
                 } else {
-                    System.out.println("--------------------------- ENTERING THE ENTER EXISTING LOBBY PROCEDURE ---------------------------");
+                    //System.out.println("--------------------------- ENTERING THE ENTER EXISTING LOBBY PROCEDURE ---------------------------");
 
                     this.username = entergamemessage.getUsername();
 
@@ -226,7 +227,7 @@ public class ServerManager extends Thread{
             // this action has to be made only by the creator of the lobby
             // starting the game
             case STARTGAME:
-                System.out.println(" --------------- GAME START ---------------");
+                //System.out.println(" --------------- GAME START ---------------");
                 StartGameMessage startgamemessage = (StartGameMessage) message;
                 GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                 setGameView(gamecontroller.getVirtualView());
@@ -262,13 +263,20 @@ public class ServerManager extends Thread{
                     if(gameview.getObs().getModel().getIsLastTurnStarted()){
                         if(gameview.getObs().getModel().advanceFinish()){
                             gameview.getObs().endGame();
+
+                            // bring players again in the lobby
+                            lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId());
+                            // tell the owner a new game can start
+                            lobbyview.getObs().notifyOwner();
                         }
                     } else {
                         // advancing in the turn order of the game
                         gameview.getObs().getModel().advance();
                     }
                     // calling the turn of the next player
-                    gameview.getObs().callTurn();
+                    if(!gameview.getObs().getModel().getEnded()){
+                        gameview.getObs().callTurn();
+                    }
                     break;
                 }
 

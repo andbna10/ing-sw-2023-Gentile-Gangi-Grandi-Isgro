@@ -13,7 +13,7 @@ public class Game {
     private Boolean isLastTurnStarted;
     private String winner;
     private GameObserver obs;
-    // vedere se mettere come observers del game anche i virtualplayerview
+    private Boolean ended;
 
 
     /**
@@ -46,6 +46,9 @@ public class Game {
 
         // initialization isLastTurnStarted
         this.isLastTurnStarted = false;
+
+        //initialization ended
+        this.ended = false;
     }
 
     /**
@@ -162,6 +165,16 @@ public class Game {
      * Overview: isLastTurnStarted getter
      */
     public Boolean getIsLastTurnStarted(){ return this.isLastTurnStarted; }
+
+    /**
+     * Overview: ended setter
+     */
+    public void setEnded(Boolean status){ this.ended = status; }
+
+    /**
+     * Overview: ended getter
+     */
+    public Boolean getEnded(){ return this.ended; }
 
 
 

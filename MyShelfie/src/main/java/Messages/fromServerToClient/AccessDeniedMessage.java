@@ -9,10 +9,14 @@ public class AccessDeniedMessage extends Message {
     /**
      * Overview: AccessDeniedMessage constructor
      */
-    public AccessDeniedMessage(){
+    public AccessDeniedMessage(int x){
         super(null);
         super.setType(MessageType.ACCESSDENIED);
-        this.message = "Players in this lobby are already in a game, try later or insert another lobby id!";
+        switch (x){
+            case 0 -> this.message = "There is no lobby with that id, try again!";
+            case 1 -> this.message = "Players in this lobby are already in a game, try later or insert another lobby id!";
+        }
+
     }
 
     /**

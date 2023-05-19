@@ -1,5 +1,6 @@
 package ServerSide.VirtualView;
 
+import ServerSide.Model.Lobby;
 import ServerSide.Model.Player;
 
 public interface LobbyVViewObserver {
@@ -12,4 +13,14 @@ public interface LobbyVViewObserver {
      * Overview: modify the fixed number of players for the online lobby
      */
     void modifyfixednplayers(int n);
+
+    /**
+     * Overview: model getter
+     */
+    Lobby getModel();
+
+    /**
+     * Overview: notify owner game can start
+     */
+    void notifyOwner();
 }

@@ -54,11 +54,14 @@ public class LobbyManager {
     /**
      * Overview: check if the players in the lobby are in a game
      */
-    public Boolean checkInGame(String id){
+    public int checkInGame(String id){
+        if(!lobbies.containsKey(id)){
+            return 0;
+        }
         if(lobbies.get(id).getModel().getInGame()){
-            return true;
+            return 1;
         } else {
-            return false;
+            return -1;
         }
     }
 

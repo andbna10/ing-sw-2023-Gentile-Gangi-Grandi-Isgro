@@ -20,34 +20,36 @@ public class LogInCLI {
 
         String input;
 
+        // print the menu in the cli
+        System.out.print("COMMAND MENU\n" +
+                "* 1.create game  : generate a new game \n" +
+                "* 2.join game    : join a game with the id\n" +
+                "* 3.random match : join random online lobby\n" +
+                "Insert a number according to your choice!\n");
+
+        System.out.print("> \n");
         do {
-
-            System.out.print("COMMAND MENU\n" +
-                    "* create game  : generate a new game \n" +
-                    "* join game    : join a game with the id\n" +
-                    "* random match : join random online lobby\n");
-
-            System.out.print("> \n");
             input = scanner.nextLine();
-
-        } while (!input.equals("create game") && !input.equals("join game") && !input.equals("random match"));
+            if(!input.equals("1") && !input.equals("2") && !input.equals("3")){
+                System.out.println("Input not valid, try again!");
+            }
+        } while (!input.equals("1") && !input.equals("2") && !input.equals("3"));
 
         switch (input) {
-            case "create game" -> {
+            case "1" -> {
 
                 System.out.println("enter username:");
                 String username = scanner.nextLine();
 
-                //System.out.println("starting new game");
-                //istanzia una nuova partita
 
+                //istanzia una nuova partita
                 handler.creategamemessage(sender, username);
 
                 // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
 
 
             }
-            case "join game" -> {
+            case "2" -> {
 
                 System.out.println("enter username:");
                 String username = scanner.nextLine();
@@ -57,7 +59,7 @@ public class LogInCLI {
                 handler.entergamemessage(sender, username, gameid);
                 // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
             }
-            case "random match" -> {
+            case "3" -> {
                 System.out.println("enter username:");
                 String username = scanner.nextLine();
                 handler.entergamemessage(sender, username, "online");

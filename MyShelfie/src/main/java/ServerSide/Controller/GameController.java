@@ -136,6 +136,7 @@ public class GameController implements GameVViewObserver {
             }
         }
 
+        model.setEnded(true);
         virtualview.notifyEnd(model.getWinner(), model.getPlayers());
     }
 
@@ -157,8 +158,8 @@ public class GameController implements GameVViewObserver {
      */
     public int checkPickables (BoardGame boardGame) {
         int numPickables = 0;
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 1; i < 8; i++) {
+            for (int j = 1; j < 8; j++) {
                 if (boardGame.getBoard()[i][j].getStatus() == Status.IN && boardGame.getBoard()[i][j].getTile() != null) {
 
                     Boolean changed = false;

@@ -112,7 +112,7 @@ public class ClientManager extends Thread{
                 break;
             // update the lobby view
             case CREATELOBBYVIEW:
-                System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
+                //System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
                 if (lobbyhandler == null) {
                     LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
@@ -137,7 +137,7 @@ public class ClientManager extends Thread{
 
             // game can start (it is always a lobby view update)
             case GAMECANSTART:
-                System.out.println("--------------------------- GAME CAN START ---------------------------");
+                //System.out.println("--------------------------- GAME CAN START ---------------------------");
                 // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
                 // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
                 // chi crea la lobby è marchiato come LobbyOwner (nel model)

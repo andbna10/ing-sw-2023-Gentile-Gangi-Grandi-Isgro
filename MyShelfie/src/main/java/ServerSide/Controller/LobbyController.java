@@ -51,12 +51,8 @@ public class LobbyController implements LobbyVViewObserver {
                     Thread.sleep(1000);
                     model.notifyObserverGameCanStart();
                     // get the owner and notify
-                    for(Player client: model.getPlayers()){
-                        if(client.getLobby().get(model.getId())){
-                            Thread.sleep(1000);
-                            client.notifyOwner();
-                        }
-                    }
+                    Thread.sleep(1000);
+                    notifyOwner();
                 }
             } else {
                 if (model.getPlayers().size() >= 2 && model.getPlayers().size() <= 4) {
@@ -65,17 +61,26 @@ public class LobbyController implements LobbyVViewObserver {
                         Thread.sleep(1000);
                         model.notifyObserverGameCanStart();
                         // get the owner and notify
-                        for(Player client: model.getPlayers()){
-                            if(client.getLobby().get(model.getId())){
-                                Thread.sleep(1000);
-                                client.notifyOwner();
-                            }
-                        }
+                        Thread.sleep(1000);
+                        notifyOwner();
                     }
                 }
             }
         }
     }
+
+    @Override
+    /**
+     * Overview: notify owner game can start
+     */
+    public void notifyOwner(){
+        for(Player client: model.getPlayers()){
+            if(client.getLobby().get(model.getId())){
+                client.notifyOwner();
+            }
+        }
+    }
+
 
     @Override
     /**
@@ -92,6 +97,7 @@ public class LobbyController implements LobbyVViewObserver {
      */
     public VirtualLobbyView getVirtualView(){ return this.virtualview; }
 
+    @Override
     /**
      * Overview: model getter
      */

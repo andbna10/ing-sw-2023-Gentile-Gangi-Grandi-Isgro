@@ -1,5 +1,6 @@
 package ServerSide.Model;
 
+import Networking.ServerManager;
 import ServerSide.VirtualView.LobbyObserver;
 import ServerSide.VirtualView.VirtualPlayerView;
 
@@ -35,7 +36,21 @@ public class Lobby {
     /**
      * Overview: remove a player with the index
      */
-    public void removePlayer(int index){ this.players.remove(index); }
+    public void removePlayer(ServerManager manager){
+        for(Player p: players){
+            if(p.getManager() == manager){
+                for(int i=0; i<players.size(); i++){
+                    if(p == players.get(i)){
+                        if(players.size()>1 && p.getLobby().get(id)){
+                            players.get(i+1).updateLobby(true,id);
+                        }
+                        players.remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Overview: method aimed to change the status of readyToPlay

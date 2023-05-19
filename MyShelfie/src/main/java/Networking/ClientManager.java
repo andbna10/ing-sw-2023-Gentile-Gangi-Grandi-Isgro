@@ -102,7 +102,6 @@ public class ClientManager extends Thread{
                 LoginHandler tmp = new LoginHandler(this);
                 tmp.setCli(new LogInCLI(tmp));
                 this.loginHandler = tmp;
-
                 this.lobbyhandler = new LobbyHandler(this, (reconmsg.getUsernames()));
                 this.gamehandler = new GameHandler(this, null);
                 this.playerhandler = new PlayerHandler(this);
@@ -123,7 +122,8 @@ public class ClientManager extends Thread{
                     if(!message.getLast())
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
-                // questo tipo potremmo metterlo in una cli class e chiamarlo tramite il lobby handler
+                // da spostare in lobby cli.
+                // chiudere la login gui e aprire la lobby gui.
                 System.out.println("The id of the lobby is: "+ createlobbyviewmessage.getId());
                 for(String s: createlobbyviewmessage.getUsernames()){
                     if(s == createlobbyviewmessage.getOwner()){

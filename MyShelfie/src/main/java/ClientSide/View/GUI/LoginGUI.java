@@ -11,6 +11,9 @@ public class LoginGUI {
 
     private LoginHandler handler;
 
+    /**
+     * Overview: LoginGUI constructor
+     */
     public LoginGUI(LoginHandler handler){ this.handler = handler; }
 
     public LoginGUI(){
@@ -34,7 +37,7 @@ public class LoginGUI {
                 String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
                         "Enter username", JOptionPane.QUESTION_MESSAGE);
 
-                //handler.creategamemessage("prova", username);
+                handler.creategamemessage("prova", username);
             }
         });
 

@@ -28,8 +28,8 @@ public class mainProvaGUI {
         // start the thread of the client
         //client.start();
 
-        //LoginGUI loginGUI = new LoginGUI();
-        GameGUI gameGUI = new GameGUI();
+        LoginGUI loginGUI = new LoginGUI();
+        //GameGUI gameGUI = new GameGUI();
 
     }
 }

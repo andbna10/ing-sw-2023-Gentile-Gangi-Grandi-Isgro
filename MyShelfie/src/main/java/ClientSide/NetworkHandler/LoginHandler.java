@@ -6,12 +6,15 @@ import Messages.fromClientToServer.CreateGameMessage;
 import Messages.fromClientToServer.EnterGameMessage;
 import Networking.ClientManager;
 
+import java.io.IOException;
+
 public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;
     private LogInCLI cli;
 
     private LoginGUI gui;
 
+    // getter e setter (spostare)
     public LoginGUI getGui() {
         return gui;
     }
@@ -25,7 +28,7 @@ public class LoginHandler implements LoginViewObserver{
      */
     public LoginHandler(ClientManager manager){
         this.manager = manager;
-        // qua si dovrebber poter lanciare il metodo che runnare la view (?)
+        //runLoginGui();
     }
 
     /**
@@ -52,6 +55,13 @@ public class LoginHandler implements LoginViewObserver{
     public void entergamemessage(String sender, String username, String id){
         EnterGameMessage message = new EnterGameMessage(username, sender, id);
         manager.sendMessage(message);
+    }
+
+    /**
+     * Overview: call the login gui
+     */
+    public void runLoginGui() {
+        this.gui = new LoginGUI(this);
     }
 
 }

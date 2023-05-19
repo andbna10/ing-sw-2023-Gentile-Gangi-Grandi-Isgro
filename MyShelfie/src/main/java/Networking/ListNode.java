@@ -76,10 +76,8 @@ public class ListNode {
      */
     public void close() throws IOException {
 
-        //da aggiungere eliminazione riferimenti
-
-        //this.socket.getInputStream().close();
-        //this.socket.getOutputStream().close();
+        // delete references
+        manager.getLobbyview().getObs().getModel().removePlayer(manager);
         this.socket.close();
     }
 

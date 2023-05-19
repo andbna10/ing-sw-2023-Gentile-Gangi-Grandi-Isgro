@@ -319,6 +319,9 @@ public class ServerManager extends Thread{
         this.in = arg3;
     }
 
+    /**
+     * Overview: method aimed to send the last message
+     */
     public void sendLastMsg() {
         try {
             lastMessage.setLast();
@@ -329,6 +332,8 @@ public class ServerManager extends Thread{
         }
     }
 
-
-
+    /**
+     * Overview: lobbyview getter
+     */
+    public VirtualLobbyView getLobbyview() { return lobbyview; }
 }

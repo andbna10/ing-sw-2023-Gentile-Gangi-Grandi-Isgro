@@ -1,7 +1,6 @@
 package ClientSide.NetworkHandler;
 
 import ClientSide.View.CLI.LobbyCLI;
-import ClientSide.View.LobbyView;
 import Messages.fromClientToServer.StartGameMessage;
 import Networking.ClientManager;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 
 public class LobbyHandler implements LobbyViewObserver{
     private ClientManager manager;
-    private LobbyView view;
+    //private LobbyView view;
     private ArrayList<String> players;
     private LobbyCLI cli;
 
@@ -18,12 +17,13 @@ public class LobbyHandler implements LobbyViewObserver{
      */
     public LobbyHandler(ClientManager manager, ArrayList<String> usernames){
         this.cli = new LobbyCLI(this);
+        // initialization of the Lobby gui
         this.manager = manager;
         this.players = new ArrayList<>();
         for(String u: usernames){
             this.players.add(u);
         }
-        this.view = new LobbyView(this);
+        //this.view = new LobbyView(this);
         // metodo per runnare la view (?) e come gli facciamo stampare i giocatori che sono nella lobby?
     }
 

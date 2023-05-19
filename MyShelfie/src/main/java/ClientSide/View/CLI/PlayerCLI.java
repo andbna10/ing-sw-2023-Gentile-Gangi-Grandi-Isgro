@@ -208,10 +208,10 @@ public class PlayerCLI {
                     System.out.println("\nEnter the column of the tile: ");
                 }
                 toTake[i] = scanner.nextInt();
-                if(toTake[i]<0 && toTake[i]>8){
+                if(toTake[i]<0 || toTake[i]>8){
                     System.out.println("Look at the board, there is no row or column like that. Try again!");
                 }
-            } while (toTake[i]<0 && toTake[i]>8);
+            } while (toTake[i]<0 || toTake[i]>8);
         }
 
         // Print the array

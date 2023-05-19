@@ -36,20 +36,25 @@ public class Lobby {
     /**
      * Overview: remove a player with the index
      */
-    public void removePlayer(ServerManager manager){
+    public Boolean removePlayer(ServerManager manager){
         for(Player p: players){
             if(p.getManager() == manager){
                 for(int i=0; i<players.size(); i++){
                     if(p == players.get(i)){
                         if(players.size()>1 && p.getLobby().get(id)){
                             players.get(i+1).updateLobby(true,id);
+                            // forse bisogna mandargli un messaggio dicendo che è diventato lui l'owner
                         }
                         players.remove(i);
+                        if(players.size() == 0){
+                            return true;
+                        }
                         break;
                     }
                 }
             }
         }
+        return false;
     }
 
     /**

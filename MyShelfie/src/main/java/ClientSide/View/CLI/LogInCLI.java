@@ -14,44 +14,54 @@ public class LogInCLI {
      */
     public LogInCLI(LoginHandler handler){ this.handler = handler; }
 
-    public void loginprocedure(){
+    public void loginprocedure() {
         Scanner scanner = new Scanner(System.in);
         String sender = "prova";
 
-        System.out.print("COMMAND MENU\n" +
-                "* create game : generate a new game \n" +
-                "* join game   : join a game with the id\n" +
-                "* play online : join the online lobby\n");
+        String input;
 
-        System.out.print("> \n");
-        String input = scanner.nextLine();
+        do {
 
-        if (input.equals("create game")) {
+            System.out.print("COMMAND MENU\n" +
+                    "* create game  : generate a new game \n" +
+                    "* join game    : join a game with the id\n" +
+                    "* random match : join random online lobby\n");
 
-            System.out.println("enter username:");
-            String username = scanner.nextLine();
+            System.out.print("> \n");
+            input = scanner.nextLine();
 
-            //System.out.println("starting new game");
-            //instanzia una nuova partita
+        } while (!input.equals("create game") && !input.equals("join game") && !input.equals("random match"));
 
-            handler.creategamemessage(sender, username);
+        switch (input) {
+            case "create game" -> {
 
-            // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+                System.out.println("enter username:");
+                String username = scanner.nextLine();
+
+                //System.out.println("starting new game");
+                //istanzia una nuova partita
+
+                handler.creategamemessage(sender, username);
+
+                // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
 
 
-        } else if (input.equals("join game")) {
+            }
+            case "join game" -> {
 
-            System.out.println("enter username:");
-            String username = scanner.nextLine();
-            System.out.println("enter the game id:");
-            String gameid = scanner.nextLine();
-            //System.out.println("joining the game");
-            handler.entergamemessage(sender, username, gameid);
-            // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
-        } else if(input.equals("play online")) {
-            System.out.println("enter username:");
-            String username = scanner.nextLine();
-            handler.entergamemessage(sender, username, "online");
+                System.out.println("enter username:");
+                String username = scanner.nextLine();
+                System.out.println("enter the game id:");
+                String gameid = scanner.nextLine();
+                //System.out.println("joining the game");
+                handler.entergamemessage(sender, username, gameid);
+                // vedere se posso leggere l'ultima cosa scritta su system out per richiamare la CLI se l'user era occupato
+            }
+            case "random match" -> {
+                System.out.println("enter username:");
+                String username = scanner.nextLine();
+                handler.entergamemessage(sender, username, "online");
+            }
         }
     }
 }

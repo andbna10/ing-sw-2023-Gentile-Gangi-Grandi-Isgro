@@ -56,8 +56,8 @@ public class PlayerCLI {
         switch (patternNumber) {
             case 1 -> {
                 System.out.println("""
-                        ==
-                        ==
+                        = =
+                        = =
                         X2""");
                 System.out.println("""
                         description: Two groups each containing 4 tiles of
@@ -221,8 +221,7 @@ public class PlayerCLI {
         System.out.println("insert the column you want to insert the tiles:");
         // take the column
         //
-        int column= scanner.nextInt();
-        this.column=column;
+        this.column = scanner.nextInt();
         //
     }
 

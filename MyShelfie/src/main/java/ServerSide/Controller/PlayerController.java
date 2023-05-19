@@ -71,42 +71,52 @@ public class PlayerController implements PlayerVViewObserver {
      * Overview: method aimed to check the adjacent tiles, returns the points for adjacent tiles
      */
     public int checkAdjacentTiles(Bookshelf bookshelf){
-        int points=0,count;
+        int points = 0, count = 0;
         //ho aggiunto una matrice visited in bookshelf
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
-                count=floodFill(i,j,bookshelf,0,bookshelf.getTile(i,j).getType());
-                if(count==3) points+=2;
-                if(count==4) points+=3;
-                if(count==5) points+=5;
-                if(count>=6) points+=8;
+                if(bookshelf.getTile(i,j) != null){
+                    count = floodFill(i,j,bookshelf,0,bookshelf.getTile(i,j).getType());
+                    if(count==3) points+=2;
+                    if(count==4) points+=3;
+                    if(count==5) points+=5;
+                    if(count>=6) points+=8;
+                }
             }
         }
         return points;
     }
 
     /**
-     * Overview: recursive method based on the floodfill algorithm called to check adjacent tiles in the bookshelf
+     * Overview: recursive method based on the floodFill algorithm called to check adjacent tiles in the bookshelf
      */
-    int floodFill(int i, int j, Bookshelf bookshelf, int count, ItemType itemType ){
+    int floodFill(int i, int j, Bookshelf bookshelf, int count, ItemType itemType){
         if(i>=6 || j>=5)
             return 0;
+
         if(i<0 || j<0)
             return 0;
+
+        if(bookshelf.getTile(i,j) == null)
+            return 0;
+
         if(bookshelf.getTile(i,j) != null){
             if(bookshelf.getVisited(i,j) || !bookshelf.getTile(i,j).getType().equals(itemType))
                 return 0;
         }
+
         bookshelf.setVisited(i,j);
+
         count++;
-        count+=floodFill(i-1,j-1,bookshelf,count,itemType);
-        count+=floodFill(i-1,j,bookshelf,count, itemType);
-        count+=floodFill(i-1,j+1,bookshelf,count, itemType);
-        count+=floodFill(i,j-1,bookshelf,count, itemType);
-        count+=floodFill(i,j+1,bookshelf,count, itemType);
-        count+=floodFill(i+1,j-1,bookshelf,count, itemType);
-        count+=floodFill(i+1,j,bookshelf,count, itemType);
-        count+=floodFill(i+1,j+1,bookshelf,count,itemType);
+
+        count += floodFill(i-1, j, bookshelf, 0, itemType);
+
+        count += floodFill(i,j-1, bookshelf, 0, itemType);
+
+        count += floodFill(i,j+1, bookshelf, 0, itemType);
+
+        count += floodFill(i+1, j, bookshelf, 0, itemType);
+
         return count;
 
     }

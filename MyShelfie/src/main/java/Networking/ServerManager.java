@@ -2,10 +2,7 @@ package Networking;
 
 import Messages.fromClientToServer.*;
 import Messages.Message;
-import Messages.fromServerToClient.AccessDeniedMessage;
-import Messages.fromServerToClient.RepeatTurnMessage;
-import Messages.fromServerToClient.UsernameUsedMessage;
-import Messages.fromServerToClient.YourTurnMessage;
+import Messages.fromServerToClient.*;
 import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualGameView;
 import ServerSide.VirtualView.VirtualLobbyView;
@@ -232,10 +229,26 @@ public class ServerManager extends Thread{
             // this action has to be made only by the creator of the lobby
             // starting the game
             case STARTGAME:
-                //System.out.println(" --------------- GAME START ---------------");
                 StartGameMessage startgamemessage = (StartGameMessage) message;
-                GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
-                setGameView(gamecontroller.getVirtualView());
+                if(lobbyview.getObs().getModel().getId() == "online"){
+                    if(lobbyview.getObs().getModel().getPlayers().size() == lobbyview.getObs().getModel().getFixedNPlayers()){
+                        GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
+                        setGameView(gamecontroller.getVirtualView());
+                    } else {
+                        LobbyChangedMessage toSend = new LobbyChangedMessage();
+                        sendMessage(toSend);
+                        lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby());
+                    }
+                } else {
+                    if(lobbyview.getObs().getModel().getPlayers().size()>1 && lobbyview.getObs().getModel().getPlayers().size()<4){
+                        GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
+                        setGameView(gamecontroller.getVirtualView());
+                    } else {
+                        LobbyChangedMessage toSend = new LobbyChangedMessage();
+                        sendMessage(toSend);
+                        lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby());
+                    }
+                }
                 break;
 
             // n players input

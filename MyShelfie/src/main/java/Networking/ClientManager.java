@@ -229,6 +229,11 @@ public class ClientManager extends Thread{
                 genericCLI.printMessage(endgamemessage.getMessage());
                 break;
 
+            case LOBBYSIZECHANGED:
+                LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;
+                genericCLI.printMessage(lobbychangedmessage.getMessage());
+                break;
+
             // heartbeat procedure
             case PING:
                 objectWriter.writeObject(new PingMessage("ping", "user0"));

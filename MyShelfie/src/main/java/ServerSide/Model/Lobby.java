@@ -37,30 +37,37 @@ public class Lobby {
      * Overview: remove a player with the index
      */
     public Boolean removePlayer(ServerManager manager){
+        boolean removedOwner = false;
         for(Player p: players){
             if(p.getManager() == manager){
-                for(int i=0; i<players.size(); i++){
-                    if(p == players.get(i)){
-                        if(players.size()>1 && p.getLobby().get(id)){
+
+                if(players.size()>1 && p.getLobby().get(id)){
+                    removedOwner = true;
+                    for(int i=0; i<players.size();i++){
+                        if(players.get(i) == p){
                             players.get(i+1).updateLobby(true,id);
                         }
-                        players.remove(i);
-                        notifyObserverPlayerAdded(id);
-                        if(players.size() < 2){
-                            setReadyToPlay(false);
-                        } else {
-                            for(Player client: players){
-                                if(client.getLobby().get(id)){
-                                    client.notifyOwner();
-                                }
-                            }
-                        }
-                        if(players.size() == 0){
-                            return true;
-                        }
-                        break;
                     }
                 }
+                players.remove(p);
+                notifyObserverPlayerAdded(id);
+                if(players.size() < 2){
+                    setReadyToPlay(false);
+                } else {
+                    for(Player client: players){
+                        if(client.getLobby().get(id)){
+                            if(removedOwner){
+                                client.notifyOwner();
+                            }
+                        }
+                    }
+                }
+                if(players.size() == 0){
+                    return true;
+                }
+                break;
+
+
             }
         }
         return false;

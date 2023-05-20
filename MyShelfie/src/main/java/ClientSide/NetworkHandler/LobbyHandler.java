@@ -1,30 +1,29 @@
 package ClientSide.NetworkHandler;
 
 import ClientSide.View.CLI.LobbyCLI;
+import ClientSide.View.GUI.LobbyGUI;
 import Messages.fromClientToServer.StartGameMessage;
 import Networking.ClientManager;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class LobbyHandler implements LobbyViewObserver{
     private ClientManager manager;
-    //private LobbyView view;
     private ArrayList<String> players;
     private LobbyCLI cli;
+    private LobbyGUI gui;
+    private JTextArea textArea;
 
     /**
      * Overview: LobbyHandler constructor
      */
     public LobbyHandler(ClientManager manager, ArrayList<String> usernames){
         this.cli = new LobbyCLI(this);
-        // initialization of the Lobby gui
+        this.gui = new LobbyGUI(this);
         this.manager = manager;
         this.players = new ArrayList<>();
-        for(String u: usernames){
-            this.players.add(u);
-        }
-        //this.view = new LobbyView(this);
-        // metodo per runnare la view (?) e come gli facciamo stampare i giocatori che sono nella lobby?
+        this.players.addAll(usernames);
     }
 
     /**

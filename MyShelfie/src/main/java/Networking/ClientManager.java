@@ -5,6 +5,7 @@ import ClientSide.View.CLI.LogInCLI;
 import ClientSide.View.CLI.PlayerCLI;
 import ClientSide.View.CLI.ReconnectCLI;
 import ClientSide.NetworkHandler.*;
+import ClientSide.View.GUI.LobbyGUI;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.CloseRecoveryMessage;
@@ -117,8 +118,7 @@ public class ClientManager extends Thread{
             case CREATELOBBYVIEW:
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
                 if (lobbyhandler == null) {
-                    LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
-                    this.lobbyhandler = lobbyhandler;
+                    this.lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                 } else {
                     // here the last player added to the lobby is passed as parameter to the addPlayer() method
                     if(!message.getLast())

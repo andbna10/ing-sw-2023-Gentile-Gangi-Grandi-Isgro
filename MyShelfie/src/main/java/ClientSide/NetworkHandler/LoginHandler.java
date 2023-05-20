@@ -14,15 +14,6 @@ public class LoginHandler implements LoginViewObserver{
 
     private LoginGUI gui;
 
-    // getter e setter (spostare)
-    public LoginGUI getGui() {
-        return gui;
-    }
-
-    public void setGui(LoginGUI gui) {
-        this.gui = gui;
-    }
-
     /**
      * Overview: LoginHandler constructor
      */
@@ -40,6 +31,20 @@ public class LoginHandler implements LoginViewObserver{
      * Overview: cli getter
      */
     public LogInCLI getCli(){ return this.cli; }
+
+    /**
+     * Overview: gui getter
+     */
+    public LoginGUI getGui() {
+        return gui;
+    }
+
+    /**
+     * Overview: gui setter
+     */
+    public void setGui(LoginGUI gui) {
+        this.gui = gui;
+    }
 
     /**
      * Overview: method aimed to create a CreateGameMessage

@@ -14,13 +14,23 @@ public class LoginGUI {
     /**
      * Overview: LoginGUI constructor
      */
-    public LoginGUI(LoginHandler handler){ this.handler = handler; }
+    public LoginGUI(LoginHandler handler) { this.handler = handler; }
 
-    public LoginGUI(){
+    public LoginGUI() {
         //window initialization
-        JFrame loginFrame = new JFrame("Login");
-        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginFrame.setLayout(new FlowLayout());
+        JFrame loginFrame = new JFrame("Login Dialog");
+        JPanel textPanel = new JPanel(new BorderLayout());
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.getCaret().setVisible(true);
+        textArea.getCaret().setSelectionVisible(true);
+        textArea.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+        JScrollPane textPane = new JScrollPane(textArea);
+        textPanel.add(textPane, BorderLayout.CENTER);
+
+        ImageIcon parq = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
+        Image scaledParq = parq.getImage().getScaledInstance(850,700, Image.SCALE_SMOOTH);
+        JLabel parqLabel = new JLabel(new ImageIcon(scaledParq));
 
         //setting up window icon and background
         ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/Display_1.jpg");
@@ -36,6 +46,8 @@ public class LoginGUI {
             public void actionPerformed(ActionEvent e) {
                 String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
                         "Enter username", JOptionPane.QUESTION_MESSAGE);
+
+                //textArea.append("The username is: " + username + "\n");
 
                 handler.creategamemessage("prova", username);
             }
@@ -57,15 +69,15 @@ public class LoginGUI {
             }
         });
 
-        //play online button
-        JButton onlineB = new JButton("Play online");
-        onlineB.addActionListener(new ActionListener() {
+        //random match button
+        JButton randomB = new JButton("Random match");
+        randomB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
                         "Enter username", JOptionPane.QUESTION_MESSAGE);
 
-                //handler.entergamemessage("prova", username, "online");
+                //handler.entergamemessage("prova", username, "random");
             }
         });
 
@@ -84,13 +96,32 @@ public class LoginGUI {
 
         buttons.add(createB);
         buttons.add(joinB);
-        buttons.add(onlineB);
+        buttons.add(randomB);
         buttons.add(exitB);
 
-        loginFrame.add(bgLabel);
-        loginFrame.setIconImage(loginIcon.getImage());
-        loginFrame.add(buttons);
-        //loginFrame.setLocationRelativeTo(null);
+
+        bgLabel.setBounds(40,25,600,400);
+        buttons.setBounds(670,130,150,150);
+
+        textArea.setLineWrap(true);
+
+        textArea.setBorder(BorderFactory.createCompoundBorder(textArea.getBorder(),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+        textArea.setFont(textArea.getFont().deriveFont(15f));
+
+        textPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        textPanel.setBounds(25, 450, 800, 220);
+
+        parqLabel.add(textPanel);
+        parqLabel.add(buttons);
+        parqLabel.add(bgLabel);
+        loginFrame.add(parqLabel);
+
+        loginFrame.setSize(760,650);
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setVisible(true);
         loginFrame.pack();
     }

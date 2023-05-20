@@ -3,6 +3,7 @@ package Main;
 import ClientSide.NetworkHandler.LoginHandler;
 import ClientSide.View.CLI.LogInCLI;
 import ClientSide.View.GUI.GameGUI;
+import ClientSide.View.GUI.LobbyGUI;
 import ClientSide.View.GUI.LoginGUI;
 import Networking.ClientManager;
 
@@ -30,6 +31,7 @@ public class mainProvaGUI {
 
         LoginGUI loginGUI = new LoginGUI();
         //GameGUI gameGUI = new GameGUI();
+        //LobbyGUI lobbyGUI = new LobbyGUI();
 
     }
 }

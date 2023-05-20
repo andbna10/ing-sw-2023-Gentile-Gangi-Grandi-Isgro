@@ -24,22 +24,22 @@ public class PersonalPattern7 extends PersonalGoalCard {
         int count = 0;
 
         if(bookshelf.getTile(0,0) != null){
-            if(bookshelf.getTile(0, 0).getType() == ItemType.PLANTS) count++;
+            if(bookshelf.getTile(0, 0).getType() == ItemType.CATS) count++;
         }
         if(bookshelf.getTile(1,3) != null){
-            if(bookshelf.getTile(1, 3).getType() == ItemType.PLANTS) count++;
+            if(bookshelf.getTile(1, 3).getType() == ItemType.FRAMES) count++;
         }
         if(bookshelf.getTile(2,1) != null){
             if(bookshelf.getTile(2, 1).getType() == ItemType.PLANTS) count++;
         }
         if(bookshelf.getTile(3,0) != null){
-            if(bookshelf.getTile(3, 0).getType() == ItemType.PLANTS) count++;
+            if(bookshelf.getTile(3, 0).getType() == ItemType.TROPHIES) count++;
         }
         if(bookshelf.getTile(4,4) != null){
-            if(bookshelf.getTile(4, 4).getType() == ItemType.PLANTS) count++;
+            if(bookshelf.getTile(4, 4).getType() == ItemType.GAMES) count++;
         }
         if(bookshelf.getTile(5,2) != null){
-            if(bookshelf.getTile(5, 2).getType() == ItemType.PLANTS) count++;
+            if(bookshelf.getTile(5, 2).getType() == ItemType.BOOKS) count++;
         }
 
         return pointsConverter(count);

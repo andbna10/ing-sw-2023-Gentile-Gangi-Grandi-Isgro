@@ -84,13 +84,6 @@ public class Lobby {
     }
 
     /**
-     * Overview: the Observer of the lobby is notified about the possibility to start the game
-     */
-    public void notifyObserverGameCanStart() throws InterruptedException {
-        this.obs.gamecanstartmessage();
-    }
-
-    /**
      * Overview: readyToPlay getter
      */
     public Boolean getReadyToPlay(){ return this.readyToPlay; }

@@ -24,7 +24,7 @@ public class ClientManager extends Thread{
     private ObjectInputStream objectReader;
     private ObjectOutputStream objectWriter;
 
-    // reference to the NetworkHandler classes (?)
+    // reference to the NetworkHandler classes
     private LobbyHandler lobbyhandler;
     private LoginHandler loginHandler;
     private PlayerHandler playerhandler;
@@ -116,10 +116,8 @@ public class ClientManager extends Thread{
 
             // update the lobby view
             case CREATELOBBYVIEW:
-                System.out.println("ciao1");
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
                 if (lobbyhandler == null) {
-                    System.out.println("ciao2");
                     this.lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                 } else {
                     // here the last player added to the lobby is passed as parameter to the addPlayer() method
@@ -127,14 +125,7 @@ public class ClientManager extends Thread{
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
                 lobbyhandler.getCli().printLobby(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
-                lobbyhandler.getGui().updateTextArea(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
-                break;
-
-            // game can start (it is always a lobby view update)
-            case GAMECANSTART:
-                // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
-                // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
-                // chi crea la lobby è marchiato come LobbyOwner (nel model)
+                //lobbyhandler.getGui().updateTextArea(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
                 break;
 
             // create the Game View

@@ -179,6 +179,7 @@ public class PlayerController implements PlayerVViewObserver {
 
         // fullness
         if(model.getBookshelf().bookshelfIsFull()){
+            model.addPoints(1);
             game.getModel().noitfyObserverLastTurn(model.getUsername());
             if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(game.getModel().getPlayers().size()-1)){
                 game.endGame();

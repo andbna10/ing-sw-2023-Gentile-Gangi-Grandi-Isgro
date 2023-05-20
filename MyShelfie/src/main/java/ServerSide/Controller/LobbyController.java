@@ -48,8 +48,6 @@ public class LobbyController implements LobbyVViewObserver {
             if(model.getId() == "online"){
                 if (model.getPlayers().size() == model.getFixedNPlayers()){
                     model.setReadyToPlay(true);
-                    Thread.sleep(1000);
-                    model.notifyObserverGameCanStart();
                     // get the owner and notify
                     Thread.sleep(1000);
                     notifyOwner();
@@ -58,8 +56,6 @@ public class LobbyController implements LobbyVViewObserver {
                 if (model.getPlayers().size() >= 2 && model.getPlayers().size() <= 4) {
                     if (!model.getReadyToPlay()) {
                         model.setReadyToPlay(true);
-                        Thread.sleep(1000);
-                        model.notifyObserverGameCanStart();
                         // get the owner and notify
                         Thread.sleep(1000);
                         notifyOwner();

@@ -18,7 +18,6 @@ public class LoginHandler implements LoginViewObserver{
      */
     public LoginHandler(ClientManager manager){
         this.manager = manager;
-        this.gui = new LoginGUI(this);
         //runLoginGui();
     }
 

@@ -1,7 +1,5 @@
 package ServerSide.VirtualView;
 import Messages.fromServerToClient.CreatelobbyViewMessage;
-import Messages.fromServerToClient.GameCanStartMessage;
-import Messages.fromServerToClient.OwnercanStartGameMessage;
 import Networking.ServerManager;
 import ServerSide.Model.*;
 
@@ -40,17 +38,6 @@ public class VirtualLobbyView implements LobbyObserver{
      */
     public void updatelobbyviewmessage(String[] usernames, String id, String owner){
         CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames, id, owner);
-        for(ServerManager manager: this.managers) {
-            manager.sendMessage(message);
-        }
-    }
-
-    @Override
-    /**
-     * Overview: method aimed to create a GameCanStartMessage
-     */
-    public void gamecanstartmessage() throws InterruptedException {
-        GameCanStartMessage message = new GameCanStartMessage();
         for(ServerManager manager: this.managers) {
             manager.sendMessage(message);
         }

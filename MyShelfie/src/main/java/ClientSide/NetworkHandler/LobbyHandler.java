@@ -22,7 +22,7 @@ public class LobbyHandler implements LobbyViewObserver{
         this.manager = manager;
         this.players = new ArrayList<>();
         this.players.addAll(usernames);
-        runLobbyGUI();
+        //runLobbyGUI();
     }
 
     /**

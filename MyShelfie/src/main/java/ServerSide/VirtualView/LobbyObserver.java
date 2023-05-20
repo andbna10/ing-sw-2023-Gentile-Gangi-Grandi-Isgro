@@ -4,6 +4,8 @@ import ServerSide.Model.Player;
 
 public interface LobbyObserver {
 
-    // questi messaggi devono essere mandati a tutti i player, quindi a tutti i manager
+    /**
+     * Overview: Notify players of the lobby
+     */
     void updatelobbyviewmessage(String[] usernames, String id, String owner);
 }

@@ -28,6 +28,18 @@ public class VirtualLobbyView implements LobbyObserver{
     public void setManager(ServerManager manager){ this.managers.add(manager); }
 
     /**
+     * Overview: remove manager if players disconnects
+     */
+    public void removemanager(ServerManager manager){
+        for(int i=0; i< managers.size();i++){
+            if(this.managers.get(i) == manager){
+                this.managers.remove(i);
+                break;
+            }
+        }
+    }
+
+    /**
      * Overview: Observer getter
      */
     public LobbyVViewObserver getObs(){ return this.obs; }

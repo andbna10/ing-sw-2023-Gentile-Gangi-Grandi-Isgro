@@ -77,9 +77,15 @@ public class ListNode {
     public void close() throws IOException {
 
         // delete references
-        if(manager.getLobbyview().getObs().getModel().removePlayer(manager)){
-            // delete the entire lobby if the previous call return true (it means tha the lobby has 0 players)
-            manager.getLobbymanager().closeLobby(manager.getLobbyview().getObs().getModel().getId());
+        if(manager.getGameview() != null){
+            manager.getGameview().removemanager(manager);
+        }
+        if(manager.getLobbyView() != null){
+            manager.getLobbyView().removemanager(manager);
+            if(manager.getLobbyview().getObs().getModel().removePlayer(manager)){
+                // delete the entire lobby if the previous call return true (it means tha the lobby has 0 players)
+                manager.getLobbymanager().closeLobby(manager.getLobbyview().getObs().getModel().getId());
+            }
         }
         this.socket.close();
     }

@@ -43,9 +43,18 @@ public class Lobby {
                     if(p == players.get(i)){
                         if(players.size()>1 && p.getLobby().get(id)){
                             players.get(i+1).updateLobby(true,id);
-                            // forse bisogna mandargli un messaggio dicendo che è diventato lui l'owner
                         }
                         players.remove(i);
+                        notifyObserverPlayerAdded(id);
+                        if(players.size() < 2){
+                            setReadyToPlay(false);
+                        } else {
+                            for(Player client: players){
+                                if(client.getLobby().get(id)){
+                                    client.notifyOwner();
+                                }
+                            }
+                        }
                         if(players.size() == 0){
                             return true;
                         }

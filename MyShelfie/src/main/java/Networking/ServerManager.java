@@ -346,4 +346,14 @@ public class ServerManager extends Thread{
      * Overview: lobbyManager getter
      */
     public LobbyManager getLobbymanager(){ return this.lobbymanager; }
+
+    /**
+     * Overview: GameView getter
+     */
+    public VirtualGameView getGameview(){ return this.gameview; }
+
+    /**
+     * Overview: LobbyView getter
+     */
+    public VirtualLobbyView getLobbyView(){ return lobbyview; }
 }

@@ -1,6 +1,7 @@
 package ClientSide.View.CLI;
 
 import ClientSide.NetworkHandler.PlayerHandler;
+import ServerSide.Model.ItemTile;
 
 import java.util.Scanner;
 
@@ -181,7 +182,7 @@ public class PlayerCLI {
     public void yourTurn(String[][] bookshelf) {
         Scanner scanner = new Scanner(System.in);
         if (bookshelf != null) {
-            System.out.println("This is your bookshelf:");
+            System.out.println("\nThis is your bookshelf:");
             printBookshelf(bookshelf);
         }
 
@@ -254,17 +255,26 @@ public class PlayerCLI {
     }
 
     /**
+     * Overview: print the opponents' bookshelf at the start of the turn
+     */
+    public void printOpponent(String[][] bookshelf, String username){
+        System.out.println("\nHere "+username+"'s Bookshelf:");
+        printBookshelf(bookshelf);
+    }
+
+    /**
      * Overview totake getter
      */
     public int[] getTotake() {return totake;}
 
     /**
-     * Overview order getter
+     * Overview: order getter
      */
     public int[] getOrder() {return order;}
 
     /**
-     * Overview column getter
+     * Overview: column getter
      */
     public int getColumn() {return column;}
+
 }

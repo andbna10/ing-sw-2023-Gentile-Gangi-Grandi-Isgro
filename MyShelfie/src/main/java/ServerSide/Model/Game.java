@@ -176,6 +176,34 @@ public class Game {
      */
     public Boolean getEnded(){ return this.ended; }
 
+    /**
+     * Overview: method aimed to get all the players' bookshelf but for the bookshelf of the current turn player
+     */
+    public ArrayList<ItemTile[][]> getPlayersBookshelf(Player player){
+        ArrayList<ItemTile[][]> output = new ArrayList<>();
+        for(Player p: players){
+            if(!p.equals(player)){
+                output.add(p.getBookshelf().getGameTiles());
+            }
+        }
+        //System.out.println(output.size());
+        return output;
+    }
+
+    /**
+     * Overview: method aimed to get all the usernames of the players but fot the usarname of the current turn player
+     */
+    public ArrayList<String> getPlayersUsernames(Player player){
+        ArrayList<String> output = new ArrayList<>();
+        for(Player p: players){
+            if(!p.equals(player)){
+                output.add(p.getUsername());
+            }
+        }
+        //System.out.println(output.size());
+        return output;
+    }
+
 
 
 }

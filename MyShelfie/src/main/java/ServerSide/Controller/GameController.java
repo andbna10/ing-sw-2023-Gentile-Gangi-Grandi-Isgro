@@ -110,9 +110,9 @@ public class GameController implements GameVViewObserver {
             restoreBoard();
             model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerBoardRestored(model.getBoard().getBoard());
         }
-        // vedere, se non ci sono pickable, il player corrente deve poter ristorare la board.
-        // l'idea è rendere la pickable int, e ritornare il numero di tessere picable, se è 0, bisogna lanciare il restore board.
-        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn();
+        // take the reference of the current turn player
+        Player player = model.getPlayers().get(model.getCurrentTurnPlayer());
+        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn(model.getPlayersBookshelf(player), model.getPlayersUsernames(player));
     }
 
     @Override

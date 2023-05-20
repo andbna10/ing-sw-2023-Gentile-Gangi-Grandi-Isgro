@@ -121,8 +121,8 @@ public class Player {
     /**
      * Overview: notify the player to move
      */
-    public void notifyPlayerTurn(){
-        obs.notifyPlayerTurn(bookshelf.getGameTiles());
+    public void notifyPlayerTurn(ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames){
+        obs.notifyPlayerTurn(bookshelf.getGameTiles(), bookshelfList, usernames);
     }
 
     /**

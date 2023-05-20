@@ -4,27 +4,38 @@ import Messages.Message;
 import Messages.MessageType;
 import ServerSide.Model.ItemTile;
 
+import java.util.ArrayList;
+
 public class YourTurnMessage extends Message {
     private String message;
     private String[][] bookshelf;
+    private ArrayList<String[][]> bookshelfList;
+    private ArrayList<String> usernames;
     private Boolean upddatedBookshelf;
 
     /**
      * Overview: YourTurnMessage constructor1: bookshelf start of the turn
      */
-    public YourTurnMessage(ItemTile[][] bookshelf){
+    public YourTurnMessage(ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelflist, ArrayList<String> usernames){
         super(null);
+        this.bookshelfList = new ArrayList<>();
+        this.usernames = usernames;
         super.setType(MessageType.YOURTURN);
         this.message = " ---------------- It's your turn ---------------- ";
         this.bookshelf=bookshelfToString(bookshelf);
+        for(int i=0; i< bookshelflist.size(); i++){
+            this.bookshelfList.add(bookshelfToString(bookshelflist.get(i)));
+        }
         this.upddatedBookshelf = false;
     }
 
     /**
-     * Overview: YourTurnMessage constructor2: updated bookshelf
+     * Overview: YourTurnMessage constructor2: updated bookshelf end of the turn
      */
     public YourTurnMessage(ItemTile[][] bookshelf, Boolean updatedBookshelf){
         super(null);
+        this.bookshelfList = null;
+        this.usernames = null;
         super.setType(MessageType.YOURTURN);
         this.message = "Your updated bookshelf";
         this.bookshelf=bookshelfToString(bookshelf);
@@ -42,7 +53,17 @@ public class YourTurnMessage extends Message {
     public String[][] getBookshelf(){return bookshelf;}
 
     /**
-     * Overview: converts a intemtiles bookshelf to a string bookshelf so it can be print by the cli
+     * Overview: String bookshelflist getter
+     */
+    public ArrayList<String[][]> getBookshelfList(){ return this.bookshelfList; }
+
+    /**
+     * Overview: String usernamesList getter
+     */
+    public ArrayList<String> getUsernames(){ return this.usernames; }
+
+    /**
+     * Overview: converts an itemtiles bookshelf to a string bookshelf so it can be print by the cli
      */
     public String[][] bookshelfToString(ItemTile[][] bookshelf) {
         String[][] stringBookshelf = new String[bookshelf.length][bookshelf[0].length];

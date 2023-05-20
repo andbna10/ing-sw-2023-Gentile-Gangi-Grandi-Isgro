@@ -5,6 +5,8 @@ import Networking.ServerManager;
 import ServerSide.Model.BoardCell;
 import ServerSide.Model.ItemTile;
 
+import java.util.ArrayList;
+
 public class VirtualPlayerView implements PlayerObserver{
     private PlayerVViewObserver obs;
     private ServerManager manager;
@@ -54,8 +56,8 @@ public class VirtualPlayerView implements PlayerObserver{
     /**
      * Overview: method aimed to create a yourturnmessage
      */
-    public void notifyPlayerTurn(ItemTile[][] bookshelf){
-        YourTurnMessage message = new YourTurnMessage(bookshelf);
+    public void notifyPlayerTurn(ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames){
+        YourTurnMessage message = new YourTurnMessage(bookshelf, bookshelfList, usernames);
         manager.sendMessage(message);
     }
 

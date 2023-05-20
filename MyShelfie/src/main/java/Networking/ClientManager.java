@@ -1,6 +1,8 @@
 package Networking;
 
+import ClientSide.View.CLI.GenericCLI;
 import ClientSide.View.CLI.LogInCLI;
+import ClientSide.View.CLI.PlayerCLI;
 import ClientSide.View.CLI.ReconnectCLI;
 import ClientSide.NetworkHandler.*;
 import Messages.Message;
@@ -26,6 +28,7 @@ public class ClientManager extends Thread{
     private LoginHandler loginHandler;
     private PlayerHandler playerhandler;
     private GameHandler gamehandler;
+    private GenericCLI genericCLI;
 
     /**
      * ClientHandler constructor
@@ -33,6 +36,7 @@ public class ClientManager extends Thread{
     public ClientManager(Socket socket) throws IOException {
         readerThreadActive = false;
         serversocket = socket;
+        this.genericCLI = new GenericCLI();
         this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
         this.objectReader = new ObjectInputStream(socket.getInputStream());
     }
@@ -107,41 +111,27 @@ public class ClientManager extends Thread{
                 this.playerhandler = new PlayerHandler(this);
 
                 sendMessage(new CloseRecoveryMessage());
-
                 break;
+
             // update the lobby view
             case CREATELOBBYVIEW:
-                //System.out.println("--------------------------- ENTERING THE CREATE LOBBY VIEW PROCEDURE ---------------------------");
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
                 if (lobbyhandler == null) {
                     LobbyHandler lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                     this.lobbyhandler = lobbyhandler;
                 } else {
                     // here the last player added to the lobby is passed as parameter to the addPlayer() method
-
                     if(!message.getLast())
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
-                // da spostare in lobby cli.
-                // chiudere la login gui e aprire la lobby gui.
-                System.out.println("The id of the lobby is: "+ createlobbyviewmessage.getId());
-                for(String s: createlobbyviewmessage.getUsernames()){
-                    if(s == createlobbyviewmessage.getOwner()){
-                        System.out.println(s+" OWNER");
-                        continue;
-                    }
-                    System.out.println(s);
-                }
-                //
+                lobbyhandler.getCli().printLobby(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
                 break;
 
             // game can start (it is always a lobby view update)
             case GAMECANSTART:
-                //System.out.println("--------------------------- GAME CAN START ---------------------------");
                 // bisognerebbe tipo chiamare un metodo in LobbyHandler per attivare il bottone start game !!!
                 // (vedere se implementare il fatto che solo il creatore della lobby può cliccarlo)
                 // chi crea la lobby è marchiato come LobbyOwner (nel model)
-
                 break;
 
             // create the Game View
@@ -149,7 +139,7 @@ public class ClientManager extends Thread{
                 GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
                 gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
                 playerhandler = new PlayerHandler(this);
-                System.out.println(gamehasstartedmessage.getMessage());
+                genericCLI.printMessage(gamehasstartedmessage.getMessage());
                 gamehandler.getCli().printBoard(gamehasstartedmessage.getBoard());
                 playerhandler.getCli().initialSetUp(gamehasstartedmessage.getPersonalGoal(), gamehasstartedmessage.getCommon1(), gamehasstartedmessage.getCommon2());
                 break;
@@ -161,21 +151,15 @@ public class ClientManager extends Thread{
             // username in use
             case USERNAMEUSED:
                 UsernameUsedMessage usernameusedmessage = (UsernameUsedMessage) message;
-                System.out.println(usernameusedmessage.getMessage());
+                genericCLI.printMessage(usernameusedmessage.getMessage());
                 this.loginHandler.getCli().loginprocedure();
                 break;
 
             // ask for n players
             case ASKNPLAYERS:
                 AskNPlayersMessage asknplayersmessage = (AskNPlayersMessage) message;
-                System.out.println(asknplayersmessage.getMessage());
-                //lobbyhandler.nplayersinputmessage("prova");
-                // forse questo lo deve ritornare una classe CLI?? da vedere
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Enter a number: ");
-                String input = scanner.nextLine();
-                int n = Integer.parseInt(input);
-                //
+                genericCLI.printMessage(asknplayersmessage.getMessage());
+                int n = lobbyhandler.getCli().insertNumberPlayers();
                 NPlayersInputMessage messagex = new NPlayersInputMessage(n, "prova");
                 sendMessage(messagex);
                 break;
@@ -187,12 +171,21 @@ public class ClientManager extends Thread{
 
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
-                System.out.println(yourturnmessage.getMessage());
+                genericCLI.printMessage(yourturnmessage.getMessage());
                 if(yourturnmessage.getUpddatedBookshelf()){
                     playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
                     break;
                 } else {
+                    // here the player sees the opponents' bookshlef
+                    for(int i=0; i<yourturnmessage.getBookshelfList().size(); i++){
+                        playerhandler.getCli().printOpponent(yourturnmessage.getBookshelfList().get(i), yourturnmessage.getUsernames().get(i));
+                    }
+
+                    // here the player can see its current bookshelf
                     playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
+
+                    // player called to perform a move
+                    genericCLI.printMessage(yourturnmessage.getMessage());
                     TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
                     sendMessage(messageToTake);
                     break;
@@ -201,22 +194,20 @@ public class ClientManager extends Thread{
             // access to the lobby denied
             case ACCESSDENIED:
                 AccessDeniedMessage accessdeniedmessage = (AccessDeniedMessage) message;
-                System.out.println(accessdeniedmessage.getMessage());
+                genericCLI.printMessage(accessdeniedmessage.getMessage());
                 loginHandler.getCli().loginprocedure();
                 break;
 
             // beeing notified about the end of a turn
             case ENDTURN:
-                // forse a fine turno di ogni giocatore, bisognerebbe stampare un resoconto di tutto il tavolo, board game e bookshelves.
-                // per ora a fine turno di ogni giocatore stampiamo solo la board game aggiornata.
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
-                System.out.println(endturnmessage.getMessage());
+                genericCLI.printMessage(endturnmessage.getMessage());
                 gamehandler.getCli().printBoard(endturnmessage.getBoard());
                 break;
 
             case REPEATTURN:
                 RepeatTurnMessage repeatturnmessage = (RepeatTurnMessage) message;
-                System.out.println(repeatturnmessage.getMessage());
+                genericCLI.printMessage(repeatturnmessage.getMessage());
                 playerhandler.getCli().yourTurn(null);
                 TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
                 sendMessage(messageToTake);
@@ -224,31 +215,30 @@ public class ClientManager extends Thread{
 
             case BOARDRESTORED:
                 BoardRestoredMessage boardrestoredmessage = (BoardRestoredMessage) message;
-                System.out.println(boardrestoredmessage.getMessage());
+                genericCLI.printMessage(boardrestoredmessage.getMessage());
                 gamehandler.getCli().printBoard(boardrestoredmessage.getBoard());
                 break;
 
             case NOTIFYCHECKCOMMON:
                 NotifyCheckCommonMessage notifycheckcommonmessage = (NotifyCheckCommonMessage) message;
-                System.out.println(notifycheckcommonmessage.getMessage());
+                genericCLI.printMessage(notifycheckcommonmessage.getMessage());
                 break;
 
             case LASTTURNTRIGGERED:
                 LastTurnTriggeredMessage lastturntriggeredmessage = (LastTurnTriggeredMessage) message;
-                System.out.println(lastturntriggeredmessage.getMessage());
+                genericCLI.printMessage(lastturntriggeredmessage.getMessage());
                 break;
 
             case ENDGAME:
                 EndGameMessage endgamemessage = (EndGameMessage) message;
-                System.out.println(endgamemessage.getOutput());
-                System.out.println(endgamemessage.getMessage());
+                genericCLI.printOutputEndGame(endgamemessage.getOutput());
+                genericCLI.printMessage(endgamemessage.getMessage());
                 break;
 
             // heartbeat procedure
             case PING:
                 objectWriter.writeObject(new PingMessage("ping", "user0"));
                 objectWriter.flush();
-                //System.out.println("pinged");
                 break;
 
 

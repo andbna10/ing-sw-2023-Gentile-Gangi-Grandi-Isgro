@@ -65,7 +65,7 @@ public class ServerManager extends Thread{
 
                 ret = true;
                 break;
-            } catch (EOFException e) {
+            } catch (EOFException | SocketException e) {
                 continue;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -118,7 +118,7 @@ public class ServerManager extends Thread{
                             readerThreadActive = false;
                         }
 
-                    } catch (EOFException e) { //gestione disconnessione client
+                    } catch (EOFException | SocketException e) { //gestione disconnessione client
 
                         try {
 
@@ -133,7 +133,11 @@ public class ServerManager extends Thread{
                             }
 
                             //chiusura ed eliminazione riferimenti
-                            if (!ok) ref.close();
+                            if (!ok) {
+                                server.setDiscon(false);
+                                server.setDisconRef(null);
+                                ref.close();
+                            }
 
                         } catch (Exception ex) {
                             ex.printStackTrace();

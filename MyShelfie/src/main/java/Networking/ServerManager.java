@@ -64,6 +64,7 @@ public class ServerManager extends Thread{
                 }
 
                 ret = true;
+                break;
             } catch (EOFException e) {
                 continue;
             } catch (Exception e) {
@@ -97,7 +98,7 @@ public class ServerManager extends Thread{
     public void run(){
         System.out.println("server manager is running");
 
-        Thread.currentThread().setName("Manager " + server.getCounter());
+        Thread.currentThread().setName("Manager " + username);
 
         while(!isInterrupted() && !clientsocket.isClosed()){
 
@@ -106,7 +107,7 @@ public class ServerManager extends Thread{
                 readerThreadActive = true;
                 Thread readerthread = new Thread(() -> {
 
-                    Thread.currentThread().setName("Listener " + server.getCounter());
+                    Thread.currentThread().setName("Listener " + username);
 
                     try {
                         Message message = (Message) in.readObject();
@@ -117,7 +118,7 @@ public class ServerManager extends Thread{
                             readerThreadActive = false;
                         }
 
-                    } catch (EOFException | SocketException e) { //gestione disconnessione client
+                    } catch (EOFException e) { //gestione disconnessione client
 
                         try {
 

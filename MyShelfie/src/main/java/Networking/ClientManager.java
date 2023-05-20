@@ -45,7 +45,7 @@ public class ClientManager extends Thread{
     /**
      * Overview: loginhandler setter
      */
-    public void setLoginHandler(LoginHandler loginhandler){ this.loginHandler= loginhandler; }
+    public void setLoginHandler(LoginHandler loginhandler){ this.loginHandler = loginhandler; }
 
     /**
      * Overview: loginhandler getter
@@ -116,8 +116,10 @@ public class ClientManager extends Thread{
 
             // update the lobby view
             case CREATELOBBYVIEW:
+                System.out.println("ciao1");
                 CreatelobbyViewMessage createlobbyviewmessage = (CreatelobbyViewMessage) message;
                 if (lobbyhandler == null) {
+                    System.out.println("ciao2");
                     this.lobbyhandler = new LobbyHandler(this, createlobbyviewmessage.getUsernames());
                 } else {
                     // here the last player added to the lobby is passed as parameter to the addPlayer() method
@@ -125,6 +127,7 @@ public class ClientManager extends Thread{
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
                 lobbyhandler.getCli().printLobby(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
+                lobbyhandler.getGui().updateTextArea(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
                 break;
 
             // game can start (it is always a lobby view update)

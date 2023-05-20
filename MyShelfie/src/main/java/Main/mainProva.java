@@ -9,7 +9,7 @@ import java.net.Socket;
 
 public class mainProva {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Socket socket = new Socket("localhost", 59090 );
+        Socket socket = new Socket("localhost", 59090);
 
         // this is the clientmanager which aim is to manage the connection client-server ( for the client )
         ClientManager client = new ClientManager(socket);

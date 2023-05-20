@@ -303,7 +303,7 @@ public class ServerManager extends Thread{
         try {
             out.writeObject(message);
             out.flush();
-            //System.out.println("sent");
+            System.out.println("sent");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -13,17 +13,16 @@ public class LobbyHandler implements LobbyViewObserver{
     private ArrayList<String> players;
     private LobbyCLI cli;
     private LobbyGUI gui;
-    private JTextArea textArea;
 
     /**
      * Overview: LobbyHandler constructor
      */
     public LobbyHandler(ClientManager manager, ArrayList<String> usernames){
         this.cli = new LobbyCLI(this);
-        this.gui = new LobbyGUI(this);
         this.manager = manager;
         this.players = new ArrayList<>();
         this.players.addAll(usernames);
+        runLobbyGUI();
     }
 
     /**
@@ -47,4 +46,11 @@ public class LobbyHandler implements LobbyViewObserver{
      * Overview: cli getter
      */
     public LobbyCLI getCli(){ return this.cli; }
+
+    public LobbyGUI getGui(){ return this.gui; }
+
+    /**
+     * Overview: run the lobby GUI
+     */
+    public void runLobbyGUI() { this.gui = new LobbyGUI(this); }
 }

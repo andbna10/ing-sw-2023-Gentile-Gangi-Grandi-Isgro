@@ -11,7 +11,6 @@ import java.io.IOException;
 public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;
     private LogInCLI cli;
-
     private LoginGUI gui;
 
     /**
@@ -19,6 +18,7 @@ public class LoginHandler implements LoginViewObserver{
      */
     public LoginHandler(ClientManager manager){
         this.manager = manager;
+        this.gui = new LoginGUI(this);
         //runLoginGui();
     }
 
@@ -37,13 +37,6 @@ public class LoginHandler implements LoginViewObserver{
      */
     public LoginGUI getGui() {
         return gui;
-    }
-
-    /**
-     * Overview: gui setter
-     */
-    public void setGui(LoginGUI gui) {
-        this.gui = gui;
     }
 
     /**

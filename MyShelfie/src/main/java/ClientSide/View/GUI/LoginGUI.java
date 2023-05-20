@@ -14,9 +14,11 @@ public class LoginGUI {
     /**
      * Overview: LoginGUI constructor
      */
-    public LoginGUI(LoginHandler handler) { this.handler = handler; }
 
-    public LoginGUI() {
+    public LoginGUI(LoginHandler handler) {
+
+        this.handler = handler;
+
         //window initialization
         JFrame loginFrame = new JFrame("Login Dialog");
         JPanel textPanel = new JPanel(new BorderLayout());
@@ -29,7 +31,7 @@ public class LoginGUI {
         textPanel.add(textPane, BorderLayout.CENTER);
 
         ImageIcon parq = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
-        Image scaledParq = parq.getImage().getScaledInstance(850,700, Image.SCALE_SMOOTH);
+        Image scaledParq = parq.getImage().getScaledInstance(850,460, Image.SCALE_SMOOTH);
         JLabel parqLabel = new JLabel(new ImageIcon(scaledParq));
 
         //setting up window icon and background
@@ -46,8 +48,6 @@ public class LoginGUI {
             public void actionPerformed(ActionEvent e) {
                 String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
                         "Enter username", JOptionPane.QUESTION_MESSAGE);
-
-                //textArea.append("The username is: " + username + "\n");
 
                 handler.creategamemessage("prova", username);
             }
@@ -103,18 +103,7 @@ public class LoginGUI {
         bgLabel.setBounds(40,25,600,400);
         buttons.setBounds(670,130,150,150);
 
-        textArea.setLineWrap(true);
 
-        textArea.setBorder(BorderFactory.createCompoundBorder(textArea.getBorder(),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-        textArea.setFont(textArea.getFont().deriveFont(15f));
-
-        textPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        textPanel.setBounds(25, 450, 800, 220);
-
-        parqLabel.add(textPanel);
         parqLabel.add(buttons);
         parqLabel.add(bgLabel);
         loginFrame.add(parqLabel);

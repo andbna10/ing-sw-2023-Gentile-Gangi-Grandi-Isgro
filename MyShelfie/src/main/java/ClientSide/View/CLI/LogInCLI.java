@@ -62,7 +62,7 @@ public class LogInCLI {
             case "3" -> {
                 System.out.println("enter username:");
                 String username = scanner.nextLine();
-                handler.entergamemessage(sender, username, "online");
+                handler.entergamemessage(sender, username, "random");
             }
         }
     }

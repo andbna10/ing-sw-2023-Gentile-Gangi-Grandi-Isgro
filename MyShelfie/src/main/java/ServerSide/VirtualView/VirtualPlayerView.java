@@ -47,8 +47,8 @@ public class VirtualPlayerView implements PlayerObserver{
     /**
      * Overview: method aimed to create an ownercanstartgamemessage
      */
-    public void createownercanstartgamemessage(){
-        OwnercanStartGameMessage message = new OwnercanStartGameMessage();
+    public void createownercanstartgamemessage(String id){
+        OwnercanStartGameMessage message = new OwnercanStartGameMessage(id);
         manager.sendMessage(message);
     }
 

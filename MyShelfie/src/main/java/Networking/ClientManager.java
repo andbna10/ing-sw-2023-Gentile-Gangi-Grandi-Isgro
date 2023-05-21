@@ -160,7 +160,7 @@ public class ClientManager extends Thread{
 
             case OWNERCANSTARTGAME:
                 OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
-                lobbyhandler.getCli().ownercanstart();
+                lobbyhandler.getCli().ownercanstart(ownercanstartgamemessage.getId());
                 break;
 
             case YOURTURN:

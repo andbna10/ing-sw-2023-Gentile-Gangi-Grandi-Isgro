@@ -72,7 +72,7 @@ public class LobbyController implements LobbyVViewObserver {
     public void notifyOwner(){
         for(Player client: model.getPlayers()){
             if(client.getLobby().get(model.getId())){
-                client.notifyOwner();
+                client.notifyOwner(model.getId());
             }
         }
     }

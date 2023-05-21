@@ -116,8 +116,8 @@ public class Player {
     /**
      * Overview: the observer of the player is notified about the possibility to start the game
      */
-    public void notifyOwner(){
-        this.obs.createownercanstartgamemessage();
+    public void notifyOwner(String id){
+        this.obs.createownercanstartgamemessage(id);
     }
 
     /**

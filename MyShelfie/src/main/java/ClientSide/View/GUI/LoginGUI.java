@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class LoginGUI {
 
     private LoginHandler handler;
+    private JFrame loginFrame;
 
     /**
      * Overview: LoginGUI constructor
@@ -20,7 +21,7 @@ public class LoginGUI {
         this.handler = handler;
 
         //window initialization
-        JFrame loginFrame = new JFrame("Login Dialog");
+        loginFrame = new JFrame("Login Dialog");
         JPanel textPanel = new JPanel(new BorderLayout());
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
@@ -46,11 +47,25 @@ public class LoginGUI {
         createB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
-                        "Enter username", JOptionPane.QUESTION_MESSAGE);
 
-                handler.creategamemessage("prova", username);
-                loginFrame.setVisible(false);
+                String username;
+                boolean nullInput = false;
+                do {
+                    username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
+                            "Enter username", JOptionPane.QUESTION_MESSAGE);
+                    if(username == null){
+                        nullInput = true;
+                        break;
+                    }
+
+                } while(username.isEmpty() || username.isBlank());
+
+                if(!nullInput){
+                    handler.creategamemessage("prova", username);
+                    loginFrame.setVisible(false);
+                    loginFrame.dispose();
+                }
+
             }
         });
 
@@ -59,15 +74,38 @@ public class LoginGUI {
         joinB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
-                        "Enter username", JOptionPane.QUESTION_MESSAGE);
 
-                if(username != null) {
-                    String gameID = JOptionPane.showInputDialog(loginFrame, "Enter game ID:",
-                            "Enter game ID", JOptionPane.QUESTION_MESSAGE);
+                boolean nullInput1 = false;
+                boolean nullInput2 = false;
+                String username;
+                do {
+                    username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
+                            "Enter username", JOptionPane.QUESTION_MESSAGE);
+                    if(username == null){
+                        nullInput1 = true;
+                        break;
+                    }
+                } while (username.isEmpty() || username.isBlank());
+
+                String gameID = null;
+                if(!nullInput1) {
+                    do {
+                        gameID = JOptionPane.showInputDialog(loginFrame, "Enter game ID:",
+                                "Enter game ID", JOptionPane.QUESTION_MESSAGE);
+                        if(gameID == null){
+                            nullInput2 = true;
+                            break;
+                        }
+                    } while (gameID.isEmpty() || gameID.isBlank());
                 }
-                //handler.entergamemessage("prova", username, gameID);
+
+                if(!nullInput1 && !nullInput2) {
+                    handler.entergamemessage("prova", username, gameID);
+                    loginFrame.setVisible(false);
+                    loginFrame.dispose();
+                }
             }
+
         });
 
         //random match button
@@ -75,10 +113,25 @@ public class LoginGUI {
         randomB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
-                        "Enter username", JOptionPane.QUESTION_MESSAGE);
 
-                //handler.entergamemessage("prova", username, "random");
+                String username;
+                boolean nullInput = false;
+                do {
+                    username = JOptionPane.showInputDialog(loginFrame, "Enter username:",
+                            "Enter username", JOptionPane.QUESTION_MESSAGE);
+                    if(username == null){
+                        nullInput = true;
+                        break;
+                    }
+
+                } while(username.isEmpty() || username.isBlank());
+
+                if(!nullInput){
+                    handler.entergamemessage("prova", username, "random");
+                    loginFrame.setVisible(false);
+                    loginFrame.dispose();
+                }
+
             }
         });
 
@@ -114,6 +167,35 @@ public class LoginGUI {
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setVisible(true);
         loginFrame.pack();
+    }
+
+    public void validityCheck(String message) {
+        JOptionPane.showMessageDialog(loginFrame, message, "Error!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public int insertNumber(String message){
+        String number;
+        int n = 0;
+        boolean nullInput = false;
+
+        do {
+
+            number = JOptionPane.showInputDialog(loginFrame, message, "Insert number", JOptionPane.QUESTION_MESSAGE);
+
+            if(number == null){
+                nullInput = true;
+                break;
+            }
+
+            n = Integer.parseInt(number);
+
+        } while(n<2 || n>4);
+
+        if(!nullInput)
+            return n;
+
+        return insertNumber(message);
+
     }
 
 }

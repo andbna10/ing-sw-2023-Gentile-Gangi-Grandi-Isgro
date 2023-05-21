@@ -128,11 +128,10 @@ public class ClientManagerGUI extends Thread{
             // create the Game View
             case GAMEHASSTARTED:
                 GameHasStartedMessage gamehasstartedmessage = (GameHasStartedMessage) message;
+                lobbyhandler.getGui().closeLobbyWindow();
                 gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
                 playerhandler = new PlayerHandler(this);
-                // DA SOSTITUIRE CON GUI
-                //gamehandler.getCli().printBoard(gamehasstartedmessage.getBoard());
-                //playerhandler.getCli().initialSetUp(gamehasstartedmessage.getPersonalGoal(), gamehasstartedmessage.getCommon1(), gamehasstartedmessage.getCommon2());
+                playerhandler.setGui(gamehandler.getGui());
                 break;
 
             // create the Player View
@@ -142,22 +141,21 @@ public class ClientManagerGUI extends Thread{
             // username in use
             case USERNAMEUSED:
                 UsernameUsedMessage usernameusedmessage = (UsernameUsedMessage) message;
-                // SOSTITUIRE CON GUI
-                /*genericCLI.printMessage(usernameusedmessage.getMessage());
-                this.loginHandler.getCli().loginprocedure();*/
+                loginHandler.getGui().validityCheck(usernameusedmessage.getMessage());
+                loginHandler.runLoginGui();
                 break;
 
             // ask for n players
             case ASKNPLAYERS:
                 AskNPlayersMessage asknplayersmessage = (AskNPlayersMessage) message;
-                /*genericCLI.printMessage(asknplayersmessage.getMessage());
-                int n = lobbyhandler.getCli().insertNumberPlayers();
+                int n = loginHandler.getGui().insertNumber(asknplayersmessage.getMessage());
                 NPlayersInputMessage messagex = new NPlayersInputMessage(n, "prova");
-                sendMessage(messagex);*/
+                sendMessage(messagex);
                 break;
 
             case OWNERCANSTARTGAME:
                 OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
+                lobbyhandler.getGui().buttonClickable(ownercanstartgamemessage.getId());
                 //lobbyhandler.getCli().ownercanstart();
                 break;
 
@@ -185,8 +183,8 @@ public class ClientManagerGUI extends Thread{
                 // access to the lobby denied
             case ACCESSDENIED:
                 AccessDeniedMessage accessdeniedmessage = (AccessDeniedMessage) message;
-                /*genericCLI.printMessage(accessdeniedmessage.getMessage());
-                loginHandler.getCli().loginprocedure();*/
+                loginHandler.getGui().validityCheck(accessdeniedmessage.getMessage());
+                loginHandler.runLoginGui();
                 break;
 
             // beeing notified about the end of a turn

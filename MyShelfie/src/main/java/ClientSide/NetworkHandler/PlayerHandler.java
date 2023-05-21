@@ -1,16 +1,24 @@
 package ClientSide.NetworkHandler;
 
 import ClientSide.View.CLI.PlayerCLI;
+import ClientSide.View.GUI.GameGUI;
 import Networking.ClientManager;
 import Networking.ClientManagerGUI;
 
 public class PlayerHandler implements PlayerViewObserver{
     private ClientManager manager;
     private ClientManagerGUI managergui;
-    //private PlayerView view;
+    private GameGUI gui;
     private PlayerCLI cli;
 
     // attributes
+
+    /**
+     * Overview: gui setter
+     */
+    public void setGui(GameGUI gui) {
+        this.gui = gui;
+    }
 
     /**
      * Overview: PlayerHandler constructor1 cli

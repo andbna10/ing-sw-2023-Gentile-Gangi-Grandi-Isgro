@@ -12,8 +12,8 @@ public class GenericCLI {
     /**
      * Overview: print the output of the end game
      */
-    public void printOutputEndGame(StringBuffer ouput){
-        System.out.println(ouput);
+    public void printOutputEndGame(StringBuffer output){
+        System.out.println(output);
     }
 
 

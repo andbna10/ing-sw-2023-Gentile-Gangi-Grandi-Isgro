@@ -1,6 +1,7 @@
 package ClientSide.NetworkHandler;
 
 import ClientSide.View.CLI.GameCLI;
+import ClientSide.View.GUI.GameGUI;
 import Networking.ClientManager;
 import Networking.ClientManagerGUI;
 
@@ -8,8 +9,7 @@ public class GameHandler implements GameViewObserver{
     private ClientManager manager;
     private ClientManagerGUI managergui;
     private String message;
-    //private GameView view;
-
+    private GameGUI gui;
     private GameCLI cli;
 
     /**
@@ -18,7 +18,6 @@ public class GameHandler implements GameViewObserver{
     public GameHandler(ClientManager manager, String message){
         this.manager = manager;
         this.message = message;
-        //this.view = new GameView(this);
         this.cli = new GameCLI(this);
     }
 
@@ -28,14 +27,24 @@ public class GameHandler implements GameViewObserver{
     public GameHandler(ClientManagerGUI manager, String message){
         this.managergui = manager;
         this.message = message;
-        //this.view = new GameView(this);
+        runGameGUI();
     }
 
     /**
-     * Overwiew: cli getter
+     * Overview: cli getter
      */
     public GameCLI getCli(){
         return cli;
     }
 
+    /**
+     * Overview: gui getter
+     */
+    public GameGUI getGui() {
+        return gui;
+    }
+
+    public void runGameGUI(){
+        this.gui = new GameGUI();
+    }
 }

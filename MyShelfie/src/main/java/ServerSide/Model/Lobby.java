@@ -57,7 +57,7 @@ public class Lobby {
                     for(Player client: players){
                         if(client.getLobby().get(id)){
                             if(removedOwner){
-                                client.notifyOwner();
+                                client.notifyOwner(id);
                             }
                         }
                     }

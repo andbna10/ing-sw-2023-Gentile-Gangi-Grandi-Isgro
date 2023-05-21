@@ -13,8 +13,8 @@ public class LobbyManager {
      */
     public LobbyManager(){
         lobbies = new HashMap<>();
-        LobbyController lobby = new LobbyController("online");
-        lobbies.put("online", lobby);
+        LobbyController lobby = new LobbyController("random");
+        lobbies.put("random", lobby);
     }
 
     /**

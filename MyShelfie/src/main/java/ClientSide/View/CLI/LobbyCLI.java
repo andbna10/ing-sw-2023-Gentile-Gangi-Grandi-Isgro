@@ -13,7 +13,7 @@ public class LobbyCLI {
      */
     public LobbyCLI(LobbyHandler handler){ this.handler = handler; }
 
-    public void ownercanstart(){
+    public void ownercanstart(String id){
         Scanner scanner = new Scanner(System.in);
         String sender = "prova";
         String input;
@@ -28,9 +28,6 @@ public class LobbyCLI {
             input = scanner.nextLine();
         }
 
-        System.out.println("Please, enter the id of your lobby:");
-        System.out.print("> \n");
-        String id = scanner.nextLine();
         handler.startgamemessage(sender, id);
     }
 

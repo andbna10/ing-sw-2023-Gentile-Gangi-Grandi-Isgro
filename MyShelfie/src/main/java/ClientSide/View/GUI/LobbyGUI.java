@@ -4,6 +4,8 @@ import ClientSide.NetworkHandler.LobbyHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class LobbyGUI {
@@ -11,7 +13,8 @@ public class LobbyGUI {
     private LobbyHandler handler;
     private LoginGUI loginGUI;
     private JTextArea textArea;
-
+    private JButton startB;
+    private JFrame lobbyFrame;
 
     /**
      * Overview: LobbyGUI constructor
@@ -21,7 +24,7 @@ public class LobbyGUI {
         this.handler = lobbyHandler;
 
         //window initialization
-        JFrame loginFrame = new JFrame("Lobby Dialog");
+        lobbyFrame = new JFrame("Lobby Dialog");
         JPanel textPanel = new JPanel(new BorderLayout());
         textArea = new JTextArea();
         textArea.setEditable(false);
@@ -32,7 +35,7 @@ public class LobbyGUI {
         textPanel.add(textPane, BorderLayout.CENTER);
 
         ImageIcon parq = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
-        Image scaledParq = parq.getImage().getScaledInstance(650,700, Image.SCALE_SMOOTH);
+        Image scaledParq = parq.getImage().getScaledInstance(650,770, Image.SCALE_SMOOTH);
         JLabel parqLabel = new JLabel(new ImageIcon(scaledParq));
 
         //setting up window icon and background
@@ -40,7 +43,7 @@ public class LobbyGUI {
         Image scaledBg = bg.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
         JLabel bgLabel = new JLabel(new ImageIcon(scaledBg));
         ImageIcon loginIcon = new ImageIcon("MyShelfie/src/main/resources/icon.png");
-        loginFrame.setIconImage(loginIcon.getImage());
+        lobbyFrame.setIconImage(loginIcon.getImage());
 
         bgLabel.setBounds(25,25,600,400);
 
@@ -55,15 +58,21 @@ public class LobbyGUI {
 
         textPanel.setBounds(25, 450, 600, 220);
 
+        startB = new JButton("START");
+        startB.setEnabled(false);
+        startB.setBounds(275,700,100,30);
+
+        parqLabel.add(startB);
         parqLabel.add(textPanel);
         parqLabel.add(bgLabel);
-        loginFrame.add(parqLabel);
+        lobbyFrame.add(parqLabel);
 
-        loginFrame.setSize(760,650);
-        loginFrame.setLocationRelativeTo(null);
-        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginFrame.setVisible(true);
-        loginFrame.pack();
+
+        lobbyFrame.setSize(650,800);
+        lobbyFrame.setLocationRelativeTo(null);
+        lobbyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        lobbyFrame.setVisible(true);
+        lobbyFrame.pack();
     }
 
     public void updateTextArea(String id, ArrayList<String> usernames, String owner) {
@@ -78,5 +87,20 @@ public class LobbyGUI {
             }
             textArea.append(s + "\n");
         }
+    }
+
+    public void buttonClickable(String id) {
+        startB.setEnabled(true);
+        startB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handler.startgamemessage("prova", id);
+            }
+        });
+    }
+
+    public void closeLobbyWindow() {
+        lobbyFrame.setVisible(false);
+        lobbyFrame.dispose();
     }
 }

@@ -4,25 +4,36 @@ import ClientSide.View.CLI.LobbyCLI;
 import ClientSide.View.GUI.LobbyGUI;
 import Messages.fromClientToServer.StartGameMessage;
 import Networking.ClientManager;
+import Networking.ClientManagerGUI;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class LobbyHandler implements LobbyViewObserver{
     private ClientManager manager;
+    private ClientManagerGUI managergui;
     private ArrayList<String> players;
     private LobbyCLI cli;
     private LobbyGUI gui;
 
     /**
-     * Overview: LobbyHandler constructor
+     * Overview: LobbyHandler constructor1 cli
      */
     public LobbyHandler(ClientManager manager, ArrayList<String> usernames){
         this.cli = new LobbyCLI(this);
         this.manager = manager;
         this.players = new ArrayList<>();
         this.players.addAll(usernames);
-        //runLobbyGUI();
+    }
+
+    /**
+     * Overview: LobbyHandler constructor2 gui
+     */
+    public LobbyHandler(ClientManagerGUI manager, ArrayList<String> usernames){
+        this.managergui = manager;
+        this.players = new ArrayList<>();
+        this.players.addAll(usernames);
+        runLobbyGUI();
     }
 
     /**
@@ -37,7 +48,11 @@ public class LobbyHandler implements LobbyViewObserver{
      */
     public void startgamemessage(String sender, String idLobby){
         StartGameMessage message = new StartGameMessage(sender, idLobby);
-        manager.sendMessage(message);
+        if(manager == null){
+            managergui.sendMessage(message);
+        } else {
+            manager.sendMessage(message);
+        }
     }
 
     // serve un metodo per gestire il bottone startgame che i giocatori vedono nella lobby view

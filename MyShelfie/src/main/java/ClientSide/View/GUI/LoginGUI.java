@@ -50,6 +50,7 @@ public class LoginGUI {
                         "Enter username", JOptionPane.QUESTION_MESSAGE);
 
                 handler.creategamemessage("prova", username);
+                loginFrame.setVisible(false);
             }
         });
 

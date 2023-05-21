@@ -81,12 +81,14 @@ public class Player {
      */
     public PlayerObserver getObs(){ return obs; }
 
+    // penso che si puo cancellare tutto
     /**
      * Overview: method aimed to change the status of inGame
      */
     public void setInGame(Boolean status){
         this.inGame = status;
 
+        // si puo cancellare?
         // if status is true, we can let notify the player virtual view for the creation of the createPlayerViewMessage
         if(status){
             obs.createplayerviewmessage();

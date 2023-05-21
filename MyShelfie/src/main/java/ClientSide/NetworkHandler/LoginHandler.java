@@ -5,20 +5,29 @@ import ClientSide.View.GUI.LoginGUI;
 import Messages.fromClientToServer.CreateGameMessage;
 import Messages.fromClientToServer.EnterGameMessage;
 import Networking.ClientManager;
+import Networking.ClientManagerGUI;
 
 import java.io.IOException;
 
 public class LoginHandler implements LoginViewObserver{
     private ClientManager manager;
+    private ClientManagerGUI managergui;
     private LogInCLI cli;
     private LoginGUI gui;
 
     /**
-     * Overview: LoginHandler constructor
+     * Overview: LoginHandler constructor1 cli
      */
     public LoginHandler(ClientManager manager){
         this.manager = manager;
-        //runLoginGui();
+    }
+
+    /**
+     * Overview: LoginHandler constructor2 gui
+     */
+    public LoginHandler(ClientManagerGUI manager){
+        this.managergui = manager;
+        runLoginGui();
     }
 
     /**
@@ -43,7 +52,12 @@ public class LoginHandler implements LoginViewObserver{
      */
     public void creategamemessage(String sender, String username){
         CreateGameMessage message = new CreateGameMessage(username, sender);
-        manager.sendMessage(message);
+        if(manager == null){
+            managergui.sendMessage(message);
+        } else {
+            manager.sendMessage(message);
+        }
+
     }
 
     /**
@@ -51,7 +65,11 @@ public class LoginHandler implements LoginViewObserver{
      */
     public void entergamemessage(String sender, String username, String id){
         EnterGameMessage message = new EnterGameMessage(username, sender, id);
-        manager.sendMessage(message);
+        if(manager == null){
+            managergui.sendMessage(message);
+        } else {
+            manager.sendMessage(message);
+        }
     }
 
     /**

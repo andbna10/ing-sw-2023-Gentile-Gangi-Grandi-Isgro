@@ -24,6 +24,7 @@ class CommonPattern12Test {
         shelf1.setTile(4,1, ItemType.BOOKS);
         shelf1.setTile(4,2, ItemType.GAMES);
         shelf1.setTile(4,3, ItemType.CATS);
+        //shelf1.setTile(0,0, ItemType.CATS);
 
         assertTrue(cp12.validated(shelf1));
 
@@ -37,6 +38,7 @@ class CommonPattern12Test {
         shelf2.setTile(4,1, ItemType.BOOKS);
         shelf2.setTile(4,2, ItemType.GAMES);
         shelf2.setTile(4,3, ItemType.CATS);
+        //shelf2.setTile(2,2, ItemType.CATS);
 
         assertTrue(cp12.validated(shelf2));
 

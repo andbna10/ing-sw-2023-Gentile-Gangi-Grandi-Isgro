@@ -19,11 +19,11 @@ public class CommonPattern12 extends CommonGoalCard {
         boolean ok1 = true, ok2 = true;
 
         for(int i = 0; i < 5; i++)
-            if(bookshelf.getTile(i + 1, i) == null)
+            if(bookshelf.getTile(i + 1, i) == null || bookshelf.getTile(i,i)!=null)
                 ok1 = false;
 
         for(int i = 0, j = 4; i < 5; i++, j--)
-            if(bookshelf.getTile(i + 1, j) == null)
+            if(bookshelf.getTile(i + 1, j) == null || bookshelf.getTile(i,j)!=null)
                 ok2 = false;
 
         return ok1 || ok2;

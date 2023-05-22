@@ -204,10 +204,10 @@ public class ServerManager extends Thread{
 
                     this.username = entergamemessage.getUsername();
 
-                    //lobby online
-                    if(entergamemessage.getId().equals("online")){
-                        if(lobbymanager.getLobby("online").getModel().getReadyToPlay()){
-                            System.out.println("An online game is already started, please try again later!");
+                    //random match
+                    if(entergamemessage.getId().equals("random")){
+                        if(lobbymanager.getLobby("random").getModel().getReadyToPlay()){
+                            System.out.println("A random match is already running, please try again later!");
                             // qui probabilmente si passa la cli.
 
                         } else {
@@ -230,7 +230,7 @@ public class ServerManager extends Thread{
             // starting the game
             case STARTGAME:
                 StartGameMessage startgamemessage = (StartGameMessage) message;
-                if(lobbyview.getObs().getModel().getId() == "online"){
+                if(lobbyview.getObs().getModel().getId() == "random"){
                     if(lobbyview.getObs().getModel().getPlayers().size() == lobbyview.getObs().getModel().getFixedNPlayers()){
                         GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                         setGameView(gamecontroller.getVirtualView());

@@ -10,7 +10,7 @@ public interface LobbyVViewObserver {
     void addPlayer(Player player) throws InterruptedException;
 
     /**
-     * Overview: modify the fixed number of players for the online lobby
+     * Overview: modify the fixed number of players for the random lobby
      */
     void modifyfixednplayers(int n);
 

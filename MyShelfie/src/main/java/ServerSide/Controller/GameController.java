@@ -120,24 +120,27 @@ public class GameController implements GameVViewObserver {
      * Overview: end game
      */
     // to be implemented (qui si deve vedere chi ha fatto piu punti)
-    public void endGame(){
+    public void endGame(boolean discon){
         int maxpoints=0;
         //calcolo punteggi
-        for(PlayerController playerController:players){
-            playerController.getModel().addPoints(playerController.checkPersonalGoal(playerController.getModel().getBookshelf(),playerController.getModel().getGoal()));
-            playerController.getModel().addPoints(playerController.checkAdjacentTiles(playerController.getModel().getBookshelf()));
-        }
-        //decretare il vincitore
-        //utilizzando order con il senso orario e il >= copro il caso di parità
-        for(int i=0;i<model.getPlayers().size();i++){
-            if(model.getPlayers().get(model.getOrder(i)).getPoints()>=maxpoints) {
-                maxpoints = model.getPlayers().get(model.getOrder(i)).getPoints();
-                model.setWinner(model.getPlayers().get(model.getOrder(i)).getUsername());
+
+        if(!discon) {
+            for (PlayerController playerController : players) {
+                playerController.getModel().addPoints(playerController.checkPersonalGoal(playerController.getModel().getBookshelf(), playerController.getModel().getGoal()));
+                playerController.getModel().addPoints(playerController.checkAdjacentTiles(playerController.getModel().getBookshelf()));
+            }
+            //decretare il vincitore
+            //utilizzando order con il senso orario e il >= copro il caso di parità
+            for (int i = 0; i < model.getPlayers().size(); i++) {
+                if (model.getPlayers().get(model.getOrder(i)).getPoints() >= maxpoints) {
+                    maxpoints = model.getPlayers().get(model.getOrder(i)).getPoints();
+                    model.setWinner(model.getPlayers().get(model.getOrder(i)).getUsername());
+                }
             }
         }
 
         model.setEnded(true);
-        virtualview.notifyEnd(model.getWinner(), model.getPlayers());
+        virtualview.notifyEnd(model.getWinner(), model.getPlayers(), discon);
     }
 
     @Override

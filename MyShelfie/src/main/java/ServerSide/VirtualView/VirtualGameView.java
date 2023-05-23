@@ -63,9 +63,9 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create the message to notify the end of the game
      */
-    public void notifyEnd(String winner, ArrayList<Player> players){
+    public void notifyEnd(String winner, ArrayList<Player> players, boolean discon){
         for(ServerManager manager: this.managers) {
-            EndGameMessage message = new EndGameMessage(winner, players);
+            EndGameMessage message = new EndGameMessage(winner, players, discon);
             manager.sendMessage(message);
         }
     }

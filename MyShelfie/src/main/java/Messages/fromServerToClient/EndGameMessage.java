@@ -7,15 +7,18 @@ import ServerSide.Model.Player;
 import java.util.ArrayList;
 
 public class EndGameMessage extends Message {
+
+    boolean discon;
     private String message;
     private StringBuffer output;
 
     /**
      * Overview: EndGameMessage constructor
      */
-    public EndGameMessage(String winner, ArrayList<Player> players){
+    public EndGameMessage(String winner, ArrayList<Player> players, boolean discon){
         super(null);
         super.setType(MessageType.ENDGAME);
+        this.discon = discon;
         output = print(players);
         message = "\nThe winner is "+winner;
     }
@@ -40,4 +43,10 @@ public class EndGameMessage extends Message {
      * Overview: get the output
      */
     public StringBuffer getOutput(){ return output; }
+
+    /**
+     * Overview: discon state getter
+     */
+
+    public boolean getDiscon(){ return this.discon; }
 }

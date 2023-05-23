@@ -183,7 +183,7 @@ public class PlayerController implements PlayerVViewObserver {
                 model.addPoints(1);
                 game.getModel().noitfyObserverLastTurn(model.getUsername());
                 if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(game.getModel().getPlayers().size()-1)){
-                    game.endGame();
+                    game.endGame(false);
                 } else {
                     game.getModel().setIsLastTurnStarted(true);
                 }

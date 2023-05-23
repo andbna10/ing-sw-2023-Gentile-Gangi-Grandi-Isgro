@@ -28,5 +28,5 @@ public interface GameVViewObserver {
      /**
       * Overview: method aimed to end the game
       */
-     void endGame();
+     void endGame(boolean discon);
 }

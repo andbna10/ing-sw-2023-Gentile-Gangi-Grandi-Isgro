@@ -280,7 +280,7 @@ public class ServerManager extends Thread{
                     // advancing in the turn order of the game in the case this is the last turn
                     if(gameview.getObs().getModel().getIsLastTurnStarted()){
                         if(gameview.getObs().getModel().advanceFinish()){
-                            gameview.getObs().endGame();
+                            gameview.getObs().endGame(false);
 
                             // bring players again in the lobby
                             lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId());
@@ -369,4 +369,10 @@ public class ServerManager extends Thread{
      * Overview: LobbyView getter
      */
     public VirtualLobbyView getLobbyView(){ return lobbyview; }
+
+    /**
+     * Overview: server getter
+     */
+    public Server getServer() {return this.server;}
+
 }

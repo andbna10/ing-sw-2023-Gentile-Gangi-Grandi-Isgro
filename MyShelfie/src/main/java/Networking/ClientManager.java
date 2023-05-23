@@ -225,8 +225,14 @@ public class ClientManager extends Thread{
 
             case ENDGAME:
                 EndGameMessage endgamemessage = (EndGameMessage) message;
-                genericCLI.printOutputEndGame(endgamemessage.getOutput());
-                genericCLI.printMessage(endgamemessage.getMessage());
+
+
+                if(!((EndGameMessage) message).getDiscon()) {
+                    genericCLI.printOutputEndGame(endgamemessage.getOutput());
+                    genericCLI.printMessage(endgamemessage.getMessage());
+                } else
+                    genericCLI.printMessage("player quitted, ending match");
+
                 break;
 
             case LOBBYSIZECHANGED:

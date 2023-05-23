@@ -11,6 +11,6 @@ public interface GameObserver {
     void notifytheendofaturn(BoardCell[][] board, String username);
     void noitfyObserverCommon(int common, int newPoints, String username);
     void noitfyObserverLastTurn(String username);
-    void notifyEnd(String winner, ArrayList<Player> players);
+    void notifyEnd(String winner, ArrayList<Player> players, boolean discon);
 
 }

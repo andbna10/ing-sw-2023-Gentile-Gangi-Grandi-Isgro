@@ -125,7 +125,6 @@ public class ClientManager extends Thread{
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
                 lobbyhandler.getCli().printLobby(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
-                //lobbyhandler.getGui().updateTextArea(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
                 break;
 
             // create the Game View
@@ -156,6 +155,7 @@ public class ClientManager extends Thread{
                 int n = lobbyhandler.getCli().insertNumberPlayers();
                 NPlayersInputMessage messagex = new NPlayersInputMessage(n, "prova");
                 sendMessage(messagex);
+                genericCLI.printMessage("\nWaiting players...");
                 break;
 
             case OWNERCANSTARTGAME:
@@ -170,6 +170,9 @@ public class ClientManager extends Thread{
                     playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
                     break;
                 } else {
+                    // here the players sees the updated board
+                    gamehandler.getCli().printBoard(yourturnmessage.getBoard());
+
                     // here the player sees the opponents' bookshlef
                     for(int i=0; i<yourturnmessage.getBookshelfList().size(); i++){
                         playerhandler.getCli().printOpponent(yourturnmessage.getBookshelfList().get(i), yourturnmessage.getUsernames().get(i));
@@ -179,7 +182,6 @@ public class ClientManager extends Thread{
                     playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
 
                     // player called to perform a move
-                    genericCLI.printMessage(yourturnmessage.getMessage());
                     TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
                     sendMessage(messageToTake);
                     break;
@@ -196,7 +198,6 @@ public class ClientManager extends Thread{
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
                 genericCLI.printMessage(endturnmessage.getMessage());
-                gamehandler.getCli().printBoard(endturnmessage.getBoard());
                 break;
 
             case REPEATTURN:
@@ -225,13 +226,12 @@ public class ClientManager extends Thread{
 
             case ENDGAME:
                 EndGameMessage endgamemessage = (EndGameMessage) message;
-
-
                 if(!((EndGameMessage) message).getDiscon()) {
                     genericCLI.printOutputEndGame(endgamemessage.getOutput());
                     genericCLI.printMessage(endgamemessage.getMessage());
                 } else
-                    genericCLI.printMessage("player quitted, ending match");
+
+                    genericCLI.printMessage("\nplayer quitted, ending match");
 
                 break;
 

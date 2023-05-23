@@ -3,6 +3,7 @@ package ClientSide.View.CLI;
 import ClientSide.NetworkHandler.PlayerHandler;
 import ServerSide.Model.ItemTile;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PlayerCLI {
@@ -188,31 +189,46 @@ public class PlayerCLI {
 
         System.out.println("\nPick the tiles you want from the board writing the coordinates");
         // take tiles coordinates
-        //
         System.out.println("Enter the number of tiles you want to pick: ");
         int size;
         do {
-            size = scanner.nextInt() * 2;
+            size = -1;
+            try {
+                size = scanner.nextInt() * 2;
+            } catch (InputMismatchException e){
+                    System.out.println("Please insert a number!");
+                    scanner.nextLine();
+            }
             if(size > 6){
                 System.out.println("You can select a max of 3 pickable tiles, try again!");
             }
-        } while (size > 6);
+        } while (size > 6 || size == -1);
 
         int[] toTake = new int[size];
         System.out.println("Enter coordinates of the tiles:");
 
         for (int i = 0; i < size; i++) {
             do{
+                boolean flag = false;
+                toTake[i] = -1;
                 if(i%2==0){
                     System.out.println("\nEnter the row of the tile: ");
                 } else {
                     System.out.println("\nEnter the column of the tile: ");
                 }
-                toTake[i] = scanner.nextInt();
-                if(toTake[i]<0 || toTake[i]>8){
-                    System.out.println("Look at the board, there is no row or column like that. Try again!");
+                try {
+                    toTake[i] = scanner.nextInt();
+                } catch(InputMismatchException e){
+                    System.out.println("Please insert a number!");
+                    flag = true;
+                    scanner.nextLine();
                 }
-            } while (toTake[i]<0 || toTake[i]>8);
+                if(toTake[i]<0 || toTake[i]>8 || toTake[i] != -1){
+                    if(!flag) {
+                        System.out.println("Look at the board, there is no row or column like that. Try again!");
+                    }
+                }
+            } while (toTake[i]<0 || toTake[i]>8 || toTake[i] == -1);
         }
 
         // Print the array
@@ -232,24 +248,43 @@ public class PlayerCLI {
 
         for (int i = 0; i < input.length; i++) {
             do{
-                input[i] = scanner.nextInt();
-                if(input[i] > input.length - 1){
-                    System.out.println("You don't have selected "+input[i]+" tiles, try again!");
+                boolean flag = false;
+                input[i] = -1;
+                try {
+                    input[i] = scanner.nextInt();
+                } catch (InputMismatchException e){
+                    System.out.println("Please insert a number!");
+                    flag = true;
+                    scanner.nextLine();
                 }
-            }while(input[i] > input.length - 1);
+                if(input[i] > input.length - 1 || input[i] == -1){
+                    if(!flag) {
+                        System.out.println("You don't have selected " + input[i] + " tiles, try again!");
+                    }
+                }
+            }while(input[i] > input.length - 1 || input[i] == -1);
         }
         order = input;
         //
 
         System.out.println("Insert the column you want to fill: ");
         // take the column
-        //
         do{
-            this.column = scanner.nextInt();
-            if(this.column > 4){
-                System.out.println("You have only 4 columns, try again!");
+            boolean flag = false;
+            this.column = -1;
+            try {
+                this.column = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("Please insert a number!");
+                flag = true;
+                scanner.nextLine();
             }
-        }while(this.column > 4);
+            if(this.column > 4 || this.column ==-1){
+                if(!flag) {
+                    System.out.println("You have only 4 columns, try again!");
+                }
+            }
+        }while(this.column > 4 || this.column == -1);
 
         //
     }

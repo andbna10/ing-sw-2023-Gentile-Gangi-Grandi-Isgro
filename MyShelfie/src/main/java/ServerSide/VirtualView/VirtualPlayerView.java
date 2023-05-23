@@ -56,8 +56,8 @@ public class VirtualPlayerView implements PlayerObserver{
     /**
      * Overview: method aimed to create a yourturnmessage
      */
-    public void notifyPlayerTurn(ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames){
-        YourTurnMessage message = new YourTurnMessage(bookshelf, bookshelfList, usernames);
+    public void notifyPlayerTurn(BoardCell[][] board, ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames){
+        YourTurnMessage message = new YourTurnMessage(board, bookshelf, bookshelfList, usernames);
         manager.sendMessage(message);
     }
 

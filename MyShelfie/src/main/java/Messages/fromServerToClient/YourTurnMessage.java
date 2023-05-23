@@ -2,7 +2,9 @@ package Messages.fromServerToClient;
 
 import Messages.Message;
 import Messages.MessageType;
+import ServerSide.Model.BoardCell;
 import ServerSide.Model.ItemTile;
+import ServerSide.Model.Status;
 
 import java.util.ArrayList;
 
@@ -11,12 +13,13 @@ public class YourTurnMessage extends Message {
     private String[][] bookshelf;
     private ArrayList<String[][]> bookshelfList;
     private ArrayList<String> usernames;
+    private String[][] board;
     private Boolean upddatedBookshelf;
 
     /**
      * Overview: YourTurnMessage constructor1: bookshelf start of the turn
      */
-    public YourTurnMessage(ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelflist, ArrayList<String> usernames){
+    public YourTurnMessage(BoardCell[][] board, ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelflist, ArrayList<String> usernames){
         super(null);
         this.bookshelfList = new ArrayList<>();
         this.usernames = usernames;
@@ -27,6 +30,7 @@ public class YourTurnMessage extends Message {
             this.bookshelfList.add(bookshelfToString(bookshelflist.get(i)));
         }
         this.upddatedBookshelf = false;
+        this.board = boardToString(board);
     }
 
     /**
@@ -86,7 +90,40 @@ public class YourTurnMessage extends Message {
     }
 
     /**
+     * Overview: boarcell converter to string
+     */
+    public String[][] boardToString(BoardCell[][] board) {
+        String[][] stringMatrix = new String[board[0].length][board.length];
+        for (int i=0; i<board[0].length; i++) {
+            for (int j=0; j<board.length;j++) {
+                if(board[i][j].getStatus() == Status.IN){
+                    if(board[i][j].getTile() == null){
+                        stringMatrix[i][j]="*";
+                    } else {
+                        switch (board[i][j].getTile().getType()) {
+                            case CATS -> stringMatrix[i][j] = "C";
+                            case BOOKS -> stringMatrix[i][j] = "B";
+                            case GAMES -> stringMatrix[i][j] = "G";
+                            case FRAMES -> stringMatrix[i][j] = "F";
+                            case TROPHIES -> stringMatrix[i][j] = "T";
+                            case PLANTS -> stringMatrix[i][j] = "P";
+                        }
+                    }
+                }else{
+                    stringMatrix[i][j]=(" ");
+                }
+            }
+        }
+        return stringMatrix;
+    }
+
+    /**
      * Overview: updatedBookshelf getter
      */
     public Boolean getUpddatedBookshelf(){ return this.upddatedBookshelf; }
+
+    /**
+     * Overview: board getter
+     */
+    public String[][] getBoard(){ return this.board; }
 }

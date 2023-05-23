@@ -259,42 +259,46 @@ public class ServerManager extends Thread{
 
             //tiles draft
             case TILESTOTAKE:
-                TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
-                // check the goodness of the player move
-                if(gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this)<3){
-                    // if something wrong
-                    RepeatTurnMessage toSend = new RepeatTurnMessage(gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this));
-                    sendMessage(toSend);
-                    break;
-                } else {
-                    // if all is good
-                    playerview.getObs().playTurn(tilesToTakeMessage.getToTake(),tilesToTakeMessage.getOrder(),tilesToTakeMessage.getColumn());
-                    // your turn, but only for updating the bookshelf (I'm using the same message of "yourTurnMessage")
-                    YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles(), true);
-                    this.sendMessage(toSend);
-                    //check goals and bookshelf
-                    playerview.getObs().check(gameview.getObs().getModel().getCommonGoals());
-
-                    //playerview.getObs().getModel().getBookshelf().getGameTiles(); VEDERE SE SERVIVA!
-
-                    // advancing in the turn order of the game in the case this is the last turn
-                    if(gameview.getObs().getModel().getIsLastTurnStarted()){
-                        if(gameview.getObs().getModel().advanceFinish()){
-                            gameview.getObs().endGame(false);
-
-                            // bring players again in the lobby
-                            lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId());
-                            // tell the owner a new game can start
-                            lobbyview.getObs().notifyOwner();
-                        }
+                if(!gameview.getObs().getModel().getEnded()){
+                    TilesToTakeMessage tilesToTakeMessage = (TilesToTakeMessage) message;
+                    // check the goodness of the player move
+                    if(gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this)<3){
+                        // if something wrong
+                        RepeatTurnMessage toSend = new RepeatTurnMessage(gameview.getObs().verifyTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getColumn(), this));
+                        sendMessage(toSend);
+                        break;
                     } else {
-                        // advancing in the turn order of the game
-                        gameview.getObs().getModel().advance();
+                        // if all is good
+                        playerview.getObs().playTurn(tilesToTakeMessage.getToTake(), tilesToTakeMessage.getOrder(), tilesToTakeMessage.getColumn());
+                        // your turn, but only for updating the bookshelf (I'm using the same message of "yourTurnMessage")
+                        YourTurnMessage toSend = new YourTurnMessage(playerview.getObs().getModel().getBookshelf().getGameTiles(), true);
+                        this.sendMessage(toSend);
+                        //check goals and bookshelf
+                        playerview.getObs().check(gameview.getObs().getModel().getCommonGoals(), lobbyview.getObs().getModel().getId());
+
+
+                        // advancing in the turn order of the game in the case this is the last turn
+                        boolean ok = false;
+                        if (gameview.getObs().getModel().getIsLastTurnStarted()) {
+                            if (gameview.getObs().getModel().advanceFinish() == 0) {
+                                gameview.getObs().endGame(false, lobbyview.getObs().getModel().getId());
+
+                                // bring players again in the lobby
+                                lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId());
+                                // tell the owner a new game can start
+                                lobbyview.getObs().notifyOwner();
+                            }
+                        } else {
+                            // advancing in the turn order of the game
+                            ok = gameview.getObs().getModel().advance();
+                        }
+                        // calling the turn of the next player
+                        if (!gameview.getObs().getModel().getEnded() && !ok) {
+                            gameview.getObs().callTurn();
+                        }
+                        break;
                     }
-                    // calling the turn of the next player
-                    if(!gameview.getObs().getModel().getEnded()){
-                        gameview.getObs().callTurn();
-                    }
+                } else {
                     break;
                 }
 
@@ -310,13 +314,13 @@ public class ServerManager extends Thread{
      * Overview: method aimed to send a message
      */
     public void sendMessage(Message message){
-
         lastMessage = message;
 
         try {
             out.writeObject(message);
             out.flush();
-            //System.out.println("sent");
+        } catch (SocketException e) {
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -83,7 +83,9 @@ public class ListNode {
         if(manager.getLobbyView() != null){
             manager.getLobbyView().removemanager(manager);
 
-            manager.getGameview().getObs().endGame(true);
+            if(manager.getLobbyView() != null && manager.getGameview() != null) {
+                manager.getGameview().getObs().endGame(true, manager.getLobbyView().getObs().getModel().getId());
+            }
 
             if(manager.getLobbyview().getObs().getModel().removePlayer(manager)){
                 // delete the entire lobby if the previous call return true (it means tha the lobby has 0 players)

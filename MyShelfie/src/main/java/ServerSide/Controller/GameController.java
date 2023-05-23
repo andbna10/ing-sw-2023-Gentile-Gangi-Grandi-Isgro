@@ -112,7 +112,7 @@ public class GameController implements GameVViewObserver {
         }
         // take the reference of the current turn player
         Player player = model.getPlayers().get(model.getCurrentTurnPlayer());
-        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn(model.getPlayersBookshelf(player), model.getPlayersUsernames(player));
+        model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn(model.getBoard().getBoard(), model.getPlayersBookshelf(player), model.getPlayersUsernames(player));
     }
 
     @Override
@@ -120,7 +120,7 @@ public class GameController implements GameVViewObserver {
      * Overview: end game
      */
     // to be implemented (qui si deve vedere chi ha fatto piu punti)
-    public void endGame(boolean discon){
+    public void endGame(boolean discon, String id){
         int maxpoints=0;
         //calcolo punteggi
 
@@ -140,6 +140,7 @@ public class GameController implements GameVViewObserver {
         }
 
         model.setEnded(true);
+        lobbymanager.getLobby(id).getModel().setInGame(false);
         virtualview.notifyEnd(model.getWinner(), model.getPlayers(), discon);
     }
 

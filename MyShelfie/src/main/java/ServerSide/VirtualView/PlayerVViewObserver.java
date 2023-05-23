@@ -21,5 +21,5 @@ public interface PlayerVViewObserver {
     /**
      * Overview: check goals and bookshelf
      */
-    void check(ArrayList<CommonGoalCard> commongoals);
+    void check(ArrayList<CommonGoalCard> commongoals, String id);
 }

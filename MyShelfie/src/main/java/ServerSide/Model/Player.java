@@ -123,8 +123,8 @@ public class Player {
     /**
      * Overview: notify the player to move
      */
-    public void notifyPlayerTurn(ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames){
-        obs.notifyPlayerTurn(bookshelf.getGameTiles(), bookshelfList, usernames);
+    public void notifyPlayerTurn(BoardCell[][] board, ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames){
+        obs.notifyPlayerTurn(board, bookshelf.getGameTiles(), bookshelfList, usernames);
     }
 
     /**

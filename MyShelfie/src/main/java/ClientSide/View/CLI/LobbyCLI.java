@@ -3,6 +3,7 @@ package ClientSide.View.CLI;
 import ClientSide.NetworkHandler.LobbyHandler;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LobbyCLI {
@@ -53,9 +54,18 @@ public class LobbyCLI {
         System.out.println("Enter a number: ");
         int n = 0;
         do{
-            n = scanner.nextInt();
+            boolean flag = false;
+            try {
+                n = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("Please insert a number!");
+                flag = true;
+                scanner.nextLine();
+            }
             if(n<2 || n>4){
-                System.out.println("A game must be composed between 2 and 4 players, try again!");
+                if(!flag) {
+                    System.out.println("A game must be composed between 2 and 4 players, try again!");
+                }
             }
         } while(n<2 || n>4);
         return n;

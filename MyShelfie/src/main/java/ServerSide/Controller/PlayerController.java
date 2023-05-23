@@ -160,7 +160,7 @@ public class PlayerController implements PlayerVViewObserver {
     /**
      * Overview: method aimed to check the goals and the fullness of the bookshelf
      */
-    public void check(ArrayList<CommonGoalCard> commongoals){
+    public void check(ArrayList<CommonGoalCard> commongoals, String id){
         int i = 1;
         // common
         for(CommonGoalCard common : commongoals){
@@ -183,7 +183,7 @@ public class PlayerController implements PlayerVViewObserver {
                 model.addPoints(1);
                 game.getModel().noitfyObserverLastTurn(model.getUsername());
                 if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(game.getModel().getPlayers().size()-1)){
-                    game.endGame(false);
+                    game.endGame(false, id);
                 } else {
                     game.getModel().setIsLastTurnStarted(true);
                 }
@@ -200,6 +200,7 @@ public class PlayerController implements PlayerVViewObserver {
         boardGame.increment();
         //setto la posizione della tile tolta a null così che non sia più visibile
         boardGame.getBoard()[i][j].setTile(null);
+        boardGame.getBoard()[i][j].setPickable(false);
     }
 
     /**

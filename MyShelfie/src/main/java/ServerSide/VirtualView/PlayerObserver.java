@@ -12,6 +12,6 @@ public interface PlayerObserver {
     void createasknplayersmessage();
 
     void createownercanstartgamemessage(String id);
-    void notifyPlayerTurn(ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames);
+    void notifyPlayerTurn(BoardCell[][] board, ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelfList, ArrayList<String> usernames);
     void notifyPlayerBoardRestored(BoardCell[][] board);
 }

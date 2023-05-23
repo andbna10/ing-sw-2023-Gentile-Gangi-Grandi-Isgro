@@ -97,7 +97,8 @@ public class Game {
     /**
      * Overview: method aimed to advance turns
      */
-    public void advance(){
+    public Boolean advance(){
+        int last = getCurrentTurnPlayer();
         for(int i=0; i< this.order.length; i++){
             if(order[i] == currentTurnPlayer){
                 if(i == this.order.length-1){
@@ -108,22 +109,31 @@ public class Game {
                 break;
             }
         }
+        if(currentTurnPlayer == last)
+            return true;
+        else return false;
     }
 
     /**
      * Overview: *advance towards end game
      */
-    public Boolean advanceFinish(){
+    public int advanceFinish(){
+        int last = getCurrentTurnPlayer();
         for(int i=0; i< this.order.length; i++){
             if(order[i] == currentTurnPlayer){
                 if(i == order.length-1){
-                    return true;
+                    return 0;
                 } else {
                     currentTurnPlayer = order[i+1];
                 }
             }
         }
-        return false;
+        if(currentTurnPlayer == last){
+            return 1;
+        } else {
+            return 2;
+        }
+
     }
 
     /**

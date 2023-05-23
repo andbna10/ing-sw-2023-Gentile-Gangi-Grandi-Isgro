@@ -20,7 +20,7 @@ public class BoardRestoredMessage extends Message {
     }
 
     /**
-     * Overview: boarcell converter to string
+     * Overview: boardcell converter to string
      */
     public String[][] boardToString(BoardCell[][] board) {
         String[][] stringMatrix = new String[board[0].length][board.length];

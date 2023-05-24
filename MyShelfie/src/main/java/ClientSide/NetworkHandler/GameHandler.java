@@ -5,6 +5,8 @@ import ClientSide.View.GUI.GameGUI;
 import Networking.ClientManager;
 import Networking.ClientManagerGUI;
 
+import java.io.IOException;
+
 public class GameHandler implements GameViewObserver{
     private ClientManager manager;
     private ClientManagerGUI managergui;
@@ -24,7 +26,7 @@ public class GameHandler implements GameViewObserver{
     /**
      * Overview: GameHandler constructor2 gui
      */
-    public GameHandler(ClientManagerGUI manager, String message){
+    public GameHandler(ClientManagerGUI manager, String message) throws IOException {
         this.managergui = manager;
         this.message = message;
         runGameGUI();
@@ -44,7 +46,7 @@ public class GameHandler implements GameViewObserver{
         return gui;
     }
 
-    public void runGameGUI(){
+    public void runGameGUI() throws IOException {
         this.gui = new GameGUI();
     }
 }

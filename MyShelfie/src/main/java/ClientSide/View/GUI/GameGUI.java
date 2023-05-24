@@ -1,13 +1,17 @@
 package ClientSide.View.GUI;
 
 import ClientSide.NetworkHandler.LoginHandler;
-import ServerSide.Model.Game;
+import ServerSide.Model.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class GameGUI {
 
@@ -15,7 +19,7 @@ public class GameGUI {
 
     public GameGUI(LoginHandler handler) { this.handler = handler; }
 
-    public GameGUI(){
+    public GameGUI() throws IOException {
         JFrame gameFrame = new JFrame("MyShelfie");
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
@@ -41,8 +45,22 @@ public class GameGUI {
         boardTable.setShowGrid(false);
         boardTable.setDefaultEditor(Object.class, null);
 
-        BoardTableModel model = new BoardTableModel();
-        boardTable.setModel(model);
+        //board to try the code
+        BoardCell[][] board = new BoardCell[9][9];
+        for(int i=0; i<board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                board[i][j] = new BoardCell(Status.IN);
+            }
+        }
+        board[0][0].setTile(new ItemTile(ItemType.BOOKS));
+        board[5][4].setTile(new ItemTile(ItemType.FRAMES));
+        board[2][3].setTile(new ItemTile(ItemType.GAMES));
+        board[7][5].setTile(new ItemTile(ItemType.TROPHIES));
+
+        for (int column = 0; column < 9; column++) {
+            boardTable.getColumnModel().getColumn(column).setCellRenderer(new ImageTableCellRenderer(board));
+        }
+
 
 
         boardTable.setBounds(58,60,540,540);
@@ -57,5 +75,46 @@ public class GameGUI {
 
         gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gameFrame.setVisible(true);
+    }
+
+    private static class ImageTableCellRenderer extends JLabel implements TableCellRenderer {
+        private Image[][] images = new Image[9][9];
+
+        public ImageTableCellRenderer(BoardCell[][] board) throws IOException {
+            for (int i=0; i<board.length; i++) {
+                for (int j = 0; j < board.length; j++){
+                    if(board[i][j].getTile()!=null && board[i][j].getStatus() == Status.IN) {
+
+                        switch (board[i][j].getTile().getType()) {
+                            case CATS -> images[i][j] = ImageIO.read(new File("MyShelfie/src/main/resources/Gatti1.1.png"));
+                            case BOOKS -> images[i][j] = ImageIO.read(new File("MyShelfie/src/main/resources/Libri1.1.png"));
+                            case GAMES -> images[i][j] = ImageIO.read(new File("MyShelfie/src/main/resources/Giochi1.1.png"));
+                            case FRAMES -> images[i][j] = ImageIO.read(new File("MyShelfie/src/main/resources/Cornici1.1.png"));
+                            case TROPHIES -> images[i][j] = ImageIO.read(new File("MyShelfie/src/main/resources/Trofei1.1.png"));
+                            case PLANTS -> images[i][j] = ImageIO.read(new File("MyShelfie/src/main/resources/Piante1.1.png"));
+                            //default -> ;
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+            JLabel renderer = new JLabel();
+
+            // Get the image for the specific cell
+            Image image = images[row][column];
+
+            if (image != null) {
+                ImageIcon imageIcon = new ImageIcon(image);
+                Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth(), table.getRowHeight(), Image.SCALE_SMOOTH);
+                renderer.setIcon(new ImageIcon(scaledImage)); // Set the image as an icon
+                //renderer.setOpaque(true); // Make the cell renderer opaque
+            }
+
+            return renderer;
+        }
     }
 }

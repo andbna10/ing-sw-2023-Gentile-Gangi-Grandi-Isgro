@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.io.File;
@@ -104,14 +103,12 @@ public class GameGUI {
 
             JLabel renderer = new JLabel();
 
-            // Get the image for the specific cell
             Image image = images[row][column];
 
             if (image != null) {
                 ImageIcon imageIcon = new ImageIcon(image);
                 Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth(), table.getRowHeight(), Image.SCALE_SMOOTH);
-                renderer.setIcon(new ImageIcon(scaledImage)); // Set the image as an icon
-                //renderer.setOpaque(true); // Make the cell renderer opaque
+                renderer.setIcon(new ImageIcon(scaledImage));
             }
 
             return renderer;

@@ -4,6 +4,7 @@ import Messages.Message;
 import Messages.MessageType;
 import ServerSide.Model.BoardCell;
 import ServerSide.Model.ItemTile;
+import ServerSide.Model.ScoringToken;
 import ServerSide.Model.Status;
 
 public class GameHasStartedMessage extends Message {
@@ -12,11 +13,13 @@ public class GameHasStartedMessage extends Message {
     private String[][] personalGoal;
     private int common1;
     private int common2;
+    private int PointsCom1;
+    private int PointsCom2;
 
     /**
      * Overview: GameHasStartedMessage constructor
      */
-    public GameHasStartedMessage(BoardCell[][] board, ItemTile[][] personalGoal, int common1, int common2){
+    public GameHasStartedMessage(BoardCell[][] board, ItemTile[][] personalGoal, int common1, int common2, ScoringToken one, ScoringToken two){
         super(null);
         super.setType(MessageType.GAMEHASSTARTED);
         message = "game has started!";
@@ -24,6 +27,8 @@ public class GameHasStartedMessage extends Message {
         this.personalGoal=bookshelfToString(personalGoal);
         this.common1=common1;
         this.common2=common2;
+        this.PointsCom1 = one.getPoints();
+        this.PointsCom2 = two.getPoints();
     }
 
     /**
@@ -95,4 +100,14 @@ public class GameHasStartedMessage extends Message {
         }
         return stringBookshelf;
     }
+
+    /**
+     * Overview: points one getter
+     */
+    public int getPointsCom1(){ return this.PointsCom1; }
+
+    /**
+     * Overview: points two getter
+     */
+    public int getPointsCom2(){ return this.PointsCom2; }
 }

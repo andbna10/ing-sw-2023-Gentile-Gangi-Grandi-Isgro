@@ -96,7 +96,7 @@ public class GameController implements GameVViewObserver {
         this.restoreBoard();
         this.setPersonalGoals();
         this.checkPickables(model.getBoard());
-        this.model.notifyObserverTheStart(model.getCommonGoals().get(0).getPatternNumber(), model.getCommonGoals().get(1).getPatternNumber());
+        this.model.notifyObserverTheStart(model.getCommonGoals().get(0).getPatternNumber(), model.getCommonGoals().get(1).getPatternNumber(), model.getCommonGoals().get(0).getElementStack(model.getCommonGoals().get(0).getStack().size()-1), model.getCommonGoals().get(1).getElementStack(model.getCommonGoals().get(1).getStack().size()-1));
         Thread.sleep(1000);
         callTurn();
     }

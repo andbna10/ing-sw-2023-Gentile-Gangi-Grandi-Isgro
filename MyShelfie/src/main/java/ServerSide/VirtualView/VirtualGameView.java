@@ -47,12 +47,12 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create the message to notify the start of the game
      */
-    public void notifythestartofthegame(BoardCell[][] board, int common1, int common2){
+    public void notifythestartofthegame(BoardCell[][] board, int common1, int common2, ScoringToken one, ScoringToken two){
         for(ServerManager manager: this.managers) {
             GameHasStartedMessage message = null;
             for(Player p: this.players){
                 if(manager == p.getManager()){
-                    message = new GameHasStartedMessage(board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2);
+                    message = new GameHasStartedMessage(board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2, one, two);
                 }
             }
             manager.sendMessage(message);
@@ -85,8 +85,8 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create a message to notify players that a common has been accomplished
      */
-    public void noitfyObserverCommon(int common, int newPoints, String username){
-        NotifyCheckCommonMessage message = new NotifyCheckCommonMessage(common, newPoints, username);
+    public void noitfyObserverCommon(int common, int newPoints, String username, ScoringToken token){
+        NotifyCheckCommonMessage message = new NotifyCheckCommonMessage(common, newPoints, username, token);
         for(ServerManager manager: this.managers){
             manager.sendMessage(message);
         }

@@ -132,7 +132,11 @@ public class ClientManagerGUI extends Thread{
                 gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
                 playerhandler = new PlayerHandler(this);
                 playerhandler.setGui(gamehandler.getGui());
+                // render the board game
                 gamehandler.getGui().BoardRendereer(gamehasstartedmessage.getBoard());
+                // render common and personal goals
+
+                // render tokens
                 break;
 
             // create the Player View
@@ -212,6 +216,7 @@ public class ClientManagerGUI extends Thread{
             case NOTIFYCHECKCOMMON:
                 NotifyCheckCommonMessage notifycheckcommonmessage = (NotifyCheckCommonMessage) message;
                 //genericCLI.printMessage(notifycheckcommonmessage.getMessage());
+                //notifycheckcommonmessage.getNewTokenPoints() -> is used to retrieve the new points to show for the token of the accomplished commongoal
                 break;
 
             case LASTTURNTRIGGERED:

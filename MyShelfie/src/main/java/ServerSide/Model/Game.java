@@ -63,8 +63,8 @@ public class Game {
     /**
      * Overview: method aimed to notify the observer about the start of the game
      */
-    public void notifyObserverTheStart(int common1, int common2){
-        obs.notifythestartofthegame(board.getBoard(), common1, common2);
+    public void notifyObserverTheStart(int common1, int common2, ScoringToken one, ScoringToken two){
+        obs.notifythestartofthegame(board.getBoard(), common1, common2, one, two);
     }
 
     /**
@@ -78,7 +78,7 @@ public class Game {
      * Overview: method aimed to notify players that a common has been accomplished
      */
     public void noitfyObserverCommon(int common, int newPoints, String username){
-        obs.noitfyObserverCommon(common, newPoints, username);
+        obs.noitfyObserverCommon(common, newPoints, username, commonGoals.get(common-1).getElementStack(commonGoals.get(common-1).getStack().size()-1));
     }
 
     /**

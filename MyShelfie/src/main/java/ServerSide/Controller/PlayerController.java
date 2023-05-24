@@ -48,12 +48,6 @@ public class PlayerController implements PlayerVViewObserver {
                 points=goal.getStack().get(goal.getStack().size()-1).getPoints();
                 goal.getStack().remove(goal.getStack().size()-1);
             }
-            /*controllo che non abbia già preso il token
-            * se non lo ha preso lo aggiungo al suo punteggio e lo tolgo dall'array di scoringtokens*/
-
-            // to do (queste cose forse potrebbero essere fatte durante il turno fuori da questo metodo ma in base al suo output)
-            // viene rilasciato la prima tessera scoring token associata a quel common goal
-            // aggiungere i rispettivi punti al giocatore
             return points;
         } else {
             return 0;

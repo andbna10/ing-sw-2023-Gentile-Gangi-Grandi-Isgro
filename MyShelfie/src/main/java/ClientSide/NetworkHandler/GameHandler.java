@@ -47,6 +47,6 @@ public class GameHandler implements GameViewObserver{
     }
 
     public void runGameGUI() throws IOException {
-        this.gui = new GameGUI();
+        this.gui = new GameGUI(this);
     }
 }

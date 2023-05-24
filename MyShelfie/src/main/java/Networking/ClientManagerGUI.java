@@ -132,6 +132,7 @@ public class ClientManagerGUI extends Thread{
                 gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
                 playerhandler = new PlayerHandler(this);
                 playerhandler.setGui(gamehandler.getGui());
+                gamehandler.getGui().BoardRendereer(gamehasstartedmessage.getBoard());
                 break;
 
             // create the Player View

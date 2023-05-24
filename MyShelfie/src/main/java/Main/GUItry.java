@@ -10,6 +10,6 @@ public class GUItry {
     public static void main(String[] args) throws IOException {
         //LoginGUI login = new LoginGUI(null);
         //LobbyGUI lobby = new LobbyGUI(null);
-        GameGUI game = new GameGUI();
+        //GameGUI game = new GameGUI();
     }
 }

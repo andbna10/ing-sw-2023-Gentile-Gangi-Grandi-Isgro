@@ -18,6 +18,12 @@ public class PersonalPattern11 extends PersonalGoalCard {
 
     @Override
     /**
+     * Overview: patternNumber getter
+     */
+    public int getPatternNumber() {return 11;}
+
+    @Override
+    /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns points
      */
     public int validated(Bookshelf bookshelf) {

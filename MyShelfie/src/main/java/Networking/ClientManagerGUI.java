@@ -126,11 +126,8 @@ public class ClientManagerGUI extends Thread{
                 gamehandler = new GameHandler(this, gamehasstartedmessage.getMessage());
                 playerhandler = new PlayerHandler(this);
                 playerhandler.setGui(gamehandler.getGui());
-                // render the board game
-                gamehandler.getGui().BoardRenderer(gamehasstartedmessage.getBoard());
-                // render common and personal goals
-
-                // render tokens
+                // render the initial set up
+                gamehandler.getGui().InitialSetUpRenderer(gamehasstartedmessage.getBoard(), gamehasstartedmessage.getPersonalPatternNumber(), gamehasstartedmessage.getCommon1(), gamehasstartedmessage.getCommon2(), gamehasstartedmessage.getPointsCom1(), gamehasstartedmessage.getPointsCom2());
                 break;
 
             // create the Player View

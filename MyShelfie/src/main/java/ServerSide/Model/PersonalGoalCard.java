@@ -4,6 +4,8 @@ package ServerSide.Model;
 //TODO: fix newpoints - oldpoints
 
 public abstract class PersonalGoalCard extends GoalCard{
+    private int patternNumber;
+
     /**
      * Overview: PersonalGoalCard constructor
      */
@@ -15,6 +17,15 @@ public abstract class PersonalGoalCard extends GoalCard{
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
     public abstract int validated(Bookshelf bookshelf);
+
+    /**
+     * Overview: patternNumber getter
+     */
+    public int getPatternNumber(){ return patternNumber; }
+
+    /**
+     * Overview: ??
+     */
     public abstract Bookshelf getPersonalGoal();
 
     /**

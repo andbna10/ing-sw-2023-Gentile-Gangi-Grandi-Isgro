@@ -52,7 +52,7 @@ public class VirtualGameView implements GameObserver{
             GameHasStartedMessage message = null;
             for(Player p: this.players){
                 if(manager == p.getManager()){
-                    message = new GameHasStartedMessage(board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2, one, two);
+                    message = new GameHasStartedMessage(board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2, one, two, p.getGoal().getPatternNumber());
                 }
             }
             manager.sendMessage(message);

@@ -14,7 +14,7 @@ public abstract class CommonGoalCard extends GoalCard{
     }
 
     /**
-     * patternNumber getter
+     * Overview: patternNumber getter
      */
     public int getPatternNumber() {return patternNumber;}
 

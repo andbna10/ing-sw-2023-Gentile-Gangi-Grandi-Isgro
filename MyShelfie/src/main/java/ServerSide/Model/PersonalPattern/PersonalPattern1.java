@@ -6,6 +6,7 @@ import ServerSide.Model.PersonalGoalCard;
 
 public class PersonalPattern1 extends PersonalGoalCard {
     private Bookshelf personalGoal = new Bookshelf();
+
     public PersonalPattern1() {
         super();
         personalGoal.setTile(0,0,ItemType.PLANTS);
@@ -15,6 +16,12 @@ public class PersonalPattern1 extends PersonalGoalCard {
         personalGoal.setTile(3,1,ItemType.GAMES);
         personalGoal.setTile(5,2,ItemType.TROPHIES);
     }
+
+    @Override
+    /**
+     * Overview: patternNumber getter
+     */
+    public int getPatternNumber() {return 1;}
 
 
     @Override

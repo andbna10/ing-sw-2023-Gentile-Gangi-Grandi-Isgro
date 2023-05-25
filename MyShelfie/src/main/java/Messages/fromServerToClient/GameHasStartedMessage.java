@@ -13,13 +13,14 @@ public class GameHasStartedMessage extends Message {
     private String[][] personalGoal;
     private int common1;
     private int common2;
+    private int personalPatternNumber;
     private int PointsCom1;
     private int PointsCom2;
 
     /**
      * Overview: GameHasStartedMessage constructor
      */
-    public GameHasStartedMessage(BoardCell[][] board, ItemTile[][] personalGoal, int common1, int common2, ScoringToken one, ScoringToken two){
+    public GameHasStartedMessage(BoardCell[][] board, ItemTile[][] personalGoal, int common1, int common2, ScoringToken one, ScoringToken two, int patternNumberPersonal){
         super(null);
         super.setType(MessageType.GAMEHASSTARTED);
         message = "game has started!";
@@ -29,6 +30,7 @@ public class GameHasStartedMessage extends Message {
         this.common2=common2;
         this.PointsCom1 = one.getPoints();
         this.PointsCom2 = two.getPoints();
+        this.personalPatternNumber = patternNumberPersonal;
     }
 
     /**
@@ -110,4 +112,9 @@ public class GameHasStartedMessage extends Message {
      * Overview: points two getter
      */
     public int getPointsCom2(){ return this.PointsCom2; }
+
+    /**
+     * Overview: personal pattern number personal
+     */
+    public int getPersonalPatternNumber(){ return this.personalPatternNumber; }
 }

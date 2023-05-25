@@ -126,6 +126,11 @@ public class GameGUI {
         bgLabel.add(Common1Label);
         bgLabel.add(Common2Label);
 
+        //show a text with coordinates of a clicked cell
+        JLabel textLabel = new JLabel();
+        textLabel.setBounds(640,650,300,150);
+        bgLabel.add(textLabel);
+
         // visibility on the frame
         gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gameFrame.setVisible(true);
@@ -137,7 +142,10 @@ public class GameGUI {
                 int row = boardTable.getSelectedRow();
                 int column = boardTable.getSelectedColumn();
                 if (row != -1 && column != -1) {
-                    System.out.println("Clicked cell coordinates: Row = " + row + ", Column = " + column);
+                    //System.out.println("Clicked cell coordinates: Row = " + row + ", Column = " + column);
+                    String labelText = "Clicked cell coordinates: Row = " + row + ", Column = " + column;
+                    //String labelText = textLabel.getText() + "\nClicked cell coordinates: Row = " + row + ", Column = " + column;
+                    textLabel.setText(labelText);
                 }
             }
         });

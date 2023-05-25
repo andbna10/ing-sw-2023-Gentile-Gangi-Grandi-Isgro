@@ -1,12 +1,11 @@
 package ClientSide.View.GUI;
 
 import ClientSide.NetworkHandler.GameHandler;
-import ClientSide.NetworkHandler.LoginHandler;
-import ServerSide.Model.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -58,7 +57,7 @@ public class GameGUI {
     /**
      * method to fill the board
      */
-    public void BoardRendereer(String[][] board) throws IOException {
+    public void BoardRenderer(String[][] board) throws IOException {
         /*fai in modo che se c'era qualcosa prima venga tolto così che a ogni chiamata venga fatto tutto da capo
         * e action listener*/
         String[] boardcolumn = new String[9];
@@ -77,7 +76,18 @@ public class GameGUI {
         bgLabel.add(boardLabel);
         gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gameFrame.setVisible(true);
+
+        boardTable.getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) {
+                int row = boardTable.getSelectedRow();
+                int column = boardTable.getSelectedColumn();
+                if (row != -1 && column != -1) {
+                    System.out.println("Clicked cell coordinates: Row = " + row + ", Column = " + column);
+                }
+            }
+        });
     }
+
 
 
     private static class ImageTableCellRenderer extends JLabel implements TableCellRenderer {
@@ -108,7 +118,8 @@ public class GameGUI {
                 ImageIcon imageIcon = new ImageIcon(image);
                 Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth(), table.getRowHeight(), Image.SCALE_SMOOTH);
                 renderer.setIcon(new ImageIcon(scaledImage));
-            }
+            }else renderer.setIcon(null);
+            //l'else dovrebbe fare in modo che quando vado a sovrascrivere le immagini mi tolga quelle che sono state prese(da testare)
 
             return renderer;
         }

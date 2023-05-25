@@ -1,22 +1,16 @@
 package Networking;
 
-import ClientSide.View.CLI.GenericCLI;
-import ClientSide.View.CLI.LogInCLI;
-import ClientSide.View.CLI.PlayerCLI;
 import ClientSide.View.CLI.ReconnectCLI;
 import ClientSide.NetworkHandler.*;
-import ClientSide.View.GUI.LobbyGUI;
 import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.CloseRecoveryMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
-import Messages.fromClientToServer.TilesToTakeMessage;
 import Messages.fromServerToClient.SendDisconMessage;
 import Messages.fromServerToClient.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ClientManagerGUI extends Thread{
     private Socket serversocket;
@@ -133,7 +127,7 @@ public class ClientManagerGUI extends Thread{
                 playerhandler = new PlayerHandler(this);
                 playerhandler.setGui(gamehandler.getGui());
                 // render the board game
-                gamehandler.getGui().BoardRendereer(gamehasstartedmessage.getBoard());
+                gamehandler.getGui().BoardRenderer(gamehasstartedmessage.getBoard());
                 // render common and personal goals
 
                 // render tokens

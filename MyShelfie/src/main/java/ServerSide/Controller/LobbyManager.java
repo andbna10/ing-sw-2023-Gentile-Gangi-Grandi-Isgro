@@ -3,6 +3,7 @@ package ServerSide.Controller;
 import ServerSide.Model.Player;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class LobbyManager {
@@ -35,7 +36,11 @@ public class LobbyManager {
     /**
      * Overview: method aimed to close a lobby
      */
-    public void closeLobby(String id){ lobbies.remove(id); }
+    public void closeLobby(String id){
+        if(!Objects.equals(id, "random")) {
+            lobbies.remove(id);
+        }
+    }
 
     /**
      * Overview: check for the username existance among active players

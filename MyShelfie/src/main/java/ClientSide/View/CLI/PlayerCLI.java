@@ -209,7 +209,7 @@ public class PlayerCLI {
 
         for (int i = 0; i < size; i++) {
             do{
-                boolean flag = false;
+                int flag = 0;
                 toTake[i] = -1;
                 if(i%2==0){
                     System.out.println("\nEnter the row of the tile: ");
@@ -218,13 +218,14 @@ public class PlayerCLI {
                 }
                 try {
                     toTake[i] = scanner.nextInt();
+                    flag = 2;
                 } catch(InputMismatchException e){
                     System.out.println("Please insert a number!");
-                    flag = true;
+                    flag = 1;
                     scanner.nextLine();
                 }
-                if(toTake[i]<0 || toTake[i]>8 || toTake[i] != -1){
-                    if(!flag) {
+                if(toTake[i]<0 || toTake[i]>8){
+                    if(flag == 2) {
                         System.out.println("Look at the board, there is no row or column like that. Try again!");
                     }
                 }
@@ -248,17 +249,18 @@ public class PlayerCLI {
 
         for (int i = 0; i < input.length; i++) {
             do{
-                boolean flag = false;
+                int flag = 0;
                 input[i] = -1;
                 try {
                     input[i] = scanner.nextInt();
+                    flag = 2;
                 } catch (InputMismatchException e){
                     System.out.println("Please insert a number!");
-                    flag = true;
+                    flag = 1;
                     scanner.nextLine();
                 }
                 if(input[i] > input.length - 1 || input[i] == -1){
-                    if(!flag) {
+                    if(flag == 2) {
                         System.out.println("You don't have selected " + input[i] + " tiles, try again!");
                     }
                 }
@@ -270,17 +272,18 @@ public class PlayerCLI {
         System.out.println("Insert the column you want to fill: ");
         // take the column
         do{
-            boolean flag = false;
+            int flag = 0;
             this.column = -1;
             try {
                 this.column = scanner.nextInt();
+                flag =2;
             } catch (InputMismatchException e){
                 System.out.println("Please insert a number!");
-                flag = true;
+                flag = 1;
                 scanner.nextLine();
             }
             if(this.column > 4 || this.column ==-1){
-                if(!flag) {
+                if(flag == 2) {
                     System.out.println("You have only 4 columns, try again!");
                 }
             }

@@ -18,6 +18,9 @@ public class GameGUI {
     private GameHandler handler;
     private JTable boardTable = new JTable(9,9);
     private JLabel shelfLabel;
+    private JLabel shelfLabel2;
+    private JLabel shelfLabel3;
+    private JLabel shelfLabel4;
     private JLabel boardLabel;
     private JLabel PersonalLabel;
     private JLabel Common1Label;
@@ -49,14 +52,17 @@ public class GameGUI {
         Image scaledBoardImage = boardImage.getImage().getScaledInstance(600,600, Image.SCALE_SMOOTH);
         boardLabel = new JLabel(new ImageIcon(scaledBoardImage));
 
+
         // initialization of the PersonalShelfLabel
+        int bookshelfsize=250;
         ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
-        Image scaledShelf = shelfImage.getImage().getScaledInstance(400,400, Image.SCALE_SMOOTH);
+        Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
         shelfLabel = new JLabel(new ImageIcon(scaledShelf));
-        shelfLabel.setBounds(1000,30,400,400);
-
-
+        shelfLabel.setBounds(770,50,bookshelfsize,bookshelfsize);
         bgLabel.add(shelfLabel);
+
+
+
         gameFrame.add(bgLabel);
         gameFrame.pack();
     }
@@ -126,6 +132,27 @@ public class GameGUI {
 
         bgLabel.add(Common1Label);
         bgLabel.add(Common2Label);
+
+        //initialization of the others players
+        int numPlayers=4;
+        int bookshelfsize=250;
+        ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
+        Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
+
+        shelfLabel2 = new JLabel(new ImageIcon(scaledShelf));
+        shelfLabel2.setBounds(1060,50,bookshelfsize,bookshelfsize);
+        bgLabel.add(shelfLabel2);
+
+        if(numPlayers>2) {
+            shelfLabel3 = new JLabel(new ImageIcon(scaledShelf));
+            shelfLabel3.setBounds(770, 350, bookshelfsize, bookshelfsize);
+            bgLabel.add(shelfLabel3);
+        }
+        if(numPlayers>3) {
+            shelfLabel4 = new JLabel(new ImageIcon(scaledShelf));
+            shelfLabel4.setBounds(1060, 350, bookshelfsize, bookshelfsize);
+            bgLabel.add(shelfLabel4);
+        }
 
         //show a text with coordinates of a clicked cell
         JLabel textLabel = new JLabel();

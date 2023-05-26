@@ -4,6 +4,7 @@ import ClientSide.NetworkHandler.GameHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -183,6 +184,49 @@ public class GameGUI {
                 ImageIcon imageIcon = new ImageIcon(image);
                 Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth(), table.getRowHeight(), Image.SCALE_SMOOTH);
                 renderer.setIcon(new ImageIcon(scaledImage));
+            }else renderer.setIcon(null);
+            //l'else dovrebbe fare in modo che quando vado a sovrascrivere le immagini mi tolga quelle che sono state prese(da testare)
+
+            return renderer;
+        }
+    }
+
+    /**
+     * Overview: Class for rendering bookshelf tiles images
+     */
+    private static class ImageBookshelfCellRenderer extends JLabel implements TableCellRenderer {
+        private Image[][] images = new Image[6][5];
+
+        public ImageBookshelfCellRenderer(String[] bookshelf, int column) throws IOException {
+            for (int i=0; i<bookshelf.length; i++) {
+                switch (bookshelf[i]) {
+                    case "C" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Gatti1.1.png"));
+                    case "B" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Libri1.1.png"));
+                    case "G" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Giochi1.1.png"));
+                    case "F" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Cornici1.1.png"));
+                    case "T" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Trofei1.1.png"));
+                    case "P" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Piante1.1.png"));
+                    //default -> ;
+                }
+            }
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+            JLabel renderer = new JLabel();
+
+            Image image = images[row][column];
+
+            int border=10; //offset che tolgo dalla riscalatura dell'immagine sia per larghezza che altezza
+
+            if (image != null) {
+                ImageIcon imageIcon = new ImageIcon(image);
+                Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth()-border, table.getRowHeight()-border, Image.SCALE_SMOOTH);
+                renderer.setIcon(new ImageIcon(scaledImage));
+                //allineamento per far si che l'immagine riscalata venga centrata nella cella
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                renderer.setVerticalAlignment(SwingConstants.CENTER);
             }else renderer.setIcon(null);
             //l'else dovrebbe fare in modo che quando vado a sovrascrivere le immagini mi tolga quelle che sono state prese(da testare)
 

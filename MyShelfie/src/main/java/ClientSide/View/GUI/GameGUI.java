@@ -57,7 +57,7 @@ public class GameGUI {
 
         bgLabel.add(shelfLabel);
         gameFrame.add(bgLabel);
-
+        gameFrame.pack();
     }
 
     /**
@@ -91,7 +91,7 @@ public class GameGUI {
 
         // personal goal
         ImageIcon PersonalGoalImage = new ImageIcon("MyShelfie/src/main/resources/personal/Personal_Goals"+numberPattern+".png");
-        Image scaledpersonal = PersonalGoalImage.getImage().getScaledInstance(200,300, Image.SCALE_SMOOTH);
+        Image scaledpersonal = PersonalGoalImage.getImage().getScaledInstance(200,303, Image.SCALE_SMOOTH);
 
         PersonalLabel = new JLabel(new ImageIcon(scaledpersonal));
         PersonalLabel.setBounds(-20, 500, 300, 600);
@@ -100,28 +100,28 @@ public class GameGUI {
 
         // token
         ImageIcon token1image = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+token1+".jpg");
-        Image scaledtoke1 = token1image.getImage().getScaledInstance(75,75, Image.SCALE_SMOOTH);
+        Image scaledtoken1 = token1image.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
         ImageIcon token2image = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+token2+".jpg");
-        Image scaledtoke2 = token2image.getImage().getScaledInstance(75,75, Image.SCALE_SMOOTH);
+        Image scaledtoken2 = token2image.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
 
-        token1Label = new JLabel(new ImageIcon(scaledtoke1));
-        token1Label.setBounds(345,700, 90, 90);
-        token2Label = new JLabel(new ImageIcon(scaledtoke2));
-        token2Label.setBounds(545,700, 90, 90);
+        token1Label = new JLabel(new ImageIcon(scaledtoken1));
+        token1Label.setBounds(335,700, 90, 90);
+        token2Label = new JLabel(new ImageIcon(scaledtoken2));
+        token2Label.setBounds(535,700, 90, 90);
 
         bgLabel.add(token1Label);
         bgLabel.add(token2Label);
 
         // common
         ImageIcon Common1 = new ImageIcon("MyShelfie/src/main/resources/common/"+common1+".jpg");
-        Image scaledcommon1 = Common1.getImage().getScaledInstance(180,180, Image.SCALE_SMOOTH);
+        Image scaledcommon1 = Common1.getImage().getScaledInstance(180,119, Image.SCALE_SMOOTH);
         ImageIcon Common2 = new ImageIcon("MyShelfie/src/main/resources/common/"+common2+".jpg");
-        Image scaledcommon2 = Common2.getImage().getScaledInstance(180,180, Image.SCALE_SMOOTH);
+        Image scaledcommon2 = Common2.getImage().getScaledInstance(180,119, Image.SCALE_SMOOTH);
 
         Common1Label = new JLabel(new ImageIcon(scaledcommon1));
-        Common1Label.setBounds(240, 650, 200, 200 );
+        Common1Label.setBounds(240, 650, 200, 200);
         Common2Label = new JLabel(new ImageIcon(scaledcommon2));
-        Common2Label.setBounds(440, 650, 200, 200 );
+        Common2Label.setBounds(440, 650, 200, 200);
 
         bgLabel.add(Common1Label);
         bgLabel.add(Common2Label);

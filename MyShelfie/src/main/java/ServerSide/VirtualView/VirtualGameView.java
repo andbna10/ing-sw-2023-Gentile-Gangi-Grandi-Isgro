@@ -47,12 +47,12 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create the message to notify the start of the game
      */
-    public void notifythestartofthegame(BoardCell[][] board, int common1, int common2, ScoringToken one, ScoringToken two){
+    public void notifythestartofthegame(int numPlayers, BoardCell[][] board, int common1, int common2, ScoringToken one, ScoringToken two){
         for(ServerManager manager: this.managers) {
             GameHasStartedMessage message = null;
             for(Player p: this.players){
                 if(manager == p.getManager()){
-                    message = new GameHasStartedMessage(board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2, one, two, p.getGoal().getPatternNumber());
+                    message = new GameHasStartedMessage(numPlayers, board, p.getGoal().getPersonalGoal().getGameTiles(), common1, common2, one, two, p.getGoal().getPatternNumber());
                 }
             }
             manager.sendMessage(message);

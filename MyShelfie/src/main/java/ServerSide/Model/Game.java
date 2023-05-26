@@ -64,7 +64,7 @@ public class Game {
      * Overview: method aimed to notify the observer about the start of the game
      */
     public void notifyObserverTheStart(int common1, int common2, ScoringToken one, ScoringToken two){
-        obs.notifythestartofthegame(board.getBoard(), common1, common2, one, two);
+        obs.notifythestartofthegame(this.players.size(), board.getBoard(), common1, common2, one, two);
     }
 
     /**

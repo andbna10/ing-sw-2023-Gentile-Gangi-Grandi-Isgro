@@ -12,15 +12,14 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameGUI {
 
     private GameHandler handler;
     private JTable boardTable = new JTable(9,9);
-    private JLabel shelfLabel;
-    private JLabel shelfLabel2;
-    private JLabel shelfLabel3;
-    private JLabel shelfLabel4;
+    private ArrayList<JTable> shelfTables;
+    private ArrayList<JLabel> shelfLabels;
     private JLabel boardLabel;
     private JLabel PersonalLabel;
     private JLabel Common1Label;
@@ -32,6 +31,8 @@ public class GameGUI {
     private JFrame gameFrame;
 
     public GameGUI(GameHandler gameHandler) throws IOException {
+        this.shelfTables = new ArrayList<>();
+        this.shelfLabels = new ArrayList<>();
         this.handler=gameHandler;
 
         // initialiazation of the frame
@@ -54,12 +55,19 @@ public class GameGUI {
 
 
         // initialization of the PersonalShelfLabel
-        int bookshelfsize=250;
+        int bookshelfsize=300;
         ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
         Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
-        shelfLabel = new JLabel(new ImageIcon(scaledShelf));
-        shelfLabel.setBounds(770,50,bookshelfsize,bookshelfsize);
-        bgLabel.add(shelfLabel);
+        shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
+        shelfLabels.get(0).setBounds(770,50,bookshelfsize,bookshelfsize);
+        shelfTables.add(new JTable(6,5));
+        shelfTables.get(0).setBounds(780, 60, bookshelfsize+10, bookshelfsize+10);
+        shelfTables.get(0).setRowHeight(60);
+        ((DefaultTableCellRenderer)shelfTables.get(0).getDefaultRenderer(Object.class)).setOpaque(false);
+        shelfTables.get(0).setOpaque(false);
+        shelfTables.get(0).setShowGrid(false);
+        shelfTables.get(0).setDefaultEditor(Object.class, null);
+        bgLabel.add(shelfLabels.get(0));
 
 
 
@@ -68,12 +76,23 @@ public class GameGUI {
     }
 
     /**
+     * Overview: your turn message update
+     */
+    public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
+        String[] bookshelfcolumn = new String[6];
+        for (int column = 0; column < 5; column++) {
+            for(int j=0; j<6 ; j++){
+                bookshelfcolumn[j]=bookshelf[j][column];
+            }
+            shelfTables.get(i).getColumnModel().getColumn(column).setCellRenderer(new ImageBookshelfCellRenderer(bookshelfcolumn,column));
+            // gestire l'username
+        }
+    }
+
+    /**
      * Overview: method aimed to render the initial setup
      */
-    public void InitialSetUpRenderer(String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException {
-        /*fai in modo che se c'era qualcosa prima venga tolto così che a ogni chiamata venga fatto tutto da capo
-        * e action listener*/
-
+    public void InitialSetUpRenderer(int numPlayers, String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException {
         // board
         String[] boardcolumn = new String[9];
         for (int column = 0; column < 9; column++) {
@@ -134,24 +153,44 @@ public class GameGUI {
         bgLabel.add(Common2Label);
 
         //initialization of the others players
-        int numPlayers=4;
-        int bookshelfsize=250;
+        int bookshelfsize=300;
         ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
         Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
 
-        shelfLabel2 = new JLabel(new ImageIcon(scaledShelf));
-        shelfLabel2.setBounds(1060,50,bookshelfsize,bookshelfsize);
-        bgLabel.add(shelfLabel2);
+        shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
+        shelfLabels.get(1).setBounds(1090,50,bookshelfsize,bookshelfsize);
+        shelfTables.add(new JTable(6,5));
+        shelfTables.get(1).setBounds(1100, 65, bookshelfsize+10, bookshelfsize+10);
+        shelfTables.get(1).setRowHeight(60);
+        ((DefaultTableCellRenderer)shelfTables.get(1).getDefaultRenderer(Object.class)).setOpaque(false);
+        shelfTables.get(1).setOpaque(false);
+        shelfTables.get(1).setShowGrid(false);
+        shelfTables.get(1).setDefaultEditor(Object.class, null);
+        bgLabel.add(shelfLabels.get(1));
 
         if(numPlayers>2) {
-            shelfLabel3 = new JLabel(new ImageIcon(scaledShelf));
-            shelfLabel3.setBounds(770, 350, bookshelfsize, bookshelfsize);
-            bgLabel.add(shelfLabel3);
+            shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
+            shelfLabels.get(2).setBounds(770, 350, bookshelfsize, bookshelfsize);
+            shelfTables.add(new JTable(6,5));
+            shelfTables.get(2).setBounds(780, 360, bookshelfsize+10, bookshelfsize+10);
+            shelfTables.get(2).setRowHeight(60);
+            ((DefaultTableCellRenderer)shelfTables.get(2).getDefaultRenderer(Object.class)).setOpaque(false);
+            shelfTables.get(2).setOpaque(false);
+            shelfTables.get(2).setShowGrid(false);
+            shelfTables.get(2).setDefaultEditor(Object.class, null);
+            bgLabel.add(shelfLabels.get(2));
         }
         if(numPlayers>3) {
-            shelfLabel4 = new JLabel(new ImageIcon(scaledShelf));
-            shelfLabel4.setBounds(1060, 350, bookshelfsize, bookshelfsize);
-            bgLabel.add(shelfLabel4);
+            shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
+            shelfLabels.get(3).setBounds(1090, 350, bookshelfsize, bookshelfsize);
+            shelfTables.add(new JTable(6,5));
+            shelfTables.get(3).setBounds(1100, 360, bookshelfsize+10, bookshelfsize+10);
+            shelfTables.get(3).setRowHeight(60);
+            ((DefaultTableCellRenderer)shelfTables.get(3).getDefaultRenderer(Object.class)).setOpaque(false);
+            shelfTables.get(3).setOpaque(false);
+            shelfTables.get(3).setShowGrid(false);
+            shelfTables.get(3).setDefaultEditor(Object.class, null);
+            bgLabel.add(shelfLabels.get(3));
         }
 
         //show a text with coordinates of a clicked cell

@@ -127,7 +127,7 @@ public class ClientManagerGUI extends Thread{
                 playerhandler = new PlayerHandler(this);
                 playerhandler.setGui(gamehandler.getGui());
                 // render the initial set up
-                gamehandler.getGui().InitialSetUpRenderer(gamehasstartedmessage.getBoard(), gamehasstartedmessage.getPersonalPatternNumber(), gamehasstartedmessage.getCommon1(), gamehasstartedmessage.getCommon2(), gamehasstartedmessage.getPointsCom1(), gamehasstartedmessage.getPointsCom2());
+                gamehandler.getGui().InitialSetUpRenderer(gamehasstartedmessage.getNumPlayers(), gamehasstartedmessage.getBoard(), gamehasstartedmessage.getPersonalPatternNumber(), gamehasstartedmessage.getCommon1(), gamehasstartedmessage.getCommon2(), gamehasstartedmessage.getPointsCom1(), gamehasstartedmessage.getPointsCom2());
                 break;
 
             // create the Player View
@@ -164,11 +164,11 @@ public class ClientManagerGUI extends Thread{
                 } else {
                     // here the player sees the opponents' bookshlef
                     for(int i=0; i<yourturnmessage.getBookshelfList().size(); i++){
-                        //playerhandler.getCli().printOpponent(yourturnmessage.getBookshelfList().get(i), yourturnmessage.getUsernames().get(i));
+                        gamehandler.getGui().YourTurnRender(i+1, yourturnmessage.getUsernames().get(i), yourturnmessage.getBookshelfList().get(i));
                     }
 
                     // here the player can see its current bookshelf
-                    //playerhandler.getCli().yourTurn(yourturnmessage.getBookshelf());
+                    gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
 
                     // player called to perform a move
                     /*TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");

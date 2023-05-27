@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class YourTurnMessage extends Message {
     private String message;
+    private String messagegui;
     private String[][] bookshelf;
     private ArrayList<String[][]> bookshelfList;
     private ArrayList<String> usernames;
@@ -25,6 +26,7 @@ public class YourTurnMessage extends Message {
         this.usernames = usernames;
         super.setType(MessageType.YOURTURN);
         this.message = " ---------------- It's your turn ---------------- ";
+        this.messagegui = "It's your turn!";
         this.bookshelf=bookshelfToString(bookshelf);
         for(int i=0; i< bookshelflist.size(); i++){
             this.bookshelfList.add(bookshelfToString(bookshelflist.get(i)));
@@ -126,4 +128,9 @@ public class YourTurnMessage extends Message {
      * Overview: board getter
      */
     public String[][] getBoard(){ return this.board; }
+
+    /**
+     * Overview: messagegui getter
+     */
+    public String getMessagegui(){ return this.messagegui; }
 }

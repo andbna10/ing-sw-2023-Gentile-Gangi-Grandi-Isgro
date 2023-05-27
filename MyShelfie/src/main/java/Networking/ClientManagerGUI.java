@@ -157,9 +157,9 @@ public class ClientManagerGUI extends Thread{
 
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
-                //genericCLI.printMessage(yourturnmessage.getMessage());
+                gamehandler.getGui().showMessage(yourturnmessage.getMessagegui());
                 if(yourturnmessage.getUpddatedBookshelf()){
-                    //playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
+                    gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
                     break;
                 } else {
                     // here the player sees the opponents' bookshlef
@@ -171,6 +171,13 @@ public class ClientManagerGUI extends Thread{
                     gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
 
                     // player called to perform a move
+                    // devo restituire:
+                    /*
+                        - array di int (coordinate delle tiles);
+                        - array di int (ordine di inserimento);
+                        - int (column);
+                        - "prova".
+                     */
                     /*TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
                     sendMessage(messageToTake);*/
                     break;

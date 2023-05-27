@@ -76,6 +76,13 @@ public class GameGUI {
     }
 
     /**
+     * Overview: method aimed to show info to the client
+     */
+    public void showMessage(String message){
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
      * Overview: your turn message update
      */
     public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
@@ -85,7 +92,7 @@ public class GameGUI {
                 bookshelfcolumn[j]=bookshelf[j][column];
             }
             shelfTables.get(i).getColumnModel().getColumn(column).setCellRenderer(new ImageBookshelfCellRenderer(bookshelfcolumn,column));
-            // gestire l'username
+            // gestisci l'username
         }
     }
 

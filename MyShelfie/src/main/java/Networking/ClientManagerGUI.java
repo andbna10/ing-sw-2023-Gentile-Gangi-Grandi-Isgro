@@ -6,6 +6,7 @@ import Messages.Message;
 import Messages.PingMessage;
 import Messages.fromClientToServer.CloseRecoveryMessage;
 import Messages.fromClientToServer.NPlayersInputMessage;
+import Messages.fromClientToServer.TilesToTakeMessage;
 import Messages.fromServerToClient.SendDisconMessage;
 import Messages.fromServerToClient.*;
 
@@ -162,6 +163,9 @@ public class ClientManagerGUI extends Thread{
                     gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
                     break;
                 } else {
+                    // here the players sees the updated board
+                    gamehandler.getGui().updateBoard(yourturnmessage.getBoard());
+
                     // here the player sees the opponents' bookshlef
                     for(int i=0; i<yourturnmessage.getBookshelfList().size(); i++){
                         gamehandler.getGui().YourTurnRender(i+1, yourturnmessage.getUsernames().get(i), yourturnmessage.getBookshelfList().get(i));
@@ -171,15 +175,16 @@ public class ClientManagerGUI extends Thread{
                     gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
 
                     // player called to perform a move
-                    // devo restituire:
-                    /*
-                        - array di int (coordinate delle tiles);
-                        - array di int (ordine di inserimento);
-                        - int (column);
-                        - "prova".
-                     */
-                    /*TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
-                    sendMessage(messageToTake);*/
+                    gamehandler.getGui().performTurn();
+                    synchronized (gamehandler.getGui()){
+                        if(gamehandler.getGui().getTotake()[0] == -1 && gamehandler.getGui().getOrder()[0] == -1 && gamehandler.getGui().getColumn() == -1){
+                            try{
+                                gamehandler.getGui().wait();
+                            } catch (InterruptedException e){};
+                        }
+                    }
+                    TilesToTakeMessage messageToTake = new TilesToTakeMessage(gamehandler.getGui().getTotake(), gamehandler.getGui().getOrder(), gamehandler.getGui().getColumn(), "prova");
+                    sendMessage(messageToTake);
                     break;
                 }
 
@@ -193,8 +198,7 @@ public class ClientManagerGUI extends Thread{
             // beeing notified about the end of a turn
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
-                /*genericCLI.printMessage(endturnmessage.getMessage());
-                gamehandler.getCli().printBoard(endturnmessage.getBoard());*/
+                gamehandler.getGui().showMessage(endturnmessage.getMessage());
                 break;
 
             case REPEATTURN:

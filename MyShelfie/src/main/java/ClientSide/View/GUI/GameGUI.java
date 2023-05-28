@@ -10,9 +10,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameGUI {
 
@@ -26,11 +30,28 @@ public class GameGUI {
     private JLabel Common2Label;
     private JLabel token1Label;
     private JLabel token2Label;
-
     private JLabel bgLabel;
     private JFrame gameFrame;
+    // objects to be used to perform turn in server side
+    private int[] totake;
+    private int[] order;
+    private int column;
+    // objects to be used to perform turn in client side
+    private int nTiles;
+    private int taken;
+    private int index;
+    private JTextArea textArea = new JTextArea();
+    private int previousrow;
+    private int previouscolumn;
 
     public GameGUI(GameHandler gameHandler) throws IOException {
+        textArea.setEditable(false);
+        textArea.getCaret().setVisible(true);
+        textArea.getCaret().setSelectionVisible(true);
+        textArea.setLineWrap(true);
+        textArea.setBorder(BorderFactory.createCompoundBorder(textArea.getBorder(),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        textArea.setFont(textArea.getFont().deriveFont(15f));
         this.shelfTables = new ArrayList<>();
         this.shelfLabels = new ArrayList<>();
         this.handler=gameHandler;
@@ -83,6 +104,89 @@ public class GameGUI {
     }
 
     /**
+     * Overview: method aimed to remove event listeners
+     */
+    public void removeListeners(){ boardTable.removeMouseListener(listener); }
+
+    /**
+     * Overview: method aimed to continue the turn procedure after having selected the tiles
+     */
+    public synchronized void continueTurnProcedure(){
+        // forming the order
+        showMessage("Look at the indexes of the selected tiles and insert once at a time the order of tiles to fill the column!");
+        for(int j = 0; j< nTiles; j++){
+            int x = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the "+j+"-th index", "Enter an index", JOptionPane.QUESTION_MESSAGE));
+            this.order[j] = x;
+        }
+
+        // asking for the column
+        this.column = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the index of the column (from 0 to 4)", "Enter the column index", JOptionPane.QUESTION_MESSAGE));
+
+        // remove listeners
+        removeListeners();
+
+        // notify the client
+        notifyAll();
+    }
+
+    /**
+     * Overview: listener used to let the client perform the selection of the tiles
+     */
+    MouseListener listener = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int row = boardTable.getSelectedRow();
+            int column = boardTable.getSelectedColumn();
+            System.out.println(row+" "+column);
+            if (row != -1 && column != -1) {
+                if(row != previousrow || column != previouscolumn) {
+                    String labelText = "Taken Tile " + taken + " at: Row = " + row + ", Column = " + column;
+                    textArea.append(labelText + "\n");
+                    totake[index] = row;
+                    totake[index + 1] = column;
+                    taken++;
+
+                    previousrow = row;
+                    previouscolumn = column;
+
+                    if (taken == nTiles) {
+                        continueTurnProcedure();
+                    }
+                    index = index + 2;
+                }
+            }
+        }
+    };
+
+    /**
+     * Overview: method aimed to let the client perform a move
+     */
+    public void performTurn(){
+        this.taken = 0;
+        this.index = 0;
+        textArea.setText("");
+
+        //show a text with coordinates of a clicked cell
+        textArea.setBounds(640,650,300,150);
+        bgLabel.add(textArea);
+
+        // ask the client how many tiles he's wondering to pick
+        this.nTiles = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "How many tiles do you want to pick?", "Enter number of tiles", JOptionPane.QUESTION_MESSAGE));
+        showMessage("Let's click on tile to select it!");
+        this.totake = new int[nTiles*2];
+        // doing for synchronization with clientManagerGUI
+        Arrays.fill(totake, -1);
+        this.order = new int[nTiles];
+        // doing for synchronization with clientManagerGUI
+        Arrays.fill(order, -1);
+        this.column = -1;
+
+        // adding event listener and forming int[] totake
+        boardTable.addMouseListener(listener);
+
+    }
+
+    /**
      * Overview: your turn message update
      */
     public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
@@ -97,10 +201,9 @@ public class GameGUI {
     }
 
     /**
-     * Overview: method aimed to render the initial setup
+     * Overview: update board game
      */
-    public void InitialSetUpRenderer(int numPlayers, String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException {
-        // board
+    public void updateBoard(String[][] board) throws IOException {
         String[] boardcolumn = new String[9];
         for (int column = 0; column < 9; column++) {
             for(int j=0; j<9 ; j++){
@@ -121,6 +224,14 @@ public class GameGUI {
         boardLabel.add(boardTable);
         bgLabel.add(boardTable);
         bgLabel.add(boardLabel);
+    }
+
+    /**
+     * Overview: method aimed to render the initial setup
+     */
+    public void InitialSetUpRenderer(int numPlayers, String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException {
+        // board
+        updateBoard(board);
 
         // personal goal
         ImageIcon PersonalGoalImage = new ImageIcon("MyShelfie/src/main/resources/personal/Personal_Goals"+numberPattern+".png");
@@ -200,30 +311,26 @@ public class GameGUI {
             bgLabel.add(shelfLabels.get(3));
         }
 
-        //show a text with coordinates of a clicked cell
-        JLabel textLabel = new JLabel();
-        textLabel.setBounds(640,650,300,150);
-        bgLabel.add(textLabel);
-
         // visibility on the frame
         gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gameFrame.setVisible(true);
 
-
-        // questo va spostata e chiamata in seguito all'arrivo del messaggio is your turn
-        boardTable.getSelectionModel().addListSelectionListener(event -> {
-            if (!event.getValueIsAdjusting()) {
-                int row = boardTable.getSelectedRow();
-                int column = boardTable.getSelectedColumn();
-                if (row != -1 && column != -1) {
-                    //System.out.println("Clicked cell coordinates: Row = " + row + ", Column = " + column);
-                    String labelText = "Clicked cell coordinates: Row = " + row + ", Column = " + column;
-                    //String labelText = textLabel.getText() + "\nClicked cell coordinates: Row = " + row + ", Column = " + column;
-                    textLabel.setText(labelText);
-                }
-            }
-        });
     }
+
+    /**
+     * Overview totake getter
+     */
+    public int[] getTotake() {return totake;}
+
+    /**
+     * Overview: order getter
+     */
+    public int[] getOrder() {return order;}
+
+    /**
+     * Overview: column getter
+     */
+    public int getColumn() {return column;}
 
 
     /**

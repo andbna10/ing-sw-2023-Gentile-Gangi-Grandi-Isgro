@@ -14,7 +14,7 @@ public class EndTurnMessage extends Message {
     public EndTurnMessage(BoardCell[][] board, String username){
         super(null);
         super.setType(MessageType.ENDTURN);
-        message = "\n"+username+ " has just ended its turn, this is the updated board!";
+        message = "\n"+username+ " has just ended its turn!";
     }
 
     /**

@@ -158,11 +158,13 @@ public class ClientManagerGUI extends Thread{
 
             case YOURTURN:
                 YourTurnMessage yourturnmessage = (YourTurnMessage) message;
-                gamehandler.getGui().showMessage(yourturnmessage.getMessagegui());
                 if(yourturnmessage.getUpddatedBookshelf()){
+                    // aimed to update the bookshelf after the turn
                     gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
                     break;
                 } else {
+                    gamehandler.getGui().showMessage(yourturnmessage.getMessagegui());
+
                     // here the players sees the updated board
                     gamehandler.getGui().updateBoard(yourturnmessage.getBoard());
 

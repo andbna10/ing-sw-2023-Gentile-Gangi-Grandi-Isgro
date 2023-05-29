@@ -163,7 +163,8 @@ public class ClientManagerGUI extends Thread{
                     gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
                     break;
                 } else {
-                    gamehandler.getGui().showMessage(yourturnmessage.getMessagegui());
+                    // show message
+                    //gamehandler.getGui().showMessage(yourturnmessage.getMessagegui());
 
                     // here the players sees the updated board
                     gamehandler.getGui().updateBoard(yourturnmessage.getBoard());
@@ -174,7 +175,7 @@ public class ClientManagerGUI extends Thread{
                     }
 
                     // here the player can see its current bookshelf
-                    gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
+                    //gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
 
                     // player called to perform a move
                     gamehandler.getGui().performTurn();
@@ -200,7 +201,7 @@ public class ClientManagerGUI extends Thread{
             // beeing notified about the end of a turn
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
-                gamehandler.getGui().showMessage(endturnmessage.getMessage());
+                //gamehandler.getGui().showMessage(endturnmessage.getMessage());
                 break;
 
             case REPEATTURN:

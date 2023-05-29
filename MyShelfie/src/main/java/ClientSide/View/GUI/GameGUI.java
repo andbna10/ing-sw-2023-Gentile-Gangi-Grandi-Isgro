@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -73,6 +74,13 @@ public class GameGUI {
         ImageIcon boardImage = new ImageIcon("MyShelfie/src/main/resources/livingroom.png");
         Image scaledBoardImage = boardImage.getImage().getScaledInstance(600,600, Image.SCALE_SMOOTH);
         boardLabel = new JLabel(new ImageIcon(scaledBoardImage));
+        boardTable.setBounds(58,60,540,540);
+        boardLabel.setBounds(30,30,600,600);
+        boardTable.setRowHeight(60);
+        ((DefaultTableCellRenderer)boardTable.getDefaultRenderer(Object.class)).setOpaque(false);
+        boardTable.setOpaque(false);
+        boardTable.setShowGrid(false);
+        boardTable.setDefaultEditor(Object.class, null);
 
 
         // initialization of the PersonalShelfLabel
@@ -89,6 +97,7 @@ public class GameGUI {
         shelfTables.get(0).setShowGrid(false);
         shelfTables.get(0).setDefaultEditor(Object.class, null);
         bgLabel.add(shelfLabels.get(0));
+        bgLabel.add(shelfTables.get(0));
 
 
 
@@ -137,7 +146,6 @@ public class GameGUI {
         public void mouseClicked(MouseEvent e) {
             int row = boardTable.getSelectedRow();
             int column = boardTable.getSelectedColumn();
-            System.out.println(row+" "+column);
             if (row != -1 && column != -1) {
                 if(row != previousrow || column != previouscolumn) {
                     String labelText = "Taken Tile " + taken + " at: Row = " + row + ", Column = " + column;
@@ -198,6 +206,10 @@ public class GameGUI {
             shelfTables.get(i).getColumnModel().getColumn(column).setCellRenderer(new ImageBookshelfCellRenderer(bookshelfcolumn,column));
             // gestisci l'username
         }
+
+        shelfTables.get(i).revalidate();
+        shelfTables.get(i).repaint();
+        bgLabel.revalidate();
     }
 
     /**
@@ -212,9 +224,6 @@ public class GameGUI {
             boardTable.getColumnModel().getColumn(column).setCellRenderer(new ImageTableCellRenderer(boardcolumn,column));
         }
 
-        boardTable.setBounds(58,60,540,540);
-        boardLabel.setBounds(30,30,600,600);
-
         boardTable.setRowHeight(60);
         ((DefaultTableCellRenderer)boardTable.getDefaultRenderer(Object.class)).setOpaque(false);
         boardTable.setOpaque(false);
@@ -224,6 +233,8 @@ public class GameGUI {
         boardLabel.add(boardTable);
         bgLabel.add(boardTable);
         bgLabel.add(boardLabel);
+
+        boardTable.revalidate();
     }
 
     /**
@@ -284,7 +295,9 @@ public class GameGUI {
         shelfTables.get(1).setOpaque(false);
         shelfTables.get(1).setShowGrid(false);
         shelfTables.get(1).setDefaultEditor(Object.class, null);
+
         bgLabel.add(shelfLabels.get(1));
+        bgLabel.add(shelfTables.get(1));
 
         if(numPlayers>2) {
             shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
@@ -296,7 +309,9 @@ public class GameGUI {
             shelfTables.get(2).setOpaque(false);
             shelfTables.get(2).setShowGrid(false);
             shelfTables.get(2).setDefaultEditor(Object.class, null);
+
             bgLabel.add(shelfLabels.get(2));
+            bgLabel.add(shelfTables.get(2));
         }
         if(numPlayers>3) {
             shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
@@ -308,7 +323,9 @@ public class GameGUI {
             shelfTables.get(3).setOpaque(false);
             shelfTables.get(3).setShowGrid(false);
             shelfTables.get(3).setDefaultEditor(Object.class, null);
+
             bgLabel.add(shelfLabels.get(3));
+            bgLabel.add(shelfTables.get(3));
         }
 
         // visibility on the frame

@@ -84,14 +84,20 @@ public class GameGUI {
 
 
         // initialization of the PersonalShelfLabel
-        int bookshelfsize=300;
+        int bookshelfsize=310;
+        int xgap = 38;
+        int ygap = 21;
         ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
         Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
         shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
-        shelfLabels.get(0).setBounds(770,50,bookshelfsize,bookshelfsize);
+        shelfLabels.get(0).setBounds(770,30,bookshelfsize,bookshelfsize);
         shelfTables.add(new JTable(6,5));
-        shelfTables.get(0).setBounds(780, 60, bookshelfsize+10, bookshelfsize+10);
-        shelfTables.get(0).setRowHeight(60);
+        shelfTables.get(0).setBounds(770 + xgap, 30 + ygap, bookshelfsize+10, bookshelfsize+10);
+        shelfTables.get(0).setRowHeight(7*6);
+        //set column width
+        for (int i = 0; i < shelfTables.get(0).getColumnCount(); i++) {
+            shelfTables.get(0).getColumnModel().getColumn(i).setMaxWidth(10*5);
+        }
         ((DefaultTableCellRenderer)shelfTables.get(0).getDefaultRenderer(Object.class)).setOpaque(false);
         shelfTables.get(0).setOpaque(false);
         shelfTables.get(0).setShowGrid(false);
@@ -282,15 +288,21 @@ public class GameGUI {
         bgLabel.add(Common2Label);
 
         //initialization of the others players
-        int bookshelfsize=300;
+        int bookshelfsize=310;
+        int xgap = 38;
+        int ygap = 21;
         ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
         Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
 
         shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
-        shelfLabels.get(1).setBounds(1090,50,bookshelfsize,bookshelfsize);
+        shelfLabels.get(1).setBounds(1090,30,bookshelfsize,bookshelfsize);
         shelfTables.add(new JTable(6,5));
-        shelfTables.get(1).setBounds(1100, 65, bookshelfsize+10, bookshelfsize+10);
-        shelfTables.get(1).setRowHeight(60);
+        shelfTables.get(1).setBounds(1090+xgap, 30+ygap, bookshelfsize+10, bookshelfsize+10);
+        shelfTables.get(1).setRowHeight(7*6);
+        //set column width
+        for (int i = 0; i < shelfTables.get(1).getColumnCount(); i++) {
+            shelfTables.get(1).getColumnModel().getColumn(i).setMaxWidth(10*5);
+        }
         ((DefaultTableCellRenderer)shelfTables.get(1).getDefaultRenderer(Object.class)).setOpaque(false);
         shelfTables.get(1).setOpaque(false);
         shelfTables.get(1).setShowGrid(false);
@@ -303,8 +315,12 @@ public class GameGUI {
             shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
             shelfLabels.get(2).setBounds(770, 350, bookshelfsize, bookshelfsize);
             shelfTables.add(new JTable(6,5));
-            shelfTables.get(2).setBounds(780, 360, bookshelfsize+10, bookshelfsize+10);
-            shelfTables.get(2).setRowHeight(60);
+            shelfTables.get(2).setBounds(770 + xgap, 350 + ygap, bookshelfsize+10, bookshelfsize+10);
+            shelfTables.get(2).setRowHeight(7*6);
+            //set column width
+            for (int i = 0; i < shelfTables.get(2).getColumnCount(); i++) {
+                shelfTables.get(2).getColumnModel().getColumn(i).setMaxWidth(10*5);
+            }
             ((DefaultTableCellRenderer)shelfTables.get(2).getDefaultRenderer(Object.class)).setOpaque(false);
             shelfTables.get(2).setOpaque(false);
             shelfTables.get(2).setShowGrid(false);
@@ -317,8 +333,12 @@ public class GameGUI {
             shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
             shelfLabels.get(3).setBounds(1090, 350, bookshelfsize, bookshelfsize);
             shelfTables.add(new JTable(6,5));
-            shelfTables.get(3).setBounds(1100, 360, bookshelfsize+10, bookshelfsize+10);
-            shelfTables.get(3).setRowHeight(60);
+            shelfTables.get(3).setBounds(1090 + xgap, 350 + ygap, bookshelfsize+10, bookshelfsize+10);
+            shelfTables.get(3).setRowHeight(7*6);
+            //set column width
+            for (int i = 0; i < shelfTables.get(3).getColumnCount(); i++) {
+                shelfTables.get(3).getColumnModel().getColumn(i).setMaxWidth(10*5);
+            }
             ((DefaultTableCellRenderer)shelfTables.get(3).getDefaultRenderer(Object.class)).setOpaque(false);
             shelfTables.get(3).setOpaque(false);
             shelfTables.get(3).setShowGrid(false);
@@ -419,11 +439,11 @@ public class GameGUI {
 
             if (image != null) {
                 ImageIcon imageIcon = new ImageIcon(image);
-                Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth()-border, table.getRowHeight()-border, Image.SCALE_SMOOTH);
+                Image scaledImage = imageIcon.getImage().getScaledInstance(table.getColumnModel().getColumn(column).getWidth()-border, table.getRowHeight(), Image.SCALE_SMOOTH);
                 renderer.setIcon(new ImageIcon(scaledImage));
                 //allineamento per far si che l'immagine riscalata venga centrata nella cella
-                renderer.setHorizontalAlignment(SwingConstants.CENTER);
-                renderer.setVerticalAlignment(SwingConstants.CENTER);
+                //renderer.setHorizontalAlignment(SwingConstants.WEST);
+                renderer.setVerticalAlignment(SwingConstants.BOTTOM);
             }else renderer.setIcon(null);
             //l'else dovrebbe fare in modo che quando vado a sovrascrivere le immagini mi tolga quelle che sono state prese(da testare)
 

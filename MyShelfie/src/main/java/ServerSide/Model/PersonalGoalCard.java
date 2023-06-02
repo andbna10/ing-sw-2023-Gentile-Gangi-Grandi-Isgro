@@ -32,29 +32,17 @@ public abstract class PersonalGoalCard extends GoalCard{
      * Overview: converts counter to points scores
      */
     public int pointsConverter(int count) {
-        int score = 0;
-        switch(count) {
-            case(1):
-                score = 1;
-                break;
-            case(2):
-                score = 2;
-                break;
-            case(3):
-                score = 4;
-                break;
-            case(4):
-                score = 6;
-                break;
-            case(5):
-                score = 9;
-                break;
-            case(6):
-                score = 12;
-                break;
-        }
 
-        return score;
+        return switch (count) {
+            case (1) -> 1;
+            case (2) -> 2;
+            case (3) -> 4;
+            case (4) -> 6;
+            case (5) -> 9;
+            case (6) -> 12;
+            default -> 0;
+        };
+
     }
 }
 

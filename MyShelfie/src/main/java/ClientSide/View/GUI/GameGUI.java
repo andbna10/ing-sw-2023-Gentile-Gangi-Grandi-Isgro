@@ -57,7 +57,7 @@ public class GameGUI {
         this.shelfLabels = new ArrayList<>();
         this.handler=gameHandler;
 
-        // initialiazation of the frame
+        // initialization of the frame
         gameFrame = new JFrame("MyShelfie");
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

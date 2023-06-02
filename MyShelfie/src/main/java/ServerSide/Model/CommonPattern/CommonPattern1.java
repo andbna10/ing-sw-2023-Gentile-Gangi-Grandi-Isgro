@@ -6,16 +6,16 @@ import ServerSide.Model.CommonGoalCard;
 public class CommonPattern1 extends CommonGoalCard {
     public CommonPattern1() {super();}
 
-    @Override
     /**
      * Overview: patternNumber getter
      */
+    @Override
     public int getPatternNumber() {return 1;}
 
-    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
+    @Override
     public boolean validated(Bookshelf bookshelf) {
         boolean ok = false;
         int count = 0;

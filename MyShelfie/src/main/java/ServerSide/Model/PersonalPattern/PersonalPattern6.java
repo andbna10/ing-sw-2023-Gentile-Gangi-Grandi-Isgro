@@ -16,16 +16,16 @@ public class PersonalPattern6 extends PersonalGoalCard {
         personalGoal.setTile(5,0,ItemType.PLANTS);
     }
 
-    @Override
     /**
      * Overview: patternNumber getter
      */
+    @Override
     public int getPatternNumber() {return 6;}
 
-    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns points
      */
+    @Override
     public int validated(Bookshelf bookshelf) {
         int count = 0;
 

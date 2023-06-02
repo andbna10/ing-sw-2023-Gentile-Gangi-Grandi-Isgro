@@ -63,6 +63,7 @@ public class BoardGame {
         }
     }
 
+
     /**
      * Overview: function called by the constructor of the class to initialize the board
      */

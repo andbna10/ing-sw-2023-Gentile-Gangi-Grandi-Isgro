@@ -16,16 +16,16 @@ public class PersonalPattern3 extends PersonalGoalCard {
         personalGoal.setTile(3,1,ItemType.CATS);
     }
 
-    @Override
     /**
      * Overview: patternNumber getter
      */
+    @Override
     public int getPatternNumber() {return 3;}
 
-    @Override
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns points
      */
+    @Override
     public int validated(Bookshelf bookshelf) {
         int count = 0;
         if(bookshelf.getTile(1,0) != null){

@@ -9,12 +9,16 @@ public class CommonPattern11 extends CommonGoalCard {
         super();
     }
 
+    /**
+     * Overview: patternNumber getter
+     */
     @Override
     public int getPatternNumber() {return 11;}
-    @Override
+
     /**
      * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
      */
+    @Override
     public boolean validated(Bookshelf bookshelf) {
         int ok = 2;
 

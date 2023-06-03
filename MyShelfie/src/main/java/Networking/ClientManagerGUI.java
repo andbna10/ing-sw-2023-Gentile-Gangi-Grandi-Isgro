@@ -202,6 +202,7 @@ public class ClientManagerGUI extends Thread{
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
                 //gamehandler.getGui().showMessage(endturnmessage.getMessage());
+                gamehandler.getGui().updateBoard(endturnmessage.board());
                 break;
 
             case REPEATTURN:

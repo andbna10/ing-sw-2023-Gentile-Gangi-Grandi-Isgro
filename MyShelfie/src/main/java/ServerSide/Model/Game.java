@@ -99,7 +99,7 @@ public class Game {
      */
     public Boolean advance(){
         int last = getCurrentTurnPlayer();
-        for(int i=0; i< this.order.length; i++){
+        for(int i=0; i<this.order.length; i++){
             if(order[i] == currentTurnPlayer){
                 if(i == this.order.length-1){
                     currentTurnPlayer = order[0];
@@ -109,9 +109,7 @@ public class Game {
                 break;
             }
         }
-        if(currentTurnPlayer == last)
-            return true;
-        else return false;
+        return currentTurnPlayer == last;
     }
 
     /**

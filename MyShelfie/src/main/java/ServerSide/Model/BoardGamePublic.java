@@ -2,15 +2,15 @@ package ServerSide.Model;
 
 import java.util.ArrayList;
 
-public class BoardGame {
-    private static BoardGame instance;
+public class BoardGamePublic {
+    private static BoardGamePublic instance;
     private BoardCell[][] board = new BoardCell[9][9];
     private int emptyCells;
 
     /**
      * constructor of a singleton boardgame
      */
-    private BoardGame(int nPlayers){
+    public BoardGamePublic(int nPlayers){
         int[][] outofgame;
 
         if(nPlayers == 2) {
@@ -67,7 +67,7 @@ public class BoardGame {
     /**
      * Overview: function called by the constructor of the class to initialize the board
      */
-    private boolean isInGroup(int i, int j, int[][] group){
+    public boolean isInGroup(int i, int j, int[][] group){
         for(int[] pair: group){
             if(i == pair[0] && j == pair[1]){
                 return true;
@@ -79,9 +79,9 @@ public class BoardGame {
     /**
      * Overview: This method should check whether an instance of the class has been created and return it if it exists, or create a new instance if it does not exist (it's a singleton)
      */
-    public static BoardGame getInstance(int nPlayers){
+    public static BoardGamePublic getInstance(int nPlayers){
         if(instance == null){
-            instance = new BoardGame(nPlayers);
+            instance = new BoardGamePublic(nPlayers);
         }
         return instance;
     }
@@ -99,7 +99,7 @@ public class BoardGame {
         int z=0;
         for(int i=0; i<board[0].length; i++){
             for(int j=0; j<board.length; j++){
-                if(board[i][j].getTile() == null && board[i][j].getStatus() == Status.IN){
+                if(board[i][j].getTile() == null && board[i][j].getStatus()== Status.IN){
                     board[i][j].setTile(tiles.get(z));
                     z++;
                 }

@@ -245,9 +245,6 @@ public class ClientManager extends Thread{
                 objectWriter.writeObject(new PingMessage("ping", "user0"));
                 objectWriter.flush();
                 break;
-
-
-
         }
     }
 

@@ -130,7 +130,14 @@ public class GameGUI {
         // forming the order
         showMessage("Look at the indexes of the selected tiles and insert once at a time the order of tiles to fill the column!");
         for(int j = 0; j< nTiles; j++){
-            int x = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the "+j+"-th index", "Enter an index", JOptionPane.QUESTION_MESSAGE));
+            Boolean flag = false;
+            int x = -1;
+            do{
+                try{
+                    x = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the "+j+"-th index", "Enter an index", JOptionPane.QUESTION_MESSAGE));
+                    flag = true;
+                } catch (NumberFormatException e){}
+            } while (!flag);
             this.order[j] = x;
         }
 
@@ -142,6 +149,14 @@ public class GameGUI {
 
         // notify the client
         notifyAll();
+    }
+
+    /**
+     * Overview: method aimed to print in the textarea the result of the game
+     */
+    public void endgame(StringBuffer output){
+        textArea.setText("");
+        textArea.append(output.toString().replaceAll("\n", System.lineSeparator()));
     }
 
     /**
@@ -185,7 +200,14 @@ public class GameGUI {
         bgLabel.add(textArea);
 
         // ask the client how many tiles he's wondering to pick
-        this.nTiles = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "How many tiles do you want to pick?", "Enter number of tiles", JOptionPane.QUESTION_MESSAGE));
+        Boolean flag = false;
+        do {
+            try {
+                this.nTiles = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "How many tiles do you want to pick?", "Enter number of tiles", JOptionPane.QUESTION_MESSAGE));
+                flag = true;
+            } catch (NumberFormatException e) {}
+        } while (!flag);
+
         showMessage("Let's click on tile to select it!");
         this.totake = new int[nTiles*2];
         // doing for synchronization with clientManagerGUI
@@ -241,6 +263,27 @@ public class GameGUI {
         bgLabel.add(boardLabel);
 
         boardTable.revalidate();
+        bgLabel.revalidate();
+    }
+
+    /**
+     * Overview: method aimed to update the scoring token of the i-th common goal
+     */
+    public void UpdateToken(int points, int common){
+        ImageIcon tokenimage = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+points+".jpg");
+        Image scaledtoken = tokenimage.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
+        ImageIcon resizedImage = new ImageIcon(scaledtoken);
+        switch(common){
+            case 1:
+                token1Label.setIcon(resizedImage);
+                token1Label.revalidate();
+                break;
+            case 2:
+                token2Label.setIcon(resizedImage);
+                token2Label.revalidate();
+                break;
+        }
+         bgLabel.revalidate();
     }
 
     /**

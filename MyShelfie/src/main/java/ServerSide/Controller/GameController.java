@@ -108,6 +108,8 @@ public class GameController implements GameVViewObserver {
     public void callTurn(){
         if(checkPickables(model.getBoard()) == 0){
             restoreBoard();
+            // vedere se crea problemi (?)
+            checkPickables(model.getBoard());
             model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerBoardRestored(model.getBoard().getBoard());
         }
         // take the reference of the current turn player
@@ -167,9 +169,6 @@ public class GameController implements GameVViewObserver {
                 if (boardGame.getBoard()[i][j].getStatus() == Status.IN && boardGame.getBoard()[i][j].getTile() != null) {
 
                     Boolean changed = false;
-                    //una cell non è pickable se tutte le adiacenti sono null
-                    // o tutte le adiacenti sono piene, si altrimenti
-
                     if (boardGame.getTile(i - 1, j) == null &&
                             boardGame.getTile(i + 1, j) == null &&
                             boardGame.getTile(i, j + 1) == null &&

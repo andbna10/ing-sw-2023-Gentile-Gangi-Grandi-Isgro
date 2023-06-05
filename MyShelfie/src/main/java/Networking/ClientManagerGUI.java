@@ -89,7 +89,9 @@ public class ClientManagerGUI extends Thread{
                     new ReconnectCLI(new ReconnectHandler(this)).procedure();
                 } else { //ordinary procedure case
                     //calls the login CLI
-                    // new LogInCLI(loginHandler).loginprocedure(); DA SOSTITUIRE CON LA GUI VERSIONOE
+                    // new LogInCLI(loginHandler).loginprocedure(); DA SOSTITUIRE CON LA GUI VERSION
+                    // da controllare se va bene
+                    //loginHandler.runLoginGui();
                 }
                 break;
 
@@ -153,7 +155,6 @@ public class ClientManagerGUI extends Thread{
             case OWNERCANSTARTGAME:
                 OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
                 lobbyhandler.getGui().buttonClickable(ownercanstartgamemessage.getId());
-                //lobbyhandler.getCli().ownercanstart();
                 break;
 
             case YOURTURN:
@@ -201,44 +202,51 @@ public class ClientManagerGUI extends Thread{
             // beeing notified about the end of a turn
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
-                //gamehandler.getGui().showMessage(endturnmessage.getMessage());
                 gamehandler.getGui().updateBoard(endturnmessage.board());
                 break;
 
             case REPEATTURN:
                 RepeatTurnMessage repeatturnmessage = (RepeatTurnMessage) message;
-                /*genericCLI.printMessage(repeatturnmessage.getMessage());
-                playerhandler.getCli().yourTurn(null);
-                TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
-                sendMessage(messageToTake);*/
+                gamehandler.getGui().showMessage(repeatturnmessage.getMessage());
+                // player called to perform a move
+                gamehandler.getGui().performTurn();
+                synchronized (gamehandler.getGui()){
+                    if(gamehandler.getGui().getTotake()[0] == -1 && gamehandler.getGui().getOrder()[0] == -1 && gamehandler.getGui().getColumn() == -1){
+                        try{
+                            gamehandler.getGui().wait();
+                        } catch (InterruptedException e){};
+                    }
+                }
+                TilesToTakeMessage messageToTake = new TilesToTakeMessage(gamehandler.getGui().getTotake(), gamehandler.getGui().getOrder(), gamehandler.getGui().getColumn(), "prova");
+                sendMessage(messageToTake);
                 break;
 
             case BOARDRESTORED:
                 BoardRestoredMessage boardrestoredmessage = (BoardRestoredMessage) message;
-                /*genericCLI.printMessage(boardrestoredmessage.getMessage());
-                gamehandler.getCli().printBoard(boardrestoredmessage.getBoard());*/
+                gamehandler.getGui().showMessage(boardrestoredmessage.getMessage());
+                gamehandler.getGui().updateBoard(boardrestoredmessage.getBoard());
                 break;
 
             case NOTIFYCHECKCOMMON:
                 NotifyCheckCommonMessage notifycheckcommonmessage = (NotifyCheckCommonMessage) message;
-                //genericCLI.printMessage(notifycheckcommonmessage.getMessage());
-                //notifycheckcommonmessage.getNewTokenPoints() -> is used to retrieve the new points to show for the token of the accomplished commongoal
+                gamehandler.getGui().showMessage(notifycheckcommonmessage.getMessage());
+                gamehandler.getGui().UpdateToken(notifycheckcommonmessage.getNewTokenPoints(), notifycheckcommonmessage.getCommon());
                 break;
 
             case LASTTURNTRIGGERED:
                 LastTurnTriggeredMessage lastturntriggeredmessage = (LastTurnTriggeredMessage) message;
-                //genericCLI.printMessage(lastturntriggeredmessage.getMessage());
+                gamehandler.getGui().showMessage(lastturntriggeredmessage.getMessage());
                 break;
 
             case ENDGAME:
                 EndGameMessage endgamemessage = (EndGameMessage) message;
-                /*genericCLI.printOutputEndGame(endgamemessage.getOutput());
-                genericCLI.printMessage(endgamemessage.getMessage());*/
+                gamehandler.getGui().endgame(endgamemessage.getOutput());
+                gamehandler.getGui().showMessage(endgamemessage.getMessage());
                 break;
 
             case LOBBYSIZECHANGED:
                 LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;
-                //genericCLI.printMessage(lobbychangedmessage.getMessage());
+                gamehandler.getGui().showMessage(lobbychangedmessage.getMessage());
                 break;
 
             // heartbeat procedure

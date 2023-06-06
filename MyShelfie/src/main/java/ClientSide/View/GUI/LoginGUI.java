@@ -177,7 +177,6 @@ public class LoginGUI {
         String number;
         int n = 0;
         boolean nullInput = false;
-
         do {
 
             number = JOptionPane.showInputDialog(loginFrame, message, "Insert number", JOptionPane.QUESTION_MESSAGE);
@@ -187,7 +186,11 @@ public class LoginGUI {
                 break;
             }
 
-            n = Integer.parseInt(number);
+            try {
+                n = Integer.parseInt(number);
+            } catch (NumberFormatException e){
+                nullInput = true;
+            }
 
         } while(n<2 || n>4);
 

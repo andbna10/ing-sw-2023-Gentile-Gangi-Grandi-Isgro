@@ -191,6 +191,9 @@ public class GameGUI {
      * Overview: method aimed to let the client perform a move
      */
     public void performTurn(){
+        boardLabel.revalidate();
+        bgLabel.revalidate();
+
         this.taken = 0;
         this.index = 0;
         textArea.setText("");

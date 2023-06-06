@@ -226,6 +226,7 @@ public class GameGUI {
      * Overview: your turn message update
      */
     public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
+        boardLabel.revalidate();
         String[] bookshelfcolumn = new String[6];
         for (int column = 0; column < 5; column++) {
             for(int j=0; j<6 ; j++){

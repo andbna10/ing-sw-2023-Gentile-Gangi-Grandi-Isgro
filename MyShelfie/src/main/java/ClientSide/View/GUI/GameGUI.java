@@ -130,20 +130,19 @@ public class GameGUI {
         // forming the order
         showMessage("Look at the indexes of the selected tiles and insert once at a time the order of tiles to fill the column!");
         for(int j = 0; j< nTiles; j++){
-            Boolean flag = false;
             int x = -1;
             do{
                 try{
                     x = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the "+j+"-th index", "Enter an index", JOptionPane.QUESTION_MESSAGE));
-                    flag = true;
                 } catch (NumberFormatException e){}
-            } while (!flag);
-            this.order[j] = x;
+                this.order[j] = x;
+            } while ((x < 0 || x >= nTiles) || (j!=0 && this.order[j]==this.order[j-1]));
         }
 
         // asking for the column
-        this.column = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the index of the column (from 0 to 4)", "Enter the column index", JOptionPane.QUESTION_MESSAGE));
-
+        do{
+            this.column = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the index of the column (from 0 to 4)", "Enter the column index", JOptionPane.QUESTION_MESSAGE));
+        } while(this.column < 0 || this.column >= 5);
         // remove listeners
         removeListeners();
 
@@ -203,13 +202,11 @@ public class GameGUI {
         bgLabel.add(textArea);
 
         // ask the client how many tiles he's wondering to pick
-        Boolean flag = false;
         do {
             try {
                 this.nTiles = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "How many tiles do you want to pick?", "Enter number of tiles", JOptionPane.QUESTION_MESSAGE));
-                flag = true;
             } catch (NumberFormatException e) {}
-        } while (!flag);
+        } while (this.nTiles<1 || this.nTiles>3);
 
         showMessage("Let's click on tile to select it!");
         this.totake = new int[nTiles*2];
@@ -277,15 +274,15 @@ public class GameGUI {
         ImageIcon tokenimage = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+points+".jpg");
         Image scaledtoken = tokenimage.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
         ImageIcon resizedImage = new ImageIcon(scaledtoken);
-        switch(common){
-            case 1:
+        switch (common) {
+            case 1 -> {
                 token1Label.setIcon(resizedImage);
                 token1Label.revalidate();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 token2Label.setIcon(resizedImage);
                 token2Label.revalidate();
-                break;
+            }
         }
          bgLabel.revalidate();
     }

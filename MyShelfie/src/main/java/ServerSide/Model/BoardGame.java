@@ -86,6 +86,11 @@ public class BoardGame {
         return instance;
     }
 
+    /**
+     * Overview: method aimed to close the board
+     */
+    public static void setInstanceNull(){ instance = null; }
+
     // to change if we want a terminal representation of the matrix
     /**
      * Overview: board getter

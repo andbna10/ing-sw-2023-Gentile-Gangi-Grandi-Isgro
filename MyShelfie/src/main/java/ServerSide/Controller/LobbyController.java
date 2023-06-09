@@ -33,7 +33,7 @@ public class LobbyController implements LobbyVViewObserver {
                     added = true;
                     virtualview.setManager(player.getManager());
                     Thread.sleep(1000);
-                    model.notifyObserverPlayerAdded(model.getId());
+                    model.notifyObserverPlayerAdded(model.getId(), false);
                     // here we ask the owner of the lobby for the length of the lobby itself
                     Thread.sleep(1000);
                     player.getObs().createasknplayersmessage();
@@ -42,7 +42,7 @@ public class LobbyController implements LobbyVViewObserver {
             if(!added) {
                 model.setPlayer(player);
                 virtualview.setManager(player.getManager());
-                model.notifyObserverPlayerAdded(model.getId());
+                model.notifyObserverPlayerAdded(model.getId(), false);
             }
 
             if(model.getId() == "random"){

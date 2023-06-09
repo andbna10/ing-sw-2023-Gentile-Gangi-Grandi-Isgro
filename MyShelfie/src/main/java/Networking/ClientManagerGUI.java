@@ -119,6 +119,12 @@ public class ClientManagerGUI extends Thread{
                     if(!message.getLast())
                         this.lobbyhandler.addPlayer(createlobbyviewmessage.getUsernames().get(createlobbyviewmessage.getUsernames().size() - 1));
                 }
+
+                if(createlobbyviewmessage.getFromEnd()){
+                    gamehandler.getGui().close();
+                    lobbyhandler.runLobbyGUI();
+                }
+
                 lobbyhandler.getGui().updateTextArea(createlobbyviewmessage.getId(), createlobbyviewmessage.getUsernames(), createlobbyviewmessage.getOwner());
                 break;
 
@@ -241,7 +247,11 @@ public class ClientManagerGUI extends Thread{
             case ENDGAME:
                 EndGameMessage endgamemessage = (EndGameMessage) message;
                 gamehandler.getGui().endgame(endgamemessage.getOutput());
-                gamehandler.getGui().showMessage(endgamemessage.getMessage());
+                if(endgamemessage.getIsOwner()){
+                    gamehandler.getGui().backToTheLobby(endgamemessage.getMessage());
+                } else {
+                    gamehandler.getGui().showMessage(endgamemessage.getMessage());
+                }
                 break;
 
             case LOBBYSIZECHANGED:

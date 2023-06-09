@@ -10,16 +10,18 @@ public class CreatelobbyViewMessage extends Message {
     private ArrayList<String> usernames;
     private String id;
     private String owner;
+    private Boolean fromEnd;
 
     /**
      * Overview: constructor CreatelobbyViewMessage
      */
-    public CreatelobbyViewMessage(String[] usernames, String id, String owner){
+    public CreatelobbyViewMessage(String[] usernames, String id, String owner, Boolean fromEndStatus){
         super(null);
         super.setType(MessageType.CREATELOBBYVIEW);
         this.owner = owner;
         this.usernames = new ArrayList<>();
         this.id = id;
+        this.fromEnd = fromEndStatus;
         for(int i=0; i<usernames.length;i++){
             this.usernames.add(usernames[i]);
         }
@@ -39,4 +41,9 @@ public class CreatelobbyViewMessage extends Message {
      * Overview: owner getter
      */
     public String getOwner(){ return this.owner; }
+
+    /**
+     * Overview: fromEnd getter
+     */
+    public Boolean getFromEnd(){ return this.fromEnd; }
 }

@@ -48,8 +48,8 @@ public class VirtualLobbyView implements LobbyObserver{
     /**
      * Overview: method aimed to create a CreateLobbyViewMessage
      */
-    public void updatelobbyviewmessage(String[] usernames, String id, String owner){
-        CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames, id, owner);
+    public void updatelobbyviewmessage(String[] usernames, String id, String owner, Boolean fromEndStatus){
+        CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames, id, owner, fromEndStatus);
         for(ServerManager manager: this.managers) {
             manager.sendMessage(message);
         }

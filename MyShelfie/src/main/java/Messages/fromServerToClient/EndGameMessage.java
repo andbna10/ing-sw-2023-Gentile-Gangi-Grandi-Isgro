@@ -11,14 +11,16 @@ public class EndGameMessage extends Message {
     boolean discon;
     private String message;
     private StringBuffer output;
+    private Boolean isOwner;
 
     /**
      * Overview: EndGameMessage constructor
      */
-    public EndGameMessage(String winner, ArrayList<Player> players, boolean discon){
+    public EndGameMessage(String winner, ArrayList<Player> players, boolean discon, Boolean isOwner){
         super(null);
         super.setType(MessageType.ENDGAME);
         this.discon = discon;
+        this.isOwner = isOwner;
         output = print(players);
         message = "\nThe winner is "+winner;
     }
@@ -47,6 +49,10 @@ public class EndGameMessage extends Message {
     /**
      * Overview: discon state getter
      */
-
     public boolean getDiscon(){ return this.discon; }
+
+    /**
+     * Overview: isOwner getter
+     */
+    public Boolean getIsOwner(){ return this.isOwner; }
 }

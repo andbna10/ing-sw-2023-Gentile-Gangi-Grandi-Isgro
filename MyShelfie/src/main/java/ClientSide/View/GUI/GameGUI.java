@@ -119,6 +119,17 @@ public class GameGUI {
     }
 
     /**
+     * Overview: method to end the game and back to the lobby
+     */
+    public void backToTheLobby(String message){
+        int option = JOptionPane.showOptionDialog(null, message, "End of the game", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Back to the lobby"}, "Back to the lobby");
+
+        if(option == 0){
+            handler.createBackToTheLobbyMessage();
+        }
+    }
+
+    /**
      * Overview: method aimed to remove event listeners
      */
     public void removeListeners(){ boardTable.removeMouseListener(listener); }
@@ -141,8 +152,11 @@ public class GameGUI {
 
         // asking for the column
         do{
-            this.column = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the index of the column (from 0 to 4)", "Enter the column index", JOptionPane.QUESTION_MESSAGE));
+            try {
+                this.column = Integer.parseInt(JOptionPane.showInputDialog(gameFrame, "Enter the index of the column (from 0 to 4)", "Enter the column index", JOptionPane.QUESTION_MESSAGE));
+            } catch (NumberFormatException e){}
         } while(this.column < 0 || this.column >= 5);
+
         // remove listeners
         removeListeners();
 
@@ -190,11 +204,9 @@ public class GameGUI {
      * Overview: method aimed to let the client perform a move
      */
     public void performTurn(){
-        /*boardLabel.revalidate();
-        bgLabel.revalidate();*/
-
         this.taken = 0;
         this.index = 0;
+        this.nTiles = 0;
         textArea.setText("");
 
         //show a text with coordinates of a clicked cell
@@ -226,7 +238,6 @@ public class GameGUI {
      * Overview: your turn message update
      */
     public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
-        boardLabel.revalidate();
         String[] bookshelfcolumn = new String[6];
         for (int column = 0; column < 5; column++) {
             for(int j=0; j<6 ; j++){
@@ -239,6 +250,14 @@ public class GameGUI {
         shelfTables.get(i).revalidate();
         shelfTables.get(i).repaint();
         bgLabel.revalidate();
+    }
+
+    /**
+     * Overview: method aimed to close the frame
+     */
+    public void close(){
+        gameFrame.setVisible(false);
+        gameFrame.dispose();
     }
 
     /**
@@ -263,7 +282,8 @@ public class GameGUI {
         bgLabel.add(boardTable);
         bgLabel.add(boardLabel);
 
-        boardTable.revalidate();
+        boardLabel.revalidate();
+        boardLabel.repaint();
         bgLabel.revalidate();
     }
 

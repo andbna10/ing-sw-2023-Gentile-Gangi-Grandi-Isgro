@@ -2,6 +2,7 @@ package ClientSide.NetworkHandler;
 
 import ClientSide.View.CLI.GameCLI;
 import ClientSide.View.GUI.GameGUI;
+import Messages.fromClientToServer.BackToTheLobbyMessage;
 import Networking.ClientManager;
 import Networking.ClientManagerGUI;
 
@@ -46,7 +47,18 @@ public class GameHandler implements GameViewObserver{
         return gui;
     }
 
+    /**
+     * Overview: method aimed to run the GameGui
+     */
     public void runGameGUI() throws IOException {
         this.gui = new GameGUI(this);
+    }
+
+    /**
+     * Overview: method aimed to
+     */
+    public void createBackToTheLobbyMessage(){
+        BackToTheLobbyMessage message = new BackToTheLobbyMessage("prova");
+        managergui.sendMessage(message);
     }
 }

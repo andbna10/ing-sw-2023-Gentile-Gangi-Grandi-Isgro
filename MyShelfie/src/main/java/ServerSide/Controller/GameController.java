@@ -108,7 +108,7 @@ public class GameController implements GameVViewObserver {
     public void callTurn(){
         if(checkPickables(model.getBoard()) == 0){
             restoreBoard();
-            // vedere se crea problemi (?)
+            // vedere se crea problemi nella cli (?)
             checkPickables(model.getBoard());
             model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerBoardRestored(model.getBoard().getBoard());
         }
@@ -121,7 +121,6 @@ public class GameController implements GameVViewObserver {
     /**
      * Overview: end game
      */
-    // to be implemented (qui si deve vedere chi ha fatto piu punti)
     public void endGame(boolean discon, String id){
         int maxpoints=0;
         //calcolo punteggi
@@ -143,7 +142,7 @@ public class GameController implements GameVViewObserver {
 
         model.setEnded(true);
         lobbymanager.getLobby(id).getModel().setInGame(false);
-        virtualview.notifyEnd(model.getWinner(), model.getPlayers(), discon);
+        virtualview.notifyEnd(model.getWinner(), model.getPlayers(), discon, id);
     }
 
     @Override

@@ -7,5 +7,5 @@ public interface LobbyObserver {
     /**
      * Overview: Notify players of the lobby
      */
-    void updatelobbyviewmessage(String[] usernames, String id, String owner);
+    void updatelobbyviewmessage(String[] usernames, String id, String owner, Boolean fromEndStatus);
 }

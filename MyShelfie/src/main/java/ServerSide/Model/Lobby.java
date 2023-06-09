@@ -50,7 +50,7 @@ public class Lobby {
                     }
                 }
                 players.remove(p);
-                notifyObserverPlayerAdded(id);
+                notifyObserverPlayerAdded(id, false);
                 if(players.size() < 2){
                     setReadyToPlay(false);
                 } else {
@@ -87,7 +87,7 @@ public class Lobby {
     /**
      * Overview: the Observer of the Lobby is notified about the new player in the lobby
      */
-    public void notifyObserverPlayerAdded(String id){
+    public void notifyObserverPlayerAdded(String id, Boolean fromEndStatus){
         String[] usernames = getUsernames();
         String owner = null;
         for(Player p: players){
@@ -95,7 +95,7 @@ public class Lobby {
                 owner = p.getUsername();
             }
         }
-        this.obs.updatelobbyviewmessage(usernames, this.id, owner);
+        this.obs.updatelobbyviewmessage(usernames, this.id, owner, fromEndStatus);
     }
 
     /**

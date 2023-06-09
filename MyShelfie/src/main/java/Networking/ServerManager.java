@@ -237,7 +237,7 @@ public class ServerManager extends Thread{
                     } else {
                         LobbyChangedMessage toSend = new LobbyChangedMessage();
                         sendMessage(toSend);
-                        lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby());
+                        lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby(), false);
                     }
                 } else {
                     if(lobbyview.getObs().getModel().getPlayers().size()>1 && lobbyview.getObs().getModel().getPlayers().size()<4){
@@ -246,7 +246,7 @@ public class ServerManager extends Thread{
                     } else {
                         LobbyChangedMessage toSend = new LobbyChangedMessage();
                         sendMessage(toSend);
-                        lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby());
+                        lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby(), false);
                     }
                 }
                 break;
@@ -284,7 +284,7 @@ public class ServerManager extends Thread{
                                 gameview.getObs().endGame(false, lobbyview.getObs().getModel().getId());
 
                                 // bring players again in the lobby
-                                lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId());
+                                lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId(), false);
                                 // tell the owner a new game can start
                                 lobbyview.getObs().notifyOwner();
                             }
@@ -301,6 +301,15 @@ public class ServerManager extends Thread{
                 } else {
                     break;
                 }
+
+            case BACKTOTHELOBBY:
+                // GUI exclusive
+
+                // bring players again in the lobby
+                lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId(), true);
+                // tell the owner a new game can start
+                lobbyview.getObs().notifyOwner();
+                break;
 
             //heartbeat procedure
             case PING:

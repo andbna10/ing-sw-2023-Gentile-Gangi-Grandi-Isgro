@@ -143,6 +143,9 @@ public class GameController implements GameVViewObserver {
         model.setEnded(true);
         lobbymanager.getLobby(id).getModel().setInGame(false);
         BoardGame.setInstanceNull();
+        for(PlayerController p: players){
+            p.getModel().getBookshelf().emptyShelf();
+        }
         virtualview.notifyEnd(model.getWinner(), model.getPlayers(), discon, id);
     }
 

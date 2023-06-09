@@ -97,7 +97,7 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create a message to notify players that a common has been accomplished
      */
-    public void noitfyObserverCommon(int common, int newPoints, String username, ScoringToken token){
+    public void notifyObserverCommon(int common, int newPoints, String username, ScoringToken token){
         NotifyCheckCommonMessage message = new NotifyCheckCommonMessage(common, newPoints, username, token);
         for(ServerManager manager: this.managers){
             manager.sendMessage(message);
@@ -108,7 +108,7 @@ public class VirtualGameView implements GameObserver{
     /**
      * Overview: method aimed to create a message to notify players about the last turn triggered
      */
-    public void noitfyObserverLastTurn(String username){
+    public void notifyObserverLastTurn(String username){
         LastTurnTriggeredMessage message = new LastTurnTriggeredMessage(username);
         for(ServerManager manager: this.managers){
             manager.sendMessage(message);

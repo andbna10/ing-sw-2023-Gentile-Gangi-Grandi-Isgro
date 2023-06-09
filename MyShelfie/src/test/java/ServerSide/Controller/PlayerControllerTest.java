@@ -2,12 +2,16 @@ package ServerSide.Controller;
 
 import Networking.ServerManager;
 import ServerSide.Model.Bookshelf;
+import ServerSide.Model.CommonPattern.CommonPattern1;
+import ServerSide.Model.ItemTile;
 import ServerSide.Model.ItemType;
 import ServerSide.Model.PersonalPattern.PersonalPattern3;
 import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualPlayerView;
 import org.junit.jupiter.api.Test;
 
+import java.awt.print.Book;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Random;
 
@@ -106,6 +110,51 @@ class PlayerControllerTest {
         System.out.println(playerController.checkAdjacentTiles(shelf1));
         System.out.println(playerController.checkPersonalGoal(shelf1,pg));
 
+    }
+
+    @Test
+    void checkCommonGoalTest() throws InterruptedException {
+        var shelf = new Bookshelf();
+        var lobbyMan = new LobbyManager();
+        var gameController = new GameController("random", lobbyMan);
+        var playerController = new PlayerController(null, gameController, new VirtualPlayerView(null));
+        shelf.setTile(0,0,ItemType.PLANTS);
+        shelf.setTile(0,1,ItemType.PLANTS);
+        shelf.setTile(1,0,ItemType.PLANTS);
+        shelf.setTile(1,1,ItemType.PLANTS);
+
+
+        shelf.setTile(2,0,ItemType.FRAMES);
+        shelf.setTile(2,1,ItemType.FRAMES);
+        shelf.setTile(3,0,ItemType.FRAMES);
+        shelf.setTile(3,1,ItemType.FRAMES);
+
+        var common = new CommonPattern1();
+
+
+        playerController.checkCommonGoal(shelf, common, 1);
+
+    }
+
+
+    @Test
+    void feedColumnTest() throws InterruptedException {
+
+        var lobbyMan = new LobbyManager();
+        var gameController = new GameController("random", lobbyMan);
+        var player = new Player("simonemerdone", true,
+                "random", null);
+        var playerController = new PlayerController(player, gameController, new VirtualPlayerView(null));
+        ArrayList<ItemTile> tiles = new ArrayList<>();
+        tiles.add(new ItemTile(ItemType.CATS));
+        tiles.add(new ItemTile(ItemType.TROPHIES));
+        tiles.add(new ItemTile(ItemType.GAMES));
+
+        playerController.feedColumn(1, tiles);
+
+        assertEquals(player.getBookshelf().getTile(5,1), tiles.get(0));
+        assertEquals(player.getBookshelf().getTile(4,1), tiles.get(1));
+        assertEquals(player.getBookshelf().getTile(3,1), tiles.get(2));
 
     }
 

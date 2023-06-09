@@ -18,12 +18,12 @@ public class LobbyController implements LobbyVViewObserver {
         this.virtualview.setLobbyViewObserver(this);
     }
 
-    @Override
     /**
      * Overview: add a player in the lobby
      */
+    @Override
     public void addPlayer(Player player) throws InterruptedException {
-        Boolean added = false;
+        boolean added = false;
         // verficare anche che i giocatori della lobby non siano in partita prima di aggiungere un altro giocatore
         if(model.getPlayers().size() < 4){
             if(model.getId() == "random"){
@@ -65,10 +65,10 @@ public class LobbyController implements LobbyVViewObserver {
         }
     }
 
-    @Override
     /**
      * Overview: notify owner game can start
      */
+    @Override
     public void notifyOwner(){
         for(Player client: model.getPlayers()){
             if(client.getLobby().get(model.getId())){
@@ -78,10 +78,10 @@ public class LobbyController implements LobbyVViewObserver {
     }
 
 
-    @Override
     /**
      * Overview: modify the fixed number of players for the random lobby
      */
+    @Override
     public void modifyfixednplayers(int n){
         model.setFixedNPlayers(n);
     }
@@ -93,10 +93,10 @@ public class LobbyController implements LobbyVViewObserver {
      */
     public VirtualLobbyView getVirtualView(){ return this.virtualview; }
 
-    @Override
     /**
      * Overview: model getter
      */
+    @Override
     public Lobby getModel(){ return this.model; }
 
 

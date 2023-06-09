@@ -77,15 +77,15 @@ public class Game {
     /**
      * Overview: method aimed to notify players that a common has been accomplished
      */
-    public void noitfyObserverCommon(int common, int newPoints, String username){
-        obs.noitfyObserverCommon(common, newPoints, username, commonGoals.get(common-1).getElementStack(commonGoals.get(common-1).getStack().size()-1));
+    public void notifyObserverCommon(int common, int newPoints, String username){
+        obs.notifyObserverCommon(common, newPoints, username, commonGoals.get(common-1).getElementStack(commonGoals.get(common-1).getStack().size()-1));
     }
 
     /**
      * Overview: method aimed to notify the last turn triggered
      */
-    public void noitfyObserverLastTurn(String username){
-        obs.noitfyObserverLastTurn(username);
+    public void notifyObserverLastTurn(String username){
+        obs.notifyObserverLastTurn(username);
     }
 
 

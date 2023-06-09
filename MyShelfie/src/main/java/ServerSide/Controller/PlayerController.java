@@ -150,23 +150,23 @@ public class PlayerController implements PlayerVViewObserver {
         fixAndPlace(order,column);
     }
 
-    @Override
     /**
      * Overview: method aimed to check the goals and the fullness of the bookshelf
      */
+    @Override
     public void check(ArrayList<CommonGoalCard> commongoals, String id){
         int i = 1;
         // common
         for(CommonGoalCard common : commongoals){
             int newPoints = checkCommonGoal(model.getBookshelf(), common, i);
-            if( newPoints > 0){
+            if(newPoints > 0){
                 model.addPoints(newPoints);
                 if(i == 1){
                     model.getBookshelf().setCommonOne(true);
                 } else {
                     model.getBookshelf().setCommonTwo(true);
                 }
-                game.getModel().noitfyObserverCommon(i, newPoints, model.getUsername());
+                game.getModel().notifyObserverCommon(i, newPoints, model.getUsername());
             }
             i++;
         }
@@ -175,7 +175,7 @@ public class PlayerController implements PlayerVViewObserver {
         if(model.getBookshelf().bookshelfIsFull()){
             if(!game.getModel().getIsLastTurnStarted()){
                 model.addPoints(1);
-                game.getModel().noitfyObserverLastTurn(model.getUsername());
+                game.getModel().notifyObserverLastTurn(model.getUsername());
                 if (game.getModel().getCurrentTurnPlayer() == game.getModel().getOrder(game.getModel().getPlayers().size()-1)){
                     game.endGame(false, id);
                 } else {

@@ -101,10 +101,10 @@ public class GameController implements GameVViewObserver {
         callTurn();
     }
 
-    @Override
     /**
      * Overview: method aimed to call a player to move
      */
+    @Override
     public void callTurn(){
         if(checkPickables(model.getBoard()) == 0){
             restoreBoard();
@@ -117,10 +117,10 @@ public class GameController implements GameVViewObserver {
         model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerTurn(model.getBoard().getBoard(), model.getPlayersBookshelf(player), model.getPlayersUsernames(player));
     }
 
-    @Override
     /**
      * Overview: end game
      */
+    @Override
     public void endGame(boolean discon, String id){
         int maxpoints=0;
         //calcolo punteggi
@@ -149,10 +149,10 @@ public class GameController implements GameVViewObserver {
         virtualview.notifyEnd(model.getWinner(), model.getPlayers(), discon, id);
     }
 
-    @Override
     /**
      * Overview: model getter
      */
+    @Override
     public Game getModel(){ return model; }
 
     /**
@@ -160,11 +160,11 @@ public class GameController implements GameVViewObserver {
      */
     public VirtualGameView getVirtualView(){ return this.virtualview; }
 
-    @Override
     /**
      * Overview: check whether boardcell can be picked,
      *  to be called at startgame and on every endturn (a cell can't turn pickable during player's turn )
      */
+    @Override
     public int checkPickables (BoardGame boardGame) {
         int numPickables = 0;
         for (int i = 1; i < 8; i++) {
@@ -196,11 +196,11 @@ public class GameController implements GameVViewObserver {
         return numPickables;
     }
 
-    @Override
     /**
      * Overview: method aimed to verify turn played
      */
     // probabilmente come picked è meglio passargli quelle ordinate
+    @Override
     public int verifyTurn(int[] picked, int column, ServerManager manager){
 
         // check pickables

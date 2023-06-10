@@ -207,7 +207,7 @@ public class ServerManager extends Thread{
                     //random match
                     if(entergamemessage.getId().equals("random")){
                         if(lobbymanager.getLobby("random").getModel().getReadyToPlay()){
-                            System.out.println("A random match is already running, please try again later!");
+                            //System.out.println("A random match is already running, please try again later!");
                             AccessDeniedMessage accessdeniedmessage = new AccessDeniedMessage(1);
                             sendMessage(accessdeniedmessage);
 

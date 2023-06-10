@@ -78,7 +78,7 @@ public class Game {
      * Overview: method aimed to notify players that a common has been accomplished
      */
     public void notifyObserverCommon(int common, int newPoints, String username){
-        obs.notifyObserverCommon(common, newPoints, username, commonGoals.get(common-1).getElementStack(commonGoals.get(common-1).getStack().size()-1));
+        obs.notifyObserverCommon(common, newPoints, username, commonGoals.get(common-1).getStack().get(commonGoals.get(common-1).getStack().size()-1));
     }
 
     /**

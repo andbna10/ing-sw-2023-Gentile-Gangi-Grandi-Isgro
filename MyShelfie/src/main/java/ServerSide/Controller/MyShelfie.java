@@ -25,7 +25,7 @@ public class MyShelfie {
         }
 
         // initialize the scoring tokens
-        for(int i=2; i<=8; i+=2){
+        for(int i=0; i<=8; i+=2){
             scoringTokens.add(new ScoringToken(Roman.I, i));
 
             scoringTokens.add(new ScoringToken(Roman.II, i));
@@ -118,13 +118,13 @@ public class MyShelfie {
         ArrayList<ScoringToken> output = new ArrayList<>();
         if(nPlayers == 2){
             for (ScoringToken scoringToken : scoringTokens) {
-                if (scoringToken.getPoints() == 4 || scoringToken.getPoints() == 8) {
+                if (scoringToken.getPoints() == 4 || scoringToken.getPoints() == 8 || scoringToken.getPoints() == 0) {
                     output.add(scoringToken);
                 }
             }
         } else if (nPlayers == 3){
             for (ScoringToken scoringToken : scoringTokens) {
-                if (scoringToken.getPoints() == 4 || scoringToken.getPoints() == 8 || scoringToken.getPoints() == 6) {
+                if (scoringToken.getPoints() == 4 || scoringToken.getPoints() == 8 || scoringToken.getPoints() == 6 || scoringToken.getPoints() == 0) {
                     output.add(scoringToken);
                 }
             }

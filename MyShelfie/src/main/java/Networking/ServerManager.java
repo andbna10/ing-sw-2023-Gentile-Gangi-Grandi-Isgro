@@ -208,7 +208,8 @@ public class ServerManager extends Thread{
                     if(entergamemessage.getId().equals("random")){
                         if(lobbymanager.getLobby("random").getModel().getReadyToPlay()){
                             System.out.println("A random match is already running, please try again later!");
-                            // qui probabilmente si passa la cli.
+                            AccessDeniedMessage accessdeniedmessage = new AccessDeniedMessage(1);
+                            sendMessage(accessdeniedmessage);
 
                         } else {
                             this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();

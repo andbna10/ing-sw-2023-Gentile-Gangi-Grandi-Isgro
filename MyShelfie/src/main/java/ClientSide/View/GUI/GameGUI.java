@@ -25,6 +25,7 @@ public class GameGUI {
     private JTable boardTable = new JTable(9,9);
     private ArrayList<JTable> shelfTables;
     private ArrayList<JLabel> shelfLabels;
+    private ArrayList<JTextField> shelfTexts;
     private JLabel boardLabel;
     private JLabel PersonalLabel;
     private JLabel Common1Label;
@@ -55,6 +56,7 @@ public class GameGUI {
         textArea.setFont(textArea.getFont().deriveFont(15f));
         this.shelfTables = new ArrayList<>();
         this.shelfLabels = new ArrayList<>();
+        this.shelfTexts = new ArrayList<>();
         this.handler=gameHandler;
 
         // initialization of the frame
@@ -64,6 +66,7 @@ public class GameGUI {
         // initialization of gbLabel
         ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
         bgLabel = new JLabel(bg);
+        bgLabel.add(textArea);
 
         // initialization of Title
         ImageIcon gameIcon = new ImageIcon("MyShelfie/src/main/resources/Title 2000x2000px.png");
@@ -94,6 +97,9 @@ public class GameGUI {
         shelfTables.add(new JTable(6,5));
         shelfTables.get(0).setBounds(770 + xgap, 30 + ygap, bookshelfsize+10, bookshelfsize+10);
         shelfTables.get(0).setRowHeight(7*6);
+        shelfTexts.add(new JTextField());
+        shelfTexts.get(0).setBounds(875, 340, 100, 50);
+        bgLabel.add(shelfTexts.get(0));
         //set column width
         for (int i = 0; i < shelfTables.get(0).getColumnCount(); i++) {
             shelfTables.get(0).getColumnModel().getColumn(i).setMaxWidth(10*5);
@@ -210,7 +216,7 @@ public class GameGUI {
         textArea.setText("");
 
         //show a text with coordinates of a clicked cell
-        textArea.setBounds(640,650,300,150);
+        textArea.setBounds(250,790,379,162);
         bgLabel.add(textArea);
 
         // ask the client how many tiles he's wondering to pick
@@ -244,7 +250,7 @@ public class GameGUI {
                 bookshelfcolumn[j]=bookshelf[j][column];
             }
             shelfTables.get(i).getColumnModel().getColumn(column).setCellRenderer(new ImageBookshelfCellRenderer(bookshelfcolumn,column));
-            // gestisci l'username
+            shelfTexts.get(i).setText(username);
         }
 
         shelfTables.get(i).revalidate();
@@ -330,9 +336,9 @@ public class GameGUI {
         Image scaledtoken2 = token2image.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
 
         token1Label = new JLabel(new ImageIcon(scaledtoken1));
-        token1Label.setBounds(335,700, 90, 90);
+        token1Label.setBounds(335,670, 90, 90);
         token2Label = new JLabel(new ImageIcon(scaledtoken2));
-        token2Label.setBounds(535,700, 90, 90);
+        token2Label.setBounds(535,670, 90, 90);
 
         bgLabel.add(token1Label);
         bgLabel.add(token2Label);
@@ -344,9 +350,9 @@ public class GameGUI {
         Image scaledcommon2 = Common2.getImage().getScaledInstance(180,119, Image.SCALE_SMOOTH);
 
         Common1Label = new JLabel(new ImageIcon(scaledcommon1));
-        Common1Label.setBounds(240, 650, 200, 200);
+        Common1Label.setBounds(240, 608, 200, 200);
         Common2Label = new JLabel(new ImageIcon(scaledcommon2));
-        Common2Label.setBounds(440, 650, 200, 200);
+        Common2Label.setBounds(440, 608, 200, 200);
 
         bgLabel.add(Common1Label);
         bgLabel.add(Common2Label);
@@ -361,6 +367,8 @@ public class GameGUI {
         shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
         shelfLabels.get(1).setBounds(1090,30,bookshelfsize,bookshelfsize);
         shelfTables.add(new JTable(6,5));
+        shelfTexts.add(new JTextField());
+        shelfTexts.get(1).setBounds(1195, 340, 100, 50);
         shelfTables.get(1).setBounds(1090+xgap, 30+ygap, bookshelfsize+10, bookshelfsize+10);
         shelfTables.get(1).setRowHeight(7*6);
         //set column width
@@ -374,12 +382,15 @@ public class GameGUI {
 
         bgLabel.add(shelfLabels.get(1));
         bgLabel.add(shelfTables.get(1));
+        bgLabel.add(shelfTexts.get(1));
 
         if(numPlayers>2) {
             shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
-            shelfLabels.get(2).setBounds(770, 350, bookshelfsize, bookshelfsize);
+            shelfLabels.get(2).setBounds(770, 450, bookshelfsize, bookshelfsize);
             shelfTables.add(new JTable(6,5));
-            shelfTables.get(2).setBounds(770 + xgap, 350 + ygap, bookshelfsize+10, bookshelfsize+10);
+            shelfTexts.add(new JTextField());
+            shelfTexts.get(2).setBounds(875, 760, 100, 50);
+            shelfTables.get(2).setBounds(770 + xgap, 450 + ygap, bookshelfsize+10, bookshelfsize+10);
             shelfTables.get(2).setRowHeight(7*6);
             //set column width
             for (int i = 0; i < shelfTables.get(2).getColumnCount(); i++) {
@@ -392,12 +403,15 @@ public class GameGUI {
 
             bgLabel.add(shelfLabels.get(2));
             bgLabel.add(shelfTables.get(2));
+            bgLabel.add(shelfTexts.get(2));
         }
         if(numPlayers>3) {
             shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
-            shelfLabels.get(3).setBounds(1090, 350, bookshelfsize, bookshelfsize);
+            shelfLabels.get(3).setBounds(1090, 450, bookshelfsize, bookshelfsize);
             shelfTables.add(new JTable(6,5));
-            shelfTables.get(3).setBounds(1090 + xgap, 350 + ygap, bookshelfsize+10, bookshelfsize+10);
+            shelfTexts.add(new JTextField());
+            shelfTexts.get(3).setBounds(1195, 760, 100, 50);
+            shelfTables.get(3).setBounds(1090 + xgap, 450 + ygap, bookshelfsize+10, bookshelfsize+10);
             shelfTables.get(3).setRowHeight(7*6);
             //set column width
             for (int i = 0; i < shelfTables.get(3).getColumnCount(); i++) {
@@ -410,6 +424,7 @@ public class GameGUI {
 
             bgLabel.add(shelfLabels.get(3));
             bgLabel.add(shelfTables.get(3));
+            bgLabel.add(shelfTexts.get(3));
         }
 
         // visibility on the frame

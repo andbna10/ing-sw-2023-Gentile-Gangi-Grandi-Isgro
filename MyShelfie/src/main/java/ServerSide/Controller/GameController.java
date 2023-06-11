@@ -167,6 +167,18 @@ public class GameController implements GameVViewObserver {
     @Override
     public int checkPickables (BoardGame boardGame) {
         int numPickables = 0;
+
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                if ( (i == 0 || i == 8) && (j == 0 || j == 8) &&
+                        boardGame.getBoard()[i][j].getStatus() == Status.IN &&
+                        boardGame.getBoard()[i][j].getTile() != null ) {
+
+                    boardGame.getBoard()[i][j].setPickable(true);
+                    numPickables++;
+                }
+
+
         for (int i = 1; i < 8; i++) {
             for (int j = 1; j < 8; j++) {
                 if (boardGame.getBoard()[i][j].getStatus() == Status.IN && boardGame.getBoard()[i][j].getTile() != null) {

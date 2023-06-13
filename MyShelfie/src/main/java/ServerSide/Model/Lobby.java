@@ -16,6 +16,8 @@ public class Lobby {
 
     /**
      * Overview: constructor of the lobby
+     * @author Andrea Isgrò
+     * @param id lobby id
      */
     public Lobby(String id){
         this.id = id;
@@ -35,6 +37,10 @@ public class Lobby {
 
     /**
      * Overview: remove a player with the index
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     * @param manager server manager reference
+     * @return (true) if the lobby has 0 players, (false) if the lobby still has more than 0 players
      */
     public Boolean removePlayer(ServerManager manager){
         boolean removedOwner = false;
@@ -122,7 +128,7 @@ public class Lobby {
     }
 
     /**
-     * Overview: method aimed to provide an ArrayList pf the VirtualPlayerView
+     * Overview: method aimed to provide an ArrayList of the VirtualPlayerView
      */
     public ArrayList<VirtualPlayerView> getPlayerViews(){
         ArrayList<VirtualPlayerView> list = new ArrayList<>();

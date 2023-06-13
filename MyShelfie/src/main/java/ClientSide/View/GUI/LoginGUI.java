@@ -14,8 +14,10 @@ public class LoginGUI {
 
     /**
      * Overview: LoginGUI constructor
+     * @author Francesco Gangi
+     * @author Andrea Isgrò
+     * @param handler Login Handler needed for network communication
      */
-
     public LoginGUI(LoginHandler handler) {
 
         this.handler = handler;
@@ -169,10 +171,23 @@ public class LoginGUI {
         loginFrame.pack();
     }
 
+
+    /**
+     * Overview: method for input validity check
+     * @author Francesco Gangi
+     * @param message warning message for invalid action
+     */
     public void validityCheck(String message) {
         JOptionPane.showMessageDialog(loginFrame, message, "Error!", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Overview: method for number insertion in login dialog
+     * @author Francesco Gangi
+     * @author Andrea Isgrò
+     * @param message question message for input request
+     * @return inserted number
+     */
     public int insertNumber(String message){
         String number;
         int n = 0;

@@ -11,6 +11,8 @@ public class LobbyController implements LobbyVViewObserver {
 
     /**
      * Overview: LobbyController constructor
+     * @author Andrea Isgrò
+     * @param id lobby id
      */
     public LobbyController(String id){
         this.model = new Lobby(id);
@@ -20,11 +22,15 @@ public class LobbyController implements LobbyVViewObserver {
 
     /**
      * Overview: add a player in the lobby
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     * @param player player to be added
+     * @throws InterruptedException if any thread has interrupted the current thread
      */
     @Override
     public void addPlayer(Player player) throws InterruptedException {
         boolean added = false;
-        // verficare anche che i giocatori della lobby non siano in partita prima di aggiungere un altro giocatore
+        // verificare anche che i giocatori della lobby non siano in partita prima di aggiungere un altro giocatore
         if(model.getPlayers().size() < 4){
             if(model.getId() == "random"){
                 if(model.getPlayers().size() == 0){

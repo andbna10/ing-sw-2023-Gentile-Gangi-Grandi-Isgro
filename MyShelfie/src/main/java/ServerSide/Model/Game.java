@@ -18,6 +18,10 @@ public class Game {
 
     /**
      * Overview: Game constructor
+     * @author Andrea Isgrò
+     * @param lobby lobby instance
+     * @param commongoals arraylist containing common goals for this match
+     * @param firstToPlay index of "first to play" player, the one who starts the round
      */
     public Game(Lobby lobby, ArrayList<CommonGoalCard> commongoals, int firstToPlay){
         this.players = lobby.getPlayers();
@@ -96,8 +100,10 @@ public class Game {
 
     /**
      * Overview: method aimed to advance turns
+     * @author Andrea Isgrò
+     * @return
      */
-    public Boolean advance(){
+    public boolean advance(){
         int last = getCurrentTurnPlayer();
         for(int i=0; i<this.order.length; i++){
             if(order[i] == currentTurnPlayer){
@@ -113,7 +119,9 @@ public class Game {
     }
 
     /**
-     * Overview: *advance towards end game
+     * Overview: advance towards end game
+     * @author Andrea Isgrò
+     * @return
      */
     public int advanceFinish(){
         int last = getCurrentTurnPlayer();
@@ -150,7 +158,7 @@ public class Game {
     public void setWinner(String player){ winner=player;}
 
     /**
-     * Overview: winneer getter
+     * Overview: winner getter
      */
     public String getWinner(){ return winner; }
 
@@ -186,6 +194,9 @@ public class Game {
 
     /**
      * Overview: method aimed to get all the players' bookshelf but for the bookshelf of the current turn player
+     * @author Andrea Isgrò
+     * @param player current turn player
+     * @return an arraylist with every player's bookshelf except current turn player's one
      */
     public ArrayList<ItemTile[][]> getPlayersBookshelf(Player player){
         ArrayList<ItemTile[][]> output = new ArrayList<>();
@@ -194,12 +205,14 @@ public class Game {
                 output.add(p.getBookshelf().getGameTiles());
             }
         }
-        //System.out.println(output.size());
         return output;
     }
 
     /**
-     * Overview: method aimed to get all the usernames of the players but fot the usarname of the current turn player
+     * Overview: method aimed to get all the usernames of the players but for the username of the current turn player
+     * @author Andrea Isgrò
+     * @param player current turn player
+     * @return an arraylist with every player's username except current turn player's one
      */
     public ArrayList<String> getPlayersUsernames(Player player){
         ArrayList<String> output = new ArrayList<>();
@@ -208,10 +221,7 @@ public class Game {
                 output.add(p.getUsername());
             }
         }
-        //System.out.println(output.size());
         return output;
     }
-
-
 
 }

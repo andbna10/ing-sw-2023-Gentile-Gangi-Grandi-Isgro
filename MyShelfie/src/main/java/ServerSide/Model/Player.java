@@ -22,6 +22,10 @@ public class Player {
 
     /**
      * Player constructor
+     * @author Andrea Isgrò
+     * @param username player's username
+     * @param islobbyowner boolean value to decide whether the player is the lobby owner or not
+     * @param idlobby lobby id
      */
     public Player(String username, Boolean islobbyowner, String idlobby, ServerManager manager){
         lobby = new HashMap<>();
@@ -53,8 +57,10 @@ public class Player {
 
     /**
      * Overview: add points to the total points of the player
+     * @author Simone Grandi
+     * @param newpoints partial number of points to be summed to current total points
      */
-    public void addPoints(int newpoints){points+=newpoints;}
+    public void addPoints(int newpoints){ points += newpoints; }
 
     /**
      * Overview: get goal
@@ -102,6 +108,8 @@ public class Player {
 
     /**
      * Overview: method aimed to change the ownership of the lobby
+     * @author Andrea Isgrò
+     * @param key boolean value that indicates the ownership of the lobby
      */
     public void updateLobby(Boolean key, String id){
         lobby.remove(id);

@@ -11,6 +11,7 @@ public class Bookshelf {
 
     /**
      * Overview: bookshelf constructor
+     * @author Simone Grandi
      */
     public Bookshelf(){
         isFull = false;
@@ -20,6 +21,7 @@ public class Bookshelf {
 
     /**
      * Overview: method aimed to make the bookshelf empty
+     * @author Andrea Isgrò
      */
     public void emptyShelf(){
         for(int i=0; i<6; i++){
@@ -31,27 +33,28 @@ public class Bookshelf {
 
     /**
      * Overview: check if the player can complete the move on column 'j'
+     * @author Andrea Isgrò
+     * @author Mirko Gentile
+     * @param nTiles number of tiles to be inserted
+     * @param j column index
+     * @return true or false based on the possibility or not for tiles insertion in the desired column
      */
     public Boolean canInsert(int nTiles, int j){
 
-        /*int i = 0; //busy height of the column
-
-        while(gameTiles[i][j] != null) i++;
-        return (nTiles + i <= 5); //logical condition, either true or false*/
         int num = 0;
-        for(int i=0;i<5;i++){
+        for(int i=0; i<5; i++){
             if(gameTiles[i][j] == null) num++;
         }
 
-        if(nTiles <= num){
-            return true;
-        } else {
-            return false;
-        }
+        return nTiles <= num;
     }
 
     /**
      * Overview: insert tiles in the bookshelf, let's suppose that the tiles input is already ordered
+     * @author Mirko Gentile
+     * @author Francesco Gangi
+     * @param columnIndex column index
+     * @param tiles arraylist containing the tiles to be inserted
      */
     public void setTiles(int columnIndex, ArrayList<ItemTile> tiles){
         int j=0;
@@ -62,20 +65,37 @@ public class Bookshelf {
             }
         }
     }
+
+
+    /**
+     * Overview: method aimed to insert in a specific position of the bookshelf a given tile, knowing the type. Needed for goals creation.
+     * @author Simone Grandi
+     * @param i row index
+     * @param j column index
+     * @param type item tile's type
+     */
     public void setTile(int i, int j, ItemType type){
         gameTiles[i][j]= new ItemTile(type);
     }
+
+
     /**
      * Overview: get tile of index i, j
      */
     public ItemTile getTile(int i, int j) {
         return gameTiles[i][j];
     }
-    public ItemTile[][] getGameTiles(){return gameTiles;}
+
+
+    /**
+     * Overview: returns the array with the bookshelf's tiles
+     */
+    public ItemTile[][] getGameTiles(){ return gameTiles; }
 
 
     /**
      * Overview: bookshelf getter
+     * @deprecated
      */
     public StringBuffer getGameTilesBuffer(){
         StringBuffer out = new StringBuffer();
@@ -91,15 +111,12 @@ public class Bookshelf {
             out.append("\n");
         }
         return out;
-
-        /*
-        return gameTiles;
-         */
     }
 
 
     /**
      * Overview: isFull getter
+     * @deprecated
      */
     public Boolean getIsFull(){ return isFull; }
 
@@ -125,6 +142,7 @@ public class Bookshelf {
 
     /**
      * Overview: check if a column of the bookshelf is full
+     * @deprecated
      */
     public Boolean columnIsFull(int index){
         for (ItemTile[] gameTile : gameTiles) if (gameTile[index] == null) return false;

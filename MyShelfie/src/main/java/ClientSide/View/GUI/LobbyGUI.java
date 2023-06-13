@@ -18,6 +18,8 @@ public class LobbyGUI {
 
     /**
      * Overview: LobbyGUI constructor
+     * @author Francesco Gangi
+     * @param lobbyHandler Lobby Handler needed for network communication
      */
     public LobbyGUI(LobbyHandler lobbyHandler) {
 
@@ -75,6 +77,13 @@ public class LobbyGUI {
         lobbyFrame.pack();
     }
 
+    /**
+     * Overview: method for text refreshing in lobby dialog
+     * @author Francesco Gangi
+     * @param id lobby id
+     * @param usernames arraylist containing players' usernames
+     * @param owner lobby owner's username
+     */
     public void updateTextArea(String id, ArrayList<String> usernames, String owner) {
 
         textArea.setText("");
@@ -89,6 +98,11 @@ public class LobbyGUI {
         }
     }
 
+    /**
+     * Overview: method aimed to make a button clickable when needed
+     * @author Francesco Gangi
+     * @param id lobby id
+     */
     public void buttonClickable(String id) {
         startB.setEnabled(true);
         startB.addActionListener(new ActionListener() {
@@ -99,6 +113,10 @@ public class LobbyGUI {
         });
     }
 
+    /**
+     * Overview: method aimed to close lobby dialog windows
+     * @author Francesco Gangi
+     */
     public void closeLobbyWindow() {
         lobbyFrame.setVisible(false);
         lobbyFrame.dispose();

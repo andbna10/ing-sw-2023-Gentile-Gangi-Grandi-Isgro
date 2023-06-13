@@ -24,12 +24,16 @@ public abstract class PersonalGoalCard extends GoalCard{
     public int getPatternNumber(){ return patternNumber; }
 
     /**
-     * Overview: ??
+     * Overview: personalGoal getter
      */
     public abstract Bookshelf getPersonalGoal();
 
     /**
      * Overview: converts counter to points scores
+     * @author Mirko Gentile
+     * @author Francesco Gangi
+     * @param count number of tiles matching the pattern
+     * @return number of points earned
      */
     public int pointsConverter(int count) {
 

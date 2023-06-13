@@ -23,7 +23,12 @@ public class PersonalPattern11 extends PersonalGoalCard {
     public int getPatternNumber() {return 11;}
 
     /**
-     * Overview: controls whether the combo has been achieved on player's bookshelf, returns points
+     * Overview: controls whether the combo has been achieved on player's bookshelf
+     * @author Mirko Gentile
+     * @author Simone Grandi
+     * @author Andrea Isgrò
+     * @param bookshelf bookshelf to be checked
+     * @return points earned
      */
     @Override
     public int validated(Bookshelf bookshelf) {

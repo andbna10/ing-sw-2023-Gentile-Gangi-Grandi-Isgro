@@ -9,6 +9,9 @@ public class BoardGame {
 
     /**
      * constructor of a singleton boardgame
+     * @param nPlayers number of players playing this match
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
      */
     private BoardGame(int nPlayers){
         int[][] outofgame;
@@ -66,6 +69,9 @@ public class BoardGame {
 
     /**
      * Overview: function called by the constructor of the class to initialize the board
+     * @param i row index
+     * @param j column index
+     * @param group array containing every couple of indexes (i,j) excluded from this board instance
      */
     private boolean isInGroup(int i, int j, int[][] group){
         for(int[] pair: group){
@@ -78,6 +84,10 @@ public class BoardGame {
 
     /**
      * Overview: This method should check whether an instance of the class has been created and return it if it exists, or create a new instance if it does not exist (it's a singleton)
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     * @param nPlayers number of players playing this match
+     * @return the instance of the board game
      */
     public static BoardGame getInstance(int nPlayers){
         if(instance == null){
@@ -88,6 +98,7 @@ public class BoardGame {
 
     /**
      * Overview: method aimed to close the board
+     * @author Andrea Isgrò
      */
     public static void setInstanceNull(){ instance = null; }
 
@@ -99,6 +110,9 @@ public class BoardGame {
 
     /**
      * Overview: insert tiles in the board
+     * @author Andrea Isgrò
+     * @author Mirko Gentile
+     * @param tiles arraylist containing the tiles to be inserted
      */
     public void setTiles(ArrayList<ItemTile> tiles){
         int z=0;
@@ -125,12 +139,17 @@ public class BoardGame {
     }
 
     /**
-     * Overview: method aimed to increment emptycells
+     * Overview: method aimed to increment emptyCells attribute
      */
     public void increment(){ this.emptyCells++; }
 
     /**
      * Overview: check the presence of a tile in a cell
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     * @param x row index
+     * @param y column index
+     * @return boolean value based on the presence (true) or the absence (false) of the tile in position (x,y)
      */
     public Boolean isInTile(int x, int y){
         return board[x][y].getTile() != null;
@@ -138,6 +157,8 @@ public class BoardGame {
 
     /**
      * Overview: return the number of empty cells in the board game
+     * @author Andrea Isgrò
+     * @return the number of empty cells in this board game
      */
     public int getEmptyCells(){ return emptyCells; }
 

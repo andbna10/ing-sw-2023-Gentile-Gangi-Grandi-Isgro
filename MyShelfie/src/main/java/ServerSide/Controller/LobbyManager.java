@@ -11,6 +11,8 @@ public class LobbyManager {
 
     /**
      * Overview: constructor LobbyManager
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
      */
     public LobbyManager(){
         lobbies = new HashMap<>();
@@ -20,6 +22,9 @@ public class LobbyManager {
 
     /**
      * Overview: method aimed to create a Lobby
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     * @param id lobby id
      */
     public void createLobby(String id){
         LobbyController lobby = new LobbyController(id);
@@ -28,6 +33,9 @@ public class LobbyManager {
 
     /**
      * Overview: get lobby by id
+     * @author Andrea Isgrò
+     * @param id lobby id
+     * @return lobby specified by a given id
      */
     public LobbyController getLobby(String id){
         return lobbies.get(id);
@@ -35,6 +43,8 @@ public class LobbyManager {
 
     /**
      * Overview: method aimed to close a lobby
+     * @author Andrea Isgrò
+     * @param id lobby id
      */
     public void closeLobby(String id){
         if(!Objects.equals(id, "random")) {
@@ -43,7 +53,10 @@ public class LobbyManager {
     }
 
     /**
-     * Overview: check for the username existance among active players
+     * Overview: check for the username existence among active players
+     * @author Andrea Isgrò
+     * @param username player username
+     * @return (true) if the username already exists, (false) otherwise
      */
     public Boolean checkUsername(String username){
         for(LobbyController lobbyc: lobbies.values()){
@@ -58,6 +71,9 @@ public class LobbyManager {
 
     /**
      * Overview: check if the players in the lobby are in a game
+     * @author Andrea Isgrò
+     * @param id lobby id
+     * @return (0) if the lobby doesn't exist, (1) if the players are in a game, (-1) otherwise
      */
     public int checkInGame(String id){
         if(!lobbies.containsKey(id)){
@@ -72,7 +88,10 @@ public class LobbyManager {
 
 
     /**
-     * Overview: get lobby id by username
+     * Overview: get lobby id by player username
+     * @author Mirko Gentile
+     * @param user username
+     * @return lobby id associated with inserted player username
      */
     public String getIdByUser (String user) {
         String ret = null;

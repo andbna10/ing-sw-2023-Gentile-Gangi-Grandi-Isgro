@@ -30,6 +30,9 @@ public class PlayerController implements PlayerVViewObserver {
 
     /**
      * Overview: insert taken tiles in the bookshelf
+     * @author Andrea Isgrò
+     * @param column column index
+     * @param tiles arraylist containing the tiles to be inserted
      */
     public void feedColumn(int column, ArrayList<ItemTile> tiles){
         if(model.getBookshelf().canInsert(tiles.size(), column)){
@@ -38,7 +41,13 @@ public class PlayerController implements PlayerVViewObserver {
     }
 
     /**
-     * Overview: method aimed to check the accomplishment of a common goal, it returns the points if the goal has been reached
+     * Overview: method aimed to check the accomplishment of a common goal
+     * @author Simone Grandi
+     * @author Andrea Isgrò
+     * @param bookshelf bookshelf to be checked
+     * @param goal common goal to be accomplished
+     * @param index index of the common goal to be checked (there are 2 in every match)
+     * @return earned points
      */
     public int checkCommonGoal(Bookshelf bookshelf, CommonGoalCard goal, int index){
         boolean ok = goal.validated(bookshelf);
@@ -55,7 +64,11 @@ public class PlayerController implements PlayerVViewObserver {
     }
 
     /**
-     * Overview: method aimed to check the accomplishment level of a personal goal, it returns the points achieved till now
+     * Overview: method aimed to check the accomplishment level of a personal goal
+     * @author Andrea Isgrò
+     * @param bookshelf bookshelf to be checked
+     * @param goal personal goal to be accomplished
+     * @return earned points
      */
     public int checkPersonalGoal(Bookshelf bookshelf, PersonalGoalCard goal){
         return goal.validated(bookshelf);
@@ -63,9 +76,12 @@ public class PlayerController implements PlayerVViewObserver {
 
     /**
      * Overview: method aimed to check the adjacent tiles, returns the points for adjacent tiles
+     * @author Simone Grandi
+     * @param bookshelf bookshelf to be checked
+     * @return earned points
      */
     public int checkAdjacentTiles(Bookshelf bookshelf){
-        int points = 0, count = 0;
+        int points = 0, count;
         //ho aggiunto una matrice visited in bookshelf
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
@@ -83,6 +99,13 @@ public class PlayerController implements PlayerVViewObserver {
 
     /**
      * Overview: recursive method based on the floodFill algorithm called to check adjacent tiles in the bookshelf
+     * @author Simone Grandi
+     * @param i row index
+     * @param j column index
+     * @param bookshelf bookshelf to be checked
+     * @param count number of adjacent tiles of the specified itemType
+     * @param itemType item tile's type
+     * @return updated "count" parameter
      */
     int floodFill(int i, int j, Bookshelf bookshelf, int count, ItemType itemType){
         if(i>=6 || j>=5)
@@ -105,9 +128,9 @@ public class PlayerController implements PlayerVViewObserver {
 
         count += floodFill(i-1, j, bookshelf, 0, itemType);
 
-        count += floodFill(i,j-1, bookshelf, 0, itemType);
+        count += floodFill(i, j-1, bookshelf, 0, itemType);
 
-        count += floodFill(i,j+1, bookshelf, 0, itemType);
+        count += floodFill(i, j+1, bookshelf, 0, itemType);
 
         count += floodFill(i+1, j, bookshelf, 0, itemType);
 
@@ -116,7 +139,9 @@ public class PlayerController implements PlayerVViewObserver {
     }
 
     /**
-     * this method check if in the bookshelf there is space left to inset 3 or less tiles
+     * Overview: method aimed to check if there is enough space to insert 3 or fewer tiles in the bookshelf
+     * @author Simone Grandi
+     * @deprecated
      */
     public int spaceLeft(){
         int maxNullCount=0;
@@ -133,16 +158,19 @@ public class PlayerController implements PlayerVViewObserver {
                 maxNullCount=nullCount;
             }
         }
-        if(maxNullCount>3)
-            return 3;
-        return maxNullCount;
+        return Math.min(maxNullCount, 3);
     }
 
-    @Override
     /**
-     * Overview: method aimed place in order the tiles picked from the board in the bookshelf
+     * Overview: method aimed to place in a specified order the tiles picked from the board in the bookshelf
+     * @author Simone Grandi
+     * @author Andrea Isgrò
+     * @param toTake tiles to be picked
+     * @param order chosen insertion order
+     * @param column column index
      */
-    public void playTurn(int[] toTake, int[] order, int column ){
+    @Override
+    public void playTurn(int[] toTake, int[] order, int column){
         for(int i=0; i<toTake.length;i=i+2){
             pickTiles(game.getModel().getBoard(), toTake[i], toTake[i+1]);
         }
@@ -152,6 +180,9 @@ public class PlayerController implements PlayerVViewObserver {
 
     /**
      * Overview: method aimed to check the goals and the fullness of the bookshelf
+     * @author Andrea Isgrò
+     * @param commongoals arraylist containing the common goals to be accomplished
+     * @param id lobby id
      */
     @Override
     public void check(ArrayList<CommonGoalCard> commongoals, String id){
@@ -187,6 +218,10 @@ public class PlayerController implements PlayerVViewObserver {
 
     /**
      * Overview: tiles draft
+     * @author Simone Grandi
+     * @param boardGame board game instance
+     * @param i row index
+     * @param j column index
      */
     public void pickTiles (BoardGame boardGame, int i, int j) {
         //inserisco la tile nell'array che sarà poi inserito nella colonna scelta
@@ -198,8 +233,7 @@ public class PlayerController implements PlayerVViewObserver {
     }
 
     /**
-     * Overview: the user give the order of position to rearrange the picked tiles
-     * the method fix the order of the tiles and insert them in the given column
+     * Overview: method aimed to rearrange the tiles using the order selected by the user
      */
     public void fixAndPlace(int[] order, int column){
         //riarrangio il vettore di tiles
@@ -212,9 +246,9 @@ public class PlayerController implements PlayerVViewObserver {
         model.getPickedTiles().clear();
     }
 
-    @Override
     /**
-     * player getter
+     * Overview: player getter
      */
+    @Override
     public Player getModel() { return model;}
 }

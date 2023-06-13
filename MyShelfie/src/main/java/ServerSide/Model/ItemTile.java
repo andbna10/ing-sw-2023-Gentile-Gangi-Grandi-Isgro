@@ -8,6 +8,8 @@ public class ItemTile {
 
     /**
      * Overview: ItemTile constructor
+     * @author Andrea Isgrò
+     * @param type item tile's type
      */
     public ItemTile(ItemType type){
         this.type = type;
@@ -18,6 +20,7 @@ public class ItemTile {
 
     /**
      * Overview: inGame getter
+     * @deprecated
      */
     public Boolean getInGame(){ return inGame; }
 

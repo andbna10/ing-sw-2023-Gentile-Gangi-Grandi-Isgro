@@ -12,6 +12,7 @@ public class MyShelfie {
 
     /**
      * Overview: MyShelfie constructor
+     * @author Andrea Isgrò
      */
     public MyShelfie(){
         this.tiles = new ArrayList<>();
@@ -34,12 +35,15 @@ public class MyShelfie {
 
     /**
      * Overview: select personal goal cards
+     * @author Andrea Isgrò
+     * @param nPlayers number of players of the match
+     * @return an arraylist containing the chosen personal goal cards
      */
     public ArrayList<PersonalGoalCard> selectPersonalGoals(int nPlayers){
         ArrayList<PersonalGoalCard> output = new ArrayList<>();
         Random r = new Random();
 
-        int x = 0;
+        int x;
         ArrayList<Integer> found = new ArrayList<Integer>();
         for(int i=0; i<nPlayers;i++){
             do{
@@ -66,6 +70,8 @@ public class MyShelfie {
 
     /**
      * Overview: select 2 common goal cards
+     * @author Andrea Isgrò
+     * @return an arraylist containing the chosen common goal cards
      */
     public ArrayList<CommonGoalCard> selectCommonGoals(){
         Random r = new Random();
@@ -113,6 +119,9 @@ public class MyShelfie {
 
     /**
      * Overview: select scoring tokens depending on the number of players
+     * @author Andrea Isgrò
+     * @param nPlayers number of players of the match
+     * @return an arraylist containing the scoring tokens for the match
      */
     public ArrayList<ScoringToken> selectScoringToken(int nPlayers){
         ArrayList<ScoringToken> output = new ArrayList<>();
@@ -136,6 +145,9 @@ public class MyShelfie {
 
     /**
      * Overview: select the tiles to feed the board
+     * @author Andrea Isgrò
+     * @param nTilesNeeded number of tiles needed
+     * @return an arraylist containing the needed tiles
      */
     public ArrayList<ItemTile> selectItemTiles(int nTilesNeeded){
         ArrayList<ItemTile> output = new ArrayList<>();

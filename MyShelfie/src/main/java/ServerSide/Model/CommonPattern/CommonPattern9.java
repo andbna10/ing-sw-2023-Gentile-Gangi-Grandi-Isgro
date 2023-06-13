@@ -17,7 +17,12 @@ public class CommonPattern9 extends CommonGoalCard {
     public int getPatternNumber() {return 9;}
 
     /**
-     * Overview: controls whether the combo has been achieved on player's bookshelf, returns 1
+     * Overview: controls whether the combo has been achieved on player's bookshelf
+     * @author Mirko Gentile
+     * @author Simone Grandi
+     * @author Francesco Gangi
+     * @param bookshelf bookshelf to be checked
+     * @return (true) if accomplished, (false) if not
      */
     @Override
     public boolean validated(Bookshelf bookshelf) {

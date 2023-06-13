@@ -15,6 +15,10 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: GameController constructor, initialization of MyShelfie and Game classes
+     * @author Andrea Isgrò
+     * @param id lobby id
+     * @param lobbymanager Lobby Manager for network communication
+     * @throws InterruptedException if any thread has interrupted the current thread
      */
     public GameController(String id, LobbyManager lobbymanager) throws InterruptedException {
         this.lobbymanager = lobbymanager;
@@ -50,6 +54,9 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: select first to play
+     * @author Andrea Isgrò
+     * @param nPlayers number of players
+     * @return number of the first user to play
      */
     public int selectFirstToPlay(int nPlayers){
         Random r = new Random();
@@ -58,6 +65,8 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: associate scoring tokens to selected common goal cards
+     * @author Andrea Isgrò
+     * @param nPlayers number of players
      */
     public void associateScoringTokens(int nPlayers){
         ArrayList<ScoringToken> scoringtokens = gameName.selectScoringToken(nPlayers);
@@ -72,6 +81,7 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: set personal goal cards for players
+     * @author Andrea Isgrò
      */
     public void setPersonalGoals(){
         ArrayList<PersonalGoalCard> personalgoals = gameName.selectPersonalGoals(this.players.size());
@@ -82,6 +92,7 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: restore the board with tiles in empty board cells
+     * @author Andrea Isgrò
      */
     public void restoreBoard(){
         ArrayList<ItemTile> tiles = gameName.selectItemTiles(model.getBoard().getEmptyCells());
@@ -90,6 +101,8 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: start the game
+     * @author Andrea Isgrò
+     * @throws InterruptedException if any thread has interrupted the current thread
      */
     public void startGame() throws InterruptedException {
         this.associateScoringTokens(this.players.size());
@@ -103,6 +116,7 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: method aimed to call a player to move
+     * @author Andrea Isgrò
      */
     @Override
     public void callTurn(){
@@ -119,6 +133,10 @@ public class GameController implements GameVViewObserver {
 
     /**
      * Overview: end game
+     * @author Simone Grandi
+     * @author Andrea Isgrò
+     * @param discon disconnection status
+     * @param id lobby id
      */
     @Override
     public void endGame(boolean discon, String id){
@@ -156,13 +174,17 @@ public class GameController implements GameVViewObserver {
     public Game getModel(){ return model; }
 
     /**
-     * Overview: Virtualview getter
+     * Overview: VirtualGameView getter
      */
     public VirtualGameView getVirtualView(){ return this.virtualview; }
 
     /**
-     * Overview: check whether boardcell can be picked,
-     *  to be called at startgame and on every endturn (a cell can't turn pickable during player's turn )
+     * Overview: method aimed to check whether the boardCell can be picked.
+     * To be called at startGame() and on every endTurn() (a boardCell can't turn pickable during player's turn)
+     * @author Andrea Isgrò
+     * @author Mirko Gentile
+     * @param boardGame board game instance
+     * @return number of pickable tiles
      */
     @Override
     public int checkPickables (BoardGame boardGame) {
@@ -183,7 +205,7 @@ public class GameController implements GameVViewObserver {
             for (int j = 1; j < 8; j++) {
                 if (boardGame.getBoard()[i][j].getStatus() == Status.IN && boardGame.getBoard()[i][j].getTile() != null) {
 
-                    Boolean changed = false;
+                    boolean changed = false;
                     if (boardGame.getTile(i - 1, j) == null &&
                             boardGame.getTile(i + 1, j) == null &&
                             boardGame.getTile(i, j + 1) == null &&
@@ -209,7 +231,13 @@ public class GameController implements GameVViewObserver {
     }
 
     /**
-     * Overview: method aimed to verify turn played
+     * Overview: method aimed to verify played turn
+     * @author Andrea Isgrò
+     * @param picked chosen tiles
+     * @param column column index to insert tiles in
+     * @param manager Server Manager for network communication
+     * @return error type: (0) if selected tiles are not pickable, (1) if selected tiles are not consecutive,
+     * (2) if there's not enough space in the bookshelf, (3) otherwise
      */
     // probabilmente come picked è meglio passargli quelle ordinate
     @Override
@@ -217,8 +245,7 @@ public class GameController implements GameVViewObserver {
 
         // check pickables
         for(int i=0;i<picked.length; i=i+2){
-            if(model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable()){
-            } else {
+            if(!model.getBoard().getBoard()[picked[i]][picked[i+1]].getPickable()){
                 return 0;
             }
         }

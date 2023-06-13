@@ -101,7 +101,7 @@ public class Game {
     /**
      * Overview: method aimed to advance turns
      * @author Andrea Isgrò
-     * @return
+     * @return boolean aime to avoid calling the turn procedure for the same player twice
      */
     public boolean advance(){
         int last = getCurrentTurnPlayer();
@@ -121,7 +121,9 @@ public class Game {
     /**
      * Overview: advance towards end game
      * @author Andrea Isgrò
-     * @return
+     * @return 0 in case the last turn has ended
+     * @return 1 in order to avoid calling turn for the same player twice
+     * @return 2 to let the calling turns procedure continue
      */
     public int advanceFinish(){
         int last = getCurrentTurnPlayer();

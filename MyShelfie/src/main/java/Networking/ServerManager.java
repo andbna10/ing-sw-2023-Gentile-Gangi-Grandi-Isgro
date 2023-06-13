@@ -281,13 +281,16 @@ public class ServerManager extends Thread{
                         // advancing in the turn order of the game in the case this is the last turn
                         boolean ok = false;
                         if (gameview.getObs().getModel().getIsLastTurnStarted()) {
-                            if (gameview.getObs().getModel().advanceFinish() == 0) {
+                            int advanceFinishOutput = gameview.getObs().getModel().advanceFinish();
+                            if (advanceFinishOutput == 0) {
                                 gameview.getObs().endGame(false, lobbyview.getObs().getModel().getId());
 
                                 // bring players again in the lobby
                                 lobbyview.getObs().getModel().notifyObserverPlayerAdded(lobbyview.getObs().getModel().getId(), false);
                                 // tell the owner a new game can start
                                 lobbyview.getObs().notifyOwner();
+                            } else if( advanceFinishOutput == 1){
+                                ok = true;
                             }
                         } else {
                             // advancing in the turn order of the game

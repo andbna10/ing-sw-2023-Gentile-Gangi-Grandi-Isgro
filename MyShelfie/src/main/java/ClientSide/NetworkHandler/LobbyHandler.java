@@ -38,6 +38,8 @@ public class LobbyHandler implements LobbyViewObserver{
 
     /**
      * Overview: method aimed to add a player to the list of players
+     * @author Andrea Isgrò
+     * @param username player's username
      */
     public void addPlayer(String username){
         this.players.add(username);

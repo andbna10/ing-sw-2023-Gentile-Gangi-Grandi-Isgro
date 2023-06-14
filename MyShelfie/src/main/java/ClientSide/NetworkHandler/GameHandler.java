@@ -55,7 +55,7 @@ public class GameHandler implements GameViewObserver{
     }
 
     /**
-     * Overview: method aimed to
+     * Overview: method aimed to create a BackToTheLobbyMessage
      */
     public void createBackToTheLobbyMessage(){
         BackToTheLobbyMessage message = new BackToTheLobbyMessage("prova");

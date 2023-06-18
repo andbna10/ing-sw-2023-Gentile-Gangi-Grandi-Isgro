@@ -65,7 +65,6 @@ public class ListNode {
 
     /**
      * Overview: sends ping messages
-     * @throws IOException
      */
     public void send() throws IOException {
         writer.writeObject(new PingMessage("ping", "server"));

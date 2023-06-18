@@ -43,7 +43,10 @@ public class ServerManager extends Thread{
     public void setCloseTimeout(int arg){this.closeTimeout = arg;}
 
     /**
-     * Overview: procedure to recovery lost connection with client before closing definitely, returns "True" if connection was recovered
+     * Overview: procedure to recovery lost connection with client before closing definitely
+     * @author Mirko Gentile
+     * @return (true) if connection was recovered
+     * @throws InterruptedException if any thread has interrupted the current thread
      */
     public boolean recoveryConnection() throws InterruptedException {
         boolean ret = false;
@@ -88,10 +91,10 @@ public class ServerManager extends Thread{
         this.server = server;
     }
 
-    @Override
     /**
      * Overview: Overview of run method to handle receiving and sending messages through the socket
      */
+    @Override
     public void run(){
         System.out.println("server manager is running");
 
@@ -160,6 +163,11 @@ public class ServerManager extends Thread{
 
     /**
      * Overview: method aimed to handle an upcoming received message
+     * @author Andrea Isgrò
+     * @author Franceco Gangi
+     * @author Simone Grandi
+     * @author Mirko Gentile
+     * @param message upcoming message to be handled
      */
     public void handleMessage(Message message) throws IOException, InterruptedException {
         Player player;
@@ -325,6 +333,9 @@ public class ServerManager extends Thread{
 
     /**
      * Overview: method aimed to send a message
+     * @author Andrea Isgrò
+     * @author Mirko Gentile
+     * @param message message to be sent
      */
     public void sendMessage(Message message){
         lastMessage = message;
@@ -347,6 +358,7 @@ public class ServerManager extends Thread{
 
     /**
      * Overview: socket references reset after reconnection
+     * @author Mirko Gentile
      */
     public void resetSocket(Socket arg1, ObjectOutputStream arg2, ObjectInputStream arg3) {
         this.clientsocket = arg1;
@@ -356,6 +368,7 @@ public class ServerManager extends Thread{
 
     /**
      * Overview: method aimed to send the last message
+     * @author Mirko Gentile
      */
     public void sendLastMsg() {
         try {

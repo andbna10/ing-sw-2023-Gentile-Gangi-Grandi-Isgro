@@ -43,10 +43,10 @@ public class VirtualGameView implements GameObserver{
         obs = observer;
     }
 
-    @Override
     /**
      * Overview: method aimed to create the message to notify the start of the game
      */
+    @Override
     public void notifythestartofthegame(int numPlayers, BoardCell[][] board, int common1, int common2, ScoringToken one, ScoringToken two){
         for(ServerManager manager: this.managers) {
             GameHasStartedMessage message = null;
@@ -59,10 +59,10 @@ public class VirtualGameView implements GameObserver{
         }
     }
 
-    @Override
     /**
      * Overview: method aimed to create the message to notify the end of the game
      */
+    @Override
     public void notifyEnd(String winner, ArrayList<Player> players, boolean discon, String id){
         for(ServerManager manager: this.managers) {
             Boolean flag = false;
@@ -82,10 +82,10 @@ public class VirtualGameView implements GameObserver{
         }
     }
 
-    @Override
     /**
      * Overview: method aimed to create a meessage to notify players about the end of a turn
      */
+    @Override
     public void notifytheendofaturn(BoardCell[][] board, String username){
         EndTurnMessage message = new EndTurnMessage(board, username);
         for(ServerManager manager: this.managers){
@@ -93,10 +93,10 @@ public class VirtualGameView implements GameObserver{
         }
     }
 
-    @Override
     /**
      * Overview: method aimed to create a message to notify players that a common has been accomplished
      */
+    @Override
     public void notifyObserverCommon(int common, int newPoints, String username, ScoringToken token){
         NotifyCheckCommonMessage message = new NotifyCheckCommonMessage(common, newPoints, username, token);
         for(ServerManager manager: this.managers){
@@ -104,10 +104,10 @@ public class VirtualGameView implements GameObserver{
         }
     }
 
-    @Override
     /**
      * Overview: method aimed to create a message to notify players about the last turn triggered
      */
+    @Override
     public void notifyObserverLastTurn(String username){
         LastTurnTriggeredMessage message = new LastTurnTriggeredMessage(username);
         for(ServerManager manager: this.managers){

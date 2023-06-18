@@ -12,6 +12,8 @@ public class GameCLI {
 
     /**
      * Overview: board printer
+     * @author Simone Grandi
+     * @param board board to be printed
      */
     public void printBoard(String[][] board) {
         int numCols = board[0].length;

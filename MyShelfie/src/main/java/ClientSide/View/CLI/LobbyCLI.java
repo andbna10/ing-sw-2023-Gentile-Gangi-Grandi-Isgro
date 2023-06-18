@@ -14,6 +14,12 @@ public class LobbyCLI {
      */
     public LobbyCLI(LobbyHandler handler){ this.handler = handler; }
 
+    /**
+     * Overview: method aimed to make the lobby owner start the game
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     * @param id lobby id
+     */
     public void ownercanstart(String id){
         Scanner scanner = new Scanner(System.in);
         String sender = "prova";
@@ -34,6 +40,10 @@ public class LobbyCLI {
 
     /**
      * Overview: print the lobby
+     * @author Andrea Isgrò
+     * @param id lobby id
+     * @param usernames arraylist containing players' usernames
+     * @param owner lobby owner username
      */
     public void printLobby(String id, ArrayList<String> usernames, String owner){
         System.out.println("\nThe id of the lobby is: "+ id);
@@ -48,6 +58,8 @@ public class LobbyCLI {
 
     /**
      * Overview: ask for the number of players to be in the lobby (random match)
+     * @author Andrea Isgrò
+     * @return chosen number of players for this lobby
      */
     public int insertNumberPlayers(){
         Scanner scanner = new Scanner(System.in);

@@ -32,7 +32,7 @@ public class ClientManager extends Thread{
     private GenericCLI genericCLI;
 
     /**
-     * ClientHandler constructor
+     * ClientManager constructor
      */
     public ClientManager(Socket socket) throws IOException {
         readerThreadActive = false;
@@ -52,10 +52,10 @@ public class ClientManager extends Thread{
      */
     public LoginHandler getLoginHandler(){ return this.loginHandler; }
 
-    @Override
     /**
      * Overview: run del thread
      */
+    @Override
     public void run(){
         System.out.println("client manager is running");
         while(!isInterrupted()) {
@@ -83,6 +83,11 @@ public class ClientManager extends Thread{
 
     /**
      * Overview: method aimed to handle an upcoming received message
+     * @author Andrea Isgrò
+     * @author Franceco Gangi
+     * @author Simone Grandi
+     * @author Mirko Gentile
+     * @param message upcoming message to be handled
      */
     public void handleMessage(Message message) throws IOException {
         //System.out.println("there is a message to be read");
@@ -250,6 +255,8 @@ public class ClientManager extends Thread{
 
     /**
      * Overview: method aimed to send a message
+     * @author Andrea Isgrò
+     * @param message message to be sent
      */
     public void sendMessage(Message message){
         try {

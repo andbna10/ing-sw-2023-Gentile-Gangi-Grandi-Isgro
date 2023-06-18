@@ -14,6 +14,11 @@ public class LogInCLI {
      */
     public LogInCLI(LoginHandler handler){ this.handler = handler; }
 
+    /**
+     * Overview: CLI for login procedure
+     * @author Andrea Isgrò
+     * @author Francesco Gangi
+     */
     public void loginprocedure() {
         Scanner scanner = new Scanner(System.in);
         String sender = "prova";

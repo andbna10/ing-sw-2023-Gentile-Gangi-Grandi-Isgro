@@ -16,7 +16,8 @@ public class ReconnectCLI {
     }
 
     /**
-     * Oberview: launches player reconnection procedure
+     * Overview: launches player reconnection procedure
+     * @author Mirko Gentile
      */
     public void procedure() {
         Scanner scanner = new Scanner(System.in);

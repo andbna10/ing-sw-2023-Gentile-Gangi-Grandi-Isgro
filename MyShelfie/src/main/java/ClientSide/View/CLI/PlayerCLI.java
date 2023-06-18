@@ -32,7 +32,9 @@ public class PlayerCLI {
 
 
     /**
-     * bookshelf printer
+     * Overview: bookshelf printer
+     * @author Simone Grandi
+     * @param bookshelf bookshelf to be printed
      */
     public void printBookshelf(String[][] bookshelf) {
         // Print column headers
@@ -52,7 +54,9 @@ public class PlayerCLI {
     }
 
     /**
-     * print common goal
+     * Overview: print common goal
+     * @author Simone Grandi
+     * @param patternNumber number of common pattern to be printed
      */
     public void printCommon(int patternNumber){
         switch (patternNumber) {
@@ -179,6 +183,9 @@ public class PlayerCLI {
 
     /**
      * Overview: cli for the player to complete a move
+     * @author Simone Grandi
+     * @author Andrea Isgrò
+     * @param bookshelf current turn player's bookshelf
      */
     public void yourTurn(String[][] bookshelf) {
         Scanner scanner = new Scanner(System.in);
@@ -294,6 +301,9 @@ public class PlayerCLI {
 
     /**
      * Overview: print the opponents' bookshelf at the start of the turn
+     * @author Andrea Isgrò
+     * @param bookshelf opponent's bookshelf
+     * @param username opponent's username
      */
     public void printOpponent(String[][] bookshelf, String username){
         System.out.println("\nHere "+username+"'s Bookshelf:");

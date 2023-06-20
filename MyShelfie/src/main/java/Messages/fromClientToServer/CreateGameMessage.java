@@ -8,6 +8,8 @@ public class CreateGameMessage extends Message {
 
     /**
      * Overview: constructor CreateGameMessage
+     * @param username player's username
+     * @param sender message sender
      */
     public CreateGameMessage(String username, String sender){
         super(sender);

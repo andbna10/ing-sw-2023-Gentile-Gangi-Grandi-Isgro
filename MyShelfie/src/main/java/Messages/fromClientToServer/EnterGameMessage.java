@@ -8,6 +8,9 @@ public class EnterGameMessage extends Message {
 
     /**
      * Overview: EnterGameMessageconstructor
+     * @param username player's username
+     * @param sender message sender
+     * @param id lobby's id
      */
     public EnterGameMessage(String username, String sender, String id){
         super(sender);

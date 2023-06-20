@@ -8,6 +8,8 @@ public class StartGameMessage extends Message {
 
     /**
      * Overview: StartGameMessage constructor
+     * @param sender message sender
+     * @param id lobby id
      */
     public StartGameMessage(String sender, String id){
         super(sender);

@@ -8,6 +8,7 @@ public class AccessDeniedMessage extends Message {
 
     /**
      * Overview: AccessDeniedMessage constructor
+     * @param x switch int for different access denied occurred
      */
     public AccessDeniedMessage(int x){
         super(null);

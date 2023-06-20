@@ -11,6 +11,7 @@ public class BoardRestoredMessage extends Message {
 
     /**
      * Overview: BoardRestoredMessage constructor
+     * @param board matrix of BoardCell objects
      */
     public BoardRestoredMessage(BoardCell[][] board){
         super(null);
@@ -21,6 +22,8 @@ public class BoardRestoredMessage extends Message {
 
     /**
      * Overview: boardcell converter to string
+     * @param board matrix of BoardCell objects
+     * @return a String matrix as a conversion from the input matrix
      */
     public String[][] boardToString(BoardCell[][] board) {
         String[][] stringMatrix = new String[board[0].length][board.length];

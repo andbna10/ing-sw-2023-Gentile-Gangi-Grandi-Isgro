@@ -8,6 +8,8 @@ public class NPlayersInputMessage extends Message {
 
     /**
      * Overview: NPlayersInputMessage constructor
+     * @param n number of players for a game
+     * @param sender message sender
      */
     public NPlayersInputMessage(int n, String sender){
         super(sender);

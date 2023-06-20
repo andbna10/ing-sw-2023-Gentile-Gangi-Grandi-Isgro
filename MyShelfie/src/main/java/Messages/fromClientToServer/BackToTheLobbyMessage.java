@@ -7,6 +7,7 @@ public class BackToTheLobbyMessage extends Message {
 
     /**
      * Overview: constructor BackToTheLobbyMessage
+     * @param sender message sender
      */
     public BackToTheLobbyMessage(String sender){
         super(sender);

@@ -2,7 +2,6 @@ package Messages.fromServerToClient;
 
 import Messages.Message;
 import Messages.MessageType;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 

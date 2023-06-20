@@ -8,7 +8,8 @@ public class PostUserReconMessage extends Message {
     private String user;
 
     /**
-     * Overview: constructor CreateGameMessage
+     * Overview: constructor PostUserReconMessage
+     * @param arg player's username
      */
     public PostUserReconMessage(String arg){
         super(null);

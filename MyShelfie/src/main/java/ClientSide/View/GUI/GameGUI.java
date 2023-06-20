@@ -46,7 +46,11 @@ public class GameGUI {
     private int previousrow;
     private int previouscolumn;
 
-    public GameGUI(GameHandler gameHandler) throws IOException {
+    /**
+     * Overview: game GUI constructor
+     * @param gameHandler Game Handler needed for network communication
+     */
+    public GameGUI(GameHandler gameHandler) {
         textArea.setEditable(false);
         textArea.getCaret().setVisible(true);
         textArea.getCaret().setSelectionVisible(true);
@@ -119,6 +123,7 @@ public class GameGUI {
 
     /**
      * Overview: method aimed to show info to the client
+     * @param message string message to print
      */
     public void showMessage(String message){
         JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -126,6 +131,7 @@ public class GameGUI {
 
     /**
      * Overview: method to end the game and back to the lobby
+     * @param message string message to print
      */
     public void backToTheLobby(String message){
         int option = JOptionPane.showOptionDialog(null, message, "End of the game", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Back to the lobby"}, "Back to the lobby");
@@ -172,6 +178,7 @@ public class GameGUI {
 
     /**
      * Overview: method aimed to print in the textarea the result of the game
+     * @param output contains the final results of the game with players names associated to their points
      */
     public void endgame(StringBuffer output){
         textArea.setText("");
@@ -242,6 +249,9 @@ public class GameGUI {
 
     /**
      * Overview: your turn message update
+     * @param i is the index to access the Jtable and Jtextfield of the player
+     * @param username is the username chosen by the player
+     * @param bookshelf is the bookshelf of th player
      */
     public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
         String[] bookshelfcolumn = new String[6];
@@ -268,6 +278,7 @@ public class GameGUI {
 
     /**
      * Overview: update board game
+     * @param board is the board game
      */
     public void updateBoard(String[][] board) throws IOException {
         String[] boardcolumn = new String[9];
@@ -295,6 +306,8 @@ public class GameGUI {
 
     /**
      * Overview: method aimed to update the scoring token of the i-th common goal
+     * @param points is the points of value of the common goal
+     * @param common is the index of the common (one or two)
      */
     public void UpdateToken(int points, int common){
         ImageIcon tokenimage = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+points+".jpg");
@@ -315,6 +328,13 @@ public class GameGUI {
 
     /**
      * Overview: method aimed to render the initial setup
+     * @param numPlayers is the number of players
+     * @param board is the board game
+     * @param numberPattern is the index of the personal pattern drawn
+     * @param common1 is the index of the first common goal pattern drawn
+     * @param common2 is the index of the second common goal pattern drawn
+     * @param token1 is the number of points collectable completing coomon1
+     * @param token2 is the number of points collectable completing coomon2
      */
     public void InitialSetUpRenderer(int numPlayers, String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException {
         // board
@@ -455,6 +475,11 @@ public class GameGUI {
     private static class ImageTableCellRenderer extends JLabel implements TableCellRenderer {
         private Image[][] images = new Image[9][9];
 
+        /**
+         * Overview: Board column renderer
+         * @param board is the board column to render
+         * @param column is the index of the column
+         */
         public ImageTableCellRenderer(String[] board, int column) throws IOException {
             for (int i=0; i<board.length; i++) {
                         switch (board[i]) {
@@ -493,6 +518,11 @@ public class GameGUI {
     private static class ImageBookshelfCellRenderer extends JLabel implements TableCellRenderer {
         private Image[][] images = new Image[6][5];
 
+        /**
+         * Overview: bookshelf column renderer
+         * @param bookshelf is the bookshelf column to render
+         * @param column is the index of the column
+         */
         public ImageBookshelfCellRenderer(String[] bookshelf, int column) throws IOException {
             for (int i=0; i<bookshelf.length; i++) {
                 switch (bookshelf[i]) {

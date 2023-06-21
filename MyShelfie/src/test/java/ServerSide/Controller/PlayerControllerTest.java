@@ -1,16 +1,17 @@
 package ServerSide.Controller;
 
+import Networking.ListNode;
 import Networking.ServerManager;
-import ServerSide.Model.Bookshelf;
+import ServerSide.Model.*;
 import ServerSide.Model.CommonPattern.CommonPattern1;
-import ServerSide.Model.ItemTile;
-import ServerSide.Model.ItemType;
 import ServerSide.Model.PersonalPattern.PersonalPattern3;
-import ServerSide.Model.Player;
 import ServerSide.VirtualView.VirtualPlayerView;
 import org.junit.jupiter.api.Test;
 
 import java.awt.print.Book;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Random;
@@ -113,16 +114,30 @@ class PlayerControllerTest {
     }
 
     @Test
-    void checkCommonGoalTest() throws InterruptedException {
+    void checkCommonGoalTest() throws InterruptedException, IOException {
         var shelf = new Bookshelf();
         var lobbyMan = new LobbyManager();
+        var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        }));
+        var serverMan = new ServerManager(null, lobbyMan, node, null, null);
+        var player1 = new Player("simo", true, "random", serverMan);
+        var player2 = new Player("fra", false, "random", serverMan);
+        var player3 = new Player("andre", false, "random", serverMan);
+        lobbyMan.getLobby("random").addPlayer(player1);
+        lobbyMan.getLobby("random").addPlayer(player2);
+        lobbyMan.getLobby("random").addPlayer(player3);
         var gameController = new GameController("random", lobbyMan);
+
         var playerController = new PlayerController(null, gameController, new VirtualPlayerView(null));
+
         shelf.setTile(0,0,ItemType.PLANTS);
         shelf.setTile(0,1,ItemType.PLANTS);
         shelf.setTile(1,0,ItemType.PLANTS);
         shelf.setTile(1,1,ItemType.PLANTS);
-
 
         shelf.setTile(2,0,ItemType.FRAMES);
         shelf.setTile(2,1,ItemType.FRAMES);
@@ -130,21 +145,49 @@ class PlayerControllerTest {
         shelf.setTile(3,1,ItemType.FRAMES);
 
         var common = new CommonPattern1();
+        var shelfie =new MyShelfie();
+        ArrayList<ScoringToken> scoringtokens = shelfie.selectScoringToken(3);
+        for(int i=0; i<scoringtokens.size(); i+=2) {
+            common.setElementStack(scoringtokens.get(i));
+        }
 
+        System.out.println("first");
+        for (int i=0; i<common.getStack().size();i++)
+            System.out.println(common.getStack().get(i).getPoints());
+        assert playerController.checkCommonGoal(shelf, common, 1)==8;
 
-        playerController.checkCommonGoal(shelf, common, 1);
+        System.out.println("second");
+        for (int i=0; i<common.getStack().size();i++)
+            System.out.println(common.getStack().get(i).getPoints());
+        assert playerController.checkCommonGoal(shelf, common, 1)==6;
+        System.out.println("third");
+        for (int i=0; i<common.getStack().size();i++)
+            System.out.println(common.getStack().get(i).getPoints());
+        assert playerController.checkCommonGoal(shelf, common, 1)==4;
 
     }
 
 
     @Test
-    void feedColumnTest() throws InterruptedException {
+    void feedColumnTest() throws InterruptedException, IOException {
 
         var lobbyMan = new LobbyManager();
+        var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        }));
+        var serverMan = new ServerManager(null, lobbyMan, node, null, null);
+        var player1 = new Player("simo", true, "random", serverMan);
+        var player2 = new Player("fra", false, "random", serverMan);
+        var player3 = new Player("andre", false, "random", serverMan);
+        lobbyMan.getLobby("random").addPlayer(player1);
+        lobbyMan.getLobby("random").addPlayer(player2);
+        lobbyMan.getLobby("random").addPlayer(player3);
         var gameController = new GameController("random", lobbyMan);
-        var player = new Player("simonemerdone", true,
-                "random", null);
-        var playerController = new PlayerController(player, gameController, new VirtualPlayerView(null));
+
+        var playerController = new PlayerController(player1, gameController, new VirtualPlayerView(null));
         ArrayList<ItemTile> tiles = new ArrayList<>();
         tiles.add(new ItemTile(ItemType.CATS));
         tiles.add(new ItemTile(ItemType.TROPHIES));
@@ -152,10 +195,59 @@ class PlayerControllerTest {
 
         playerController.feedColumn(1, tiles);
 
-        assertEquals(player.getBookshelf().getTile(5,1), tiles.get(0));
-        assertEquals(player.getBookshelf().getTile(4,1), tiles.get(1));
-        assertEquals(player.getBookshelf().getTile(3,1), tiles.get(2));
+        assertEquals(player1.getBookshelf().getTile(5,1), tiles.get(0));
+        assertEquals(player1.getBookshelf().getTile(4,1), tiles.get(1));
+        assertEquals(player1.getBookshelf().getTile(3,1), tiles.get(2));
 
+    }
+
+    @Test
+    void playTurnTest() throws IOException, InterruptedException {
+        var lobbyMan = new LobbyManager();
+        var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        }));
+        var serverMan = new ServerManager(null, lobbyMan, node, null, null);
+        var player1 = new Player("simo", true, "random", serverMan);
+        var player2 = new Player("fra", false, "random", serverMan);
+        var player3 = new Player("andre", false, "random", serverMan);
+        lobbyMan.getLobby("random").addPlayer(player1);
+        lobbyMan.getLobby("random").addPlayer(player2);
+        lobbyMan.getLobby("random").addPlayer(player3);
+        var gameController = new GameController("random", lobbyMan);
+
+        var playerController = new PlayerController(player1, gameController, new VirtualPlayerView(null));
+
+        var toTake = new int[6];
+        var order = new int [toTake.length/2];
+        ItemTile res1 = gameController.getModel().getBoard().getBoard()[0][3].getTile();
+        ItemTile res2 = gameController.getModel().getBoard().getBoard()[1][3].getTile();
+        ItemTile res3 = gameController.getModel().getBoard().getBoard()[2][3].getTile();
+        toTake[0]=0;
+        toTake[1]=3;
+        toTake[2]=1;
+        toTake[3]=3;
+        toTake[4]=2;
+        toTake[5]=3;
+        order[0]=2;
+        order[1]=1;
+        order[2]=0;
+        playerController.playTurn(toTake, order, 1);
+
+        //fix and place test
+        assertEquals(player1.getBookshelf().getTile(5,1),res3);
+        assertEquals(player1.getBookshelf().getTile(4,1),res2);
+        assertEquals(player1.getBookshelf().getTile(3,1),res1);
+        //picktiles test
+        assertNull(gameController.getModel().getBoard().getBoard()[0][3].getTile());
+        assertNull(gameController.getModel().getBoard().getBoard()[1][3].getTile());
+        assertNull(gameController.getModel().getBoard().getBoard()[2][3].getTile());
+        assertFalse(gameController.getModel().getBoard().getBoard()[0][3].getPickable());
+        assertFalse(gameController.getModel().getBoard().getBoard()[1][3].getPickable());
+        assertFalse(gameController.getModel().getBoard().getBoard()[2][3].getPickable());
     }
 
 }

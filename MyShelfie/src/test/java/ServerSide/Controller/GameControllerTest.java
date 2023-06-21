@@ -109,7 +109,7 @@ class GameControllerTest {
     }
 
     @Test
-    public void verifyTurnTest() throws InterruptedException, IOException {
+    void verifyTurnTest() throws InterruptedException, IOException {
         var lobbyMan = new LobbyManager();
         var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
             @Override
@@ -155,7 +155,7 @@ class GameControllerTest {
     }
 
     @Test
-    public void getMinMaxTest() throws InterruptedException, IOException {
+    void getMinMaxTest() throws InterruptedException, IOException {
         var lobbyMan = new LobbyManager();
         var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
             @Override

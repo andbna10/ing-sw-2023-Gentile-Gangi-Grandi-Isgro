@@ -20,6 +20,14 @@ public class GameHasStartedMessage extends Message {
 
     /**
      * Overview: GameHasStartedMessage constructor
+     * @param board matrix of BoardCell objects
+     * @param numPlayers int specifying the number of players in the game
+     * @param personalGoal matrix of ItemTile objects specifying the player's personal goal
+     * @param patternNumberPersonal int specifying the personal pattern number
+     * @param common1 int specifying the common pattern number of the first common goal
+     * @param common2 int specifying the common pattern number of the second common goal
+     * @param one Scoring Token in 1st place in the stack associated to the first common goal
+     * @param two Scoring Token in 1st place in the stack associated to the second common goal
      */
     public GameHasStartedMessage(int numPlayers, BoardCell[][] board, ItemTile[][] personalGoal, int common1, int common2, ScoringToken one, ScoringToken two, int patternNumberPersonal){
         super(null);
@@ -47,6 +55,8 @@ public class GameHasStartedMessage extends Message {
 
     /**
      * Overview: boarcell converter to string
+     * @param board matrix of BoardCell objects
+     * @return matrix of String as conversion of the input
      */
     public String[][] boardToString(BoardCell[][] board) {
         String[][] stringMatrix = new String[board[0].length][board.length];
@@ -83,7 +93,9 @@ public class GameHasStartedMessage extends Message {
     public int getCommon2() {return common2;}
 
     /**
-     * Overview: converts a intemtiles bookshelf to a string bookshelf so it can be print by the cli
+     * Overview: converts bookshelf of ItemTile objects to a string bookshelf, so it can be print by the cli
+     * @param bookshelf matrix of ItemTile objects
+     * @return matrix of String as conversion of the input
      */
     public String[][] bookshelfToString(ItemTile[][] bookshelf) {
         String[][] stringBookshelf = new String[bookshelf.length][bookshelf[0].length];

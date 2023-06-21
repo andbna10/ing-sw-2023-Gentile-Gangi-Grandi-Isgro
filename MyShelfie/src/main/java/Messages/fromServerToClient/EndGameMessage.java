@@ -7,7 +7,6 @@ import ServerSide.Model.Player;
 import java.util.ArrayList;
 
 public class EndGameMessage extends Message {
-
     boolean discon;
     private String message;
     private StringBuffer output;
@@ -15,6 +14,10 @@ public class EndGameMessage extends Message {
 
     /**
      * Overview: EndGameMessage constructor
+     * @param discon boolean handling disconnection
+     * @param isOwner boolean specifying the player whether is owner of the lobby ir not
+     * @param winner winner usename
+     * @param players ArrayList of the Player objects
      */
     public EndGameMessage(String winner, ArrayList<Player> players, boolean discon, Boolean isOwner){
         super(null);
@@ -26,7 +29,9 @@ public class EndGameMessage extends Message {
     }
 
     /**
-     * Overview: print usernams, points
+     * Overview: print usernams with points at the end of the game
+     * @param players ArrayList of the Player objects
+     * @return StringBuffer containing players' username and relative points at the end of the game
      */
     public StringBuffer print(ArrayList<Player> players){
         StringBuffer output = new StringBuffer();

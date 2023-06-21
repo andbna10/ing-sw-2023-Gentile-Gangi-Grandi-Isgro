@@ -19,6 +19,10 @@ public class YourTurnMessage extends Message {
 
     /**
      * Overview: YourTurnMessage constructor1: bookshelf start of the turn
+     * @param usernames arraylist of Players' username
+     * @param bookshelf matrix of ItemTile objects representing the actual status of the player bookshelf
+     * @param board matrix of BoardCell objects representing the actual status of the board game
+     * @param bookshelflist arraylist of ItemTile objects matrix, one for each opponent player
      */
     public YourTurnMessage(BoardCell[][] board, ItemTile[][] bookshelf, ArrayList<ItemTile[][]> bookshelflist, ArrayList<String> usernames){
         super(null);
@@ -37,6 +41,8 @@ public class YourTurnMessage extends Message {
 
     /**
      * Overview: YourTurnMessage constructor2: updated bookshelf end of the turn
+     * @param bookshelf matrix of ItemTyle objects representing the bookshlef updated at the end of the turn
+     * @param updatedBookshelf boolean to understand if the message is related to the update of the bookshelf or not
      */
     public YourTurnMessage(ItemTile[][] bookshelf, Boolean updatedBookshelf){
         super(null);
@@ -69,7 +75,9 @@ public class YourTurnMessage extends Message {
     public ArrayList<String> getUsernames(){ return this.usernames; }
 
     /**
-     * Overview: converts an itemtiles bookshelf to a string bookshelf so it can be print by the cli
+     * Overview: converts an ItemTile objects bookshelf to a string bookshelf, so it can be print by the cli
+     * @param bookshelf matrix of ItemTyle objects
+     * @return String matrix as conversion of the input
      */
     public String[][] bookshelfToString(ItemTile[][] bookshelf) {
         String[][] stringBookshelf = new String[bookshelf.length][bookshelf[0].length];
@@ -93,6 +101,8 @@ public class YourTurnMessage extends Message {
 
     /**
      * Overview: boarcell converter to string
+     * @param board matrix of BoardCell objects
+     * @return String matrix as conversion of the input
      */
     public String[][] boardToString(BoardCell[][] board) {
         String[][] stringMatrix = new String[board[0].length][board.length];

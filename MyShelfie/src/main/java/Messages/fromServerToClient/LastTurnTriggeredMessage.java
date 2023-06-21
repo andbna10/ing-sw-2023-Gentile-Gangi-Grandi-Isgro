@@ -8,6 +8,7 @@ public class LastTurnTriggeredMessage extends Message {
 
     /**
      * Overview: LastTurnTriggeredMessage constructor
+     * @param username username of the player who has fulfilled his bookshelf first
      */
     public LastTurnTriggeredMessage(String username){
         super(null);

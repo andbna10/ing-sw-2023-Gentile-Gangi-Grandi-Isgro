@@ -8,6 +8,7 @@ public class RepeatTurnMessage extends Message {
 
     /**
      * Overview: RepeatTurnMessage constructor
+     * @param type int specifying the actual type of problem in the played turn procedure
      */
     public RepeatTurnMessage(int type){
         super(null);

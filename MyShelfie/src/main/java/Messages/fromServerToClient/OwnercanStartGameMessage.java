@@ -4,7 +4,6 @@ import Messages.Message;
 import Messages.MessageType;
 
 public class OwnercanStartGameMessage extends Message {
-
     private String id;
 
     /**
@@ -16,6 +15,7 @@ public class OwnercanStartGameMessage extends Message {
 
     /**
      * Overview: OwnercanStartGameMessage constructor
+     * @param id lobby id
      */
     public OwnercanStartGameMessage(String id){
         super(null);

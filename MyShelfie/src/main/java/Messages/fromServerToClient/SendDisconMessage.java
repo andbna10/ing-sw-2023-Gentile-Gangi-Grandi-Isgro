@@ -9,6 +9,7 @@ public class SendDisconMessage extends Message {
 
     /**
      * Overview: constructor CreateGameMessage
+     * @param arg boolean specifying the status of the disconnection
      */
     public SendDisconMessage(Boolean arg){
         super(null);

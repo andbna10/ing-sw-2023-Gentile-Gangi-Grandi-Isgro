@@ -6,13 +6,13 @@ import Messages.MessageType;
 import java.util.ArrayList;
 
 public class ReconnectedMessage extends Message {
-
     private Boolean status;
 
     private ArrayList<String> usernames;
 
     /**
      * Overview: constructor CreateGameMessage
+     * @param usernames array of the players' username
      */
     public ReconnectedMessage(String[] usernames){
         super(null);

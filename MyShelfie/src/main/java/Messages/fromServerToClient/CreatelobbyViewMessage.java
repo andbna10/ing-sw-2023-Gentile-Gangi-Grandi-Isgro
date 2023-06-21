@@ -13,6 +13,10 @@ public class CreatelobbyViewMessage extends Message {
 
     /**
      * Overview: constructor CreatelobbyViewMessage
+     * @param usernames array of players username
+     * @param id lobby id
+     * @param owner username of the owner of the lobby
+     * @param fromEndStatus Boolean to understand if a previous game has ended
      */
     public CreatelobbyViewMessage(String[] usernames, String id, String owner, Boolean fromEndStatus){
         super(null);

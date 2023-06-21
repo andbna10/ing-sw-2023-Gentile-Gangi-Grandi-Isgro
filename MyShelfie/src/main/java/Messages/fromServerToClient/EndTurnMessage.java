@@ -11,6 +11,8 @@ public class EndTurnMessage extends Message {
 
     /**
      * Overview: EndTurnMessage constructor
+     * @param board matrix of BoardCell objects
+     * @param username player username
      */
     public EndTurnMessage(BoardCell[][] board, String username){
         super(null);
@@ -31,6 +33,8 @@ public class EndTurnMessage extends Message {
 
     /**
      * Overview: boarcell converter to string
+     * @param board matrix of BoardCell objects
+     * @return matrix of String as conversion of the input
      */
     public String[][] boardToString(BoardCell[][] board) {
         String[][] stringMatrix = new String[board[0].length][board.length];

@@ -26,13 +26,14 @@ class GameTest {
 
             }
         }));
-        var serverMan = new ServerManager(null, lobbyMan, node, null, null);
-        var player1 = new Player("simo", true, "random", serverMan);
-        var player2 = new Player("fra", false, "random", serverMan);
-        var player3 = new Player("andre", false, "random", serverMan);
+        var serverMan1 = new ServerManager(null, lobbyMan, node, null, null);
+        var serverMan2 = new ServerManager(null, lobbyMan, node, null, null);
+        var serverMan3 = new ServerManager(null, lobbyMan, node, null, null);
+        var player1 = new Player("simo", true, "random", serverMan1);
+        var player2 = new Player("fra", false, "random", serverMan2);
+        var player3 = new Player("andre", false, "random", serverMan3);
         lobbyMan.getLobby("random").addPlayer(player1);
-        lobbyMan.getLobby("random").addPlayer(player2);
-        lobbyMan.getLobby("random").addPlayer(player3);
+
         var gameController = new GameController("random", lobbyMan);
 
         //getPlayersUsernames test
@@ -40,7 +41,6 @@ class GameTest {
         names.add("fra");
         names.add("andre");
 
-        assertEquals(gameController.getModel().getPlayersUsernames(player1),names);
 
         //getPlayersBookshelf test
         player1.getBookshelf().setTile(5,0,ItemType.PLANTS);
@@ -51,6 +51,20 @@ class GameTest {
         var shelfSet = new ArrayList<ItemTile[][]>();
         shelfSet.add(player1.getBookshelf().getGameTiles());
         shelfSet.add(player3.getBookshelf().getGameTiles());
+
+
+        //advance
+        assertTrue(gameController.getModel().advance());
+        lobbyMan.getLobby("random").addPlayer(player2);
+        lobbyMan.getLobby("random").addPlayer(player3);
+        assertEquals(gameController.getModel().getPlayersUsernames(player1),names);
         assertEquals(shelfSet,gameController.getModel().getPlayersBookshelf(player2));
+        var gameController1 = new GameController("random", lobbyMan);
+        assertFalse(gameController1.getModel().advance());
+        int oldcurrentturnplayer = gameController1.getModel().getCurrentTurnPlayer();
+        assertTrue(gameController1.getModel().getCurrentTurnPlayer() == oldcurrentturnplayer + 1 || gameController.getModel().getCurrentTurnPlayer() == 0);
+
+        //advance finish
+        assertTrue(gameController1.getModel().advanceFinish() == 0);
     }
 }

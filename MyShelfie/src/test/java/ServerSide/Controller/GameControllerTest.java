@@ -61,13 +61,13 @@ class GameControllerTest {
         lobbyMan.getLobby("random").addPlayer(player1);
         lobbyMan.getLobby("random").addPlayer(player2);
         lobbyMan.getLobby("random").addPlayer(player3);
-        var controller = new GameController("random", lobbyMan);
+        var controller1 = new GameController("random", lobbyMan);
 
         //restoreBoard test
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(controller.getModel().getBoard().getBoard()[i][j].getStatus().equals(Status.IN))
-                    assertNotNull(controller.getModel().getBoard().getBoard()[i][j]);
+                if(controller1.getModel().getBoard().getBoard()[i][j].getStatus().equals(Status.IN))
+                    assertNotNull(controller1.getModel().getBoard().getBoard()[i][j]);
             }
         }
         //setpersonalGoals test
@@ -76,8 +76,8 @@ class GameControllerTest {
         assertNotNull(player3.getGoal());
 
         //checkPickables test
-        assertTrue(controller.getModel().getBoard().getBoard()[2][2].getPickable());
-        assertFalse(controller.getModel().getBoard().getBoard()[4][4].getPickable());
+        assertTrue(controller1.getModel().getBoard().getBoard()[1][3].getPickable());
+        assertFalse(controller1.getModel().getBoard().getBoard()[4][4].getPickable());
     }
 
     @Test
@@ -105,7 +105,8 @@ class GameControllerTest {
         controller.endGame(false,"random");
         assertNotNull(controller.getModel().getWinner());
         assert controller.getModel().getPlayers().get(0).getPoints()==0;
-        assert controller.getModel().getPlayers().get(1).getPoints()==2;
+
+        assertEquals(2,controller.getModel().getPlayers().get(1).getPoints());
     }
 
     @Test
@@ -130,15 +131,15 @@ class GameControllerTest {
         picked[0]=4;
         picked[1]=4;
         var picked1 = new int[4];
-        picked1[0]=0;
+        picked1[0]=1;
         picked1[1]=3;
-        picked1[2]=2;
-        picked1[3]=2;
+        picked1[2]=6;
+        picked1[3]=3;
         var picked3 = new int[4];
-        picked3[0]=0;
+        picked3[0]=1;
         picked3[1]=3;
         picked3[2]=1;
-        picked3[3]=3;
+        picked3[3]=4;
 
 
         player1.getBookshelf().setTile(1,0,ItemType.BOOKS);

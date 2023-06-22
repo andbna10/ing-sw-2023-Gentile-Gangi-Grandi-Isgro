@@ -24,4 +24,22 @@ class BookshelfTest {
         assertEquals(shelf.getTile(4, 0).getType(), ItemType.BOOKS);
     }
 
+    @Test
+    void emptyShelf(){
+        var shelf = new Bookshelf();
+        for(int i=0; i<6; i++)
+            for(int j=0; j<5; j++)
+                shelf.setTile(i,j,ItemType.BOOKS);
+
+        for(int i=0; i<6; i++)
+            for(int j=0; j<5; j++)
+                assertNotNull(shelf.getTile(i,j));
+
+        shelf.emptyShelf();
+
+        for(int i=0; i<6; i++)
+            for(int j=0; j<5; j++)
+                assertNull(shelf.getTile(i,j));
+    }
+
 }

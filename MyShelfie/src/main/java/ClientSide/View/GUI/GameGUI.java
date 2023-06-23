@@ -254,7 +254,7 @@ public class GameGUI {
      * @param username is the username chosen by the player
      * @param bookshelf is the bookshelf of th player
      */
-    public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException, URISyntaxException {
+    public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
         String[] bookshelfcolumn = new String[6];
         for (int column = 0; column < 5; column++) {
             for(int j=0; j<6 ; j++){
@@ -281,7 +281,7 @@ public class GameGUI {
      * Overview: update board game
      * @param board is the board game
      */
-    public void updateBoard(String[][] board) throws IOException, URISyntaxException {
+    public void updateBoard(String[][] board) throws IOException {
         String[] boardcolumn = new String[9];
         for (int column = 0; column < 9; column++) {
             for(int j=0; j<9 ; j++){
@@ -481,15 +481,15 @@ public class GameGUI {
          * @param board is the board column to render
          * @param column is the index of the column
          */
-        public ImageTableCellRenderer(String[] board, int column) throws IOException, URISyntaxException {
+        public ImageTableCellRenderer(String[] board, int column) throws IOException {
             for (int i=0; i<board.length; i++) {
                         switch (board[i]) {
-                            case "C" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Gatti1.1.png").toURI()));
-                            case "B" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Libri1.1.png").toURI()));
-                            case "G" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Giochi1.1.png").toURI()));
-                            case "F" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Cornici1.1.png").toURI()));
-                            case "T" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Trofei1.1.png").toURI()));
-                            case "P" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Piante1.1.png").toURI()));
+                            case "C" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Gatti1.1.png"));
+                            case "B" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Libri1.1.png"));
+                            case "G" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Giochi1.1.png"));
+                            case "F" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Cornici1.1.png"));
+                            case "T" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Trofei1.1.png"));
+                            case "P" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Piante1.1.png"));
                             //default -> ;
                 }
             }
@@ -524,15 +524,15 @@ public class GameGUI {
          * @param bookshelf is the bookshelf column to render
          * @param column is the index of the column
          */
-        public ImageBookshelfCellRenderer(String[] bookshelf, int column) throws IOException, URISyntaxException {
+        public ImageBookshelfCellRenderer(String[] bookshelf, int column) throws IOException {
             for (int i=0; i<bookshelf.length; i++) {
                 switch (bookshelf[i]) {
-                    case "C" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Gatti1.1.png").toURI()));
-                    case "B" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Libri1.1.png").toURI()));
-                    case "G" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Giochi1.1.png").toURI()));
-                    case "F" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Cornici1.1.png").toURI()));
-                    case "T" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Trofei1.1.png").toURI()));
-                    case "P" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Piante1.1.png").toURI()));
+                    case "C" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Gatti1.1.png"));
+                    case "B" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Libri1.1.png"));
+                    case "G" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Giochi1.1.png"));
+                    case "F" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Cornici1.1.png"));
+                    case "T" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Trofei1.1.png"));
+                    case "P" -> images[i][column] = ImageIO.read(getClass().getClassLoader().getResource("Piante1.1.png"));
                     //default -> ;
                 }
             }

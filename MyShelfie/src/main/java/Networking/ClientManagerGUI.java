@@ -12,6 +12,7 @@ import Messages.fromServerToClient.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.URISyntaxException;
 
 public class ClientManagerGUI extends Thread{
     private Socket serversocket;
@@ -65,7 +66,7 @@ public class ClientManagerGUI extends Thread{
                             handleMessage(message);
                             readerThreadActive = false;
                         }
-                    } catch (IOException | ClassNotFoundException e) {
+                    } catch (IOException | ClassNotFoundException | URISyntaxException e) {
                         e.printStackTrace();
                     }
                 });
@@ -82,7 +83,7 @@ public class ClientManagerGUI extends Thread{
      * @author Mirko Gentile
      * @param message upcoming message to be handled
      */
-    public void handleMessage(Message message) throws IOException {
+    public void handleMessage(Message message) throws IOException, URISyntaxException {
         //System.out.println("there is a message to be read");
 
         switch(message.getType()) {

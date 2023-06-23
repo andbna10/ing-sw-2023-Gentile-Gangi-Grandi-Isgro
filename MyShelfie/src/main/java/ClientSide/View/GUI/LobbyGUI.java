@@ -2,10 +2,12 @@ package ClientSide.View.GUI;
 
 import ClientSide.NetworkHandler.LobbyHandler;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LobbyGUI {
@@ -21,7 +23,7 @@ public class LobbyGUI {
      * @author Francesco Gangi
      * @param lobbyHandler Lobby Handler needed for network communication
      */
-    public LobbyGUI(LobbyHandler lobbyHandler) {
+    public LobbyGUI(LobbyHandler lobbyHandler) throws IOException {
 
         this.handler = lobbyHandler;
 
@@ -36,15 +38,15 @@ public class LobbyGUI {
         JScrollPane textPane = new JScrollPane(textArea);
         textPanel.add(textPane, BorderLayout.CENTER);
 
-        ImageIcon parq = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
+        ImageIcon parq = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("sfondo parquet.jpg")));
         Image scaledParq = parq.getImage().getScaledInstance(650,770, Image.SCALE_SMOOTH);
         JLabel parqLabel = new JLabel(new ImageIcon(scaledParq));
 
         //setting up window icon and background
-        ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/Display_1.jpg");
+        ImageIcon bg = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("Display_1.jpg")));
         Image scaledBg = bg.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
         JLabel bgLabel = new JLabel(new ImageIcon(scaledBg));
-        ImageIcon loginIcon = new ImageIcon("MyShelfie/src/main/resources/icon.png");
+        ImageIcon loginIcon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("icon.png")));
         lobbyFrame.setIconImage(loginIcon.getImage());
 
         bgLabel.setBounds(25,25,600,400);

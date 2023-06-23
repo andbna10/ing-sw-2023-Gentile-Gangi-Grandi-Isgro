@@ -7,6 +7,7 @@ import Networking.ClientManager;
 import Networking.ClientManagerGUI;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LobbyHandler implements LobbyViewObserver{
@@ -29,7 +30,7 @@ public class LobbyHandler implements LobbyViewObserver{
     /**
      * Overview: LobbyHandler constructor2 gui
      */
-    public LobbyHandler(ClientManagerGUI manager, ArrayList<String> usernames){
+    public LobbyHandler(ClientManagerGUI manager, ArrayList<String> usernames) throws IOException {
         this.managergui = manager;
         this.players = new ArrayList<>();
         this.players.addAll(usernames);
@@ -69,5 +70,5 @@ public class LobbyHandler implements LobbyViewObserver{
     /**
      * Overview: run the lobby GUI
      */
-    public void runLobbyGUI() { this.gui = new LobbyGUI(this); }
+    public void runLobbyGUI() throws IOException { this.gui = new LobbyGUI(this); }
 }

@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -50,7 +51,7 @@ public class GameGUI {
      * Overview: game GUI constructor
      * @param gameHandler Game Handler needed for network communication
      */
-    public GameGUI(GameHandler gameHandler) {
+    public GameGUI(GameHandler gameHandler) throws IOException {
         textArea.setEditable(false);
         textArea.getCaret().setVisible(true);
         textArea.getCaret().setSelectionVisible(true);
@@ -68,17 +69,17 @@ public class GameGUI {
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // initialization of gbLabel
-        ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
+        ImageIcon bg = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("sfondo parquet.jpg")));
         bgLabel = new JLabel(bg);
         bgLabel.add(textArea);
 
         // initialization of Title
-        ImageIcon gameIcon = new ImageIcon("MyShelfie/src/main/resources/Title 2000x2000px.png");
+        ImageIcon gameIcon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("Title 2000x2000px.png")));
         Image scaledIcon = gameIcon.getImage().getScaledInstance(500,500,Image.SCALE_SMOOTH);
         gameFrame.setIconImage(scaledIcon);
 
         // initialization of the boardlabel
-        ImageIcon boardImage = new ImageIcon("MyShelfie/src/main/resources/livingroom.png");
+        ImageIcon boardImage = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("livingroom.png")));
         Image scaledBoardImage = boardImage.getImage().getScaledInstance(600,600, Image.SCALE_SMOOTH);
         boardLabel = new JLabel(new ImageIcon(scaledBoardImage));
         boardTable.setBounds(58,60,540,540);
@@ -94,7 +95,7 @@ public class GameGUI {
         int bookshelfsize=310;
         int xgap = 38;
         int ygap = 21;
-        ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
+        ImageIcon shelfImage = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("bookshelf_orth.png")));
         Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
         shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
         shelfLabels.get(0).setBounds(770,30,bookshelfsize,bookshelfsize);
@@ -253,7 +254,7 @@ public class GameGUI {
      * @param username is the username chosen by the player
      * @param bookshelf is the bookshelf of th player
      */
-    public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException {
+    public void YourTurnRender(int i, String username, String[][] bookshelf) throws IOException, URISyntaxException {
         String[] bookshelfcolumn = new String[6];
         for (int column = 0; column < 5; column++) {
             for(int j=0; j<6 ; j++){
@@ -280,7 +281,7 @@ public class GameGUI {
      * Overview: update board game
      * @param board is the board game
      */
-    public void updateBoard(String[][] board) throws IOException {
+    public void updateBoard(String[][] board) throws IOException, URISyntaxException {
         String[] boardcolumn = new String[9];
         for (int column = 0; column < 9; column++) {
             for(int j=0; j<9 ; j++){
@@ -309,8 +310,8 @@ public class GameGUI {
      * @param points is the points of value of the common goal
      * @param common is the index of the common (one or two)
      */
-    public void UpdateToken(int points, int common){
-        ImageIcon tokenimage = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+points+".jpg");
+    public void UpdateToken(int points, int common) throws IOException {
+        ImageIcon tokenimage = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("scoringTokens/scoring_"+points+".jpg")));
         Image scaledtoken = tokenimage.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
         ImageIcon resizedImage = new ImageIcon(scaledtoken);
         switch (common) {
@@ -333,15 +334,15 @@ public class GameGUI {
      * @param numberPattern is the index of the personal pattern drawn
      * @param common1 is the index of the first common goal pattern drawn
      * @param common2 is the index of the second common goal pattern drawn
-     * @param token1 is the number of points collectable completing coomon1
-     * @param token2 is the number of points collectable completing coomon2
+     * @param token1 is the number of points collectable completing common1
+     * @param token2 is the number of points collectable completing common2
      */
-    public void InitialSetUpRenderer(int numPlayers, String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException {
+    public void InitialSetUpRenderer(int numPlayers, String[][] board, int numberPattern, int common1, int common2, int token1, int token2) throws IOException, URISyntaxException {
         // board
         updateBoard(board);
 
         // personal goal
-        ImageIcon PersonalGoalImage = new ImageIcon("MyShelfie/src/main/resources/personal/Personal_Goals"+numberPattern+".png");
+        ImageIcon PersonalGoalImage = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("personal/Personal_Goals"+numberPattern+".png")));
         Image scaledpersonal = PersonalGoalImage.getImage().getScaledInstance(200,303, Image.SCALE_SMOOTH);
 
         PersonalLabel = new JLabel(new ImageIcon(scaledpersonal));
@@ -350,9 +351,9 @@ public class GameGUI {
         bgLabel.add(PersonalLabel);
 
         // token
-        ImageIcon token1image = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+token1+".jpg");
+        ImageIcon token1image = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("scoringTokens/scoring_"+token1+".jpg")));
         Image scaledtoken1 = token1image.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
-        ImageIcon token2image = new ImageIcon("MyShelfie/src/main/resources/scoringTokens/scoring_"+token2+".jpg");
+        ImageIcon token2image = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("scoringTokens/scoring_"+token2+".jpg")));
         Image scaledtoken2 = token2image.getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
 
         token1Label = new JLabel(new ImageIcon(scaledtoken1));
@@ -364,9 +365,9 @@ public class GameGUI {
         bgLabel.add(token2Label);
 
         // common
-        ImageIcon Common1 = new ImageIcon("MyShelfie/src/main/resources/common/"+common1+".jpg");
+        ImageIcon Common1 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("common/"+common1+".jpg")));
         Image scaledcommon1 = Common1.getImage().getScaledInstance(180,119, Image.SCALE_SMOOTH);
-        ImageIcon Common2 = new ImageIcon("MyShelfie/src/main/resources/common/"+common2+".jpg");
+        ImageIcon Common2 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("common/"+common2+".jpg")));
         Image scaledcommon2 = Common2.getImage().getScaledInstance(180,119, Image.SCALE_SMOOTH);
 
         Common1Label = new JLabel(new ImageIcon(scaledcommon1));
@@ -381,7 +382,7 @@ public class GameGUI {
         int bookshelfsize=310;
         int xgap = 38;
         int ygap = 21;
-        ImageIcon shelfImage = new ImageIcon("MyShelfie/src/main/resources/bookshelf_orth.png");
+        ImageIcon shelfImage = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("bookshelf_orth.png")));
         Image scaledShelf = shelfImage.getImage().getScaledInstance(bookshelfsize,bookshelfsize, Image.SCALE_SMOOTH);
 
         shelfLabels.add(new JLabel(new ImageIcon(scaledShelf)));
@@ -480,15 +481,15 @@ public class GameGUI {
          * @param board is the board column to render
          * @param column is the index of the column
          */
-        public ImageTableCellRenderer(String[] board, int column) throws IOException {
+        public ImageTableCellRenderer(String[] board, int column) throws IOException, URISyntaxException {
             for (int i=0; i<board.length; i++) {
                         switch (board[i]) {
-                            case "C" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Gatti1.1.png"));
-                            case "B" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Libri1.1.png"));
-                            case "G" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Giochi1.1.png"));
-                            case "F" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Cornici1.1.png"));
-                            case "T" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Trofei1.1.png"));
-                            case "P" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Piante1.1.png"));
+                            case "C" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Gatti1.1.png").toURI()));
+                            case "B" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Libri1.1.png").toURI()));
+                            case "G" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Giochi1.1.png").toURI()));
+                            case "F" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Cornici1.1.png").toURI()));
+                            case "T" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Trofei1.1.png").toURI()));
+                            case "P" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Piante1.1.png").toURI()));
                             //default -> ;
                 }
             }
@@ -523,15 +524,15 @@ public class GameGUI {
          * @param bookshelf is the bookshelf column to render
          * @param column is the index of the column
          */
-        public ImageBookshelfCellRenderer(String[] bookshelf, int column) throws IOException {
+        public ImageBookshelfCellRenderer(String[] bookshelf, int column) throws IOException, URISyntaxException {
             for (int i=0; i<bookshelf.length; i++) {
                 switch (bookshelf[i]) {
-                    case "C" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Gatti1.1.png"));
-                    case "B" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Libri1.1.png"));
-                    case "G" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Giochi1.1.png"));
-                    case "F" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Cornici1.1.png"));
-                    case "T" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Trofei1.1.png"));
-                    case "P" -> images[i][column] = ImageIO.read(new File("MyShelfie/src/main/resources/Piante1.1.png"));
+                    case "C" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Gatti1.1.png").toURI()));
+                    case "B" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Libri1.1.png").toURI()));
+                    case "G" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Giochi1.1.png").toURI()));
+                    case "F" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Cornici1.1.png").toURI()));
+                    case "T" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Trofei1.1.png").toURI()));
+                    case "P" -> images[i][column] = ImageIO.read(new File(getClass().getClassLoader().getResource("Piante1.1.png").toURI()));
                     //default -> ;
                 }
             }

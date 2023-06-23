@@ -2,10 +2,12 @@ package ClientSide.View.GUI;
 
 import ClientSide.NetworkHandler.LoginHandler;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginGUI {
 
@@ -18,7 +20,7 @@ public class LoginGUI {
      * @author Andrea Isgrò
      * @param handler Login Handler needed for network communication
      */
-    public LoginGUI(LoginHandler handler) {
+    public LoginGUI(LoginHandler handler) throws IOException {
 
         this.handler = handler;
 
@@ -33,15 +35,15 @@ public class LoginGUI {
         JScrollPane textPane = new JScrollPane(textArea);
         textPanel.add(textPane, BorderLayout.CENTER);
 
-        ImageIcon parq = new ImageIcon("MyShelfie/src/main/resources/sfondo parquet.jpg");
+        ImageIcon parq = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("sfondo parquet.jpg")));
         Image scaledParq = parq.getImage().getScaledInstance(850,460, Image.SCALE_SMOOTH);
         JLabel parqLabel = new JLabel(new ImageIcon(scaledParq));
 
         //setting up window icon and background
-        ImageIcon bg = new ImageIcon("MyShelfie/src/main/resources/Display_1.jpg");
+        ImageIcon bg = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("Display_1.jpg")));
         Image scaledBg = bg.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
         JLabel bgLabel = new JLabel(new ImageIcon(scaledBg));
-        ImageIcon loginIcon = new ImageIcon("MyShelfie/src/main/resources/icon.png");
+        ImageIcon loginIcon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("icon.png")));
         loginFrame.setIconImage(loginIcon.getImage());
 
         //create game button

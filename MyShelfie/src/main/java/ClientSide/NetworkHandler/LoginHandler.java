@@ -25,7 +25,7 @@ public class LoginHandler implements LoginViewObserver{
     /**
      * Overview: LoginHandler constructor2 gui
      */
-    public LoginHandler(ClientManagerGUI manager){
+    public LoginHandler(ClientManagerGUI manager) throws IOException {
         this.managergui = manager;
         runLoginGui();
     }
@@ -75,7 +75,7 @@ public class LoginHandler implements LoginViewObserver{
     /**
      * Overview: call the login gui
      */
-    public void runLoginGui() {
+    public void runLoginGui() throws IOException {
         this.gui = new LoginGUI(this);
     }
 

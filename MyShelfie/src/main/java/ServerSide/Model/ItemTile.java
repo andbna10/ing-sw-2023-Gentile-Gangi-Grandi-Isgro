@@ -22,6 +22,7 @@ public class ItemTile {
      * Overview: inGame getter
      * @deprecated
      */
+    @Deprecated
     public Boolean getInGame(){ return inGame; }
 
     /**

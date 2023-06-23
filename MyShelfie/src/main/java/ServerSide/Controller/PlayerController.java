@@ -143,6 +143,7 @@ public class PlayerController implements PlayerVViewObserver {
      * @author Simone Grandi
      * @deprecated
      */
+    @Deprecated
     public int spaceLeft(){
         int maxNullCount=0;
         //itero per ogni colonna

@@ -5,6 +5,7 @@ import Messages.Message;
 /**
  * @deprecated
  */
+@Deprecated
 public class BoardToPrint extends Message {
     //private String message;
     /**

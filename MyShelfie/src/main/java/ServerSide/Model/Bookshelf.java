@@ -97,6 +97,7 @@ public class Bookshelf {
      * Overview: bookshelf getter
      * @deprecated
      */
+    @Deprecated
     public StringBuffer getGameTilesBuffer(){
         StringBuffer out = new StringBuffer();
         for (ItemTile[] gameTile : gameTiles) {
@@ -118,6 +119,7 @@ public class Bookshelf {
      * Overview: isFull getter
      * @deprecated
      */
+    @Deprecated
     public Boolean getIsFull(){ return isFull; }
 
     /**
@@ -144,6 +146,7 @@ public class Bookshelf {
      * Overview: check if a column of the bookshelf is full
      * @deprecated
      */
+    @Deprecated
     public Boolean columnIsFull(int index){
         for (ItemTile[] gameTile : gameTiles) if (gameTile[index] == null) return false;
         return true;

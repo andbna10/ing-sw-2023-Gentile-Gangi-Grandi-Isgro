@@ -21,7 +21,7 @@ Then you can connect as a client (whether is cli or gui) and choose if you want 
 # How to run
 For this project, we used JDK 19.
 In order to run the game, make sure you have both [Java](https://www.java.com/it/download/) and [Java JDK](https://www.oracle.com/java/technologies/downloads/) installed.<br><br>
-You also need the jar file. You can get it by clicking [here](https://github.com/andbna10/ing-sw-2023-Gentile-Gangi-Grandi-Isgro/blob/main/deliverables/jar/myshelfie.jar).
+You also need the jar file. You can get it by clicking [here](https://github.com/andbna10/ing-sw-2023-Gentile-Gangi-Grandi-Isgro/blob/main/deliverables/final/jar/myshelfie.jar).
 
 ## Running server 
 You can run a server by typing `java -jar myshelfie.jar -server` in the command prompt.

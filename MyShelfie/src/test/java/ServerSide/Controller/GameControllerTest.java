@@ -46,7 +46,7 @@ class GameControllerTest {
 
 
     @Test
-    void StartGameTest() throws InterruptedException, IOException {
+    void startGameTest() throws InterruptedException, IOException {
         var lobbyMan = new LobbyManager();
         var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
             @Override

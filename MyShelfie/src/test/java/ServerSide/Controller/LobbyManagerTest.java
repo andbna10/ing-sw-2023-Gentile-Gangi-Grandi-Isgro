@@ -13,7 +13,7 @@ import java.io.OutputStream;
 
 class LobbyManagerTest {
     @Test
-    void Test() throws IOException, InterruptedException {
+    void test() throws IOException, InterruptedException {
         var lobbyMan = new LobbyManager();
         var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
             @Override

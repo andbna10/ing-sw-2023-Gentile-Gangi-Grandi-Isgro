@@ -1,5 +1,5 @@
 # IngSw Project - AY 2022-23 - MyShelfie
-<img src="https://github.com/andbna10/ing-sw-2023-Gentile-Gangi-Grandi-Isgro/blob/main/MyShelfie/src/main/resources/Title%202000x2000px.png" width=200px height=200 px align="right" />
+<img src="https://github.com/andbna10/ing-sw-2023-Gentile-Gangi-Grandi-Isgro/blob/main/src/main/resources/Title%202000x2000px.png" width=200px height=200 px align="right" />
 
 ## Project Description
 This project consists of a Java reproduction of the board game [MyShelfie](https://www.craniocreations.it/prodotto/my-shelfie) by Cranio Creations.

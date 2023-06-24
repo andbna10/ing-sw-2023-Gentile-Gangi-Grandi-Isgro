@@ -41,7 +41,7 @@ assets/*
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
 .idea/artifacts
-.idea/compiler.xml
+../.idea/compiler.xml
 .idea/jarRepositories.xml
 .idea/modules.xml
 .idea/*.iml
@@ -87,7 +87,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # target folder
-MyShelfie/target/
+target/*
 
 # Myshelfie.idea
 MyShelfie/.idea

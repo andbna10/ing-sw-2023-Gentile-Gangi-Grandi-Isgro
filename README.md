@@ -32,4 +32,4 @@ Open the command prompt and choose:
 
 * GUI initialization: `java -jar myshelfie.jar -gui [ip_address]` in order to start a client using graphic user interface.
 
-In `[ip_address` you obviously have to enter the IPv4 from the server host.
+In `[ip_address` you have to enter the IPv4 address from server host.

@@ -27,7 +27,7 @@ You also need the jar file. You can get it by clicking [here](https://github.com
 You can run a server by typing `java -jar myshelfie.jar -server` in the command prompt.
 
 ## Running client
-The client runs in 1920x1080 resolution.
+The client runs in `1920x1080` resolution.
 Open the command prompt and choose:
 * CLI initialization: `java -jar myshelfie.jar -cli [ip_address]` in order to start a client using command line interface.
 

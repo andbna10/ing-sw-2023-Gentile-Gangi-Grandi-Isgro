@@ -21,7 +21,7 @@ public class ServerManager extends Thread{
     private ObjectOutputStream out;
     private LobbyManager lobbymanager;
 
-    // reference to the Virtual View classes (?)
+    // reference to the Virtual View classes
     private VirtualLobbyView lobbyview;
     private VirtualGameView gameview;
     private VirtualPlayerView playerview;

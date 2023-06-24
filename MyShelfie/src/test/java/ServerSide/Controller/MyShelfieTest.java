@@ -14,7 +14,6 @@ class MyShelfieTest {
     @Test
     void selectPersonalGoalsTest() {
         var ms = new MyShelfie();
-        var shelf = new Bookshelf();
         var pl = new Player("Giuvann", true, "1", null);
         var output = ms.selectPersonalGoals(3);
         pl.setGoal(output.get(1));

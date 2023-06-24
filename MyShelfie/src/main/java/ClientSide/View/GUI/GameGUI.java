@@ -103,6 +103,13 @@ public class GameGUI {
         shelfTables.get(0).setBounds(770 + xgap, 30 + ygap, bookshelfsize+10, bookshelfsize+10);
         shelfTables.get(0).setRowHeight(7*6);
         shelfTexts.add(new JTextField());
+        //textfield settings
+        shelfTexts.get(0).setOpaque(false);
+        shelfTexts.get(0).setBorder(null);
+        Font font = new Font(null,Font.BOLD,13);
+        shelfTexts.get(0).setFont(font);
+        shelfTexts.get(0).setEditable(false);
+        shelfTexts.get(0).setHorizontalAlignment(JTextField.CENTER);
         shelfTexts.get(0).setBounds(875, 340, 100, 50);
         bgLabel.add(shelfTexts.get(0));
         //set column width
@@ -389,6 +396,13 @@ public class GameGUI {
         shelfLabels.get(1).setBounds(1090,30,bookshelfsize,bookshelfsize);
         shelfTables.add(new JTable(6,5));
         shelfTexts.add(new JTextField());
+        //textfield settings
+        shelfTexts.get(1).setOpaque(false);
+        shelfTexts.get(1).setBorder(null);
+        Font font = new Font(null,Font.BOLD,14);
+        shelfTexts.get(1).setFont(font);
+        shelfTexts.get(1).setEditable(false);
+        shelfTexts.get(1).setHorizontalAlignment(JTextField.CENTER);
         shelfTexts.get(1).setBounds(1195, 340, 100, 50);
         shelfTables.get(1).setBounds(1090+xgap, 30+ygap, bookshelfsize+10, bookshelfsize+10);
         shelfTables.get(1).setRowHeight(7*6);
@@ -410,6 +424,12 @@ public class GameGUI {
             shelfLabels.get(2).setBounds(770, 450, bookshelfsize, bookshelfsize);
             shelfTables.add(new JTable(6,5));
             shelfTexts.add(new JTextField());
+            //textfield settings
+            shelfTexts.get(2).setOpaque(false);
+            shelfTexts.get(2).setBorder(null);
+            shelfTexts.get(2).setFont(font);
+            shelfTexts.get(2).setEditable(false);
+            shelfTexts.get(2).setHorizontalAlignment(JTextField.CENTER);
             shelfTexts.get(2).setBounds(875, 760, 100, 50);
             shelfTables.get(2).setBounds(770 + xgap, 450 + ygap, bookshelfsize+10, bookshelfsize+10);
             shelfTables.get(2).setRowHeight(7*6);
@@ -431,6 +451,12 @@ public class GameGUI {
             shelfLabels.get(3).setBounds(1090, 450, bookshelfsize, bookshelfsize);
             shelfTables.add(new JTable(6,5));
             shelfTexts.add(new JTextField());
+            //textfield settings
+            shelfTexts.get(3).setOpaque(false);
+            shelfTexts.get(3).setBorder(null);
+            shelfTexts.get(3).setFont(font);
+            shelfTexts.get(3).setEditable(false);
+            shelfTexts.get(3).setHorizontalAlignment(JTextField.CENTER);
             shelfTexts.get(3).setBounds(1195, 760, 100, 50);
             shelfTables.get(3).setBounds(1090 + xgap, 450 + ygap, bookshelfsize+10, bookshelfsize+10);
             shelfTables.get(3).setRowHeight(7*6);

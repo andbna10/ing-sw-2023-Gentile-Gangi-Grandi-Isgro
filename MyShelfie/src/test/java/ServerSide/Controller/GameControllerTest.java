@@ -104,9 +104,10 @@ class GameControllerTest {
 
         controller.endGame(false,"random");
         assertNotNull(controller.getModel().getWinner());
-        assert controller.getModel().getPlayers().get(0).getPoints()==0;
 
-        assertEquals(2,controller.getModel().getPlayers().get(1).getPoints());
+        assertEquals(0,player1.getPoints());
+        assertEquals(2,player2.getPoints());
+        assertEquals(player2.getUsername(),controller.getModel().getWinner());
     }
 
     @Test

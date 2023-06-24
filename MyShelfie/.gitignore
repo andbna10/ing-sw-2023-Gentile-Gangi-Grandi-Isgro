@@ -88,6 +88,3 @@ fabric.properties
 
 # target folder
 target/*
-
-# Myshelfie.idea
-MyShelfie/.idea

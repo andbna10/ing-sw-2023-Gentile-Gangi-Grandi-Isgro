@@ -4,6 +4,7 @@ import Networking.ListNode;
 import Networking.ServerManager;
 import ServerSide.Model.*;
 import ServerSide.Model.CommonPattern.CommonPattern1;
+import ServerSide.Model.CommonPattern.CommonPattern2;
 import ServerSide.Model.PersonalPattern.PersonalPattern3;
 import ServerSide.VirtualView.VirtualPlayerView;
 import org.junit.jupiter.api.Test;
@@ -248,6 +249,78 @@ class PlayerControllerTest {
         assertFalse(gameController.getModel().getBoard().getBoard()[0][3].getPickable());
         assertFalse(gameController.getModel().getBoard().getBoard()[1][3].getPickable());
         assertFalse(gameController.getModel().getBoard().getBoard()[2][3].getPickable());
+    }
+
+    @Test
+    void checkTest() throws IOException, InterruptedException {
+        var lobbyMan = new LobbyManager();
+        var node = new ListNode(null, null, new ObjectOutputStream(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        }));
+        var serverMan = new ServerManager(null, lobbyMan, node, null, null);
+        var player1 = new Player("simo", true, "random", serverMan);
+        var player2 = new Player("fra", false, "random", serverMan);
+        lobbyMan.getLobby("random").addPlayer(player1);
+        lobbyMan.getLobby("random").addPlayer(player2);
+        var gameController = new GameController("random", lobbyMan);
+
+        var playerController = new PlayerController(player1, gameController, new VirtualPlayerView(null));
+        var playerController2 = new PlayerController(player2, gameController, new VirtualPlayerView(null));
+
+        //common1
+        player1.getBookshelf().setTile(0,0,ItemType.PLANTS);
+        player1.getBookshelf().setTile(0,1,ItemType.PLANTS);
+        player1.getBookshelf().setTile(1,0,ItemType.PLANTS);
+        player1.getBookshelf().setTile(1,1,ItemType.PLANTS);
+
+        player1.getBookshelf().setTile(2,0,ItemType.FRAMES);
+        player1.getBookshelf().setTile(2,1,ItemType.FRAMES);
+        player1.getBookshelf().setTile(3,0,ItemType.FRAMES);
+        player1.getBookshelf().setTile(3,1,ItemType.FRAMES);
+
+        //common2
+        player1.getBookshelf().setTile(0,3,ItemType.PLANTS);
+        player1.getBookshelf().setTile(1,3,ItemType.TROPHIES);
+        player1.getBookshelf().setTile(2,3,ItemType.FRAMES);
+        player1.getBookshelf().setTile(3,3,ItemType.BOOKS);
+        player1.getBookshelf().setTile(4,3,ItemType.CATS);
+        player1.getBookshelf().setTile(5,3,ItemType.GAMES);
+        player1.getBookshelf().setTile(0,4,ItemType.PLANTS);
+        player1.getBookshelf().setTile(1,4,ItemType.TROPHIES);
+        player1.getBookshelf().setTile(2,4,ItemType.FRAMES);
+        player1.getBookshelf().setTile(3,4,ItemType.BOOKS);
+        player1.getBookshelf().setTile(4,4,ItemType.CATS);
+        player1.getBookshelf().setTile(5,4,ItemType.GAMES);
+
+        var common1 = new CommonPattern1();
+        var common2 = new CommonPattern2();
+        var commonList = new ArrayList<CommonGoalCard>();
+        commonList.add(common1);
+        commonList.add(common2);
+        var shelfie =new MyShelfie();
+        ArrayList<ScoringToken> scoringtokens = shelfie.selectScoringToken(2);
+        for(int i=0; i<scoringtokens.size(); i+=2) {
+            common1.setElementStack(scoringtokens.get(i));
+            common2.setElementStack(scoringtokens.get(i+1));
+        }
+        playerController.check(commonList,"random");
+        assertTrue(player1.getBookshelf().getCommonOne());
+        assertTrue(player1.getBookshelf().getCommonTwo());
+
+        //fullness
+        for(int i=0;i<6;i++)
+            for(int j=0;j<5;j++)
+                player2.getBookshelf().setTile(i,j,ItemType.CATS);
+
+        playerController2.check(commonList,"random");
+        assertEquals(4+1,player2.getPoints());
+
+        //spaceleft test
+        assertEquals(3,playerController.spaceLeft());
+        assertEquals(0,playerController2.spaceLeft());
     }
 
 }

@@ -91,23 +91,23 @@ class GameControllerTest {
         }));
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         var player1 = new Player("simo", true, "random", serverMan);
-        var player2 = new Player("fra", false, "random", serverMan);
+        var player22 = new Player("fra", false, "random", serverMan);
         var player3 = new Player("andre", false, "random", serverMan);
         lobbyMan.getLobby("random").addPlayer(player1);
-        lobbyMan.getLobby("random").addPlayer(player2);
+        lobbyMan.getLobby("random").addPlayer(player22);
         lobbyMan.getLobby("random").addPlayer(player3);
         var controller = new GameController("random", lobbyMan);
 
-        player2.getBookshelf().setTile(0,0, ItemType.PLANTS);
-        player2.getBookshelf().setTile(0,1, ItemType.PLANTS);
-        player2.getBookshelf().setTile(0,2, ItemType.PLANTS);
+        player22.getBookshelf().setTile(0,0, ItemType.PLANTS);
+        player22.getBookshelf().setTile(0,1, ItemType.PLANTS);
+        player22.getBookshelf().setTile(0,2, ItemType.PLANTS);
 
         controller.endGame(false,"random");
         assertNotNull(controller.getModel().getWinner());
 
         assertEquals(0,player1.getPoints());
-        assertEquals(2,player2.getPoints());
-        assertEquals(player2.getUsername(),controller.getModel().getWinner());
+        assertEquals(2,player22.getPoints());
+        assertEquals(player22.getUsername(),controller.getModel().getWinner());
     }
 
     @Test
@@ -136,6 +136,14 @@ class GameControllerTest {
         picked1[1]=3;
         picked1[2]=6;
         picked1[3]=3;
+        var picked2 = new int[6];
+        picked2[0]=1;
+        picked2[1]=3;
+        picked2[4]=6;
+        picked2[5]=3;
+        picked2[2]=1;
+        picked2[3]=4;
+
         var picked3 = new int[4];
         picked3[0]=1;
         picked3[1]=3;
@@ -152,6 +160,7 @@ class GameControllerTest {
 
         assert controller.verifyTurn(picked,1,serverMan)==0;
         assert controller.verifyTurn(picked1,1,serverMan)==1;
+        assert controller.verifyTurn(picked2,1,serverMan)==1;
         assert controller.verifyTurn(picked3,1,serverMan)==3;
         assert controller.verifyTurn(picked3,0,serverMan)==2;
     }

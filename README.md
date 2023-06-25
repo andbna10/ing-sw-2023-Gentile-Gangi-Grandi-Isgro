@@ -42,7 +42,10 @@ Open the command prompt and choose:
 * CLI initialization: `java -jar myshelfie.jar -cli [ip_address]` in order to start a client using command line interface.
 
 * GUI initialization: `java -jar myshelfie.jar -gui [ip_address]` in order to start a client using graphic user interface.
+<br>
 
-As `[ip_address]` you have to enter the IPv4 address from server host ***without square brackets***.
+As `[ip_address]` you have to enter the IPv4 address from server host ***without square brackets*** (e.g. `java -jar myshelfie.jar -cli 192.168.1.1`).
+
 If you are trying to connect to a server hosting from a different network, you will need the **public** IP address from the host.
+
 If you are trying to connect to a server hosting on a LAN, you will need the **local** IP address from the host.

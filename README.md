@@ -1,5 +1,5 @@
 # IngSw Project - AY 2022-23 - MyShelfie
-<img src="https://github.com/andbna10/ing-sw-2023-Gentile-Gangi-Grandi-Isgro/blob/main/src/main/resources/Title%202000x2000px.png" width=200px height=200 px align="right" />
+<img src="src/main/resources/Title%202000x2000px.png" width=200px height=200 px align="right"/>
 
 ## Project Description
 This project consists of a Java reproduction of the board game [MyShelfie](https://www.craniocreations.it/prodotto/my-shelfie) by Cranio Creations.
@@ -10,10 +10,20 @@ This project consists of a Java reproduction of the board game [MyShelfie](https
 - [Simone Grandi](https://github.com/BigSim0) (simone1.grandi@mail.polimi.it)
 - [Mirko Gentile](https://github.com/shakkd) (mirko.gentile@mail.polimi.it)
 
-## How to play
-In order to play a game, you firstly need to start the server.
+## Implemented Features
+| Feature | Status |
+|:-----------------------|:------------------------------------:|
+| Basic Game Rules |[![GREEN](https://via.placeholder.com/15/00f000/00f000)](#)|
+| Complete Game Rules | [![GREEN](https://via.placeholder.com/15/00f000/00f000)](#) |
+| Socket | [![GREEN](https://via.placeholder.com/15/00f000/00f000)](#) |
+| CLI | [![GREEN](https://via.placeholder.com/15/00f000/00f000)](#) |
+| GUI | [![GREEN](https://via.placeholder.com/15/00f000/00f000)](#) |
+| Multiple Games | [![GREEN](https://via.placeholder.com/15/00f000/00f000)](#)|
 
-Then you can connect as a client (whether is cli or gui) and choose if you want to:
+## How to play
+In order to play a game, you firstly need to host a server.
+
+Then you can connect as a client (whether it be CLI or GUI) and choose if you want to:
 * (1) Create a game
 * (2) Join a game
 * (3) Play in a random lobby
@@ -33,4 +43,6 @@ Open the command prompt and choose:
 
 * GUI initialization: `java -jar myshelfie.jar -gui [ip_address]` in order to start a client using graphic user interface.
 
-In `[ip_address` you have to enter the IPv4 address from server host.
+As `[ip_address]` you have to enter the IPv4 address from server host ***without square brackets***.
+If you are trying to connect to a server hosting from a different network, you will need the **public** IP address from the host.
+If you are trying to connect to a server hosting on a LAN, you will need the **local** IP address from the host.

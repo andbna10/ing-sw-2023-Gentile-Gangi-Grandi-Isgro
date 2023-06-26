@@ -1,8 +1,8 @@
-# IngSw Project - AY 2022-23 - MyShelfie
+# IngSw Project - AY 2022-23 - My Shelfie
 <img src="src/main/resources/Title%202000x2000px.png" width=200px height=200 px align="right"/>
 
 ## Project Description
-This project consists of a Java reproduction of the board game [MyShelfie](https://www.craniocreations.it/prodotto/my-shelfie) by Cranio Creations.
+This project consists of a Java reproduction of the board game [My Shelfie](https://www.craniocreations.it/prodotto/my-shelfie) by Cranio Creations.
 
 ## Development Team
 - [Andrea Isgrò](https://github.com/andbna10) (andrea.isgro@mail.polimi.it)

@@ -91,23 +91,23 @@ class GameControllerTest {
         }));
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         var player1 = new Player("simo", true, "random", serverMan);
-        var player22 = new Player("fra", false, "random", serverMan);
+        var player2 = new Player("fra", false, "random", serverMan);
         var player3 = new Player("andre", false, "random", serverMan);
         lobbyMan.getLobby("random").addPlayer(player1);
-        lobbyMan.getLobby("random").addPlayer(player22);
+        lobbyMan.getLobby("random").addPlayer(player2);
         lobbyMan.getLobby("random").addPlayer(player3);
         var controller = new GameController("random", lobbyMan);
 
-        player22.getBookshelf().setTile(0,0, ItemType.PLANTS);
-        player22.getBookshelf().setTile(0,1, ItemType.PLANTS);
-        player22.getBookshelf().setTile(0,2, ItemType.PLANTS);
+        player2.getBookshelf().setTile(1,4, ItemType.PLANTS);
+        player2.getBookshelf().setTile(2,4, ItemType.PLANTS);
+        player2.getBookshelf().setTile(3,4, ItemType.PLANTS);
 
         controller.endGame(false,"random");
         assertNotNull(controller.getModel().getWinner());
 
         assertEquals(0,player1.getPoints());
-        assertEquals(2,player22.getPoints());
-        assertEquals(player22.getUsername(),controller.getModel().getWinner());
+        assertEquals(2,player2.getPoints());
+        assertEquals(player2.getUsername(),controller.getModel().getWinner());
     }
 
     @Test

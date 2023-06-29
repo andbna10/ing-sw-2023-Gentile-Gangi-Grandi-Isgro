@@ -30,6 +30,7 @@ public class ClientManager extends Thread{
     private PlayerHandler playerhandler;
     private GameHandler gamehandler;
     private GenericCLI genericCLI;
+    private boolean hasBeenNotified;
 
     /**
      * ClientManager constructor
@@ -166,7 +167,10 @@ public class ClientManager extends Thread{
 
             case OWNERCANSTARTGAME:
                 OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
-                lobbyhandler.getCli().ownercanstart(ownercanstartgamemessage.getId());
+                if(!hasBeenNotified){
+                    hasBeenNotified = true;
+                    lobbyhandler.getCli().ownercanstart(ownercanstartgamemessage.getId());
+                }
                 break;
 
             case YOURTURN:
@@ -174,12 +178,11 @@ public class ClientManager extends Thread{
                 genericCLI.printMessage(yourturnmessage.getMessage());
                 if(yourturnmessage.getUpddatedBookshelf()){
                     playerhandler.getCli().printBookshelf(yourturnmessage.getBookshelf());
-                    break;
                 } else {
                     // here the players sees the updated board
                     gamehandler.getCli().printBoard(yourturnmessage.getBoard());
 
-                    // here the player sees the opponents' bookshlef
+                    // here the player sees the opponents' bookshelf
                     for(int i=0; i<yourturnmessage.getBookshelfList().size(); i++){
                         playerhandler.getCli().printOpponent(yourturnmessage.getBookshelfList().get(i), yourturnmessage.getUsernames().get(i));
                     }
@@ -190,8 +193,8 @@ public class ClientManager extends Thread{
                     // player called to perform a move
                     TilesToTakeMessage messageToTake = new TilesToTakeMessage(playerhandler.getCli().getTotake(), playerhandler.getCli().getOrder(), playerhandler.getCli().getColumn(), "prova");
                     sendMessage(messageToTake);
-                    break;
                 }
+                break;
 
             // access to the lobby denied
             case ACCESSDENIED:
@@ -231,23 +234,22 @@ public class ClientManager extends Thread{
                 break;
 
             case ENDGAME:
+                hasBeenNotified = false;
                 EndGameMessage endgamemessage = (EndGameMessage) message;
                 if(!((EndGameMessage) message).getDiscon()) {
                     genericCLI.printOutputEndGame(endgamemessage.getOutput());
                     genericCLI.printMessage(endgamemessage.getMessage());
 
                     if(endgamemessage.getIsOwner()){
-                        System.out.println("entrato");
                         gamehandler.getCli().backToTheLobby();
                     }
-                    break;
-
                 } else {
                     genericCLI.printMessage("\nplayer quitted, ending match");
-                    break;
                 }
+                break;
 
             case LOBBYSIZECHANGED:
+                hasBeenNotified = false;
                 LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;
                 genericCLI.printMessage(lobbychangedmessage.getMessage());
                 break;

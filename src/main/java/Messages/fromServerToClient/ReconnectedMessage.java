@@ -4,6 +4,7 @@ import Messages.Message;
 import Messages.MessageType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ReconnectedMessage extends Message {
     private Boolean status;
@@ -19,8 +20,7 @@ public class ReconnectedMessage extends Message {
         this.usernames = new ArrayList<>();
         super.setType(MessageType.RECONNECTED);
 
-        for(String s : usernames)
-            this.usernames.add(s);
+        this.usernames.addAll(Arrays.asList(usernames));
 
     }
 

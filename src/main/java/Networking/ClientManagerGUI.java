@@ -189,7 +189,6 @@ public class ClientManagerGUI extends Thread{
                 if(yourturnmessage.getUpddatedBookshelf()){
                     // aimed to update the bookshelf after the turn
                     gamehandler.getGui().YourTurnRender(0, "Your Bookshelf", yourturnmessage.getBookshelf());
-                    break;
                 } else {
                     // show message
                     //gamehandler.getGui().showMessage(yourturnmessage.getMessagegui());
@@ -197,7 +196,7 @@ public class ClientManagerGUI extends Thread{
                     // here the players sees the updated board
                     gamehandler.getGui().updateBoard(yourturnmessage.getBoard());
 
-                    // here the player sees the opponents' bookshlef
+                    // here the player sees the opponents' bookshelf
                     for(int i=0; i<yourturnmessage.getBookshelfList().size(); i++){
                         gamehandler.getGui().YourTurnRender(i+1, yourturnmessage.getUsernames().get(i), yourturnmessage.getBookshelfList().get(i));
                     }
@@ -216,17 +215,17 @@ public class ClientManagerGUI extends Thread{
                     }
                     TilesToTakeMessage messageToTake = new TilesToTakeMessage(gamehandler.getGui().getTotake(), gamehandler.getGui().getOrder(), gamehandler.getGui().getColumn(), "prova");
                     sendMessage(messageToTake);
-                    break;
                 }
+                break;
 
-                // access to the lobby denied
+            // access to the lobby denied
             case ACCESSDENIED:
                 AccessDeniedMessage accessdeniedmessage = (AccessDeniedMessage) message;
                 loginHandler.getGui().validityCheck(accessdeniedmessage.getMessage());
                 loginHandler.runLoginGui();
                 break;
 
-            // beeing notified about the end of a turn
+            // being notified about the end of a turn
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
                 gamehandler.getGui().updateBoard(endturnmessage.board());
@@ -266,6 +265,7 @@ public class ClientManagerGUI extends Thread{
                 break;
 
             case ENDGAME:
+                hasBeenNotified = false;
                 EndGameMessage endgamemessage = (EndGameMessage) message;
                 gamehandler.getGui().endgame(endgamemessage.getOutput());
                 if(((EndGameMessage) message).getDiscon()){
@@ -282,6 +282,7 @@ public class ClientManagerGUI extends Thread{
                 break;
 
             case LOBBYSIZECHANGED:
+                hasBeenNotified = false;
                 LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;
                 lobbyhandler.getGui().showMessage(lobbychangedmessage.getMessage());
                 break;

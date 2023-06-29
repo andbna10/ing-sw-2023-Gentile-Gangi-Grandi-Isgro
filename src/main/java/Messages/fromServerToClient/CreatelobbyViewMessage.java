@@ -4,6 +4,7 @@ import Messages.Message;
 import Messages.MessageType;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CreatelobbyViewMessage extends Message {
     private ArrayList<String> usernames;
@@ -25,9 +26,7 @@ public class CreatelobbyViewMessage extends Message {
         this.usernames = new ArrayList<>();
         this.id = id;
         this.fromEnd = fromEndStatus;
-        for(int i=0; i<usernames.length;i++){
-            this.usernames.add(usernames[i]);
-        }
+        this.usernames.addAll(Arrays.asList(usernames));
     }
 
     /**

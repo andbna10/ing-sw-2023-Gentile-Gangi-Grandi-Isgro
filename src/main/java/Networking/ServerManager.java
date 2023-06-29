@@ -126,7 +126,7 @@ public class ServerManager extends Thread{
                             if(username != null) {
                                 server.setDiscon(true);
                                 server.setDisconRef(ref);
-                                System.out.println("player disconnected, connection recovery procedure launched\n");
+                                //System.out.println("player disconnected, connection recovery procedure launched\n");
 
                                 //lancio procedura
                                 ok = recoveryConnection();

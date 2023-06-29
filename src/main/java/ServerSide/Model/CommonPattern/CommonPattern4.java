@@ -27,17 +27,27 @@ public class CommonPattern4 extends CommonGoalCard {
     public boolean validated(Bookshelf bookshelf) {
         int count = 0;
 
+        //colonna
         for(int i=0; i<5; i++){
-            for(int j=0; j<4; j++){
+            for(int j=0; j<5; j++){
                 if(bookshelf.getTile(i,j) != null && bookshelf.getTile(i+1,j) != null &&
-                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType())
+                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i + 1, j).getType()) {
                     count++;
-                if(bookshelf.getTile(i,j) != null && bookshelf.getTile(i,j+1)!=null &&
-                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i , j+1).getType())
-                    count++;
+                    //System.out.println(i + "," + j + "colonna");
+                }
             }
         }
-
+        //riga
+        for(int i=0; i<6; i++){
+            for(int j=0; j<4; j++){
+                if(bookshelf.getTile(i,j) != null && bookshelf.getTile(i,j+1)!=null &&
+                        bookshelf.getTile(i, j).getType() == bookshelf.getTile(i , j+1).getType()) {
+                    count++;
+                    //System.out.println(i + "," + j + "riga");
+                }
+            }
+        }
+        //System.out.println("conteggio" + count);
         return count > 5;
     }
 }

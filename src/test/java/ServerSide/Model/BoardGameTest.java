@@ -12,7 +12,7 @@ class BoardGameTest {
     void setTilesTest() {
 
         // 2 players --------------- //
-        var board = new BoardGamePublic(2);
+        var board = new BoardGame(2);
         ArrayList<ItemTile> tiles = new ArrayList<>();
 
         for(int i=0; i<81; i++)
@@ -31,7 +31,7 @@ class BoardGameTest {
         assertNull(board.getBoard()[0][0].getTile());
 
         // 3 players --------------- //
-        var board2 = new BoardGamePublic(3);
+        var board2 = new BoardGame(3);
         ArrayList<ItemTile> tiles2 = new ArrayList<>();
 
         for(int i=0; i<81; i++)
@@ -44,7 +44,7 @@ class BoardGameTest {
 
 
         // 4 players --------------- //
-        var board3 = new BoardGamePublic(4);
+        var board3 = new BoardGame(4);
         ArrayList<ItemTile> tiles3 = new ArrayList<>();
 
         for(int i=0; i<81; i++)

@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class Player {
     private int id;
     private HashMap<String, Boolean> lobby;
+    private boolean hasBeenNotified;
     private static int numPlayers = 0;
     private String username;
     private Boolean inGame;
@@ -30,6 +31,7 @@ public class Player {
     public Player(String username, Boolean islobbyowner, String idlobby, ServerManager manager){
         lobby = new HashMap<>();
         lobby.put(idlobby, islobbyowner);
+        hasBeenNotified = false;
         this.username = username;
         id = numPlayers;
         numPlayers++;
@@ -124,7 +126,10 @@ public class Player {
      * Overview: the observer of the player is notified about the possibility to start the game
      */
     public void notifyOwner(String id){
-        this.obs.createownercanstartgamemessage(id);
+        if(!hasBeenNotified) {
+            hasBeenNotified = true;
+            this.obs.createownercanstartgamemessage(id);
+        }
     }
 
     /**

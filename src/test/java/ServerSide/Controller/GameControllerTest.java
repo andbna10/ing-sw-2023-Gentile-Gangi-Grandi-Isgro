@@ -28,6 +28,7 @@ class GameControllerTest {
 
             }
         }));
+        lobbyMan.createLobby("random");
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         lobbyMan.getLobby("random").addPlayer(new Player("simo", true, "random", serverMan));
         lobbyMan.getLobby("random").addPlayer(new Player("fra", false, "random", serverMan));
@@ -54,6 +55,7 @@ class GameControllerTest {
 
             }
         }));
+        lobbyMan.createLobby("random");
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         var player1 = new Player("simo", true, "random", serverMan);
         var player2 = new Player("fra", false, "random", serverMan);
@@ -89,6 +91,7 @@ class GameControllerTest {
 
             }
         }));
+        lobbyMan.createLobby("random");
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         var player1 = new Player("simo", true, "random", serverMan);
         var player2 = new Player("fra", false, "random", serverMan);
@@ -119,6 +122,7 @@ class GameControllerTest {
 
             }
         }));
+        lobbyMan.createLobby("random");
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         var player1 = new Player("simo", true, "random", serverMan);
         var player2 = new Player("fra", false, "random", serverMan);
@@ -174,6 +178,7 @@ class GameControllerTest {
 
             }
         }));
+        lobbyMan.createLobby("random");
         var serverMan = new ServerManager(null, lobbyMan, node, null, null);
         var player1 = new Player("simo", true, "random", serverMan);
         var player2 = new Player("fra", false, "random", serverMan);

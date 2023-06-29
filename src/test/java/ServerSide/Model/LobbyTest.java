@@ -23,6 +23,7 @@ class LobbyTest {
             }
         }));
 
+        lobbyMan.createLobby("random");
         var serverMan1 = new ServerManager(null, lobbyMan, node, null, null);
         var serverMan2 = new ServerManager(null, lobbyMan, node, null, null);
         var serverMan3 = new ServerManager(null, lobbyMan, node, null, null);

@@ -24,9 +24,9 @@ This project consists of a Java reproduction of the board game [My Shelfie](http
 In order to play a game, you firstly need to host a server.
 
 Then you can connect as a client (whether it be CLI or GUI) and choose if you want to:
-* (1) Create a game
-* (2) Join a game
-* (3) Play in a random lobby
+* (1) Create a game (manually create a game with an automatically assigned ID)
+* (2) Join a game (manually join a specified lobby using the ID given from the lobby owner)
+* (3) ***Play in a random lobby*** (THIS IS THE DEFAULT METHOD, following game requirements)
 
 # How to run JAR file
 For this project, we used JDK 19.

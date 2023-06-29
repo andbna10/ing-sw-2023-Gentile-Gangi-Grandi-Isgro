@@ -2,6 +2,8 @@ package ClientSide.View.CLI;
 
 import ClientSide.NetworkHandler.GameHandler;
 
+import java.util.Scanner;
+
 public class GameCLI {
     private GameHandler handler;
 
@@ -34,5 +36,21 @@ public class GameCLI {
             }
             System.out.println();
         }
+    }
+
+    /**
+     * Overview: method aimed to let the owner get all the players back to the lobby
+     */
+    public void backToTheLobby(){
+        System.out.println("Type 'back' to let all the players come back to the lobby");
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        input = scanner.nextLine();
+        while (!input.equals("back")){
+            System.out.println("Command not found, retry!");
+            System.out.print("> \n");
+            input = scanner.nextLine();
+        }
+        handler.createBackToTheLobbyMessage();
     }
 }

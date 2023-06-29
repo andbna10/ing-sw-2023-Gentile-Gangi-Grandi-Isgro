@@ -59,6 +59,10 @@ public class GameHandler implements GameViewObserver{
      */
     public void createBackToTheLobbyMessage(){
         BackToTheLobbyMessage message = new BackToTheLobbyMessage("prova");
-        managergui.sendMessage(message);
+        if(manager == null){
+            managergui.sendMessage(message);
+        } else {
+            manager.sendMessage(message);
+        }
     }
 }

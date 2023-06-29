@@ -25,11 +25,13 @@ public class ClientManagerGUI extends Thread{
     private LoginHandler loginHandler;
     private PlayerHandler playerhandler;
     private GameHandler gamehandler;
+    private boolean hasBeenNotified;
 
     /**
      * ClientHandler constructor
      */
     public ClientManagerGUI(Socket socket) throws IOException {
+        hasBeenNotified = false;
         readerThreadActive = false;
         serversocket = socket;
         this.objectWriter = new ObjectOutputStream(socket.getOutputStream());
@@ -176,7 +178,10 @@ public class ClientManagerGUI extends Thread{
 
             case OWNERCANSTARTGAME:
                 OwnercanStartGameMessage ownercanstartgamemessage = (OwnercanStartGameMessage) message;
-                lobbyhandler.getGui().buttonClickable(ownercanstartgamemessage.getId());
+                if(!hasBeenNotified) {
+                    hasBeenNotified = true;
+                    lobbyhandler.getGui().buttonClickable(ownercanstartgamemessage.getId());
+                }
                 break;
 
             case YOURTURN:

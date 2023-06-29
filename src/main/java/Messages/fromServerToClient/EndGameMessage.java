@@ -16,7 +16,7 @@ public class EndGameMessage extends Message {
      * Overview: EndGameMessage constructor
      * @param discon boolean handling disconnection
      * @param isOwner boolean specifying the player whether is owner of the lobby ir not
-     * @param winner winner usename
+     * @param winner winner username
      * @param players ArrayList of the Player objects
      */
     public EndGameMessage(String winner, ArrayList<Player> players, boolean discon, Boolean isOwner){
@@ -29,7 +29,7 @@ public class EndGameMessage extends Message {
     }
 
     /**
-     * Overview: print usernams with points at the end of the game
+     * Overview: print username with points at the end of the game
      * @param players ArrayList of the Player objects
      * @return StringBuffer containing players' username and relative points at the end of the game
      */

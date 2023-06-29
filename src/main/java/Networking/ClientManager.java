@@ -235,11 +235,17 @@ public class ClientManager extends Thread{
                 if(!((EndGameMessage) message).getDiscon()) {
                     genericCLI.printOutputEndGame(endgamemessage.getOutput());
                     genericCLI.printMessage(endgamemessage.getMessage());
-                } else
 
+                    if(endgamemessage.getIsOwner()){
+                        System.out.println("entrato");
+                        gamehandler.getCli().backToTheLobby();
+                    }
+                    break;
+
+                } else {
                     genericCLI.printMessage("\nplayer quitted, ending match");
-
-                break;
+                    break;
+                }
 
             case LOBBYSIZECHANGED:
                 LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;

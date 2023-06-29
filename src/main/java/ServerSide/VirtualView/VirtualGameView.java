@@ -83,7 +83,7 @@ public class VirtualGameView implements GameObserver{
     }
 
     /**
-     * Overview: method aimed to create a meessage to notify players about the end of a turn
+     * Overview: method aimed to create a message to notify players about the end of a turn
      */
     @Override
     public void notifytheendofaturn(BoardCell[][] board, String username){

@@ -44,10 +44,10 @@ public class VirtualLobbyView implements LobbyObserver{
      */
     public LobbyVViewObserver getObs(){ return this.obs; }
 
-    @Override
     /**
      * Overview: method aimed to create a CreateLobbyViewMessage
      */
+    @Override
     public void updatelobbyviewmessage(String[] usernames, String id, String owner, Boolean fromEndStatus){
         CreatelobbyViewMessage message = new CreatelobbyViewMessage(usernames, id, owner, fromEndStatus);
         for(ServerManager manager: this.managers) {

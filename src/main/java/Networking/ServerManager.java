@@ -55,7 +55,7 @@ public class ServerManager extends Thread{
         for(int i = 0; i < closeTimeout; i++) {
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(0);
                 arg = (Message) in.readObject();
 
                 if (arg != null) {

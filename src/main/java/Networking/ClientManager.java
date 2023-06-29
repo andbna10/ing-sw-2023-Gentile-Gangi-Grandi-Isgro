@@ -200,7 +200,7 @@ public class ClientManager extends Thread{
                 loginHandler.getCli().loginprocedure();
                 break;
 
-            // beeing notified about the end of a turn
+            // being notified about the end of a turn
             case ENDTURN:
                 EndTurnMessage endturnmessage = (EndTurnMessage) message;
                 genericCLI.printMessage(endturnmessage.getMessage());

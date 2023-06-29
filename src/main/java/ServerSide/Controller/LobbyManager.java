@@ -45,9 +45,7 @@ public class LobbyManager {
      * @param id lobby id
      */
     public void closeLobby(String id){
-        //if(!Objects.equals(id, "random")) {
-            lobbies.remove(id);
-        //}
+        lobbies.remove(id);
     }
 
     /**
@@ -94,7 +92,7 @@ public class LobbyManager {
      * @param user username
      * @return lobby id associated with inserted player username
      */
-    public String getIdByUser (String user) {
+    public String getIdByUser(String user) {
         String ret = null;
         for(LobbyController lobbyc: lobbies.values()){
             for(Player p : lobbyc.getModel().getPlayers()) {

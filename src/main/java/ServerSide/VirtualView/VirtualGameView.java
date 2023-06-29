@@ -34,11 +34,6 @@ public class VirtualGameView implements GameObserver{
                 break;
             }
         }
-        for(Player p: players){
-            if(p.getManager() == manager){
-                players.remove(p);
-            }
-        }
     }
 
     /**

@@ -3,7 +3,6 @@ package ServerSide.Model;
 import java.util.ArrayList;
 
 public class BoardGame {
-    private static BoardGame instance;
     private BoardCell[][] board = new BoardCell[9][9];
     private int emptyCells;
 
@@ -13,7 +12,7 @@ public class BoardGame {
      * @author Andrea Isgrò
      * @author Francesco Gangi
      */
-    private BoardGame(int nPlayers){
+    public BoardGame(int nPlayers){
         int[][] outofgame;
 
         if(nPlayers == 2) {
@@ -81,26 +80,6 @@ public class BoardGame {
         }
         return false;
     }
-
-    /**
-     * Overview: This method should check whether an instance of the class has been created and return it if it exists, or create a new instance if it does not exist (it's a singleton)
-     * @author Andrea Isgrò
-     * @author Francesco Gangi
-     * @param nPlayers number of players playing this match
-     * @return the instance of the board game
-     */
-    public static BoardGame getInstance(int nPlayers){
-        if(instance == null){
-            instance = new BoardGame(nPlayers);
-        }
-        return instance;
-    }
-
-    /**
-     * Overview: method aimed to close the board
-     * @author Andrea Isgrò
-     */
-    public static void setInstanceNull(){ instance = null; }
 
     // to change if we want a terminal representation of the matrix
     /**

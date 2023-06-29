@@ -29,7 +29,7 @@ public class Game {
         this.order = new int[lobby.getUsernames().length];
 
         // initialization of the board of the game
-        board = BoardGame.getInstance(this.players.size());
+        board = new BoardGame(this.players.size());
 
         // initialization of the commongoals
         for(int i=0; i<commongoals.size(); i++){

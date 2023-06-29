@@ -32,9 +32,9 @@ public class LobbyController implements LobbyVViewObserver {
         boolean added = false;
         // verificare anche che i giocatori della lobby non siano in partita prima di aggiungere un altro giocatore
         if(model.getPlayers().size() < 4){
-            if(model.getId() == "random"){
+            if(model.getId().startsWith("random -")){
                 if(model.getPlayers().size() == 0){
-                    player.updateLobby(true, "random");
+                    player.updateLobby(true, model.getId());
                     model.setPlayer(player);
                     added = true;
                     virtualview.setManager(player.getManager());
@@ -51,7 +51,7 @@ public class LobbyController implements LobbyVViewObserver {
                 model.notifyObserverPlayerAdded(model.getId(), false);
             }
 
-            if(model.getId() == "random"){
+            if(model.getId().startsWith("random -")){
                 if (model.getPlayers().size() == model.getFixedNPlayers()){
                     model.setReadyToPlay(true);
                     // get the owner and notify

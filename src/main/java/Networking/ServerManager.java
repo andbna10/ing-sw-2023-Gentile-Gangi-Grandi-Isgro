@@ -214,14 +214,19 @@ public class ServerManager extends Thread{
 
                     //random match
                     if(entergamemessage.getId().equals("random")){
-                        if(lobbymanager.getLobby("random").getModel().getReadyToPlay()){
-                            //System.out.println("A random match is already running, please try again later!");
-                            AccessDeniedMessage accessdeniedmessage = new AccessDeniedMessage(1);
-                            sendMessage(accessdeniedmessage);
-
+                        if(lobbymanager.checkRandomLobbies() != null){
+                            // there exist a random lobby that has room
+                            this.lobbyview = lobbymanager.getLobby(lobbymanager.checkRandomLobbies()).getVirtualView();
+                            player = new Player(entergamemessage.getUsername(), false, lobbymanager.checkRandomLobbies(), this);
+                            this.playerview = (VirtualPlayerView) player.getObs();
+                            this.lobbyview.getObs().addPlayer(player);
+                            break;
                         } else {
-                            this.lobbyview = lobbymanager.getLobby(entergamemessage.getId()).getVirtualView();
-                            player = new Player(entergamemessage.getUsername(), false, entergamemessage.getId(), this);
+                            // there not exist a random lobby with room
+                            String id = UUID.randomUUID().toString();
+                            lobbymanager.createLobby("random - "+id);
+                            this.lobbyview = lobbymanager.getLobby("random - "+id).getVirtualView();
+                            player = new Player(entergamemessage.getUsername(), true, "random - "+id, this);
                             this.playerview = (VirtualPlayerView) player.getObs();
                             this.lobbyview.getObs().addPlayer(player);
                         }

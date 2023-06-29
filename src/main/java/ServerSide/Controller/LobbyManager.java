@@ -16,8 +16,6 @@ public class LobbyManager {
      */
     public LobbyManager(){
         lobbies = new HashMap<>();
-        LobbyController lobby = new LobbyController("random");
-        lobbies.put("random", lobby);
     }
 
     /**
@@ -47,9 +45,9 @@ public class LobbyManager {
      * @param id lobby id
      */
     public void closeLobby(String id){
-        if(!Objects.equals(id, "random")) {
+        //if(!Objects.equals(id, "random")) {
             lobbies.remove(id);
-        }
+        //}
     }
 
     /**
@@ -76,6 +74,9 @@ public class LobbyManager {
      * @return (0) if the lobby doesn't exist, (1) if the players are in a game, (-1) otherwise
      */
     public int checkInGame(String id){
+        if(id.startsWith("random")){
+            return -1;
+        }
         if(!lobbies.containsKey(id)){
             return 0;
         }
@@ -106,7 +107,21 @@ public class LobbyManager {
         }
 
         return ret;
+    }
 
+    /**
+     * Overview: method aimed to search random lobbies free to entry
+     * @return String of a random lobby that is not full, null otherwise
+     */
+    public String checkRandomLobbies(){
+        for(LobbyController lobbyc: lobbies.values()){
+            if(lobbyc.getModel().getId().startsWith("random -")){
+                if(!lobbyc.getModel().getReadyToPlay()){
+                    return lobbyc.getModel().getId();
+                }
+            }
+        }
+        return null;
     }
 
 }

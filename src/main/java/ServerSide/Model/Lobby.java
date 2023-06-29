@@ -55,6 +55,7 @@ public class Lobby {
                         }
                     }
                 }
+
                 players.remove(p);
                 notifyObserverPlayerAdded(id, false);
                 if(players.size() < 2){

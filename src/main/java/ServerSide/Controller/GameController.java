@@ -122,7 +122,6 @@ public class GameController implements GameVViewObserver {
     public void callTurn(){
         if(checkPickables(model.getBoard()) == 0){
             restoreBoard();
-            // vedere se crea problemi nella cli (?)
             checkPickables(model.getBoard());
             model.getPlayers().get(model.getCurrentTurnPlayer()).notifyPlayerBoardRestored(model.getBoard().getBoard());
         }

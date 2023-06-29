@@ -67,7 +67,18 @@ public class ClientManagerGUI extends Thread{
                             readerThreadActive = false;
                         }
                     } catch (IOException | ClassNotFoundException | URISyntaxException e) {
-                        e.printStackTrace();
+                        if(loginHandler != null && loginHandler.getGui() != null) {
+                            loginHandler.getGui().showMessage("Server disconnection");
+                            loginHandler.getGui().close();
+                        }
+                        if(gamehandler != null && gamehandler.getGui() != null) {
+                            gamehandler.getGui().close();
+                        }
+                        if(lobbyhandler != null && lobbyhandler.getGui() != null){
+                            lobbyhandler.getGui().closeLobbyWindow();
+                        }
+
+                        System.exit(0);
                     }
                 });
                 readerThread.start();
@@ -88,22 +99,21 @@ public class ClientManagerGUI extends Thread{
 
         switch(message.getType()) {
             case SENDDISCON:
-                SendDisconMessage sendDisconMessage = (SendDisconMessage) message;
+                /*SendDisconMessage sendDisconMessage = (SendDisconMessage) message;
 
                 //need to reconnect case
                 if(sendDisconMessage.getStatus()) {
                     new ReconnectCLI(new ReconnectHandler(this)).procedure();
                 } else { //ordinary procedure case
                     //calls the login CLI
-                    // new LogInCLI(loginHandler).loginprocedure(); DA SOSTITUIRE CON LA GUI VERSION
-                    // da controllare se va bene
+                    // new LogInCLI(loginHandler).loginprocedure();
                     //loginHandler.runLoginGui();
-                }
+                }*/
                 break;
 
 
             case RECONNECTED:
-                ReconnectedMessage reconmsg = (ReconnectedMessage) message;
+                /*ReconnectedMessage reconmsg = (ReconnectedMessage) message;
 
                 LoginHandler tmp = new LoginHandler(this);
                 //tmp.setCli(new LogInCLI(tmp));
@@ -112,7 +122,7 @@ public class ClientManagerGUI extends Thread{
                 this.gamehandler = new GameHandler(this, null);
                 this.playerhandler = new PlayerHandler(this);
 
-                sendMessage(new CloseRecoveryMessage());
+                sendMessage(new CloseRecoveryMessage());*/
                 break;
 
             // update the lobby view
@@ -253,6 +263,12 @@ public class ClientManagerGUI extends Thread{
             case ENDGAME:
                 EndGameMessage endgamemessage = (EndGameMessage) message;
                 gamehandler.getGui().endgame(endgamemessage.getOutput());
+                if(((EndGameMessage) message).getDiscon()){
+                    gamehandler.getGui().showMessage("player quitted, ending match");
+                    gamehandler.getGui().close();
+                    lobbyhandler.runLobbyGUI();
+                    break;
+                }
                 if(endgamemessage.getIsOwner()){
                     gamehandler.getGui().backToTheLobby(endgamemessage.getMessage());
                 } else {
@@ -262,7 +278,7 @@ public class ClientManagerGUI extends Thread{
 
             case LOBBYSIZECHANGED:
                 LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;
-                gamehandler.getGui().showMessage(lobbychangedmessage.getMessage());
+                lobbyhandler.getGui().showMessage(lobbychangedmessage.getMessage());
                 break;
 
             // heartbeat procedure
@@ -287,7 +303,9 @@ public class ClientManagerGUI extends Thread{
             objectWriter.flush();
             //System.out.println("sent");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            if(loginHandler.getGui() != null) {
+                loginHandler.getGui().showMessage("You cannot proceed...");
+            }
         }
     }
 

@@ -116,6 +116,14 @@ public class LobbyGUI {
     }
 
     /**
+     * Overview: method aimed to show info to the client
+     * @param message string message to print
+     */
+    public void showMessage(String message){
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
      * Overview: method aimed to close lobby dialog windows
      * @author Francesco Gangi
      */

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class VirtualGameView implements GameObserver{
     private GameVViewObserver obs;
     private ArrayList<ServerManager> managers;
-    private ArrayList<Player> players; // lo uso solo per gamehasstarted messages, vedere se tenerlo e togliere i managers (i manager si prendono dai player facilmente)
+    private ArrayList<Player> players;
 
     /**
      * Overview: constructor of the virtual game view
@@ -32,6 +32,11 @@ public class VirtualGameView implements GameObserver{
             if(this.managers.get(i) == manager){
                 this.managers.remove(i);
                 break;
+            }
+        }
+        for(Player p: players){
+            if(p.getManager() == manager){
+                players.remove(p);
             }
         }
     }

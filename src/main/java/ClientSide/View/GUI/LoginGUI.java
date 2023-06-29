@@ -173,6 +173,14 @@ public class LoginGUI {
         loginFrame.pack();
     }
 
+    /**
+     * Overview: method aimed to close the frame
+     */
+    public void close(){
+        loginFrame.setVisible(false);
+        loginFrame.dispose();
+    }
+
 
     /**
      * Overview: method for input validity check
@@ -181,6 +189,14 @@ public class LoginGUI {
      */
     public void validityCheck(String message) {
         JOptionPane.showMessageDialog(loginFrame, message, "Error!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Overview: method aimed to show info to the client
+     * @param message string message to print
+     */
+    public void showMessage(String message){
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**

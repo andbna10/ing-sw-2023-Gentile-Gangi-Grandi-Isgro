@@ -73,7 +73,8 @@ public class ClientManager extends Thread{
                             readerThreadActive = false;
                         }
                     } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
+                        genericCLI.printMessage("\nServer disconnection");
+                        System.exit(0);
                     }
                 });
                 readerThread.start();
@@ -264,7 +265,7 @@ public class ClientManager extends Thread{
             objectWriter.flush();
             //System.out.println("sent");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            genericCLI.printMessage("\nYou cannot proceed...");
         }
     }
 

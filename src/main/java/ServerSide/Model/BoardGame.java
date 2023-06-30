@@ -7,7 +7,7 @@ public class BoardGame {
     private int emptyCells;
 
     /**
-     * constructor of a singleton boardgame
+     * constructor of a boardgame
      * @param nPlayers number of players playing this match
      * @author Andrea Isgrò
      * @author Francesco Gangi

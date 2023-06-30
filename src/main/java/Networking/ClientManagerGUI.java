@@ -48,10 +48,10 @@ public class ClientManagerGUI extends Thread{
      */
     public LoginHandler getLoginHandler(){ return this.loginHandler; }
 
-    @Override
     /**
      * Overview: run del thread
      */
+    @Override
     public void run(){
         //System.out.println("client manager is running");
         while(!isInterrupted()) {

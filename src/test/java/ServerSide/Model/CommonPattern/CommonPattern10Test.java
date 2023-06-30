@@ -19,12 +19,12 @@ class CommonPattern10Test {
         shelf.setTile(0,1, ItemType.TROPHIES);
 
         assertFalse(cp10.validated(shelf));
-
-        shelf.setTile(3,0, ItemType.TROPHIES);
-        shelf.setTile(5,0, ItemType.TROPHIES);
-        shelf.setTile(5,2, ItemType.TROPHIES);
-        shelf.setTile(3,2, ItemType.TROPHIES);
-        shelf.setTile(4,1, ItemType.TROPHIES);
+        int i=2;
+        shelf.setTile(3,i, ItemType.TROPHIES);
+        shelf.setTile(5,i, ItemType.TROPHIES);
+        shelf.setTile(5,2+i, ItemType.TROPHIES);
+        shelf.setTile(3,2+i, ItemType.TROPHIES);
+        shelf.setTile(4,1+i, ItemType.TROPHIES);
 
         assertTrue(cp10.validated(shelf));
 

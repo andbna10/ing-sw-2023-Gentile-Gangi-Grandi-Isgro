@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CommonPattern6Test {
-    //NOFFUNZIONA
     @Test
     void validatedTest() {
         var shelf = new Bookshelf();

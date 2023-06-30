@@ -282,7 +282,6 @@ public class ClientManagerGUI extends Thread{
                 break;
 
             case LOBBYSIZECHANGED:
-                hasBeenNotified = false;
                 LobbyChangedMessage lobbychangedmessage = (LobbyChangedMessage) message;
                 lobbyhandler.getGui().showMessage(lobbychangedmessage.getMessage());
                 break;

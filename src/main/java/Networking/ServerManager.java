@@ -244,7 +244,7 @@ public class ServerManager extends Thread{
             // starting the game
             case STARTGAME:
                 StartGameMessage startgamemessage = (StartGameMessage) message;
-                if(lobbyview.getObs().getModel().getId() == "random"){
+                if(lobbyview.getObs().getModel().getId().startsWith("random -")){
                     if(lobbyview.getObs().getModel().getPlayers().size() == lobbyview.getObs().getModel().getFixedNPlayers()){
                         GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                         setGameView(gamecontroller.getVirtualView());
@@ -254,7 +254,7 @@ public class ServerManager extends Thread{
                         lobbyview.getObs().getModel().notifyObserverPlayerAdded(startgamemessage.getIdLobby(), false);
                     }
                 } else {
-                    if(lobbyview.getObs().getModel().getPlayers().size()>1 && lobbyview.getObs().getModel().getPlayers().size()<4){
+                    if(lobbyview.getObs().getModel().getPlayers().size()>1 && lobbyview.getObs().getModel().getPlayers().size()<=4){
                         GameController gamecontroller = new GameController(startgamemessage.getIdLobby(), lobbymanager);
                         setGameView(gamecontroller.getVirtualView());
                     } else {

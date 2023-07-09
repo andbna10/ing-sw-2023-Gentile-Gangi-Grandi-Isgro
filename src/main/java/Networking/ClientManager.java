@@ -54,7 +54,7 @@ public class ClientManager extends Thread{
     public LoginHandler getLoginHandler(){ return this.loginHandler; }
 
     /**
-     * Overview: run del thread
+     * Overview: thread run
      */
     @Override
     public void run(){

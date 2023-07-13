@@ -55,7 +55,7 @@ public class MyShelfieApp {
                 }
 
             } catch (IOException e) {
-                System.err.println("Error during client initialization." +
+                System.err.println("Error during client initialization.\n" +
                         "Invalid parameters or invalid IP address.");
                 System.exit(1);
             }

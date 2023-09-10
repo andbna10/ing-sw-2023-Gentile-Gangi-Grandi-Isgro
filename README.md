@@ -49,3 +49,6 @@ As `[ip_address]` you have to enter the IPv4 address from server host ***without
 If you are trying to connect to a server hosting from a different network, you will need the **public** IP address from the host.
 
 If you are trying to connect to a server hosting on a LAN, you will need the **local** IP address from the host.
+
+# Copyright / Author's note
+NOTA: My Shelfie è un gioco da tavolo sviluppato ed edito da Cranio Creations Srl. I contenuti grafici di questo progetto riconducibili al prodotto editoriale da tavolo sono utilizzati previa approvazione di Cranio Creations Srl a solo scopo didattico. È vietata la distribuzione, la copia o la riproduzione dei contenuti e immagini in qualsiasi forma al di fuori del progetto, così come la redistribuzione e la pubblicazione dei contenuti e immagini a fini diversi da quello sopracitato. È inoltre vietato l'utilizzo commerciale di suddetti contenuti.
